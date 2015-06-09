@@ -1,0 +1,19 @@
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+class Contants extends MY_Controller {
+    function __construct()
+    {
+        parent::__construct();
+    }
+
+    function index(){
+        Header("content-type: application/x-javascript; charset=utf-8");
+
+        // Candidate
+        echo "var BASE_URL = '" . base_url() . "';" . PHP_EOL;
+        echo "var CDD_MESSAGE_NAME = '" . $this->lang->line('CDD_MESSAGE_NAME') . "';" . PHP_EOL;
+        
+        // Category
+        echo "var URL_DEL_CAT = '" . base_url('category/delete') . "';" . PHP_EOL;
+    }
+}

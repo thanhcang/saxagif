@@ -2,8 +2,9 @@
 
 class MY_Controller extends CI_Controller
 {
-    var $request_params;
-    var $_ajax = false;
+    private $_request_params;
+    private $_ajax = false;
+    protected $_language = array();
     public function __construct()
     {
         parent::__construct();
@@ -13,7 +14,10 @@ class MY_Controller extends CI_Controller
         }
 
         $this->init();
-
+        $this->_language = $this->config->item('language_type');
+        $this->lang->load('common');
+        $this->session->set_userdata('ses_user_id', 1);
+        //$this->config->load('setting');
     }
 
     private function init()

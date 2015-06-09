@@ -36,6 +36,10 @@ define('FOPEN_READ_WRITE_CREATE',				'a+b');
 define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
+//Number Paging On All Page
+define('NUMBER_PAGING', 10);
+define('DOUBLE_NUMBER_PAGGING', 200);
+define('NUMBER_PAGE', 20);
 
 #HoaHN 2015/06/06
 define('MAIL_ADDR', 'hnguyen0110@gmail.com');
@@ -43,6 +47,8 @@ define('MAIL_ADDR', 'hnguyen0110@gmail.com');
 define('START_YEAR', 2015);
 define('END_YEAR', date('Y'));
 define('DEFAULT_TITLE', 'SAXA Gifts - Công ty quà tặng doanh nghiệp cao cấp');
+define('DEFAULT_DES_SEO', 'Quả tặng doanh nghiệp, Quà tặng cao cấp, quà tặng');
+define('DEFAULT_KEYWORD_SEO', 'Quả tặng doanh nghiệp, Quà tặng cao cấp, quà tặng');
 define('TEMPLATE', 'templates/main');
 define('TEMP_ADMIN', 'admin/main');
 
@@ -63,10 +69,11 @@ define('OFFSET_LISTTENNING', 60);
  */
 $root_path = dirname(BASEPATH);
 
-define('COMMON_PATH', $root_path . '/common/');
+define('COMMON_PATH', '/common/');
 define('TEMP_PATH', COMMON_PATH . 'temp/');
 define('IMAGE_PATH', COMMON_PATH . 'images/');
 define('IMG_PRODUCT_PATH', COMMON_PATH . '/multidata/product_img/');
+define('IMAGE_CATEGORY_PATH', COMMON_PATH . '/multidata/cat_logo/');
 // No change
 define('SALT', 'saxagifts!$23');
 
