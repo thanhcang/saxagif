@@ -199,7 +199,8 @@ class Config extends MY_Controller
 		}
                 //print_r($data['is_writable']);exit;
 		#Load view
-		$this->load->view('config/defaults', $data);
+                $tpl["main_content"] = $this->load->view('config/defaults', $data, TRUE);
+                $this->load->view(TEMPLATE, $tpl);
     }
     function info()
 	{
