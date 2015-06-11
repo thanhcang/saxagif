@@ -199,6 +199,8 @@ if (defined('ENVIRONMENT'))
  * And away we go...
  *
  */
+# Load Setting
+require_once $application_folder.'/config/setting.php';
 require_once BASEPATH.'core/CodeIgniter.php';
 
 /* End of file index.php */

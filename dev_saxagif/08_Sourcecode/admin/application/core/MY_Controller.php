@@ -17,7 +17,6 @@ class MY_Controller extends CI_Controller
         $this->_language = $this->config->item('language_type');
         $this->lang->load('common');
         $this->session->set_userdata('ses_user_id', 1);
-        //$this->config->load('setting');
     }
 
     private function init()

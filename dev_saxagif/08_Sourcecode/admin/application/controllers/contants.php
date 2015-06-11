@@ -15,5 +15,6 @@ class Contants extends MY_Controller {
         
         // Category
         echo "var URL_DEL_CAT = '" . base_url('category/delete') . "';" . PHP_EOL;
+        echo "var URL_EDIT_CAT = '" . base_url('category/editCat') . "';" . PHP_EOL;
     }
 }

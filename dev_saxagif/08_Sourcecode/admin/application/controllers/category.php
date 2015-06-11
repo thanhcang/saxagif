@@ -17,12 +17,14 @@ class Category extends MY_Controller
     
     public function index()
     {
-        if (!empty($_GET['page']) &&  filter_var($_GET['page'], FILTER_VALIDATE_INT, array('min_range' => 1))) {
+        if (!empty($_GET['page']) && filter_var($_GET['page'], FILTER_VALIDATE_INT, array('min_range' => 1))) {
             $page = $_GET['page'];
         } else {
             $page = 1;
         }
-        $data = array();
+        $data = array(
+            'language_type' => $this->_language,
+        );
         $params = array();
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             $params = $this->input->get();
@@ -38,7 +40,7 @@ class Category extends MY_Controller
         
         $page_config = array(
             'base_url'    => base_url('category/?' . $queryString),
-            'per_page'    => 5,
+            'per_page'    => NUMBER_PAGE,
             'use_page_numbers' => TRUE,
             'page_query_string' => TRUE,
             'query_string_segment' => $parmameter_page,
@@ -58,6 +60,43 @@ class Category extends MY_Controller
             $page_config["total_rows"] = $total_records;
             $this->pagination->initialize($page_config);
             $data["pagination"] = $this->pagination->create_links();
+        }
+        
+        /**
+         * Insert category
+         */
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $error = array();
+            $params = $this->input->post();
+            if(!empty($_FILES['logo'])) {
+                //echo '<pre>';                print_r($_FILES['logo']);
+                $config_upload = array(
+                    'upload_path'   => './common/multidata/cat_logo/',
+                    'allowed_types' => 'png|jpg|jpeg|gif|bmp|tiff|raw',
+                    'max_size'      => 192600,
+                    'max_width'     => 1450,
+                    'max_height'    => 1400,
+                    'overwrite'     => TRUE,
+                    'file_name'     => date('His').'_logo.png',
+                );
+                
+                $this->upload->initialize($config_upload);
+                if(!$this->upload->do_upload('logo')) {
+                    //$error[] = $this->lang->line('CAT_MISSING_UPLOAD_ERR');
+                } else {
+                    $params['logo'] = $config_upload['file_name'];
+                }
+            }
+            // Check validation input
+            $this->_validate($params, $error);
+            //echo '<pre>';            print_r($params);exit;
+            if (empty($error)) {
+                if ($this->mcategory->create($params)) {
+                    redirect(base_url('category'));
+                }
+            }
+            $data['params'] = $params;
+            $data['cat_errors'] = $error;
         }
         //echo '<pre>';        print_r($data['list_data']);exit;
         $tpl["main_content"] = $this->load->view('category/index', $data, TRUE);
@@ -143,7 +182,7 @@ class Category extends MY_Controller
                     //$error[] = $this->lang->line('CAT_MISSING_UPLOAD_ERR');
                 } else {
                     if(!empty($detail_cat['logo'])) {
-                        $imgFile = APPPATH . '../common/multidata/cat_logo/' . $detail_cat['logo'];
+                        $imgFile = COMMON_PATH . 'multidata/cat_logo/' . $detail_cat['logo'];
                         $fh = fopen($imgFile, "rb");
                         $imgData = fread($fh, filesize($imgFile));
                         fclose($fh);
@@ -169,6 +208,21 @@ class Category extends MY_Controller
         $this->load->view(TEMPLATE, $tpl);
     }
     
+    public function detail($cat_id = '')
+    {
+        if(!empty($cat_id) && filter_var($cat_id, FILTER_VALIDATE_INT, array('min_range' => 1))) {
+            $data = array(
+                'page_title'    => $this->lang->line('CAT_DETAIL'),
+                'catDetail'     => $this->mcategory->getDetail($cat_id, $parent = TRUE),
+            );
+            $tpl["main_content"] = $this->load->view('category/detail', $data, TRUE);
+            $this->load->view(TEMPLATE, $tpl);
+            
+        } else {
+            redirect(base_url('category'));
+        }
+    }
+    
     public function delete()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['id'])) {
@@ -180,6 +234,21 @@ class Category extends MY_Controller
             }
         } else {
             echo '';
+        }
+    }
+    
+    public function editCat()
+    {
+        $data = array();
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $id = base64_decode($_POST['id']);
+            $catDetail = $this->mcategory->getDetail($id);
+            if ($catDetail) {
+                $data['catDetail'] = $catDetail;
+                echo json_encode($data);
+            } else {
+                echo '';
+            }
         }
     }
     

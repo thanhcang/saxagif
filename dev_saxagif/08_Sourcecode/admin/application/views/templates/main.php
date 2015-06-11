@@ -12,9 +12,7 @@
     <meta content="kamara" name="author"/>
     <title><?php echo empty($page_title) ? DEFAULT_TITLE : $page_title ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!--<link rel="shortcut icon" href="<?php echo base_url('favicon.ico') ?>" type="image/x-icon">-->
-    <link rel="shortcut icon" href="<?php echo IMAGE_PATH . 'thong.png' ?>" type="image/x-icon" />
-    <link rel="icon" href="<?php echo base_url('favicon.ico') ?>" type="image/x-icon">
+    <link rel="shortcut icon" href="<?php echo base_url(IMAGE_PATH . 'thong.png') ?>" type="image/x-icon" />
     <link rel="stylesheet" type="text/css" href="<?php echo base_url('common/css/jquery-ui.min.css') ?>" />
     <link rel="stylesheet" type="text/css" href="<?php echo base_url('common/css/bootstrap.min.css') ?>" />
     <link rel="stylesheet" type="text/css" href="<?php echo base_url('common/css/bootstrap-theme.min.css') ?>" />

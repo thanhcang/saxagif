@@ -13,7 +13,19 @@ class Mcategory extends MY_Model
     public function search($params, &$total, $offset = 0, $limit = 0)
     {
         $arr_where = array();
-        $sql = "SELECT * FROM " . $this->_tbl_category . " AS c WHERE c.del_flg = 0 AND c.parent = 0";
+        $sql = "SELECT
+                        c.id,
+                        c.name,
+                        c.logo,
+                        c.bg_color,
+                        c.language_type,
+                        c.parent,
+                        c.keyword_seo,
+                        c.des_seo
+                FROM " . $this->_tbl_category . "
+                AS c WHERE 
+                        c.del_flg = 0 
+                        AND c.parent = 0";
         if (!empty($params['name'])) {
             $sql .= " AND name LIKE ?";
             $arr_where[] = '%' . $params['name'] . '%';
@@ -23,19 +35,12 @@ class Mcategory extends MY_Model
             $sql .= ' LIMIT ' . $offset . ',' . $limit;
         }
         $query = $this->db->query($sql, $arr_where);
+        //echo $this->db->last_query();die;
         if($query->num_rows() == 0) {
             return FALSE;
         }
         $list_cat = $query->result_array();
-        foreach ($list_cat as &$category) {
-            $cat_id = $category['id'];
-            $sql = "SELECT * FROM " . $this->_tbl_category . " AS c WHERE c.del_flg = 0"
-                    . " AND c.parent = ? ";
-            $query_sub = $this->db->query($sql, array($category['id']));
-            if($query_sub->num_rows() > 0) {
-                $category['sub_cat'] = $query_sub->result_array();
-            }
-        }
+        
         return $list_cat;
     }
     
@@ -60,7 +65,7 @@ class Mcategory extends MY_Model
             'name'          => $params['name'],
             'bg_color'      => str_replace('#', '', $params['bg_color']),
             'language_type' => (int)$params['language_type'],
-            'parent'        => $params['parent'],
+            'parent'        => (!empty($params['parent'])) ? $params['parent'] : 0,
         );
         
         if(!empty($params['logo'])) {
@@ -90,15 +95,25 @@ class Mcategory extends MY_Model
             
     }
     
-    public function getDetail($cat_id)
+    public function getDetail($cat_id, $parent = FALSE)
     {
+        $data = array();
         $q = $this->db->select('*')
                 ->where('id', $cat_id)
                 ->get($this->_tbl_category);
         if ($q->num_rows() == 0) {
             return FALSE;
         }
-        return $q->row_array();
+        $data = $q->row_array();
+        if ($parent) {
+            $this->db->where('parent', $cat_id)
+                    ->where('del_flg', 0);
+            $q = $this->db->get($this->_tbl_category);
+            if (count($q) > 0 ) {
+                $data['cat_parent'] = $q->result_array();
+            }
+        }
+        return $data;
     }
     
     public function delCat($cat_id)

@@ -9,6 +9,7 @@ $lang['LIST_CATEGORY'] = 'Danh sách danh mục.';
 $lang['CAT_TITLE_CREATE'] = 'Thêm mới danh mục';
 $lang['CAT_TITLE_EDIT'] = 'Sửa danh mục';
 $lang['CAT_SEARCH_TITLE'] = 'Tìm kiếm danh mục';
+$lang['CAT_DETAIL'] = 'Chi tiết danh mục';
 $lang['CAT_NAME'] = 'Tên danh mục';
 $lang['CAT_BACKGROUND_COLOR'] = 'Màu nền';
 $lang['CAT_LOGO'] = 'Logo';
