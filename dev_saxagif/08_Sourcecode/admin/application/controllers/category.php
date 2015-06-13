@@ -12,7 +12,7 @@ class Category extends MY_Controller
         $this->load->model('mcategory');
         $this->lang->load('category');
         $this->load->library('upload');
-        $this->load->library('pagination');
+        
     }
     
     public function index()
