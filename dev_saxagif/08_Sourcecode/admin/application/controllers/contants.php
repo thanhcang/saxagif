@@ -12,5 +12,9 @@ class Contants extends MY_Controller {
         // Category
         echo "var URL_DEL_CAT = '" . base_url('category/delete') . "';" . PHP_EOL;
         echo "var URL_EDIT_CAT = '" . base_url('category/editCat') . "';" . PHP_EOL;
+        
+        // Product
+        echo "var URL_DEL_PRO = '" . base_url('product/delete') . "';" . PHP_EOL;
+        echo "var URL_EDIT_PRO = '" . base_url('product/editPro') . "';" . PHP_EOL;
     }
 }

@@ -17,6 +17,7 @@ class Mcategory extends MY_Model
                         c.id,
                         c.name,
                         c.logo,
+                        c.slug,
                         c.bg_color,
                         c.language_type,
                         c.parent,
@@ -46,7 +47,13 @@ class Mcategory extends MY_Model
     
     public function listAll()
     {
-        
+        $this->db->select('id, name, parent')
+                ->where('del_flg', 0);
+        $query = $this->db->get($this->_tbl_category);
+        if ($query->num_rows() == 0) {
+            return FALSE;
+        }
+        return $query->result_array();
     }
     
     public function listParent()
@@ -63,6 +70,7 @@ class Mcategory extends MY_Model
     {
         $data = array(
             'name'          => $params['name'],
+            'slug'          => $params['slug'],
             'bg_color'      => str_replace('#', '', $params['bg_color']),
             'language_type' => (int)$params['language_type'],
             'parent'        => (!empty($params['parent'])) ? $params['parent'] : 0,
@@ -120,6 +128,41 @@ class Mcategory extends MY_Model
     {
         $this->db->where('id', $cat_id);
         return $this->db->update($this->_tbl_category,array('del_flg' => 1));
+    }
+    
+    /**
+     * @author hnguyen0110@gmail.com
+     * @date 2015/06/14
+     * check name category exist
+     */
+    public function checkExistName($name)
+    {
+        $this->db->select('id')
+                ->where('name', $name);
+        $query = $this->db->get($this->_tbl_category);
+        if ($query->num_rows() > 0) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }    
+    }
+    
+    /**
+     * @author hnguyen0110@gmail.com
+     * @date 2015/06/14
+     * check slug category exist
+     */
+    public function checkExistSlug($slug)
+    {
+        $this->db->select('id')
+                ->where('slug', $slug);
+        $query = $this->db->get($this->_tbl_category);
+        if ($query->num_rows() > 0) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+        
     }
 }
 

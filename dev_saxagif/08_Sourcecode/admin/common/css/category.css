@@ -8,9 +8,6 @@ and open the template in the editor.
     Author     : kamara
 */
 input,select { max-width:350px; }
-.error ul { float: left; width: 300px; padding: 10px; border-radius: 5px;}
-.error ul { background-color: #f2dcdb;color:#c9302c; }
-.error ul li { list-style: none; }
 .tbl-cat { margin-top: 10px; }
 .tbl-cat tbody tr td, .tbl-cat th { vertical-align: middle; }
 #frmSearch { padding-left: 0px;margin-top: 10px; }

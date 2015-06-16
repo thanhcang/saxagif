@@ -21,17 +21,20 @@
                 <input type="text" name="name" class="form-control input-sm" id="name" value="<?php if(!empty($params['name'])) echo html_escape($params['name']) ?>" maxlength="255" />
             </div>
             <div class="form-group">
+                <label><?php echo $this->lang->line('SLUG') ?><span class="text-danger">*</span></label>
+                <input type="text" name="slug" class="form-control input-sm" id="slug" value="<?php if(!empty($params['slug'])) echo html_escape($params['slug']) ?>" maxlength="255" />
+            </div>
+            <div class="form-group">
                 <label><?php echo $this->lang->line('CAT_BACKGROUND_COLOR') ?></label>
                 <input type="text" name="bg_color" class="form-control input-sm" id="bg_color" value="<?php if(!empty($params['bg_color'])) echo html_escape($params['bg_color']) ?>" maxlength="7" />
             </div>
             <div class="form-group">
                 <label><?php echo $this->lang->line('CAT_LOGO') ?></label>
-                <input type="file" name="logo" class="form-control input-sm" id="logo" />
+                <input type="file" name="logo"  accept="image/*" class="form-control input-sm" id="logo" />
             </div>
             <div class="form-group">
                 <label><?php echo $this->lang->line('CHOOSE_LANGUAGE') ?></label>
                 <select name="language_type" class="form-control input-sm">
-                    <option value="">&nbsp;</option>
                     <?php if(!empty($language_type)): ?>
                     <?php foreach ($language_type as $k=>$v): ?>
                     <option value="<?php echo $k ?>" <?php if(!empty($params['language_type']) && $params['language_type'] == $k ) echo 'selected' ?>><?php echo $v; ?></option>
@@ -49,7 +52,7 @@
             </div>
             
             <div class="form-group">
-                <input type="hidden" name="category_id" value="" />
+                <input type="hidden" name="category_id" value="<?php if(!empty($params['category_id'])) echo $params['category_id'] ?>" />
                 <button type="submit" class="btn btn-primary"><?php echo $this->lang->line('SAVE') ?></button>
                 <button type="reset" class="btn btn-default" ><?php echo $this->lang->line('RESET') ?></button>
             </div>
@@ -78,8 +81,8 @@
                 </td>
                 <td>
                     <a href="<?php echo base_url('category/detail/' . $row['id']) ?>" title="Chi tiết"><i class="glyphicon glyphicon-eye-open"></i></a>
-                    <a href="javascript:void(0)" class="editCat" cat_attr="<?php echo base64_encode($row['id']) ?>" title="Sửa"><i class="glyphicon glyphicon-pencil"></i></a>
-                    <a href="javascript:void(0)" title="Xóa" class="delCat" cat_name="<?php echo htmlspecialchars($row['name']) ?>" cat_attr="<?php echo base64_encode($row['id']) ?>" ><i class="glyphicon glyphicon-trash"></i></a>
+                    <a href="javascript:;" class="editCat" cat_attr="<?php echo base64_encode($row['id']) ?>" title="Sửa"><i class="glyphicon glyphicon-pencil"></i></a>
+                    <a href="javascript:;" title="Xóa" class="delCat" cat_name="<?php echo htmlspecialchars($row['name']) ?>" cat_attr="<?php echo base64_encode($row['id']) ?>" ><i class="glyphicon glyphicon-trash"></i></a>
                 </td>
             </tr>
             <?php $num++ ?>

@@ -11,7 +11,6 @@ class Category extends MY_Controller
         parent::__construct();
         $this->load->model('mcategory');
         $this->lang->load('category');
-        $this->load->library('upload');
         
     }
     
@@ -63,34 +62,39 @@ class Category extends MY_Controller
         }
         
         /**
-         * Insert category
+         * Insert, update category
          */
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $error = array();
             $params = $this->input->post();
-            if(!empty($_FILES['logo'])) {
-                //echo '<pre>';                print_r($_FILES['logo']);
-                $config_upload = array(
-                    'upload_path'   => './common/multidata/cat_logo/',
-                    'allowed_types' => 'png|jpg|jpeg|gif|bmp|tiff|raw',
-                    'max_size'      => 192600,
-                    'max_width'     => 1450,
-                    'max_height'    => 1400,
-                    'overwrite'     => TRUE,
-                    'file_name'     => date('His').'_logo.png',
-                );
-                
-                $this->upload->initialize($config_upload);
-                if(!$this->upload->do_upload('logo')) {
-                    //$error[] = $this->lang->line('CAT_MISSING_UPLOAD_ERR');
-                } else {
-                    $params['logo'] = $config_upload['file_name'];
-                }
-            }
+            
             // Check validation input
             $this->_validate($params, $error);
             //echo '<pre>';            print_r($params);exit;
             if (empty($error)) {
+                
+                $checkUpload = $this->uploadPhoto($_FILES['logo'], 'logo', IMAGE_CATEGORY_PATH, TRUE, $maxWidth = 1366, $maxHeight = 768, $maxSize = 200000 );
+                if ($checkUpload) {
+                    // Get logo name:
+                    $params['logo'] = $checkUpload;
+                    // Remove file:
+                    if(!empty($_POST['category_id'])) {
+                        $catId = (int)$_POST['category_id'];
+                        $detailCat = $this->mcategory->getDetail($catId);
+                        if ($detailCat) {
+                            if(!empty($detailCat['logo'])) {
+                                $imgFile = IMAGE_CATEGORY_PATH . $detailCat['logo'];
+                                if (file_exists($imgFile)) {
+                                    $fh = fopen($imgFile, "rb");
+                                    $imgData = fread($fh, filesize($imgFile));
+                                    fclose($fh);
+                                    unlink($imgFile);
+                                }
+                            }
+                        }
+                    }
+                }
+                
                 if ($this->mcategory->create($params)) {
                     redirect(base_url('category'));
                 }
@@ -116,6 +120,8 @@ class Category extends MY_Controller
             $params = $this->input->post();
             if(!empty($_FILES['logo'])) {
                 //echo '<pre>';                print_r($_FILES['logo']);
+                $fileTmpName = date('YmdHis').'_'.$_FILES['logo']['name'];
+                $fileName = str_replace(' ', '_', $fileTmpName);
                 $config_upload = array(
                     'upload_path'   => './common/multidata/cat_logo/',
                     'allowed_types' => 'png|jpg|jpeg|gif|bmp|tiff|raw',
@@ -123,7 +129,7 @@ class Category extends MY_Controller
                     'max_width'     => 1450,
                     'max_height'    => 1400,
                     'overwrite'     => TRUE,
-                    'file_name'     => date('His').'_logo.png',
+                    'file_name'     => $fileName,
                 );
                 
                 $this->upload->initialize($config_upload);
@@ -167,6 +173,8 @@ class Category extends MY_Controller
             $params = $this->input->post();
             if(!empty($_FILES['logo'])) {
                 //echo '<pre>';                print_r($_FILES['logo']);
+                $fileTmpName = date('YmdHis').'_'.$_FILES['logo']['name'];
+                $fileName = str_replace(' ', '_', $fileTmpName);
                 $config_upload = array(
                     'upload_path'   => './common/multidata/cat_logo/',
                     'allowed_types' => 'png|jpg|jpeg|gif|bmp|tiff|raw',
@@ -174,7 +182,7 @@ class Category extends MY_Controller
                     'max_width'     => 1450,
                     'max_height'    => 1400,
                     'overwrite'     => TRUE,
-                    'file_name'     => date('His').'_logo.png',
+                    'file_name'     => $fileName,
                 );
                 
                 $this->upload->initialize($config_upload);
@@ -263,12 +271,13 @@ class Category extends MY_Controller
         $this->load->library('form_validation');
 
         // Set rules:
-        $this->form_validation->set_rules("name", $this->lang->line('CAT_MISSING_EMPTY_NAME'),  "required|trim|xss_clean");
+        $this->form_validation->set_rules("name", $this->lang->line('CAT_MISSING_EMPTY_NAME'),  "required|trim|xss_clean|max_length[255]|callback__checkExistName");
+        $this->form_validation->set_rules("slug", $this->lang->line('MISSING_EMPTY_SLUG'), "required|trim|max_length[255]|callback__checkExistSlug");
         $this->form_validation->set_rules("bg_color", $this->lang->line('CAT_MISSING_INVALID_BG_COLOR'),"trim|xss_clean");
-        $this->form_validation->set_rules("language_type", 'Language type', "integer|trim|xss_clean");
+        $this->form_validation->set_rules("language_type", $this->lang->line('CHOOSE_LANGUAGE'), "integer|trim|xss_clean");
         $this->form_validation->set_rules("parent", 'Parent', "trim|integer");
-        $this->form_validation->set_rules("keyword_seo", 'Keyword seo', "trim|max_length[255]");
-        $this->form_validation->set_rules("des_seo", 'Description seo', "trim|max_length[255]");
+        $this->form_validation->set_rules("keyword_seo", $this->lang->line('KEYWORD_SEO'), "trim|max_length[255]");
+        $this->form_validation->set_rules("des_seo", $this->lang->line('DESCRIPTION_SEO'), "trim|max_length[255]");
 
         // Set Message:
         $this->form_validation->set_message('required', '%s');
@@ -276,6 +285,44 @@ class Category extends MY_Controller
         //Validate
         if ($this->form_validation->run() == FALSE) {
             $errors = $this->form_validation->error_array();
+        }
+    }
+    
+    /**
+     * @author hnguyen0110@gmail.com
+     * @date 2015/06/14
+     * Check exist category name
+     */
+    public function _checkExistName()
+    {
+        if (empty($_POST['category_id'])) {
+            if ($this->mcategory->checkExistName($_POST['name'])) {
+                $this->form_validation->set_message('_checkExistName', $this->lang->line('CAT_MISSING_EXIST_NAME'));
+                return FALSE;
+            } else {
+                return TRUE;
+            }
+        } else {
+            return TRUE;
+        }
+    }
+    
+    /**
+     * @author hnguyen0110@gmail.com
+     * @date 2015/06/14
+     * Check exist category slug
+     */
+    public function _checkExistSlug()
+    {
+        if (empty($_POST['category_id'])) {
+            if ($this->mcategory->checkExistSlug($_POST['slug'])) {
+                $this->form_validation->set_message('_checkExistSlug', $this->lang->line('CAT_MISSING_EXIST_SLUG'));
+                return FALSE;
+            } else {
+                return TRUE;
+            }
+        } else {
+            return TRUE;
         }
     }
     

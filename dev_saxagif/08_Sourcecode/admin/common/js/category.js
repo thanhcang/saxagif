@@ -28,6 +28,7 @@ function confirmDelCategory() {
         $('.dialogModal_content').text(MSG_DEL_CAT + cat_name + '?');
         $('.dialog_content').dialogModal({
             topOffset: 0,
+            onDocumentClickClose : true,
             onOkBut: function() {
                 $.ajax({
                     type: 'POST',
@@ -69,11 +70,13 @@ function editCategory() {
        
        var _frmCat = $('#frmCategory');
        var _name = _frmCat.find('input[name="name"]');
+       var _slug = _frmCat.find('input[name="slug"]');
        var _bgColor = _frmCat.find('input[name="bg_color"]');
        var _languageType = _frmCat.find('select[name="language_type"]');
        var _keywordSeo = _frmCat.find('input[name="keyword_seo"]');
        var _desSeo = _frmCat.find('input[name="des_seo"]');
        var _ID = _frmCat.find('input[name="category_id"]');
+       var _logo = _frmCat.find('input[name="logo"]');
        
        $.ajax({
             type: 'POST',
@@ -87,11 +90,13 @@ function editCategory() {
                if(result) {
                    console.log(obj);
                    _name.val(obj.name);
+                   _slug.val(obj.slug);
                    _bgColor.val('#' + obj.bg_color);
                    _languageType.val(obj.language_type);
                    _keywordSeo.val(obj.keyword_seo);
                    _desSeo.val(obj.des_seo);
                    _ID.val(obj.id);
+                   _logo.val(obj.logo);
                }
             }
         });
