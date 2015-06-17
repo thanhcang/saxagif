@@ -98,6 +98,9 @@ class Product extends MY_Controller
                         if ($widthImageCurrent > IMAGE_WIDTH_RESIZE) {
                             $widthImage = IMAGE_WIDTH_RESIZE;
                             $heightImage = (IMAGE_WIDTH_RESIZE / $widthImageCurrent) * $heightImageCurrent;
+                        } elseif ($heightImageCurrent > IMAGE_HEIGHT_RESZE) {
+                            $heightImage = IMAGE_HEIGHT_RESZE;
+                            $widthImage = (IMAGE_HEIGHT_RESZE / $heightImageCurrent) * $widthImageCurrent;
                         } else {
                             $widthImage = $widthImageCurrent;
                             $heightImage = $heightImageCurrent;
@@ -152,9 +155,20 @@ class Product extends MY_Controller
         }
     }
     
-    public function editPro()
+    public function edit($proId = '')
     {
-        
+        if (!empty($proId) && filter_var($proId, FILTER_VALIDATE_INT, array('min_range' => 1)) ) {
+            $data = array(
+                'page_title' => $this->lang->line('PRO_EIDT'),
+                'detailPro'     => $this->mproduct->detail($proId),
+            );
+            
+            $tpl["main_content"] = $this->load->view('product/edit', $data, TRUE);
+            $this->load->view(TEMPLATE, $tpl);
+            
+        } else {
+            redirect(base_url('product'));
+        }
     }
     
     private function _validate(&$data, &$errors) {
