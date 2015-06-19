@@ -106,8 +106,8 @@
                             </div>
                             <ul class="nav nav-pills nav-stacked main-menu">
                                 <li class="nav-header">Main</li>
-                                <li class="accordion">
-                                    <a href="index.html"><i class="glyphicon glyphicon-plus"></i><span> Category</span></a>
+                                <li>
+                                    <a href="#" class="ajax-link"><i class="glyphicon glyphicon-plus"></i><span> Category</span></a>
                                     <!--                                    <ul class="nav nav-pills nav-stacked">
                                                                             <li><a href="#">Add new</a></li>
                                                                             <li><a href="#">Child Menu 2</a></li>
@@ -125,7 +125,7 @@
                                 </li>
                                 <li><a class="ajax-link" href="manager_partner.html"><i class="glyphicon glyphicon-user"></i><span> Đối tác</span></a>
                                 </li>
-                                <li><a class="ajax-link" href="manager_customer.html"><i class="glyphicon glyphicon-book"></i><span> Quản lý khách hàng</span></a>
+                                <li class="active"><a class="ajax-link" href="manager_customer.html"><i class="glyphicon glyphicon-book"></i><span> Quản lý khách hàng</span></a>
                                 </li>
                             </ul>
                         </div>
@@ -140,27 +140,73 @@
                     <div>
                         <ul class="breadcrumb">
                             <li>
-                                <a href="index">Home</a>
+                                <a href="#">Home</a>
                             </li>
                             <li>
-                                <a href="customer_opinion.html">Ý kiến khách hàng</a>
-                            </li>
-                            <li>
-                                <a href="#">Đặt câu hỏi</a>
+                                <a href="#">Quản lý khách hàng</a>
                             </li>
                         </ul>
                     </div>
                     <div class="row">
                         <div class="box col-md-12">
-                            <div class="box-inner martopten">
+                            <div class="box-inner">
                                 <div class="box-header well" data-original-title="">
-                                    <h2><i class="glyphicon glyphicon-pencil"></i> Đặt câu hỏi</h2>
+                                    <h2><i class="glyphicon glyphicon-user"></i> Danh sách khách hàng</h2>
                                 </div>
                                 <div class="box-content">
-                                    <p>
-                                        <textarea class="re_opinion form-control"></textarea>
-                                    </p>
-                                    <button type="submit" class="button">Submit</button>
+                                    <DIV CLass="pull-left">
+                                        <select>
+                                            <option>all dates</option>
+                                        </select>
+                                        <select>
+                                            <option>all category</option>
+                                        </select>
+                                        <button type="button">Filter</button>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <table class="table table-striped table-bordered responsive martopten datatable">
+                                        <colgroup>
+                                            <col width="5%"/>
+                                            <col width="5%"/>
+                                            <col width="30%"/>
+                                            <col width="10%"/>
+                                            <col width="20%"/>
+                                            <col width="25%"/>
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th>STT</th>
+                                                <th>ID</th>
+                                                <th>Tên khách hàng</th>
+                                                <th>Điện thoại</th>
+                                                <th>Email</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>002</td>
+                                                <td class="">Khách hàng A</td>
+                                                <td class="">0124205</td>
+                                                <td class="">khachhanga@gmail.com</td>
+                                                <td class="">
+                                                    <a class="btn btn-success btn-setting" href="#">
+                                                        <i class="glyphicon glyphicon-zoom-in icon-white"></i>
+                                                        View
+                                                    </a>
+                                                    <a class="btn btn-info" href="customer_edit.html">
+                                                        <i class="glyphicon glyphicon-edit icon-white"></i>
+                                                        Edit
+                                                    </a>
+                                                    <a class="btn btn-danger" href="#">
+                                                        <i class="glyphicon glyphicon-trash icon-white"></i>
+                                                        Delete
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -171,12 +217,57 @@
             </div><!--/fluid-row-->
 
 
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"  aria-hidden="true">
+
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">×</button>
+                            <h3>Thông tin khách hàng</h3>
+                        </div>
+                        <div class="modal-body">
+                            <p class="info_customer">
+                                <label>Tên khách hàng: </label>
+                                Khách hàng A
+                            </p>
+                            <p class="info_customer">
+                                <label>Ngày sinh: </label>
+                                02/02/1985
+                            </p>
+                            <p class="info_customer">
+                                <label>Giới tính: </label>
+                                Nam
+                            </p>
+                            <p class="info_customer">
+                                <label>Tên công ty: </label>
+                                Công ty A
+                            </p>
+                            <p class="info_customer">
+                                <label>Địa chỉ: </label>
+                                Hồ Chí Minh
+                            </p>
+                            <p class="info_customer">
+                                <label>Email: </label>
+                                khachhanga@gmail.com
+                            </p>
+                            <p class="info_customer">
+                                <label>Số điện thoại: </label>
+                                1335686
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#" class="btn btn-default" data-dismiss="modal">Close</a>
+                            <!--<a href="#" class="btn btn-primary" data-dismiss="modal">Save changes</a>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <footer class="row">
                 <p class="col-md-9 col-sm-9 col-xs-12 copyright">&copy; <a href="#" target="_blank">Saxagift</a> 2015</p>
 
-                <!--                <p class="col-md-3 col-sm-3 col-xs-12 powered-by">Powered by: <a
-                                        href="#">Charisma</a></p>-->
+<!--                <p class="col-md-3 col-sm-3 col-xs-12 powered-by">Powered by: <a
+                        href="#">Charisma</a></p>-->
             </footer>
 
         </div><!--/.fluid-container-->

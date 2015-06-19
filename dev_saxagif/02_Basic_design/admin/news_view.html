@@ -107,7 +107,7 @@
                             <ul class="nav nav-pills nav-stacked main-menu">
                                 <li class="nav-header">Main</li>
                                 <li class="accordion">
-                                    <a href="index.html"><i class="glyphicon glyphicon-plus"></i><span> Category</span></a>
+                                    <a href="#"><i class="glyphicon glyphicon-plus"></i><span> Category</span></a>
                                     <!--                                    <ul class="nav nav-pills nav-stacked">
                                                                             <li><a href="#">Add new</a></li>
                                                                             <li><a href="#">Child Menu 2</a></li>
@@ -115,7 +115,7 @@
                                 </li>
                                 <li><a class="ajax-link" href="product.html"><i class="glyphicon glyphicon-eye-open"></i><span> Products</span></a>
                                 </li>
-                                <li><a class="ajax-link" href="news.html"><i
+                                <li class="active"><a class="ajax-link" href="news.html"><i
                                             class="glyphicon glyphicon-edit"></i><span> News</span></a></li>
                                 <li><a class="ajax-link" href="customer_opinion.html"><i class="glyphicon glyphicon-list-alt"></i><span> Ý kiến khách hàng</span></a>
                                 </li>
@@ -140,27 +140,31 @@
                     <div>
                         <ul class="breadcrumb">
                             <li>
-                                <a href="index">Home</a>
+                                <a href="index.html">Home</a>
                             </li>
                             <li>
-                                <a href="customer_opinion.html">Ý kiến khách hàng</a>
-                            </li>
-                            <li>
-                                <a href="#">Đặt câu hỏi</a>
+                                <a href="index.html">News</a>
                             </li>
                         </ul>
                     </div>
                     <div class="row">
                         <div class="box col-md-12">
-                            <div class="box-inner martopten">
-                                <div class="box-header well" data-original-title="">
-                                    <h2><i class="glyphicon glyphicon-pencil"></i> Đặt câu hỏi</h2>
+                            <div class="box-inner">
+                                <div class="box-header well">
+                                    <h2><i class="glyphicon glyphicon-list-alt"></i>View</h2>
                                 </div>
                                 <div class="box-content">
-                                    <p>
-                                        <textarea class="re_opinion form-control"></textarea>
-                                    </p>
-                                    <button type="submit" class="button">Submit</button>
+                                    <div class="pic_news"><img src="images/no.jpg.png"/></div>
+                                    <div class="cont_news">
+                                        <label>Tin bài 1</label>
+                                        <p>
+                                            We have updated the recruiting page at our Vietnam office. Position available for Product Development Section. We have updated the recruiting page at our Vietnam office. Position available for Product Development Section. We have updated the recruiting page at our Vietnam office.
+                                            Position available for Product Development Section.Position available for Product Development Section. Position available for Product Development 
+                                        </p>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <button type="submit" class="button pull-right" onclick="window.location.href='news_edit.html'">Edit</button>
+                                    <div class="clearfix"></div>
                                 </div>
                             </div>
                         </div>
@@ -171,6 +175,24 @@
             </div><!--/fluid-row-->
 
 
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"  aria-hidden="true">
+
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">×</button>
+                            <h3>Settings</h3>
+                        </div>
+                        <div class="modal-body">
+                            <p>Here settings can be configured...</p>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#" class="btn btn-default" data-dismiss="modal">Close</a>
+                            <a href="#" class="btn btn-primary" data-dismiss="modal">Save changes</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <footer class="row">
                 <p class="col-md-9 col-sm-9 col-xs-12 copyright">&copy; <a href="#" target="_blank">Saxagift</a> 2015</p>
