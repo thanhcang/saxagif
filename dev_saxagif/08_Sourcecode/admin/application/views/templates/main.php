@@ -9,21 +9,33 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <meta content="<?php echo empty($des_seo) ? DEFAULT_DES_SEO : $des_seo ?>" name="description"/>
     <meta content="<?php echo empty($keyword_seo) ? DEFAULT_KEYWORD_SEO : $keyword_seo ?>" name="keywords" />
-    <meta content="saxacorp" name="author"/>
+    <meta content="kamara" name="author"/>
     <title><?php echo empty($page_title) ? DEFAULT_TITLE : $page_title ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <?php
-        $css_path = $this->config->item('css_path');
-        $js_path = $this->config->item('js_path');
-        // css
-        foreach ($css_path as $key) {
-            echo link_tag($key);
-        }
-        // js
-        foreach ($js_path as $key) {
-            echo '<script src="'.$key.'"></script>';
-        }
-    ?>
+    <link rel="shortcut icon" href="<?php echo base_url(IMAGE_PATH . 'thong.png') ?>" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url('common/css/jquery-ui.min.css') ?>" />
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url('common/css/bootstrap.min.css') ?>" />
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url('common/css/bootstrap-theme.min.css') ?>" />
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url('common/css/jquery-ui.structure.min.css') ?>" />
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url('common/css/jquery-ui.theme.min.css') ?>" />
+    
+    <link id="bs-css" href="<?php echo base_url('common/css/bootstrap-cerulean.min.css') ?>" rel="stylesheet">
+
+    <link href="<?php echo base_url('common/css/charisma-app.css') ?>" rel="stylesheet">
+    <link href="<?php echo base_url('common/bower_components/fullcalendar/dist/fullcalendar.css') ?>" rel='stylesheet'>
+    <link href="<?php echo base_url('common/bower_components/fullcalendar/dist/fullcalendar.print.css') ?>" rel='stylesheet' media='print'>
+    <link href="<?php echo base_url('common/bower_components/chosen/chosen.min.css') ?>" rel='stylesheet'>
+    <link href="<?php echo base_url('common/bower_components/colorbox/example3/colorbox.css') ?>" rel='stylesheet'>
+    <link href="<?php echo base_url('common/bower_components/responsive-tables/responsive-tables.css') ?>" rel='stylesheet'>
+    <link href="<?php echo base_url('common/bower_components/bootstrap-tour/build/css/bootstrap-tour.min.css') ?>" rel='stylesheet'>
+    <link href="<?php echo base_url('common/css/jquery.noty.css') ?>" rel='stylesheet'>
+    <link href="<?php echo base_url('common/css/noty_theme_default.css') ?>" rel='stylesheet'>
+    <link href="<?php echo base_url('common/css/elfinder.min.css') ?>" rel='stylesheet'>
+    <link href="<?php echo base_url('common/css/elfinder.theme.css') ?>" rel='stylesheet'>
+    <link href="<?php echo base_url('common/css/jquery.iphone.toggle.css') ?>" rel='stylesheet'>
+    <link href="<?php echo base_url('common/css/uploadify.css') ?>" rel='stylesheet'>
+    <link href="<?php echo base_url('common/css/animate.min.css') ?>" rel='stylesheet'>
+    <link href="<?php echo base_url('common/css/style.css') ?>" rel='stylesheet'>
 </head>
 <body>
     <!-- topbar starts -->
@@ -38,6 +50,7 @@
                 </button>
                 <a class="navbar-brand" href="index.html"> <img alt="Charisma Logo" src="<?php  echo base_url('common/img/logo20.png') ?>" class="hidden-xs"/>
                     <span>Charisma</span></a>
+
                 <!-- user dropdown starts -->
                 <div class="btn-group pull-right">
                     <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -51,6 +64,8 @@
                     </ul>
                 </div>
                 <!-- user dropdown ends -->
+
+
                 <ul class="collapse navbar-collapse nav navbar-nav top-menu">
                     <li><a href="#"><i class="glyphicon glyphicon-globe"></i> Visit Site</a></li>
                     <li class="dropdown">
@@ -68,7 +83,8 @@
                     </li>
                     <li>
                         <form class="navbar-search pull-left">
-                            <input placeholder="Search" class="search-query form-control col-md-10" name="query" type="text">
+                            <input placeholder="Search" class="search-query form-control col-md-10" name="query"
+                                   type="text">
                         </form>
                     </li>
                 </ul>
@@ -90,6 +106,10 @@
                                 <li class="nav-header">Main</li>
                                 <li class="accordion">
                                     <a href="#"><i class="glyphicon glyphicon-plus"></i><span> Category</span></a>
+                                    <!--                                    <ul class="nav nav-pills nav-stacked">
+                                                                            <li><a href="#">Add new</a></li>
+                                                                            <li><a href="#">Child Menu 2</a></li>
+                                                                        </ul>-->
                                 </li>
                                 <li><a class="ajax-link" href="product.html"><i class="glyphicon glyphicon-eye-open"></i><span> Products</span></a>
                                 </li>
@@ -104,7 +124,6 @@
                                 <li><a class="ajax-link" href="manager_partner"><i class="glyphicon glyphicon-user"></i><span> Đối tác</span></a>
                                 </li>
                                 <li><a class="ajax-link" href="manager_customer"><i class="glyphicon glyphicon-book"></i><span> Quản lý khách hàng</span></a>
-                                <li><a class="ajax-link" href="<?php echo base_url('settingpage'); ?>"><i class="glyphicon glyphicon-book"></i><span> Cài đặt chung</span></a>
                                 </li>
                             </ul>
                         </div>
@@ -112,23 +131,63 @@
                 </div>
                 <!--/span-->
                 <!-- left menu ends -->
+
+
                 <div id="content" class="col-lg-10 col-sm-10">
-                    <div>
-                        <ul class="breadcrumb">
-                            <?php foreach ( $breadcrumb as $key => $value) : ?>
-                                <li>
-                                    <a href="<?php echo $key ?>"><?php echo $value ?></a>
-                                </li>
-                            <?php endforeach ?>
-                        </ul>
-                    </div>
+                    
                     <?php echo $main_content ?>
+                    
                 </div><!--/#content.col-md-0-->
             </div><!--/fluid-row-->
+
+
+
             <footer class="row">
                 <p class="col-md-9 col-sm-9 col-xs-12 copyright">&copy; <a href="#" target="_blank">Saxagift</a> 2015</p>
+
+                <!--                <p class="col-md-3 col-sm-3 col-xs-12 powered-by">Powered by: <a
+                                        href="#">Charisma</a></p>-->
             </footer>
 
         </div><!--/.fluid-container-->
+        
+        <!-- external javascript -->
+        <script src="<?php echo base_url('contants') ?>" type="text/javascript"></script>
+        <script src="<?php echo base_url('common/js/jquery-1.11.2.min.js') ?>" type="text/javascript"></script>
+        <script src="<?php echo base_url('common/js/jquery-ui.min.js') ?>" type="text/javascript"></script>
+        <script src="<?php echo base_url('common/js/bootstrap.min.js') ?>" type="text/javascript"></script>
+        <script src="<?php echo base_url('common/js/common.js') ?>" type="text/javascript"></script>
+        <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+        <!-- library for cookie management -->
+        <script src="<?php echo base_url('common/js/jquery.cookie.js') ?>"></script>
+        <!-- calender plugin -->
+        <script src="<?php echo base_url('common/bower_components/moment/min/moment.min.js') ?>"></script>
+        <script src='bower_components/fullcalendar/dist/fullcalendar.min.js') ?>"></script>
+        <!-- data table plugin -->
+        <script src="<?php echo base_url('common/js/jquery.dataTables.min.js') ?>"></script>
+
+        <!-- select or dropdown enhancer -->
+        <script src="<?php echo base_url('common/bower_components/chosen/chosen.jquery.min.js') ?>"></script>
+        <!-- plugin for gallery image view -->
+        <script src="<?php echo base_url('common/bower_components/colorbox/jquery.colorbox-min.js') ?>"></script>
+        <!-- notification plugin -->
+        <script src"<?php echo base_url('common/js/jquery.noty.js') ?>"></script>
+        <!-- library for making tables responsive -->
+        <script src="<?php echo base_url('common/bower_components/responsive-tables/responsive-tables.js') ?>"></script>
+        <!-- tour plugin -->
+        <script src="<?php echo base_url('common/bower_components/bootstrap-tour/build/js/bootstrap-tour.min.js') ?>"></script>
+        <!-- star rating plugin -->
+        <script src="<?php echo base_url('common/js/jquery.raty.min.js') ?>"></script>
+        <!-- for iOS style toggle switch -->
+        <script src="<?php echo base_url('common/js/jquery.iphone.toggle.js') ?>"></script>
+        <!-- autogrowing textarea plugin -->
+        <script src="<?php echo base_url('common/js/jquery.autogrow-textarea.js') ?>"></script>
+        <!-- multiple file upload plugin -->
+        <script src="<?php echo base_url('common/js/jquery.uploadify-3.1.min.js') ?>"></script>
+        <!-- history.js for cross-browser state change on ajax -->
+        <script src="<?php echo base_url('common/js/jquery.history.js') ?>"></script>
+        <!-- application script for Charisma demo -->
+        <script src="<?php echo base_url('common/js/charisma.js') ?>"></script>
 </body>
 
