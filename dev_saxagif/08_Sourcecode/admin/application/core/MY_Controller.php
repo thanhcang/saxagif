@@ -40,4 +40,12 @@ class MY_Controller extends CI_Controller
 
         $this->request_params = $get_params;
     }
+    
+    public function isPostMethod() {
+        if ( $_SERVER['REQUEST_METHOD'] === 'POST' ){
+            return TRUE;
+        }
+        return FALSE;
+    }
+    
 }
