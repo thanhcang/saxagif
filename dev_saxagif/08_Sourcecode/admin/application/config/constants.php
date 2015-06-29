@@ -69,7 +69,7 @@ define('OFFSET_LISTTENNING', 60);
  */
 $root_path = dirname(BASEPATH);
 
-define('COMMON_PATH', '/common/');
+define('COMMON_PATH', FCPATH.'/common/');
 define('TEMP_PATH', COMMON_PATH . 'temp/');
 define('IMAGE_PATH', COMMON_PATH . 'images/');
 define('IMG_PRODUCT_PATH', COMMON_PATH . '/multidata/product_img/');
@@ -80,3 +80,9 @@ define('SALT', 'saxagifts!$23');
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */
+
+define('CONST_MAXBYTE_IMAGE', 200000);
+define('CONST_MAXWIDTH_SHORTCUT', 32);
+define('CONST_MAXHEIGHT_SHORTCUT', 32);
+define('CONST_MAXWIDTH_LOGO', 768);
+define('CONST_MAXHEIGHT_LOGO', 1336);
