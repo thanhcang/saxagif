@@ -38,6 +38,7 @@
 |
 */
 
+$route['cai-dat-chung'] = "Settingpage";
 $route['default_controller'] = "login";
 $route['404_override'] = '';
 
