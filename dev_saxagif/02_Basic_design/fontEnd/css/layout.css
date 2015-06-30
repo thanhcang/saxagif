@@ -79,6 +79,9 @@ a:hover{
 .width_875{
     width: 875px !important; 
 }
+.width_1135{
+    width: 1135px !important; 
+}
 .width_1220{
     width: 1220px !important; 
 }
@@ -1422,23 +1425,32 @@ p.news_r{
     text-align: left;
     padding:13px 25px 30px;
 }
-.detail_QA{
+.question{
+    color: #1e1e1e;
     background: url(../images/icon_question.png) no-repeat top left;
     padding-left:40px;
-    border-bottom:1px solid #ccc;
-    padding-bottom: 25px;
-    margin-bottom: 20px;
     line-height: 20px;
     text-align: justify;
 }
-.question{
-    color: #1e1e1e;
-}
 .answer{
+    border-bottom:1px solid #ccc;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
     line-height: 25px;
-    margin-left:10px;
+    padding-left:50px;
     color: #7eb235;
     font-size:18px;
+    line-height: 20px;
+    text-align: justify;
+}
+.ui-accordion-header{
+    border-bottom:1px solid #ccc;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+#accordion .ui-state-active{
+    border-bottom:0;
+    padding-bottom: 20px;
 }
 .send_QA{
     margin-top:45px;
@@ -1451,6 +1463,139 @@ p.news_r{
 }
 .frm_cont_QA{
     width: 100%;
+}
+/*----- Tabs -----*/
+
+#tabs{
+    margin-top:65px;
+    position:relative;
+}
+#tabs ul{
+    background: #7eb235;
+    float: right;
+    border-radius: 5px 5px 0 0;
+    position: absolute;
+    right: 0;
+    top:-40px;
+}
+#tabs ul li{
+    display:inline-block;
+    font-size:20px;
+    font-weight: normal;
+    color: #fff;
+    padding:10px 5px;
+}
+#tabs ul li:last-child a{
+    border-right:0;
+}
+#tabs ul li a{
+    border-right:1px solid #666;
+    color: #fff;
+    padding-right:5px;
+}
+#tabs ul li.ui-tabs-active{
+    background: #fff;
+    color: #7eb235;
+    border-radius: 5px 5px 0 0;
+    box-shadow: -1px 1px 5px rgba(0,0,0, 0.5);
+}
+#tabs ul li.ui-tabs-active a{
+    color: #7eb235;
+    border-right:0;
+}
+.tab-content{
+    border-radius: 5px 0 5px 5px;
+    background-color: #fff;
+    box-shadow: 0px 0px 10px rgba(0,0,0,.5);
+    position:relative;
+    padding:30px 40px;
+}
+.cont_tab{
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+.img_tab{
+    float:left;
+    margin-right: 23px;
+    width: 317px;
+}
+.img_tab img{
+    width: 317px;
+    height:162px;
+}
+.main_tab{
+    float: left;
+    width:767px;
+}
+.main_tab label{
+    font-size: 20px;
+    color: #7eb235;
+    font-weight: normal;
+}
+.main_tab .des_tab{
+    text-align: justify;
+    color:#1c1c1c;
+    margin-top:5px;
+}
+.main_tab .more_tab{
+    float: right;
+    font-size: 20px;
+    color: #7eb235;
+    font-weight: normal;
+}
+.main_tab .more_tab a{
+    color: #7eb235;
+}
+.sort_view{
+    margin-top:30px;
+}
+.sort_view .sort_year{
+    float: left;
+}
+.sort_view .sort_year label, .sort_view .sort_month label{
+    color: #7eb235;
+    font-size: 20px;
+    font-weight: normal;
+    margin-right: 5px;
+}
+.sort_view .sort_year input{
+    width: 149px;
+    height:40px;
+    box-shadow: 0 0 5px rgba(0,0,0,.5);
+    border-radius: 10px;
+    padding:0 5px;
+}
+.sort_view .sort_month{
+    float: right;
+}
+.sort_view .sort_month ul{
+    position: relative !important;
+    background: transparent !important;
+    float: none !important;
+    border-radius: 0!important;
+    float: right !important;
+    top: 0!important;
+}
+.sort_view .sort_month ul li{
+    display: inline-block;
+    border:2px solid #7eb235;
+    margin-right:10px;
+    background: #fff;
+    padding: 5px !important;
+    font-size: 19px !important;
+}
+.sort_view .sort_month ul li a{
+    color: #7eb235 !important;
+    border-right: 0 !important;
+    padding-right: 0 !important;
+}
+.sort_view .sort_month ul li:last-child{
+    margin-right:0;
+}
+.sort_view .sort_month ul li.active{
+    background: #7eb235;
+    color:#fff;
 }
 /*fix css chrome*/
 /*@media screen and (-webkit-min-device-pixel-ratio:0){
