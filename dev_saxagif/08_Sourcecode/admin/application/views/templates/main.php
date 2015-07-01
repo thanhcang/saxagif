@@ -3,13 +3,6 @@
 <head>
     <meta charset="utf-8" />
     <meta name="robots" content="noindex,nofollow" />
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-    <meta content="<?php echo empty($des_seo) ? DEFAULT_DES_SEO : $des_seo ?>" name="description"/>
-    <meta content="<?php echo empty($keyword_seo) ? DEFAULT_KEYWORD_SEO : $keyword_seo ?>" name="keywords" />
-    <meta content="saxacorp" name="author"/>
     <title><?php echo empty($page_title) ? DEFAULT_TITLE : $page_title ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <?php
@@ -104,7 +97,7 @@
                                 <li><a class="ajax-link" href="manager_partner"><i class="glyphicon glyphicon-user"></i><span> Đối tác</span></a>
                                 </li>
                                 <li><a class="ajax-link" href="manager_customer"><i class="glyphicon glyphicon-book"></i><span> Quản lý khách hàng</span></a>
-                                <li><a class="ajax-link" href="<?php echo base_url('settingpage'); ?>"><i class="glyphicon glyphicon-book"></i><span> Cài đặt chung</span></a>
+                                <li><a class="ajax-link" href="<?php echo base_url('cai-dat-chung'); ?>"><i class="glyphicon glyphicon-book"></i><span> Cài đặt chung</span></a>
                                 </li>
                             </ul>
                         </div>

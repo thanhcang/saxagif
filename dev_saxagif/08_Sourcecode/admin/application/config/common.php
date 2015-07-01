@@ -25,7 +25,6 @@ $config['js_path'] = array(
     'common/js/jquery-ui.min.js',
     'common/js/bootstrap.min.js',
     'common/js/common.js',
-    'common/js/charisma.js',
     'contants',
     
 );

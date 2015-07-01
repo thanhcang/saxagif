@@ -24,7 +24,7 @@ class Settingpage extends MY_Controller {
         $data = array();
         $tpl = array(
             'breadcrumb' => array(base_url('home') => 'home',
-                base_url('settingpage') => 'cài đặt chung'),
+                base_url('cai-dat-chung') => 'cài đặt chung'),
         );
         // update infomation company
         if ($this->isPostMethod()) {
@@ -33,6 +33,7 @@ class Settingpage extends MY_Controller {
             $input = $this->input->post();
             $this->_checkImageIsAccept($input, $error, 'shortcut', $path);
             $this->_checkImageIsAccept($input, $error, 'logo', $path);
+            $this->_validateForm($input,$error);
             if (empty($error)) { 
                 $input['shortcut'] = !empty($path['full_path_shortcut']) ? createBinaryFile($path['full_path_shortcut']) : '';
                 $input['logo'] = !empty($path['full_path_logo']) ? createBinaryFile($path['full_path_logo']) : '';
@@ -56,7 +57,7 @@ class Settingpage extends MY_Controller {
      * @param array $data
      * @param array $errors
      */
-    private function _validateForm(&$data, &$errors) {
+    private function _validateForm($data, &$errors) {
         //Trim
         foreach ($data as $k => $item) {
             if (is_string($item)) {
@@ -66,10 +67,12 @@ class Settingpage extends MY_Controller {
         //Load
         $this->load->library('form_validation');
         // Set rules:
-        $this->form_validation->set_rules("log", $this->lang->line('CAT_MISSING_EMPTY_NAME'), "required|trim|xss_clean|max_length[255]|callback__checkExistName");
-        $this->form_validation->set_rules("image", $this->lang->line('MISSING_EMPTY_SLUG'), "required|trim|max_length[255]|callback__checkExistSlug");
+        $this->form_validation->set_rules("email", "Nhập đúng định dạng Email", "trim|xss_clean|max_length[255]|valid_email");
+        $this->form_validation->set_rules("phone", "Số điện thoại không đúng định dạng", "trim|xss_clean|max_length[255]|numeric");
+        $this->form_validation->set_rules("fax", "Số fax không đúng định dạng", "trim|xss_clean|max_length[255]|numeric");
         // Set Message:
-        $this->form_validation->set_message('required', '%s');
+        $this->form_validation->set_message('valid_email', '%s');
+        $this->form_validation->set_message('numeric', '%s');
         //Validate
         if ($this->form_validation->run() == FALSE) {
             $errors = $this->form_validation->error_array();
