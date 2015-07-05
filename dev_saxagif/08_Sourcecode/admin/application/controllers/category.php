@@ -11,7 +11,7 @@ class Category extends MY_Controller
         parent::__construct();
         $this->load->model('mcategory');
         $this->lang->load('category');
-        
+        $this->check_login();
     }
     
     public function index()

@@ -86,4 +86,69 @@ class MY_Controller extends CI_Controller
             redirect(base_url('login'));
         }
     }
+    
+    /**
+     * Send mail
+     * @param string $to
+     * @param string $subject
+     * @param string $message
+     * @param string $bcc
+     * @return boolean
+     */
+    function send_mail($to, $subject, $message, $bcc = '') {
+        try {
+            /*
+              // User SMTP
+              $config = config_item('send_mail');
+              $this->load->library('email', $config);
+              $this->email->from($config['smtp_user']);
+             */
+
+            // User mailserver
+            $this->load->library('email');
+            $this->email->from(CONTACT_MAIL);
+            $this->email->set_newline("\r\n");
+            $this->email->to($to);
+            if (!empty($bcc)) {
+                $this->email->bcc($bcc);
+            }
+            $this->email->subject($subject);
+            $this->email->message($message);
+            if ($this->email->send() == FALSE) {
+                throw new Exception;
+            }
+            return TRUE;
+        } catch (Exception $ex) {
+            return $ex->print_debugger();
+        }
+    }
+    
+    /**
+     * get teamplate mail
+     * @param type $temp
+     * @return boolean
+     */
+    public function getTeamplateMail($temp) {
+        $filename = COMMON_PATH . 'temp/'.$temp.'.txt';
+        $template = '';
+        if (is_file($filename)) {
+            try {
+                $template = file_get_contents($filename);
+            } catch (Exception $ex) {
+                $template = '';
+            }
+        }
+        if ($template) {
+            $template = mb_ereg_replace('(\r)', "\n", $template);
+            $template = mb_ereg_replace('(\n\n)', "\n", $template);
+            $pos = mb_strpos($template, "\n");
+            $subject = mb_substr($template, 0, $pos);
+            $body = mb_substr($template, $pos + 1);
+            $data['subject'] = $subject;
+            $data['body'] = $body;
+            return $data;
+        }
+        return FALSE;
+    }
+
 }

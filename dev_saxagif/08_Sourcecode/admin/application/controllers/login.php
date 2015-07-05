@@ -200,6 +200,9 @@ class Login extends MY_Controller {
         return $remember;
     }
     
+    /**
+     * forget password
+     */
     public function forgetpassword() {
         $data = array(
             'page_title' => 'SAXA Gifts - Quên mật khẩu',
@@ -210,26 +213,42 @@ class Login extends MY_Controller {
             $error = array();
             $input = $this->input->post();
             $this->_validateForgetPasswordForm($input, $error);
-            if (!empty($error)) {
+            if (empty($error)) {
+                $is_email = $this->mlogin->checkEmail($input);
+                if ($is_email == FALSE) {
+                $error[] = 'Email không tồn tại.';
+                }
+            }
+            if (empty($error)) {
                 $str_token = uniqid(rand(), true);
                 $salt = urlencode(base64_encode(md5($str_token . 'aDminVtcangSaxagit')));
-                $this->db->trans_off();
+                $input['forgot_password'] = $salt;
+                $this->db->trans_off($input);
                 $this->db->trans_begin();
-                $this->mlogin->resetPassword();
+                $this->mlogin->resetPassword($input);
                 if ($this->db->trans_status() === FALSE) {
                     $this->db->trans_rollback();
                     $error[] = ' Đã có lỗi xảy ra trong quá trình cập nhật<br/> Hãy thử lại';
                 } else {
                     $this->db->trans_commit();
+                    try {
+                        if ($this->_sendMailGetPassword($is_email) == FALSE) {
+                            throw new Exception;
+                        }
+                        redirect(base_url('login/resetPassuccess'));
+                    } catch (Exception $ex) {
+                        $error[] = 'Hệ thống chưa gơi mail được, vui lòng thử lại';
+                    }
                 }
             }
+            $param = $input;
         } else {
             if (!empty($sess_form_email_forget)) { // destroy session
-                $this->session->unset_userdata($sess_form_email_forget);
+                $this->session->unset_userdata('sess_form_email_forget');
             }
             $form_email_forget = md5(microtime() . 'aDminVtcangSaxagit'); // genaral random form submit
             $this->session->set_userdata('sess_form_email_forget', $form_email_forget); // assign session
-            $param['form_email_forget'] = $form_email_forget; // assign form number
+            $param['form_email_forget'] = $form_email_forget; // assign new form number
         }
         if(!empty($error)){
             $data['error'] = $error;
@@ -261,8 +280,49 @@ class Login extends MY_Controller {
         }
     }
     
-    private function _sendMailGetPassword() {
-        
+    /**
+     * send mail reset password
+     * @param Array $param
+     * @return \Exception
+     */
+    private function _sendMailGetPassword($param) {
+        $template = $this->getTeamplateMail('email_reset_password');
+        if (!empty($template)){
+            try{
+                $subject = $template['subject'];
+                $body = $template['body'];
+                $data_replace = array(
+                    '\[DATE\]' => date('Y-m-d H:i:s'),
+                    '\[NAME\]' => $param['first_name'].' '.$param['last_name'],
+                    '\[LINK\]' => base_url('login/formResetPassword/'.$param['forgot_password']),
+                );
+                foreach ($data_replace as $key => $value) {
+                    $body = mb_ereg_replace($key, $value, $body);
+                }
+                if ( $this->send_mail($param['email'], $subject, $body) !== TRUE ){
+                    throw new Exception;
+                }
+                return TRUE;
+            } catch (Exception $ex) {
+                return FALSE;
+            }
+        }
+    }
+    
+    public function resetPassuccess() {
+        $sess_reset_password = $this->session->userdata('sess_form_email_forget');
+        if (!empty($sess_reset_password)) {
+            $this->session->unset_userdata('sess_form_email_forget');
+            $data = array(
+                'page_title' => 'SAXA Gifts - Quên mật khẩu',
+            );
+            $message = 'Check Email của bạn để reset lại password <br/>';
+            $message .= '<a href="' . base_url() . '">trở về trang chủ</a>';
+            $data['message'] = $message;
+            $this->load->view('login/messageForm', $data);
+        } else {
+            redirect('category');
+        }
     }
 
 }

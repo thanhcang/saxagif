@@ -32,7 +32,7 @@
 
             <div class="row">
                 <div class="well col-md-5 center login-box">
-                    <div class="alert alert-info hide">
+                    <div class="alert alert-info <?php echo !empty($error) ? '' : 'hide'; ?>">
                     <?php if(!empty($error)): ?>
                         <?php foreach($error as $key): ?>
                             <?php echo $key.'<br />' ?>
@@ -43,18 +43,18 @@
                         <fieldset>
                             <div class="input-group input-group-lg">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-envelope red"></i></span>
-                                <input type="text" name="email" class="form-control" placeholder="Nhập Email" value="">
+                                <input type="text" name="email" class="form-control" placeholder="Nhập Email" value="<?php echo !empty($param['email']) ? $param['email'] : ''; ?>">
                             </div>
                             <div class="clearfix"></div><br>
 
                             <div class="input-group input-group-lg">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-envelope red"></i></span>
-                                <input type="text" name="reEmail" class="form-control" placeholder="Nhập lại Email" value="">
+                                <input type="text" name="reEmail" class="form-control" placeholder="Nhập lại Email" value="<?php echo !empty($param['email']) ? $param['email'] : ''; ?>">
                             </div>
                             <div class="clearfix"></div>
                             <p class="center col-md-5">
                                 <button id="submitButton" type="button" class="btn btn-primary">Gởi</button>
-                                <input type="hidden" name="form_email" value="<?php echo $param['form_email_forget']; ?>" />
+                                <input type="hidden" name="form_email_forget" value="<?php echo $param['form_email_forget']; ?>" />
                             </p>
                         </fieldset>
                     </form>

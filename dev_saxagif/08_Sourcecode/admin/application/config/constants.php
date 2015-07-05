@@ -90,3 +90,4 @@ define('LOGIN_COOKIE_REMEMBER_HOUR',             60 * 60); //1: a hour
 define('LOGIN_COOKIE_REMEMBER_WEEK',             7 * 24); //a week
 define('LOGIN_COOKIE_REMEMBER_TIME_DEFAULT',     365 * 24); //a year
 define('LOGIN_COOKIE_REMEMBER_NAME',             'logincookie');
+define('CONTACT_MAIL',                           'vtcanglt@gmail.com');

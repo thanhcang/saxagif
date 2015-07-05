@@ -46,7 +46,10 @@ class Mlogin extends MY_Model {
         return FALSE;
     }
     
-    
+    /**
+     * reset password
+     * @param type $param
+     */
     public function resetPassword($param) {
         $data = array(
             'forgot_password' => $param['forgot_password']
@@ -56,6 +59,28 @@ class Mlogin extends MY_Model {
         );
         $this->db->where($where);
         $this->db->update($this->_table,$data);
+    }
+    
+    /**
+     * check email have exists
+     * @param String || Array $param
+     * @return boolean
+     */
+    public function checkEmail($param) {
+        if (!empty($param) && !is_array($param)){
+            $email = $param;
+        } elseif (!empty($param) && is_array($param) && !empty($param['email'])){
+            $email = $param['email'];
+        }else{
+            return FALSE;
+        }
+        $this->db->where('email',$email);
+        $query = $this->db->get($this->_table);
+        if ($query->num_rows() > 0){
+            return $query->row_array();
+        }else{
+            return FALSE;
+        }
     }
     
     
