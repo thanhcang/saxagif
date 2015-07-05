@@ -27,7 +27,7 @@ class Settingpage extends MY_Controller {
                 base_url('cai-dat-chung') => 'cài đặt chung'),
         );
         // update infomation company
-        if ($this->isPostMethod()) {
+        if ($this->isPostMethod()&& empty($_POST['searchLanguage']) ) {
             $error = array();
             $path = array();
             $input = $this->input->post();
@@ -44,8 +44,12 @@ class Settingpage extends MY_Controller {
             } else { // error form
                 $data['error'] = $error;
             }
+            $setting = $this->msetting->selectCompanyInfo($input['language_type']);
+        } elseif ($this->isPostMethod() && !empty($_POST['searchLanguage']) && $_POST['searchLanguage'] == 1) { // search setting by  language
+            $setting = $this->msetting->selectCompanyInfo($_POST['language']);
+        } else { // default show languge = 1 ( viet nam )
+            $setting = $this->msetting->selectCompanyInfo(1);
         }
-        $setting = $this->msetting->selectCompanyInfo();
         $data['deault_setting'] = defaultInfoCompany();
         $data['list'] = $setting;
         $tpl["main_content"] = $this->load->view('setting/index', $data, TRUE);

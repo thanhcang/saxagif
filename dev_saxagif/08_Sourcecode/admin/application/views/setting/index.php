@@ -1,5 +1,16 @@
 <div class="row">
     <div class="box col-md-12">
+        <div>
+            <form action="" method="post">
+                <select name="language" class="selected">
+                    <?php foreach ($this->config->item('language_type') as $key => $value): ?>
+                        <option value="<?php echo $key ?>" <?php echo !empty($list['language_type']) && $list['language_type'] == $key ? 'selected' : ''; ?> ><?php echo $value; ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <input type="hidden" name="searchLanguage" value="1">
+                <button type="submit" class="button">Apply</button>
+            </form>
+        </div>
         <div class="box-inner">
             <div class="box-header well">
                 <h2><i class="glyphicon glyphicon-list-alt"></i> Cài đặt chung</h2>
@@ -60,6 +71,7 @@
                         <textarea name="slogan" placeholder="nhập câu trích dẫn cho công ty" class="re_opinion form-control"><?php echo !empty($list['slogan']) ? $list['slogan'] : $deault_setting['slogan'];  ?></textarea>
                     </div>
                     <button type="submit" class="button">Save</button>
+                    <input name="language_type" type="hidden" value="<?php echo $list['language_type']; ?>" />
                 </form>
             </div>
         </div>
