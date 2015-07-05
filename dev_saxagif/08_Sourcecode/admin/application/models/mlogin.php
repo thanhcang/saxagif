@@ -19,7 +19,7 @@ class Mlogin extends MY_Model {
     public function checkLogin($param) {
         $data = array(
             'username' => $param['username'],
-            'password' => pass_hash($param['password']),  
+            'level' =>  1,
         );
         $this->db->where($data);
         $query = $this->db->get($this->_table);
@@ -28,5 +28,35 @@ class Mlogin extends MY_Model {
         }
         return FALSE;
     }
-
+    
+    /**
+     * get data of user from cookie
+     * @param Array $param
+     * @return boolean
+     */
+    public function getLoginFromCookie($param) {
+        $data = array(
+            'id'    =>  $param['id'],
+        );
+        $this->db->where($data);
+        $query = $this->db->get($this->_table);
+        if ($query->num_rows > 0){
+            return $query->row_array();
+        }
+        return FALSE;
+    }
+    
+    
+    public function resetPassword($param) {
+        $data = array(
+            'forgot_password' => $param['forgot_password']
+        );
+        $where = array(
+            'email' =>  $param['email']
+        );
+        $this->db->where($where);
+        $this->db->update($this->_table,$data);
+    }
+    
+    
 }

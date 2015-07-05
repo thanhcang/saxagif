@@ -45,7 +45,7 @@
                         <fieldset>
                             <div class="input-group input-group-lg">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-user red"></i></span>
-                                <input type="text" name="username" class="form-control" placeholder="Username">
+                                <input type="text" name="username" class="form-control" placeholder="Username" value="<?php echo ($remember) ? html_escape($remember['username']):''; ?>">
                             </div>
                             <div class="clearfix"></div><br>
 
@@ -56,8 +56,8 @@
                             <div class="clearfix"></div>
 
                             <div class="input-prepend">
-                                <label class="remember" for="remember" style="float: left"><input type="checkbox" id="remember"> Remember me</label>
-                                <label class="remember" for="remember" style="float: right"><a href="">Forgot password?</a></label>
+                                <label class="remember" for="remember" style="float: left"><input name="remember" value="1" type="checkbox" id="remember" <?php echo $remember ? 'checked' : ''; ?>> Remember me</label>
+                                <label class="remember" for="forgetpassword" style="float: right"><a href="<?php echo base_url('login/forgetpassword'); ?>">Forgot password?</a></label>
                             </div>
                             <div class="clearfix"></div>
 

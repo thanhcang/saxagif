@@ -86,3 +86,7 @@ define('CONST_MAXWIDTH_SHORTCUT', 32);
 define('CONST_MAXHEIGHT_SHORTCUT', 32);
 define('CONST_MAXWIDTH_LOGO', 768);
 define('CONST_MAXHEIGHT_LOGO', 1336);
+define('LOGIN_COOKIE_REMEMBER_HOUR',             60 * 60); //1: a hour
+define('LOGIN_COOKIE_REMEMBER_WEEK',             7 * 24); //a week
+define('LOGIN_COOKIE_REMEMBER_TIME_DEFAULT',     365 * 24); //a year
+define('LOGIN_COOKIE_REMEMBER_NAME',             'logincookie');

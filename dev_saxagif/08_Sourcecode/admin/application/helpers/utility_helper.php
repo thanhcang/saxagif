@@ -40,3 +40,25 @@ if ((!function_exists("createBinaryFile"))) {
     }
 
 }
+
+if ((!function_exists("trimStringArray"))) {
+
+    /**
+     * trim string
+     * @param type $data
+     */
+    function trimStringArray(&$data) {
+        if (!empty($data) && is_string($data)) {
+            $data = trim($data);
+        } else if (!empty($data) && is_array($data)) {
+            foreach ($data as $k => $item) {
+                if (is_string($item)) {
+                    $data[$k] = trim($item);
+                }
+            }
+        } else {
+            // nothing
+        }
+    }
+
+}
