@@ -18,6 +18,7 @@ if ((!function_exists("pass_hash"))) {
 
     function pass_hash($p) {
         return hash_hmac('sha256', $p, SALT, TRUE);
+        //return hash('sha256', $p);
     }
 
 }

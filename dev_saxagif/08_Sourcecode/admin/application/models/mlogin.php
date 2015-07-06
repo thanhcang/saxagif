@@ -83,5 +83,47 @@ class Mlogin extends MY_Model {
         }
     }
     
+    /**
+     * check token when update password
+     * @param type $param
+     * @return boolean
+     */
+    public function checkToken($param) {
+        $this->db->where('forgot_password', $param);
+        $query = $this->db->get($this->_table);
+        if ($query->num_rows() > 0){
+            return $query->row_array();
+        }
+        return FALSE;
+    }
     
+    /**
+     * update password for usser
+     * @param type $param
+     */
+    public function updatePassword($param) {
+        $data = array(
+            'password'  => pass_hash(trim($param['password'])),
+        );
+        $where = array(
+            'forgot_password'  => $param['forgot_password'],
+        );
+        $this->db->where($where);
+        $this->db->update($this->_table,$data);
+    }
+   
+    /**
+     * remove token password
+     * @param array $param
+     */
+    public function removeTokenPasswordReset($param) {
+        $data = array(
+            'forgot_password'  => NULL,
+        );
+        $where = array(
+            'forgot_password'  => $param['forgot_password'],
+        );
+        $this->db->where($where);
+        $this->db->update($this->_table,$data);
+    }
 }

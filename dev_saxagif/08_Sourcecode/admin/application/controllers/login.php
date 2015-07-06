@@ -309,6 +309,9 @@ class Login extends MY_Controller {
         }
     }
     
+    /**
+     * message reset success
+     */
     public function resetPassuccess() {
         $sess_reset_password = $this->session->userdata('sess_form_email_forget');
         if (!empty($sess_reset_password)) {
@@ -322,6 +325,63 @@ class Login extends MY_Controller {
             $this->load->view('login/messageForm', $data);
         } else {
             redirect('category');
+        }
+    }
+    
+    /**
+     * form reset password
+     * @param string $token
+     */
+    public function formResetPassword($token) {
+        $data = array(
+            'page_title' => 'SAXA Gifts - cập nhật Password',
+        );
+        $is_token = $this->mlogin->checkToken($token);
+        if (empty($is_token)){ // is hack server
+            redirect(base_url());
+        } elseif (!empty ($is_token) && $this->isPostMethod()) { // change password
+            $input = $this->input->post();
+            $error = array();
+            $this->_validateUpdatePassword($input, $error);
+            if (empty($error)) { // is update password
+                $input['forgot_password'] = $token; 
+                $this->db->trans_off();
+                $this->db->trans_begin();
+                $this->mlogin->updatePassword($input);
+                $this->mlogin->removeTokenPasswordReset($input);
+                if ($this->db->trans_status() === FALSE) {
+                    $this->db->trans_rollback();
+                    $error[] = 'Hệ thống chưa cập nhật được password của bạn<br/> Hãy thử lại';
+                } else {
+                    $this->db->trans_commit();
+                    redirect(base_url('login'));
+                }
+            }
+        } else { // form change password
+            // nothing
+        }
+        if (!empty($error)){
+            $data['error'] = $error;
+        }
+        $data['list'] = $is_token;
+        $data['token'] = $token;
+        $this->load->view('login/updatepassword', $data);
+    }
+    
+    /**
+     * valide form update password
+     * @param array $param
+     * @param array $error
+     */
+    private function _validateUpdatePassword($param, &$error) {
+        if (empty($param['password']) || empty($param['rePassword'])) {
+            $error[] = 'Nhập Password';
+        } elseif (strlen($param['password']) < 6) {
+            $error[] = 'Password lớn 6 ký tự';
+        } elseif (ctype_alpha($param['password']) == TRUE) {
+            $error[] = 'Password phải co ít nhất một số';
+        } elseif ($param['password'] != $param['rePassword']) {
+            $error[] = 'Password không giống nhau';
         }
     }
 
