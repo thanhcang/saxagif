@@ -55,30 +55,30 @@
                 <table class="table table-striped table-bordered responsive martopten datatable">
                     <colgroup>
                         <col width="5%"/>
-                        <col width="30%"/>
-                        <col width="10%"/>
                         <col width="20%"/>
+                        <col width="10%"/>
                         <col width="25%"/>
+                        <col width="30%"/>
                     </colgroup>
                     <thead>
                         <tr>
                             <th>STT</th>
-                            <th>Name</th>
-                            <th>Bg color</th>
-                            <th>Vị trí hiển thị</th>
+                            <th>Tên nhân viên</th>
+                            <th>Quyền</th>
+                            <th>Email</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
+                        <?php if (!empty($list)) : ?>
+                        <?php foreach($list as $key=>$value) : ?>
                         <tr>
-                            <td>1</td>
-                            <td class="">Quà tặng công nghệ</td>
+                            <td><?php echo $key+1; ?></td>
+                            <td class=""><?php echo  $value['first_name'].' '.$value['last_name']; ?></td>
                             <td class=""></td>
+                            <td class=""><?php echo  $value['email']; ?></td>
                             <td class="">
-                                trang chủ
-                            </td>
-                            <td class="">
-                                <a class="btn btn-success" href="category_view.html">
+                                <a class="btn btn-success currentLogin" href="javascript:;" attUser='<?php echo $value['id']; ?>'>
                                     <i class="glyphicon glyphicon-zoom-in icon-white"></i>
                                     View
                                 </a>
@@ -92,314 +92,8 @@
                                 </a>
                             </td>
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td class="">Quà tặng văn phòng</td>
-                            <td class=""></td>
-                            <td class="">
-                                trang chủ
-                            </td>
-                            <td class="">
-                                <a class="btn btn-success" href="category_view.html">
-                                    <i class="glyphicon glyphicon-zoom-in icon-white"></i>
-                                    View
-                                </a>
-                                <a class="btn btn-info" href="category_edit.html">
-                                    <i class="glyphicon glyphicon-edit icon-white"></i>
-                                    Edit
-                                </a>
-                                <a class="btn btn-danger" href="#">
-                                    <i class="glyphicon glyphicon-trash icon-white"></i>
-                                    Delete
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td class="">Quà tặng công nghệ</td>
-                            <td class=""></td>
-                            <td class="">
-                                trang chủ
-                            </td>
-                            <td class="">
-                                <a class="btn btn-success" href="category_view.html">
-                                    <i class="glyphicon glyphicon-zoom-in icon-white"></i>
-                                    View
-                                </a>
-                                <a class="btn btn-info" href="category_edit.html">
-                                    <i class="glyphicon glyphicon-edit icon-white"></i>
-                                    Edit
-                                </a>
-                                <a class="btn btn-danger" href="#">
-                                    <i class="glyphicon glyphicon-trash icon-white"></i>
-                                    Delete
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td class="">Quà tặng công nghệ</td>
-                            <td class=""></td>
-                            <td class="">
-                                trang chủ
-                            </td>
-                            <td class="">
-                                <a class="btn btn-success" href="category_view.html">
-                                    <i class="glyphicon glyphicon-zoom-in icon-white"></i>
-                                    View
-                                </a>
-                                <a class="btn btn-info" href="category_edit.html">
-                                    <i class="glyphicon glyphicon-edit icon-white"></i>
-                                    Edit
-                                </a>
-                                <a class="btn btn-danger" href="#">
-                                    <i class="glyphicon glyphicon-trash icon-white"></i>
-                                    Delete
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td class="">Quà tặng công nghệ</td>
-                            <td class=""></td>
-                            <td class="">
-                                trang chủ
-                            </td>
-                            <td class="">
-                                <a class="btn btn-success" href="category_view.html">
-                                    <i class="glyphicon glyphicon-zoom-in icon-white"></i>
-                                    View
-                                </a>
-                                <a class="btn btn-info" href="category_edit.html">
-                                    <i class="glyphicon glyphicon-edit icon-white"></i>
-                                    Edit
-                                </a>
-                                <a class="btn btn-danger" href="#">
-                                    <i class="glyphicon glyphicon-trash icon-white"></i>
-                                    Delete
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td class="">Quà tặng công nghệ</td>
-                            <td class=""></td>
-                            <td class="">
-                                trang chủ
-                            </td>
-                            <td class="">
-                                <a class="btn btn-success" href="category_view.html">
-                                    <i class="glyphicon glyphicon-zoom-in icon-white"></i>
-                                    View
-                                </a>
-                                <a class="btn btn-info" href="category_edit.html">
-                                    <i class="glyphicon glyphicon-edit icon-white"></i>
-                                    Edit
-                                </a>
-                                <a class="btn btn-danger" href="#">
-                                    <i class="glyphicon glyphicon-trash icon-white"></i>
-                                    Delete
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td class="">Quà tặng công nghệ</td>
-                            <td class=""></td>
-                            <td class="">
-                                trang chủ
-                            </td>
-                            <td class="">
-                                <a class="btn btn-success" href="category_view.html">
-                                    <i class="glyphicon glyphicon-zoom-in icon-white"></i>
-                                    View
-                                </a>
-                                <a class="btn btn-info" href="category_edit.html">
-                                    <i class="glyphicon glyphicon-edit icon-white"></i>
-                                    Edit
-                                </a>
-                                <a class="btn btn-danger" href="#">
-                                    <i class="glyphicon glyphicon-trash icon-white"></i>
-                                    Delete
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td class="">Quà tặng công nghệ</td>
-                            <td class=""></td>
-                            <td class="">
-                                trang chủ
-                            </td>
-                            <td class="">
-                                <a class="btn btn-success" href="category_view.html">
-                                    <i class="glyphicon glyphicon-zoom-in icon-white"></i>
-                                    View
-                                </a>
-                                <a class="btn btn-info" href="category_edit.html">
-                                    <i class="glyphicon glyphicon-edit icon-white"></i>
-                                    Edit
-                                </a>
-                                <a class="btn btn-danger" href="#">
-                                    <i class="glyphicon glyphicon-trash icon-white"></i>
-                                    Delete
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td class="">Quà tặng công nghệ</td>
-                            <td class=""></td>
-                            <td class="">
-                                trang chủ
-                            </td>
-                            <td class="">
-                                <a class="btn btn-success" href="category_view.html">
-                                    <i class="glyphicon glyphicon-zoom-in icon-white"></i>
-                                    View
-                                </a>
-                                <a class="btn btn-info" href="category_edit.html">
-                                    <i class="glyphicon glyphicon-edit icon-white"></i>
-                                    Edit
-                                </a>
-                                <a class="btn btn-danger" href="#">
-                                    <i class="glyphicon glyphicon-trash icon-white"></i>
-                                    Delete
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td class="">Quà tặng công nghệ</td>
-                            <td class=""></td>
-                            <td class="">
-                                trang chủ
-                            </td>
-                            <td class="">
-                                <a class="btn btn-success" href="category_view.html">
-                                    <i class="glyphicon glyphicon-zoom-in icon-white"></i>
-                                    View
-                                </a>
-                                <a class="btn btn-info" href="category_edit.html">
-                                    <i class="glyphicon glyphicon-edit icon-white"></i>
-                                    Edit
-                                </a>
-                                <a class="btn btn-danger" href="#">
-                                    <i class="glyphicon glyphicon-trash icon-white"></i>
-                                    Delete
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td class="">Quà tặng công nghệ</td>
-                            <td class=""></td>
-                            <td class="">
-                                trang chủ
-                            </td>
-                            <td class="">
-                                <a class="btn btn-success" href="category_view.html">
-                                    <i class="glyphicon glyphicon-zoom-in icon-white"></i>
-                                    View
-                                </a>
-                                <a class="btn btn-info" href="category_edit.html">
-                                    <i class="glyphicon glyphicon-edit icon-white"></i>
-                                    Edit
-                                </a>
-                                <a class="btn btn-danger" href="#">
-                                    <i class="glyphicon glyphicon-trash icon-white"></i>
-                                    Delete
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td class="">Quà tặng công nghệ</td>
-                            <td class=""></td>
-                            <td class="">
-                                trang chủ
-                            </td>
-                            <td class="">
-                                <a class="btn btn-success" href="category_view.html">
-                                    <i class="glyphicon glyphicon-zoom-in icon-white"></i>
-                                    View
-                                </a>
-                                <a class="btn btn-info" href="category_edit.html">
-                                    <i class="glyphicon glyphicon-edit icon-white"></i>
-                                    Edit
-                                </a>
-                                <a class="btn btn-danger" href="#">
-                                    <i class="glyphicon glyphicon-trash icon-white"></i>
-                                    Delete
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td class="">Quà tặng công nghệ</td>
-                            <td class=""></td>
-                            <td class="">
-                                trang chủ
-                            </td>
-                            <td class="">
-                                <a class="btn btn-success" href="category_view.html">
-                                    <i class="glyphicon glyphicon-zoom-in icon-white"></i>
-                                    View
-                                </a>
-                                <a class="btn btn-info" href="category_edit.html">
-                                    <i class="glyphicon glyphicon-edit icon-white"></i>
-                                    Edit
-                                </a>
-                                <a class="btn btn-danger" href="#">
-                                    <i class="glyphicon glyphicon-trash icon-white"></i>
-                                    Delete
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td class="">Quà tặng công nghệ</td>
-                            <td class=""></td>
-                            <td class="">
-                                trang chủ
-                            </td>
-                            <td class="">
-                                <a class="btn btn-success" href="category_view.html">
-                                    <i class="glyphicon glyphicon-zoom-in icon-white"></i>
-                                    View
-                                </a>
-                                <a class="btn btn-info" href="category_edit.html">
-                                    <i class="glyphicon glyphicon-edit icon-white"></i>
-                                    Edit
-                                </a>
-                                <a class="btn btn-danger" href="#">
-                                    <i class="glyphicon glyphicon-trash icon-white"></i>
-                                    Delete
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td class="">Quà tặng công nghệ</td>
-                            <td class=""></td>
-                            <td class="">
-                                trang chủ
-                            </td>
-                            <td class="">
-                                <a class="btn btn-success" href="category_view.html">
-                                    <i class="glyphicon glyphicon-zoom-in icon-white"></i>
-                                    View
-                                </a>
-                                <a class="btn btn-info" href="category_edit.html">
-                                    <i class="glyphicon glyphicon-edit icon-white"></i>
-                                    Edit
-                                </a>
-                                <a class="btn btn-danger" href="#">
-                                    <i class="glyphicon glyphicon-trash icon-white"></i>
-                                    Delete
-                                </a>
-                            </td>
-                        </tr>
+                        <?php endforeach;?>
+                        <?php endif;?>
                     </tbody>
                 </table>
             </div>

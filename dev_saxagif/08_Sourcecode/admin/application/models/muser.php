@@ -35,5 +35,19 @@ class Muser extends MY_Model {
         }
         return FALSE;
     }
+    
+    public function listAccount() {
+        $where = array(
+            'active' => 1,
+            'del_flg'=>0
+        );
+        $this->db->select('id , username,first_name,last_name,level,email,image');
+        $this->db->where($where);
+        $query = $this->db->get($this->_table);
+        if ($query->num_rows() > 0 ){
+            return $query->result_array();
+        }
+        return FALSE;
+    }
 
 }

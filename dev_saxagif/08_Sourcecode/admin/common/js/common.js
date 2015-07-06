@@ -53,8 +53,9 @@ $(function(){
 });
 
 $(document).ready(function(){
-    $("#currentLogin").on('click', function(){
-        ajaxProfile(CURRENT_LOGIN);
+    $(".currentLogin").on('click', function(){
+        var user_id = $(this).attr('attUser') 
+        ajaxProfile(user_id);
     });
 });
 

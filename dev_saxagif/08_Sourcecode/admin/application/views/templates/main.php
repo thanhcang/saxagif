@@ -38,7 +38,7 @@
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a href="javascript:;" id="currentLogin">Profile</a></li>
+                        <li><a href="javascript:;" class="currentLogin" attUser="<?php echo $this->session->userdata('user_id'); ?>">Profile</a></li>
                         <li class="divider"></li>
                         <li><a href="<?php echo base_url('login/logOut'); ?>">Logout</a></li>
                     </ul>
