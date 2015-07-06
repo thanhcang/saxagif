@@ -3,6 +3,12 @@
 class MY_Model extends CI_Model {
     
     protected $_tbl_category = 'd_category';
+	protected $_tbl_product = 'd_product';
+    protected $_tbl_product_image = 'd_product_image';
+    protected $_tbl_partners = 'd_partners';
+    protected $_tbl_customer = 'd_customer';
+    protected $_tbl_category_news = 'd_news_category';
+    protected $_tbl_news = 'd_news';
     
     function __construct()
     {

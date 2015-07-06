@@ -34,6 +34,7 @@ class Mproduct extends MY_Model
                     p.des_seo,
                     p.slug,
                     p.view,
+                    p.promotion,
                     c.name AS category_name
                 FROM " . $this->_tbl_product . " AS p
                 INNER JOIN " . $this->_tbl_category . " AS c ON p.cat_id = c.id
@@ -73,11 +74,16 @@ class Mproduct extends MY_Model
             'delivery_days'     => (!empty($params['delivery_days'])) ? $params['delivery_days'] : '',
             'slug'              => $params['slug'],
             'cat_id'            => $params['cat_id'],
-            'pro_distribution'  => (!empty($params['pro_distribution'])) ? $params['pro_distribution'] : '',
             'language_type'     => (int)$params['language_type'],
             'keyword_seo'       => (!empty($params['keyword_seo'])) ? $params['keyword_seo'] : '',
             'des_seo'           => (!empty($params['des_seo'])) ? $params['des_seo'] : '',  
         );
+        if (!empty($params['promotion'])) {
+            $data['promotion'] = $params['promotion'];
+        }
+        if (!empty($params['pro_distribution'])) {
+            $data['pro_distribution']  = $params['pro_distribution'] ;
+        }
         
         if (!empty($params['product_id'])) {
             $data['update_user'] = $this->session->userdata('ses_user_id');
@@ -86,6 +92,7 @@ class Mproduct extends MY_Model
             if($this->db->update($this->_tbl_product, $data)) {
                 $proId = (int)$params['product_id']; 
             }
+            echo $this->db->last_query();
             
         } else {
             $data['create_user'] = $this->session->userdata('ses_user_id');
@@ -142,6 +149,8 @@ class Mproduct extends MY_Model
                     p.des_seo,
                     p.slug,
                     p.view,
+                    p.pro_distribution,
+                    p.promotion,
                     c.name AS category_name
                 FROM " . $this->_tbl_product . " AS p
                 INNER JOIN " . $this->_tbl_category . " AS c ON p.cat_id = c.id
@@ -154,10 +163,45 @@ class Mproduct extends MY_Model
         }
         $data = $query->row_array();
         if (!empty($data)) {
-            $sql = "SELECT pi.name FROM " . $this->_tbl_product_image . " AS pi WHERE pi.del_flg = 0 AND pi.product_id = ? ";
+            
+            // Get images product
+            $sql = "SELECT
+                            pi.name
+                    FROM
+                            " . $this->_tbl_product_image . " AS pi
+                    WHERE
+                            pi.del_flg = 0
+                    AND pi.product_id = ?";
             $query = $this->db->query($sql, array($proId));
             if($query->num_rows() > 0 ) {
                 $data['product_image'] = $query->result_array();
+            }
+            
+            // get giftset product
+            if (!empty($data['pro_distribution'])) {
+                $proCodes = "'" . $data['pro_distribution'] . "'";
+                $proCodes = str_replace(',', "','", $proCodes);
+                //$proCodes = str_replace(' ', '', $proCodes);
+                $sql = "SELECT
+                                p.id,
+                                p.product_code,
+                                p.name,
+                                pi.name AS product_img
+                        FROM
+                                " . $this->_tbl_product . " AS p
+                        LEFT JOIN " . $this->_tbl_product_image . " AS pi ON p.id = pi.product_id
+                        WHERE
+                                p.del_flg = 0
+                        AND p.product_code IN ($proCodes)
+                        AND p.id != ?
+                        GROUP BY
+                                p.id";
+                $query = $this->db->query($sql, array($proId));
+                //echo $this->db->last_query();
+                if ($query->num_rows() > 0 ) {
+                    $data['giftset'] = $query->result_array();
+                }
+                
             }
         }
         return $data;        
@@ -167,6 +211,31 @@ class Mproduct extends MY_Model
     {
         $this->db->where('id', $proId);
         return $this->db->update($this->_tbl_product, array('del_flg' => 1));
+    }
+    
+    /**
+     * @author hnguyen0110@gmail.com
+     * @date 2015/06/20
+     * List promotion
+     */
+    public function listPromotion($proCode)
+    {
+        $arr_where = array();
+        $sql = "SELECT
+                        p.id,
+                        p.product_code,
+                        p.name
+                FROM
+                        " . $this->_tbl_product . " AS p
+                WHERE
+                        p.del_flg = 0
+                AND p.product_code LIKE ?";
+        $arr_where[] = '%' . trim($proCode) . '%';
+        $query = $this->db->query($sql, $arr_where);
+        if ($query->num_rows() == 0) {
+            return FALSE;
+        }
+        return $query->row_array();
     }
     
     /**

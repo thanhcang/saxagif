@@ -89,29 +89,14 @@ class Product extends MY_Controller
                     $_FILES['image']['size'] = $files['size'][$i];
                     $checkUpload = $this->uploadPhoto($_FILES['image'], 'image', IMAGE_PRODUCT_PATH, TRUE, $maxWidth = 1366, $maxHeight = 768, $maxSize = 200000 );
                     if($checkUpload) {
-
-                        // Get size image upload
-                        $sizeImage = getimagesize(IMAGE_PRODUCT_PATH . $checkUpload);
-                        $widthImageCurrent = $sizeImage[0];
-                        $heightImageCurrent = $sizeImage[1];
-                        // Set resize image
-                        if ($widthImageCurrent > IMAGE_WIDTH_RESIZE) {
-                            $widthImage = IMAGE_WIDTH_RESIZE;
-                            $heightImage = (IMAGE_WIDTH_RESIZE / $widthImageCurrent) * $heightImageCurrent;
-                        } elseif ($heightImageCurrent > IMAGE_HEIGHT_RESZE) {
-                            $heightImage = IMAGE_HEIGHT_RESZE;
-                            $widthImage = (IMAGE_HEIGHT_RESZE / $heightImageCurrent) * $widthImageCurrent;
-                        } else {
-                            $widthImage = $widthImageCurrent;
-                            $heightImage = $heightImageCurrent;
-                        }
-
-                        $this->resizePhoto($checkUpload, IMAGE_PRODUCT_PATH, $widthImage, $heightImage, IMAGE_THUMB_PRODUCT_PATH);
+                        // Create thumbnail image product:
+                        $this->resizePhoto($checkUpload, $width = IMAGE_WIDTH_300, $height = IMAGE_HEIGHT_300, IMAGE_PRODUCT_PATH, IMAGE_THUMB_PRODUCT_PATH);
                         $params['name_image'][] = $checkUpload;
                     }
                 }
                 
                 if ($this->mproduct->create($params)) {
+                    $this->session->set_flashdata('msg-success', $this->lang->line('PRO_CREATE_SUCCESS'));
                     redirect(base_url('product'));
                 }
             }
@@ -130,6 +115,7 @@ class Product extends MY_Controller
             $data = array(
                 'page_title'    => $this->lang->line('PRO_TITLE_DETAIL'),
                 'detailPro'     => $this->mproduct->detail($proId),
+                'listCat'       => $this->mcategory->listAll(),
             );
             //echo '<pre>';            print_r($data['detailPro']);exit;
             
@@ -161,13 +147,74 @@ class Product extends MY_Controller
             $data = array(
                 'page_title' => $this->lang->line('PRO_EIDT'),
                 'detailPro'     => $this->mproduct->detail($proId),
+                'listCat'       => $this->mcategory->listAll(),
             );
             
+            // Edit product
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $params = $this->input->post();
+                //secho '<pre>';                print_r($params);exit;
+                $this->_validate($params, $error);
+                if (empty($error)) {
+                    if (!empty($_FILES['image'])) {
+                        // we retrieve the number of files that were uploaded
+                        $numberOfFiles = sizeof($_FILES['image']['tmp_name']);
+                        $files = $_FILES['image'];
+                        for($i = 0; $i < $numberOfFiles; $i++) {
+                            if($_FILES['image']['error'][$i] != 0) {
+                                $error[] = 'Could\'t upload the file(s)';
+                            }
+                            $_FILES['image']['name'] = $files['name'][$i];
+                            $_FILES['image']['type'] = $files['type'][$i];
+                            $_FILES['image']['tmp_name'] = $files['tmp_name'][$i];
+                            $_FILES['image']['error'] = $files['error'][$i];
+                            $_FILES['image']['size'] = $files['size'][$i];
+                            $checkUpload = $this->uploadPhoto($_FILES['image'], 'image', IMAGE_PRODUCT_PATH, TRUE, $maxWidth = 1366, $maxHeight = 768, $maxSize = 200000 );
+                            if($checkUpload) {
+                                // Create thumbnail image product:
+                                $this->resizePhoto($checkUpload, $width = IMAGE_WIDTH_300, $height = IMAGE_HEIGHT_300, IMAGE_PRODUCT_PATH, IMAGE_THUMB_PRODUCT_PATH);
+                                $params['name_image'][] = $checkUpload;
+                            }
+                        }
+                    }
+                    
+                    if ($this->mproduct->create($params)) {
+                        $this->session->set_flashdata('msg-success', $this->lang->line('PRO_EDIT_SUCCESS'));
+                        redirect(base_url('product'));
+                    }
+                    
+                }
+                //echo '<pre>';            print_r($error);exit;
+                $data['params'] = $params;
+                $data['pro_errors'] = $error;
+            }
+
             $tpl["main_content"] = $this->load->view('product/edit', $data, TRUE);
             $this->load->view(TEMPLATE, $tpl);
             
         } else {
             redirect(base_url('product'));
+        }
+    }
+    
+    /**
+     * @author hnguyen0110@gmail.com
+     * @param type $data
+     * Show auto giftset
+     */
+    public function showAutoGiftset()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['proCode']) ) {
+            $proCode = trim($_POST['proCode']);
+            $result = $this->mproduct->listPromotion($proCode);
+            //echo '<pre>';            print_r($result);exit
+            if($result) {
+                die(json_encode($result));
+            } else {
+                die();
+            }
+        } else {
+            return;
         }
     }
     
@@ -195,6 +242,7 @@ class Product extends MY_Controller
         $this->form_validation->set_rules("des_seo", $this->lang->line('PRO_DES_SEO'), "trim|max_length[255]");
         $this->form_validation->set_rules("slug", $this->lang->line('PRO_MISSING_SLUG_EMPTY'), "required|trim|max_length[255]|callback__checkExistSlug");
         $this->form_validation->set_rules("pro_distribution", $this->lang->line('PRO_DISTRIBUTION'), "trim|max_length[255]");
+        $this->form_validation->set_rules("promotion", $this->lang->line('PRO_MISSING_PROMOTION_INVALID'), "trim|max_length[1]|min_length[1]|integer");
         
         // Set Message:
         $this->form_validation->set_message('required', '%s');
@@ -260,5 +308,6 @@ class Product extends MY_Controller
             return TRUE;
         }
     }
+    
 }
 

@@ -11,7 +11,7 @@ class Category extends MY_Controller
         parent::__construct();
         $this->load->model('mcategory');
         $this->lang->load('category');
-        $this->check_login();
+        
     }
     
     public function index()
@@ -23,6 +23,7 @@ class Category extends MY_Controller
         }
         $data = array(
             'language_type' => $this->_language,
+            'parent' => $this->mcategory->listParent(),
         );
         $params = array();
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
@@ -70,13 +71,25 @@ class Category extends MY_Controller
             
             // Check validation input
             $this->_validate($params, $error);
-            //echo '<pre>';            print_r($params);exit;
+            //echo '<pre>';            print_r($_FILES['logo']);exit;
             if (empty($error)) {
                 
-                $checkUpload = $this->uploadPhoto($_FILES['logo'], 'logo', IMAGE_CATEGORY_PATH, TRUE, $maxWidth = 1366, $maxHeight = 768, $maxSize = 200000 );
+                $checkUpload = $this->uploadPhoto($_FILES['logo'], 'logo', TEMP_PATH, TRUE, $maxWidth = 1366, $maxHeight = 768, $maxSize = 200000 );
                 if ($checkUpload) {
                     // Get logo name:
                     $params['logo'] = $checkUpload;
+                    if ($this->resizePhoto($checkUpload, $width = IMAGE_WIDTH_400, $height = IMAGE_HEIGHT_400, TEMP_PATH, IMAGE_CATEGORY_PATH)) {
+                        // Add watermarking photo:
+                        //$this->watermarkingPhoto(IMAGE_CATEGORY_PATH, $checkUpload);
+                        // Remove tmp file:
+                        $tmpFile = TEMP_PATH . $checkUpload;
+                        if (file_exists($tmpFile)) {
+                            $fh = fopen($tmpFile, "rb");
+                            $imgData = fread($fh, filesize($tmpFile));
+                            fclose($fh);
+                            unlink($tmpFile);
+                        }
+                    }
                     // Remove file:
                     if(!empty($_POST['category_id'])) {
                         $catId = (int)$_POST['category_id'];
@@ -171,34 +184,32 @@ class Category extends MY_Controller
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $error = array();
             $params = $this->input->post();
-            if(!empty($_FILES['logo'])) {
-                //echo '<pre>';                print_r($_FILES['logo']);
-                $fileTmpName = date('YmdHis').'_'.$_FILES['logo']['name'];
-                $fileName = str_replace(' ', '_', $fileTmpName);
-                $config_upload = array(
-                    'upload_path'   => './common/multidata/cat_logo/',
-                    'allowed_types' => 'png|jpg|jpeg|gif|bmp|tiff|raw',
-                    'max_size'      => 192600,
-                    'max_width'     => 1450,
-                    'max_height'    => 1400,
-                    'overwrite'     => TRUE,
-                    'file_name'     => $fileName,
-                );
-                
-                $this->upload->initialize($config_upload);
-                if(!$this->upload->do_upload('logo')) {
-                    //$error[] = $this->lang->line('CAT_MISSING_UPLOAD_ERR');
-                } else {
-                    if(!empty($detail_cat['logo'])) {
-                        $imgFile = COMMON_PATH . 'multidata/cat_logo/' . $detail_cat['logo'];
-                        $fh = fopen($imgFile, "rb");
-                        $imgData = fread($fh, filesize($imgFile));
-                        fclose($fh);
-                        unlink($imgFile);
+            $checkUpload = $this->uploadPhoto($_FILES['logo'], 'logo', TEMP_PATH, TRUE, $maxWidth = 1366, $maxHeight = 768, $maxSize = 200000 );
+                if ($checkUpload) {
+                    // Get logo name:
+                    $params['logo'] = $checkUpload;
+                    if ($this->resizePhoto($checkUpload, $width = IMAGE_WIDTH_400, $height = IMAGE_HEIGHT_400, TEMP_PATH, IMAGE_CATEGORY_PATH)) {
+                        // Add watermarking photo:
+                        // Remove tmp file:
+                        $tmpFile = TEMP_PATH . $checkUpload;
+                        if (file_exists($tmpFile)) {
+                            $fh = fopen($tmpFile, "rb");
+                            $imgData = fread($fh, filesize($tmpFile));
+                            fclose($fh);
+                            unlink($tmpFile);
+                        }
                     }
-                    $params['logo'] = $config_upload['file_name'];
+                    // Remove file:
+                    if(!empty($detail_cat['logo'])) {
+                        $imgFile = IMAGE_CATEGORY_PATH . $detail_cat['logo'];
+                        if (file_exists($imgFile)) {
+                            $fh = fopen($imgFile, "rb");
+                            $imgData = fread($fh, filesize($imgFile));
+                            fclose($fh);
+                            unlink($imgFile);
+                        }
+                    }
                 }
-            }
             // Check validation input
             $this->_validate($params, $error);
             //echo '<pre>';            print_r($params);exit;

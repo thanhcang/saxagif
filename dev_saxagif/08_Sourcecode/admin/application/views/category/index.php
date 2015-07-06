@@ -48,6 +48,19 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        <label><?php echo $this->lang->line('CAT_PARENT') ?></label>
+                        <div class="controls">
+                            <select name="parent" class="form-control">
+                                <option value="">&nbsp;</option>
+                                <?php if(!empty($parent)): ?>
+                                <?php foreach ($parent as $p): ?>
+                                <option value="<?php echo $p['id'] ?>" <?php if(!empty($params['parent']) && $params['parent'] == $p['id'] ) echo 'selected' ?>><?php echo $p['name'] ?></option>
+                                <?php endforeach ?>
+                                <?php endif; ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label><?php echo $this->lang->line('CAT_KEYWORD_SEO') ?></label>
                         <input type="text" name="keyword_seo" class="form-control input-sm" id="keyword_seo" value="<?php if(!empty($params['keyword_seo'])) echo html_escape($params['keyword_seo']) ?>" maxlength="255" />
                     </div>
@@ -56,7 +69,7 @@
                         <input type="text" name="des_seo" class="form-control input-sm" id="des_seo" value="<?php if(!empty($params['des_seo'])) echo html_escape($params['des_seo']) ?>" maxlength="255" />
                     </div>
                     <div class="form-group">
-                        <input type="hidden" name="category_id" value="<?php if(!empty($params['category_id'])) echo $params['category_id'] ?>" />
+                        <!--<input type="hidden" name="category_id" value="<?php if(!empty($params['category_id'])) echo $params['category_id'] ?>" />-->
                         <button type="submit" class="button button-blue"><?php echo $this->lang->line('SAVE') ?></button>
                         <button type="reset" class="button btn-default" ><?php echo $this->lang->line('RESET') ?></button>
                     </div>
@@ -112,7 +125,7 @@
                             <td>Trang chủ</td>
                             <td>
                                 <a href="<?php echo base_url('category/detail/' . $row['id']) ?>" class="btn btn-success"><i class="glyphicon glyphicon-zoom-in icon-white"></i><?php echo $this->lang->line('VIEW') ?></a>
-                                <a href="javascript:;" class="editCat btn btn-info" cat_attr="<?php echo base64_encode($row['id']) ?>"><i class="glyphicon glyphicon-edit icon-white"></i><?php echo $this->lang->line('EDIT') ?></a>
+                                <a href="<?php echo base_url('category/edit/' . $row['id']) ?>" class="editCat1 btn btn-info" cat_attr="<?php echo base64_encode($row['id']) ?>"><i class="glyphicon glyphicon-edit icon-white"></i><?php echo $this->lang->line('EDIT') ?></a>
                                 <a href="javascript:;" class="delCat btn btn-danger" cat_name="<?php echo htmlspecialchars($row['name']) ?>" cat_attr="<?php echo base64_encode($row['id']) ?>" ><i class="glyphicon glyphicon-trash icon-white"></i><?php echo $this->lang->line('DELETE') ?></a>
                             </td>
                         </tr>

@@ -150,5 +150,122 @@ class MY_Controller extends CI_Controller
         }
         return FALSE;
     }
+	
+	/**
+     * @author hnguyen0110@gmail.com
+     * @date 2015/06/13
+     * Upload photo
+     */
+    
+    public function uploadPhoto($file, $name,$uploadPath = IMAGE_PATH, $isImage = TRUE, $maxWidth = '', $maxHeight = '', $maxSize = '')
+    {
+        $config = array();
+        
+        if (empty($file) || empty($name) ) {
+            return;
+        }
+        
+        $config['upload_path'] = $uploadPath;
+        if ($isImage) {
+            $config['allowed_types'] = 'png|jpg|jpeg|gif|bmp|tiff|raw';
+            $fileTmpName = explode('.',$file['name']);
+            $fileName = $this->rd_letter().'.'.end($fileTmpName);
+            $config['file_name'] = $fileName;
+        } else {
+            $config['allowed_types'] = '*';
+        }
+        if ($maxWidth) {
+            $config['max_width'] = $maxWidth;
+        }
+        if ($maxHeight) {
+            $config['max_height'] = $maxHeight;
+        }
+        if ($maxSize) {
+            $config['max_size'] = $maxSize;
+        }
+        
+        $config['overwrite'] = TRUE;
+        
+        $this->load->library('upload');
+        $this->upload->initialize($config);
+        if(!$this->upload->do_upload($name)) {
+            return FALSE;
+        } else {
+            return $fileName;
+        }
+    }
+    
+    /**
+     * @author hnguyen0110@gmail.com
+     * @param type $name
+     * @param type $width
+     * @param type $height
+     * @param type $imgPath
+     * @param type $imgThumb
+     * Resize photo
+     */
+    public function resizePhoto($name, $width, $height, $imgPath = IMAGE_PATH, $imgPathThumb = '')
+    {
+        // Get size image upload
+        $sizeImage = getimagesize($imgPath . $name);
+        $widthImageCurrent = $sizeImage[0];
+        $heightImageCurrent = $sizeImage[1];
+        // Set resize image
+        if ($widthImageCurrent > $width) {
+            $widthImage = $width;
+            $heightImage = ($width / $widthImageCurrent) * $heightImageCurrent;
+        } elseif ($heightImageCurrent > $height) {
+            $heightImage = $height;
+            $widthImage = ($height / $heightImageCurrent) * $widthImageCurrent;
+        } else {
+            $widthImage = $widthImageCurrent;
+            $heightImage = $heightImageCurrent;
+        }
+        
+        $this->load->library('image_lib'); 
+        $config['image_library'] = 'gd2';
+        $config['source_image']	= $imgPath . $name;
+        $config['create_thumb'] = TRUE;
+        $config['maintain_ratio'] = TRUE;
+        $config['width']	= $widthImage;
+        $config['height']	= $heightImage;
+        if ($imgPathThumb) {
+            $config['new_image'] = $imgPathThumb;
+        }
+        $config['quality'] = 100;
+        $this->image_lib->clear();
+        $this->image_lib->initialize($config);
+        if($this->image_lib->resize()) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+    
+    /**
+     * @hnguyen0110@gmail.com
+     * @date 2015/06/20
+     * Wartermarking Photo
+     */
+    public function watermarkingPhoto($path, $imageName, $size = 16, $color = '000000', $vrt_align = 'bottom', $hor_align = 'right', $padding = 50) {
+        $config['source_image']	= $path . $imageName;
+        $config['wm_text'] = SITE_NAME;
+        $config['wm_type'] = 'text';
+        $config['wm_font_path'] = './system/fonts/texb.ttf';
+        $config['wm_font_size']	= $size;
+        $config['wm_font_color'] = $color;
+        $config['wm_vrt_alignment'] = $vrt_align;
+        $config['wm_hor_alignment'] = $hor_align;
+        $config['wm_padding'] = $padding;
+
+        $this->image_lib->initialize($config); 
+
+        $this->image_lib->watermark();
+    }
+
+    private function rd_letter()
+    {
+        return date('YmdHis') . '_' . chr(97 + mt_rand(0, 25));
+    }
 
 }
