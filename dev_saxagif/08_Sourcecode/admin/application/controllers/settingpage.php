@@ -23,7 +23,8 @@ class Settingpage extends MY_Controller {
     public function index() {
         $data = array();
         $tpl = array(
-            'breadcrumb' => array(base_url('home') => 'home',
+            'breadcrumb' => array(
+                base_url() => 'home',
                 base_url('cai-dat-chung') => 'cài đặt chung'),
         );
         // update infomation company

@@ -34,11 +34,11 @@
                 <!-- user dropdown starts -->
                 <div class="btn-group pull-right">
                     <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                        <i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs"> admin</span>
+                        <i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs"><?php echo $this->session->userdata('first_name').' '.$this->session->userdata('last_name'); ?></span>
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Profile</a></li>
+                        <li><a href="javascript:;" id="currentLogin">Profile</a></li>
                         <li class="divider"></li>
                         <li><a href="<?php echo base_url('login/logOut'); ?>">Logout</a></li>
                     </ul>
@@ -118,6 +118,7 @@
                     <?php echo $main_content ?>
                 </div><!--/#content.col-md-0-->
             </div><!--/fluid-row-->
+            <?php require_once(VIEW_PATH.'templates/popup/_profile.php') ;?>
             <footer class="row">
                 <p class="col-md-9 col-sm-9 col-xs-12 copyright">&copy; <a href="#" target="_blank">Saxagift</a> 2015</p>
             </footer>

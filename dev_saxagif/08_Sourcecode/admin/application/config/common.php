@@ -11,12 +11,12 @@ $config['language_type'] = array(
 $config['css_path'] = array(
     'common/css/jquery-ui.min.css',
     'common/css/bootstrap.min.css',
-    'common/css/bootstrap-theme.min.css',
-    'common/css/style.css',
-    'common/css/charisma-app.css',
+//    'common/css/bootstrap-theme.min.css',
     'common/css/bootstrap-cerulean.min.css',
     'common/css/charisma-app.css',
     'common/css/admin.css',
+    'common/css/customezie.css',
+    'common/css/style.css',
 );
 // Set link js 
 

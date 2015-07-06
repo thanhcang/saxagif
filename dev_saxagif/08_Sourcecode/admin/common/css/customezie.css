@@ -1,0 +1,19 @@
+.width30p{
+    width: 30%;
+}
+.width15p{
+    width: 15%;
+}
+.selectbox-language{
+    width: 120px;
+}
+.inline-block{
+    display:  inline-block;
+}
+.marb5pi{
+    margin-bottom: 5px
+}
+.modal-dialog{
+    z-index: 9999 !important;
+}
+

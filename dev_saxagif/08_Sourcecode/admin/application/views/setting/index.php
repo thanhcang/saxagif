@@ -1,8 +1,8 @@
 <div class="row">
     <div class="box col-md-12">
-        <div>
+        <div class="marb5pi">
             <form action="" method="post">
-                <select name="language" class="selected">
+                <select name="language" class="form-control selectbox-language inline-block">
                     <?php foreach ($this->config->item('language_type') as $key => $value): ?>
                         <option value="<?php echo $key ?>" <?php echo !empty($list['language_type']) && $list['language_type'] == $key ? 'selected' : ''; ?> ><?php echo $value; ?></option>
                     <?php endforeach; ?>

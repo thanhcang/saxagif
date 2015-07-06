@@ -51,3 +51,55 @@ $(function(){
         }
     })(jQuery);
 });
+
+$(document).ready(function(){
+    $("#currentLogin").on('click', function(){
+        ajaxProfile(CURRENT_LOGIN);
+    });
+});
+
+/**
+ * show popup profile user
+ * @param {int} user_id
+ * @returns 
+ */
+function ajaxProfile(user_id) {
+    $.ajax({
+        dataType: "json",
+        url: URL_AJAX_PROFILE,
+        type: 'POST',
+        data:{
+                'is_ajax':'ajax', 
+                'user_id':user_id
+            },
+        async: false,
+    })
+    .done(function (e) {
+        if (Object.keys(e).length > 0 && e.result == 0 && e.code == 404 ) { // not find                  
+        } else if (Object.keys(e).length > 0 && e.result == 0 && e.code == 500 ) { // is hack 
+        } else if (Object.keys(e).length > 0 && e.result == 1 && e.code == 202 ){ // is success
+            var _image =BASE_URL+'common/img/logo_member/NoImage.jpg';
+            var _pUserName  = $('#pUserName');
+            var _pFirstName = $('#pFirstName');
+            var _pLastName  = $('#pLastName');
+            var _pEmail  = $('#pEmail');
+            var _pImage = $('#pImage');
+            var _pLink = $('#pLink');
+            _pUserName.val(e.data.username);
+            _pFirstName.val(e.data.first_name);
+            _pLastName.val(e.data.last_name);
+            _pEmail.val(e.data.email);
+            _pLink.attr('href',BASE_URL+'user/edit/'+e.data.id);
+            if (e.data.image && e.data.image.trim()){
+               _image = BASE_URL+'common/img/logo_member/'+e.data.image;
+            } 
+            _pImage.attr('src',_image);
+            $('#profileModal').modal('show'); 
+        } else {
+            // nothing
+        }
+    })
+    .fail(function (e) {
+        // console.log(e);
+    });
+}

@@ -19,7 +19,9 @@ class Mlogin extends MY_Model {
     public function checkLogin($param) {
         $data = array(
             'username' => $param['username'],
-            'level' =>  1,
+//            /'level' =>  1,
+            'active'=> 1,
+            'del_flg'=>0,
         );
         $this->db->where($data);
         $query = $this->db->get($this->_table);
@@ -37,6 +39,8 @@ class Mlogin extends MY_Model {
     public function getLoginFromCookie($param) {
         $data = array(
             'id'    =>  $param['id'],
+            'active'=> 1,
+            'del_flg'=>0,
         );
         $this->db->where($data);
         $query = $this->db->get($this->_table);
@@ -74,7 +78,12 @@ class Mlogin extends MY_Model {
         }else{
             return FALSE;
         }
-        $this->db->where('email',$email);
+        $where = array(
+            'email'  => $email,
+            'active' => 1,
+            'del_flg'=> 0,
+        );
+        $this->db->where($where);
         $query = $this->db->get($this->_table);
         if ($query->num_rows() > 0){
             return $query->row_array();
