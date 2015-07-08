@@ -53,7 +53,7 @@
                             </div>
                             <div class="clearfix"></div>
                             <p class="center col-md-5">
-                                <button id="submitButton" type="submit" class="btn btn-primary">Cập nhât</button>
+                                <button id="submitButton" type="submit" class="btn btn-primary bnt-o-i">Cập nhât</button>
                             </p>
                         </fieldset>
                     </form>

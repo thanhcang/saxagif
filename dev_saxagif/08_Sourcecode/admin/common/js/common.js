@@ -104,3 +104,18 @@ function ajaxProfile(user_id) {
         // console.log(e);
     });
 }
+
+/**
+ * not accpt enter key 
+ * @param {type} element
+ * @returns {undefined}
+ */
+function initNoAcceptSpaceKey(element) {
+    element.keypress(function (event) {
+        var keycode = event.charCode || event.keyCode;
+        if (keycode == 32) {
+            event.preventDefault();
+            return false;
+        }
+    });
+}

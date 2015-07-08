@@ -53,7 +53,7 @@
                             </div>
                             <div class="clearfix"></div>
                             <p class="center col-md-5">
-                                <button id="submitButton" type="button" class="btn btn-primary">Gởi</button>
+                                <button id="submitButton" type="button" class="btn btn-primary bnt-o-i">Gởi</button>
                                 <input type="hidden" name="form_email_forget" value="<?php echo $param['form_email_forget']; ?>" />
                             </p>
                         </fieldset>

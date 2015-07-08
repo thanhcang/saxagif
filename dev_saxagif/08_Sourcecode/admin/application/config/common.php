@@ -28,3 +28,8 @@ $config['js_path'] = array(
     'contants',
     
 );
+
+$config['permission'] = array(
+    1=>'Quản Lý',
+    2=>'Biên tập',
+);

@@ -36,6 +36,10 @@ class Muser extends MY_Model {
         return FALSE;
     }
     
+    /**
+     * show all user
+     * @return boolean
+     */
     public function listAccount() {
         $where = array(
             'active' => 1,
@@ -48,6 +52,37 @@ class Muser extends MY_Model {
             return $query->result_array();
         }
         return FALSE;
+    }
+    
+    /**
+     * check field is exists
+     * @param string $field_name
+     * @param string $value
+     * @param int $user_id
+     * @return boolean
+     */
+    public function checkFieldExist($field_name, $value, $user_id='') {
+        $where = array(
+            $field_name => $value,
+        );
+        if (!empty($user_id)) {
+            $where['id'] = $user_id;
+        }
+        $this->db->select('id');
+        $this->db->where($where);
+        $query = $this->db->get($this->_table);
+        if ($query->num_rows() > 0) {
+            return TRUE;
+        }
+        return FALSE;
+    }
+    
+    /**
+     * create new user
+     * @param type $param
+     */
+    public function add($param) {
+        $this->db->insert($this->_table,$param);
     }
 
 }
