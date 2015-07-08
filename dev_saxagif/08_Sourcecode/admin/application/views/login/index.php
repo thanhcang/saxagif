@@ -62,7 +62,7 @@
                             <div class="clearfix"></div>
 
                             <p class="center col-md-5">
-                                <button id="submitButton" type="button" class="btn btn-primary">Login</button>
+                                <button id="submitButton" type="button" class="btn btn-primary bnt-o-i">Login</button>
                                 <input type="hidden" name="form_user" value="<?php echo $param['form_user']; ?>" />
                             </p>
                         </fieldset>

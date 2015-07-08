@@ -80,24 +80,27 @@
 
                             </div>
                             <ul class="nav nav-pills nav-stacked main-menu">
-                                <li class="nav-header">Main</li>
-                                <li class="accordion">
-                                    <a href="#"><i class="glyphicon glyphicon-plus"></i><span> Category</span></a>
+                                <li class="nav-header">Danh mục quản lý</li>
+                                <li><a class="ajax-link" href="manager_menu.html"><i class="glyphicon glyphicon-book"></i><span> Quản lý menu</span></a>
                                 </li>
-                                <li><a class="ajax-link" href="product.html"><i class="glyphicon glyphicon-eye-open"></i><span> Products</span></a>
+                                <li class="accordion">
+                                    <a href="#"><i class="glyphicon glyphicon-list-alt"></i><span> Danh mục sản phẩm</span></a>
+                                </li>
+                                <li><a class="ajax-link" href="product.html"><i class="glyphicon glyphicon-tags"></i><span> Sản phẩm</span></a>
                                 </li>
                                 <li><a class="ajax-link" href="news.html"><i
-                                            class="glyphicon glyphicon-edit"></i><span> News</span></a></li>
-                                <li><a class="ajax-link" href="customer_opinion.html"><i class="glyphicon glyphicon-list-alt"></i><span> Ý kiến khách hàng</span></a>
-                                </li>
-                                <li><a class="ajax-link" href="manager_menu.html"><i class="glyphicon glyphicon-book"></i><span> Quản lý menu</span></a>
+                                            class="glyphicon glyphicon-edit"></i><span> Tin tức</span></a></li>
+                                <li><a class="ajax-link" href="customer_opinion.html"><i class="glyphicon glyphicon-comment"></i><span> Ý kiến khách hàng</span></a>
                                 </li>
                                 <li><a class="ajax-link" href="manager_banner"><i class="glyphicon glyphicon-book"></i><span> Banner</span></a>
                                 </li>
                                 <li><a class="ajax-link" href="manager_partner"><i class="glyphicon glyphicon-user"></i><span> Đối tác</span></a>
                                 </li>
-                                <li><a class="ajax-link" href="manager_customer"><i class="glyphicon glyphicon-book"></i><span> Quản lý khách hàng</span></a>
-                                <li><a class="ajax-link" href="<?php echo base_url('cai-dat-chung'); ?>"><i class="glyphicon glyphicon-book"></i><span> Cài đặt chung</span></a>
+                                <li><a class="ajax-link" href="manager_customer"><i class="glyphicon glyphicon-book"></i><span> khách hàng</span></a>
+                                </li>
+                                <li><a class="ajax-link" href="<?php echo base_url('user'); ?>"><i class="glyphicon glyphicon-user"></i><span>user</span></a>
+                                </li>
+                                <li><a class="ajax-link" href="<?php echo base_url('cai-dat-chung'); ?>"><i class="glyphicon glyphicon-cog"></i><span> Cài đặt chung</span></a>
                                 </li>
                             </ul>
                         </div>
