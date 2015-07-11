@@ -129,7 +129,9 @@ class User extends MY_Controller {
         $this->load->library('form_validation');
         // Set rules:
         $this->form_validation->set_rules("username", "Nhập username", "trim|xss_clean|max_length[255]|required");
-        $this->form_validation->set_rules("password", "Nhập password", "trim|xss_clean|max_length[255]|required");
+        if (empty($param['user_id'])){
+            $this->form_validation->set_rules("password", "Nhập password", "trim|xss_clean|max_length[255]|required");
+        } 
         $this->form_validation->set_rules("first_name", "Nhập họ", "trim|xss_clean|max_length[255]|required");
         $this->form_validation->set_rules("last_name", "Nhập tên", "trim|xss_clean|max_length[255]|required");
         $this->form_validation->set_rules("email", "Nhập email", "trim|xss_clean|max_length[255]|required");
@@ -142,8 +144,13 @@ class User extends MY_Controller {
             $error = $this->form_validation->error_array();
         }
         if (empty($error)){ // check username and email are exists
-            $this->_checkFieldExist('username',$param['username'],'Username đã tồn tại',$error);
-            $this->_checkFieldExist('email',$param['email'],'email đã tồn tại',$error);
+            if (empty($param['user_id'])) {
+                $this->_checkFieldExist('username', $param['username'], 'Username đã tồn tại', $error, FALSE );
+                $this->_checkFieldExist('email', $param['email'], 'email đã tồn tại', $error ,FALSE);
+            } else {
+                $this->_checkFieldExist('username', $param['username'], 'Username đã tồn tại', $error ,$param['user_id']);
+                $this->_checkFieldExist('email', $param['email'], 'email đã tồn tại', $error , $param['user_id']);
+            }
         }
         if (empty($error) && !empty($_FILES['logo']['name'])){
             $this->_creatLogoUser($error,$upload_logo);
@@ -157,8 +164,8 @@ class User extends MY_Controller {
      * @param string $message
      * @param array $error
      */
-    private function _checkFieldExist($field_name,$value,$message,&$error) {
-        $is_exists = $this->muser->checkFieldExist($field_name,$value);
+    private function _checkFieldExist($field_name,$value,$message,&$error,$user_id = '') {
+        $is_exists = $this->muser->checkFieldExist($field_name,$value,$user_id);
         if ($is_exists == TRUE ){
             $error[] = $message;
         }
@@ -187,6 +194,7 @@ class User extends MY_Controller {
             if ($upload_logo['image_height'] > 100) {
                 $image['image_library'] = 'gd2';
                 $image['height'] = CONST_MAXHEIGHT_LOGO_USER;
+                $image['width'] =  $upload_logo['image_height'] * ( CONST_MAXHEIGHT_LOGO_USER/$upload_logo['image_height']);
                 $image['source_image'] = $upload_logo['full_path'];
                 $this->load->library('image_lib', $image);
                 $is_resize = $this->image_lib->resize();
@@ -197,5 +205,71 @@ class User extends MY_Controller {
         } catch (Exception $ex) {
             $error[] = $ex->getMessage();
         }
+    }
+    
+    /**
+     * update infomation for user
+     * @param type $user_id
+     */
+    public function edit($user_id) {
+        if (empty($user_id) || !is_numeric($user_id)){
+            redirect(base_url('user'));
+        }
+        $param = $this->muser->getUserById($user_id);
+        if ($param == FALSE){
+            redirect(base_url('user'));
+        }
+        $data = array(
+            'page_title' => 'SAXA Gifts - cập nhật thông tin',
+        );
+        $tpl = array(
+            'breadcrumb' => array(
+                base_url() => 'home',
+                base_url('user') => 'Danh sách nhân viên',
+                "javascript:;" => 'Cập nhật',
+                "#" => $param['first_name'].' '.$param['last_name'],
+                )
+        );
+        if ($this->isPostMethod()){ // upate information
+            $input = $this->input->post();
+            $error = array();
+            $upload_logo = '';
+            $this->_validateForm($input,$error,$upload_logo);
+            if (empty($error)){ // register user
+                $data = array(
+                    'username'      => html_escape($input['username']),
+                    'email'         => html_escape($input['email']),
+                    'first_name'    => html_escape($input['first_name']),
+                    'last_name'     => html_escape($input['last_name']),
+                    'image'         => !empty($upload_logo['file_name']) ? $upload_logo['file_name'] :'' ,
+                    'level'         => !empty($input['level']) ? $input['level'] :1 ,
+                    'update_user'   =>  $this->_user_login,
+                    'update_date'   =>  date('Y-m-d H:i:s'),
+                );
+                if (!empty($input['password']) && $input['password'] != 'system123456Abc'){
+                    $data['password'] = pass_hash($input['password']);
+                }
+                $where = array(
+                    'id' => $input['user_id']
+                );
+                $this->db->trans_off();
+                $this->db->trans_begin();
+                $this->muser->update($where,$data);
+                if ($this->db->trans_status() === FALSE) {
+                    $this->db->trans_rollback();
+                    $data['error'][] = 'Hệ thống chưa cập nhật được thành viên này.<br/> Vui lòng thử lại'; 
+                } else {
+                    $this->db->trans_commit();
+                    redirect(base_url('user'));
+                }
+            } else { // have error
+                $data['error'] = $error;
+            }
+            $data['param'] = $input;
+        }
+        $data['param'] = $param;
+        $data['user_id'] = $user_id;
+        $tpl["main_content"] = $this->load->view('user/edit', $data, TRUE);
+        $this->load->view(TEMPLATE, $tpl);
     }
 }

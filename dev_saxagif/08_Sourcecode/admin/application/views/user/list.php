@@ -57,7 +57,7 @@
                 <h2><i class="glyphicon glyphicon-user"></i> Danh sách</h2>
             </div>
             <div class="box-content">
-                <div CLass="pull-left">
+<!--                <div CLass="pull-left">
                     <select name="fLevel" <?php echo !empty($param['level']) && $param['level'] == $key ? 'selected' : '';   ?>>
                         <option>chọn quyền</option>
                         <?php foreach($per as $key=>$value): ?>
@@ -66,9 +66,9 @@
                     </select>
                     <input name="fName" value="" placeholder="Nhập tên nhân viên" />
                     <button type="button">Filter</button>
-                </div>
+                </div>-->
                 <div class="clearfix"></div>
-                <table class="table table-striped table-bordered responsive martopten datatable">
+                <table class="table table-striped table-bordered responsive martopten datatable" id="tableUser">
                     <colgroup>
                         <col width="5%"/>
                         <col width="20%"/>
@@ -98,7 +98,7 @@
                                     <i class="glyphicon glyphicon-zoom-in icon-white"></i>
                                     View
                                 </a>
-                                <a class="btn btn-info" href="category_edit.html">
+                                <a class="btn btn-info" href="<?php echo base_url('user/edit'.'/'.$value['id']) ?>">
                                     <i class="glyphicon glyphicon-edit icon-white"></i>
                                     Edit
                                 </a>

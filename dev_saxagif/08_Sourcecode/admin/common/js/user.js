@@ -91,6 +91,9 @@ function _initdeleteUser(user_id, that) {
                 window.location = e.href;
             } else if (Object.keys(e).length > 0 && e.result == 1 && e.code == 202) { // is success
                 that.remove();
+                if ($('#tableUsert >body >tr').length == 0){
+                    window.location = e.href;
+                }
             } else {
                 // nothing
             }

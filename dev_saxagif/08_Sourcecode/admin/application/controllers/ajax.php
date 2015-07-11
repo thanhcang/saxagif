@@ -97,6 +97,7 @@ class Ajax extends MY_Controller {
                     'result' => 1,
                     'code'  => 202,
                     'data' => 'success',
+                    'href'  => base_url('user'),
                 );
                 echo json_encode($json_result);
                 return;

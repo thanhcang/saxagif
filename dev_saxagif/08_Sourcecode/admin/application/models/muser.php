@@ -92,7 +92,7 @@ class Muser extends MY_Model {
             $field_name => $value,
         );
         if (!empty($user_id)) {
-            $where['id'] = $user_id;
+            $where['id <> '] = $user_id;
         }
         $this->db->select('id');
         $this->db->where($where);
@@ -112,6 +112,16 @@ class Muser extends MY_Model {
     }
     
     /**
+     * update infomation for user
+     * @param array $where
+     * @param array $param
+     */
+    public function update($where,$param) {
+        $this->db->where($where);
+        $this->db->update($this->_table,$param);
+    }
+    
+    /**
      * create new user
      * @param type $param
      */
@@ -127,6 +137,32 @@ class Muser extends MY_Model {
         );
         $this->db->where($where);
         $this->db->update($this->_table,$data);
+    }
+    
+    /**
+     * get user by id
+     * @param int $user_id
+     * @return boolean
+     */
+    public function getUserById($user_id) {
+        $where = array(
+            'id' => $user_id,
+            'del_flg' => 0,
+            'active' => 1,
+        );
+        $this->db->select('id,
+                        username,
+                        first_name,
+                        last_name,
+                        LEVEL,
+                        email,
+                        image');
+        $this->db->where($where);
+        $query = $this->db->get($this->_table);
+        if ($query->num_rows() > 0) {
+            return $query->row_array();
+        }
+        return FALSE;
     }
 
 }
