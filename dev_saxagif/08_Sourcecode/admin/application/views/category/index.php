@@ -68,6 +68,10 @@
                         <label><?php echo $this->lang->line('CAT_DES_SEO') ?></label>
                         <input type="text" name="des_seo" class="form-control input-sm" id="des_seo" value="<?php if(!empty($params['des_seo'])) echo html_escape($params['des_seo']) ?>" maxlength="255" />
                     </div>
+                    <div class="form-control">
+                        <label><?php echo $this->lang->line('CAT_CHOOSE_HOME') ?></label>
+                        <input type="checkbox" name="is_home" value="1" />
+                    </div>
                     <div class="form-group">
                         <!--<input type="hidden" name="category_id" value="<?php if(!empty($params['category_id'])) echo $params['category_id'] ?>" />-->
                         <button type="submit" class="button button-blue"><?php echo $this->lang->line('SAVE') ?></button>
@@ -114,26 +118,29 @@
                     </thead>
                     <tbody>
                         <?php if(!empty($list_data)): ?>
-                        <?php $num = 1 ?>
-                        <?php foreach ($list_data as $row): ?>
+                        <?php foreach ($list_data as $key => $row): ?>
                         <tr class="cat_<?php echo $row['id'] ?>">
-                            <td><?php echo $num ?></td>
+                            <td><?php echo $key+1+$offset ?></td>
                             <td><a href="<?php echo base_url('category/detail/' . $row['id']) ?>"><?php echo htmlspecialchars($row['name']) ?></a></td>
                             <td width="160">
-                                <input type="color" value="<?php if(!empty($row['bg_color'])) echo '#'.$row['bg_color'] ?>" disabled="disabled" />.
+                                <input type="color" value="<?php if(!empty($row['bg_color'])) echo '#'.$row['bg_color'] ?>" disabled="disabled" />
                             </td>
-                            <td>Trang chủ</td>
+                            <td><?php  ?></td>
                             <td>
                                 <a href="<?php echo base_url('category/detail/' . $row['id']) ?>" class="btn btn-success"><i class="glyphicon glyphicon-zoom-in icon-white"></i><?php echo $this->lang->line('VIEW') ?></a>
                                 <a href="<?php echo base_url('category/edit/' . $row['id']) ?>" class="editCat1 btn btn-info" cat_attr="<?php echo base64_encode($row['id']) ?>"><i class="glyphicon glyphicon-edit icon-white"></i><?php echo $this->lang->line('EDIT') ?></a>
                                 <a href="javascript:;" class="delCat btn btn-danger" cat_name="<?php echo htmlspecialchars($row['name']) ?>" cat_attr="<?php echo base64_encode($row['id']) ?>" ><i class="glyphicon glyphicon-trash icon-white"></i><?php echo $this->lang->line('DELETE') ?></a>
                             </td>
                         </tr>
-                        <?php $num++ ?>
                         <?php endforeach; ?>
                         <?php endif; ?>
                     </tbody>
                 </table>
+                <?php if (!empty($pagination)): ?>
+                <div class="pagination" >
+                    <?php echo $pagination; ?>
+                </div>
+            <?php endif; ?>
             </div>
         </div>
     </div>       

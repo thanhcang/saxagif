@@ -84,7 +84,7 @@
                                 <li><a class="ajax-link" href="manager_menu.html"><i class="glyphicon glyphicon-book"></i><span> Quản lý menu</span></a>
                                 </li>
                                 <li class="accordion">
-                                    <a href="#"><i class="glyphicon glyphicon-list-alt"></i><span> Danh mục sản phẩm</span></a>
+                                    <a href="<?php echo base_url('category') ?>"><i class="glyphicon glyphicon-list-alt"></i><span> Danh mục sản phẩm</span></a>
                                 </li>
                                 <li><a class="ajax-link" href="product.html"><i class="glyphicon glyphicon-tags"></i><span> Sản phẩm</span></a>
                                 </li>

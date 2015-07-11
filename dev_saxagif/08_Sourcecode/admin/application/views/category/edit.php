@@ -83,6 +83,10 @@
                         <label for="des_seo"><?php echo $this->lang->line('CAT_DES_SEO') ?></label>
                         <input type="text" name="des_seo" id="des_seo" class="form-control" value="<?php if(!empty($detail_cat['des_seo']) && empty($params['des_seo'])) echo htmlspecialchars($detail_cat['keyword_seo']) ;elseif(!empty($params['des_seo'])) echo html_escape($params['des_seo']) ?>" maxlength="255" />
                     </div>
+                    <div class="form-control">
+                        <label><?php echo $this->lang->line('CAT_CHOOSE_HOME') ?></label>
+                        <input type="checkbox" name="is_home" value="1" <?php if(!empty($detail_cat['position'])) echo 'checked' ?> />
+                    </div>
                     <input type="hidden" value="<?php echo $detail_cat['id'] ?>" name="category_id" />
                     <button type="reset" class="button martopten pull-right" ><?php echo $this->lang->line('RESET') ?></button>
                     <button type="submit" class="button martopten pull-right"><?php echo $this->lang->line('EDIT') ?></button>

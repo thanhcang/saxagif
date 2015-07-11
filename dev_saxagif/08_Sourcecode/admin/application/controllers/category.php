@@ -16,6 +16,11 @@ class Category extends MY_Controller
     
     public function index()
     {
+        $tpl = array(
+            'breadcrumb' => array(
+                base_url() => 'home',
+                base_url('user') => 'Danh mục sản phẩm'),
+        );
         if (!empty($_GET['page']) && filter_var($_GET['page'], FILTER_VALIDATE_INT, array('min_range' => 1))) {
             $page = $_GET['page'];
         } else {
@@ -40,15 +45,23 @@ class Category extends MY_Controller
         
         $page_config = array(
             'base_url'    => base_url('category/?' . $queryString),
-            'per_page'    => NUMBER_PAGE,
+            'per_page' => NUMBER_PAGE,
             'use_page_numbers' => TRUE,
             'page_query_string' => TRUE,
             'query_string_segment' => $parmameter_page,
-            'next_link'   => 'Next',
-            'prev_link'   => 'Pre',
-            'first_link'  => 'First',
-            'last_link'   => 'Last',
-            'full_tag_open' => '<ul class="pagination">',
+            'next_link'      => BUTTON_NEXT,
+            'prev_link'      => BUTTON_PRE,
+            'first_link'     => BUTTON_FIRST,
+            'last_link'      => BUTTON_LAST,
+            'cur_tag_open'   => '<li class="active"><a href="#">',
+            'cur_tag_close'  => '</li></a>',
+            'prev_tag_open'  => '<li>',
+            'prev_tag_close' => '</li>',
+            'next_tag_open'  => '<li>',
+            'next_tag_close' => '</li>',
+            'num_tag_open'   => '<li>',
+            'num_tag_close'  => '</li>',
+            'full_tag_open'  => '<ul class="pagination pagination-centered">',
             'full_tag_close' => '</ul>',
         );
         
@@ -57,6 +70,7 @@ class Category extends MY_Controller
         $data['list_data'] = $this->mcategory->search($params, $total_records, $offset, $page_config['per_page']);
         if(!empty($data['list_data'])){
             // Pagination
+            $this->load->library('pagination');
             $page_config["total_rows"] = $total_records;
             $this->pagination->initialize($page_config);
             $data["pagination"] = $this->pagination->create_links();
@@ -116,6 +130,7 @@ class Category extends MY_Controller
             $data['cat_errors'] = $error;
         }
         //echo '<pre>';        print_r($data['list_data']);exit;
+        $data['offset'] = $offset;
         $tpl["main_content"] = $this->load->view('category/index', $data, TRUE);
         $this->load->view(TEMPLATE, $tpl);
     }
@@ -289,7 +304,7 @@ class Category extends MY_Controller
         $this->form_validation->set_rules("parent", 'Parent', "trim|integer");
         $this->form_validation->set_rules("keyword_seo", $this->lang->line('KEYWORD_SEO'), "trim|max_length[255]");
         $this->form_validation->set_rules("des_seo", $this->lang->line('DESCRIPTION_SEO'), "trim|max_length[255]");
-
+        $this->form_validation->set_rules("is_home", $this->lang->line('CAT_CHOOSE_HOME'), "trim|max_length[1]|interger");
         // Set Message:
         $this->form_validation->set_message('required', '%s');
 //        $this->form_validation->set_message('min_length', '%s');
