@@ -90,17 +90,17 @@
                                         <li><a href="<?php echo base_url('category/?&gift=0') ?>"> Danh mục sản phẩm</a></li>
                                     </ul>
                                 </li>
-                                <li><a class="ajax-link" href="product.html"><i class="glyphicon glyphicon-tags"></i><span> Sản phẩm</span></a>
+                                <li><a class="ajax-link" href="<?php echo base_url('product') ?>"><i class="glyphicon glyphicon-tags"></i><span> Sản phẩm</span></a>
                                 </li>
-                                <li><a class="ajax-link" href="news.html"><i
+                                <li><a class="ajax-link" href="<?php echo base_url('news') ?>"><i
                                             class="glyphicon glyphicon-edit"></i><span> Tin tức</span></a></li>
                                 <li><a class="ajax-link" href="customer_opinion.html"><i class="glyphicon glyphicon-comment"></i><span> Ý kiến khách hàng</span></a>
                                 </li>
                                 <li><a class="ajax-link" href="manager_banner"><i class="glyphicon glyphicon-book"></i><span> Banner</span></a>
                                 </li>
-                                <li><a class="ajax-link" href="manager_partner"><i class="glyphicon glyphicon-user"></i><span> Đối tác</span></a>
+                                <li><a class="ajax-link" href="<?php echo base_url('partners') ?>"><i class="glyphicon glyphicon-user"></i><span> Đối tác</span></a>
                                 </li>
-                                <li><a class="ajax-link" href="manager_customer"><i class="glyphicon glyphicon-book"></i><span> khách hàng</span></a>
+                                <li><a class="ajax-link" href="<?php echo base_url('customer') ?>"><i class="glyphicon glyphicon-book"></i><span> khách hàng</span></a>
                                 </li>
                                 <li><a class="ajax-link" href="<?php echo base_url('user'); ?>"><i class="glyphicon glyphicon-user"></i><span>user</span></a>
                                 </li>
