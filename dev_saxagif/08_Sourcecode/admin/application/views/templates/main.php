@@ -14,7 +14,7 @@
         }
         // js
         foreach ($js_path as $key) {
-            echo '<script src="'.$key.'"></script>';
+            echo '<script src="'.base_url($key).'"></script>';
         }
     ?>
 </head>

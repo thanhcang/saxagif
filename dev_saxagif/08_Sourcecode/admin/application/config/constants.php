@@ -39,7 +39,7 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 //Number Paging On All Page
 define('NUMBER_PAGING', 10);
 define('DOUBLE_NUMBER_PAGGING', 200);
-define('NUMBER_PAGE', 20);
+define('NUMBER_PAGE', 10);
 
 #HoaHN 2015/06/06
 define('MAIL_ADDR', 'hnguyen0110@gmail.com');
@@ -93,3 +93,7 @@ define('LOGIN_COOKIE_REMEMBER_TIME_DEFAULT',     365 * 24); //a year
 define('LOGIN_COOKIE_REMEMBER_NAME',             'logincookie');
 define('CONTACT_MAIL',                           'vtcanglt@gmail.com');
 define('CONST_MAXHEIGHT_LOGO_USER',100);
+define('BUTTON_NEXT','next');
+define('BUTTON_PRE','pre');
+define('BUTTON_FIRST','first');
+define('BUTTON_LAST','last');

@@ -57,16 +57,14 @@
                 <h2><i class="glyphicon glyphicon-user"></i> Danh sách</h2>
             </div>
             <div class="box-content">
-                <DIV CLass="pull-left">
+                <div CLass="pull-left">
                     <select name="fLevel" <?php echo !empty($param['level']) && $param['level'] == $key ? 'selected' : '';   ?>>
                         <option>chọn quyền</option>
                         <?php foreach($per as $key=>$value): ?>
                             <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
                         <?php endforeach; ?>
                     </select>
-                    <select>
-                        <option>all category</option>
-                    </select>
+                    <input name="fName" value="" placeholder="Nhập tên nhân viên" />
                     <button type="button">Filter</button>
                 </div>
                 <div class="clearfix"></div>
@@ -114,6 +112,9 @@
                         <?php endif;?>
                     </tbody>
                 </table>
+                <?php if (!empty($pagination)): ?>
+                    <?php echo $pagination; ?>
+                <?php endif ?>
             </div>
         </div>
     </div>

@@ -37,23 +37,48 @@ class Muser extends MY_Model {
     }
     
     /**
-     * show all user
+     * show all user by condition
+     * @param array $param
+     * @param int $total
+     * @param int $offset
+     * @param int $limit
      * @return boolean
      */
-    public function listAccount() {
+    public function listAccount($param, &$total, $offset = 0, $limit = 0) {
+        $sql = 'SELECT
+                        id,
+                        username,
+                        first_name,
+                        last_name,
+                        LEVEL,
+                        email,
+                        image
+                FROM
+                        d_user
+                WHERE
+                        active = ?
+                AND     del_flg = ?';
         $where = array(
             'active' => 1,
-            'del_flg'=>0
+            'del_flg' => 0
         );
-        $this->db->select('id , username,first_name,last_name,level,email,image');
-        $this->db->where($where);
-        $query = $this->db->get($this->_table);
-        if ($query->num_rows() > 0 ){
+        if (!empty($param['fLevel'])) {
+            $where[] = trim($param['fLevel']);
+        }
+        if (!empty($param['fName'])) {
+            $where[] = trim($param['fName']);
+        }
+        $total = MY_Model::get_total_result($sql, $where);
+        if ($limit > 0) {
+            $sql .= ' LIMIT ' . $offset . ',' . $limit;
+        }
+        $query = $this->db->query($sql, $where);
+        if ($query->num_rows() > 0) {
             return $query->result_array();
         }
         return FALSE;
     }
-    
+
     /**
      * check field is exists
      * @param string $field_name

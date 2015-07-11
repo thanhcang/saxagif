@@ -27,6 +27,7 @@ class User extends MY_Controller {
      * load form add user
      */
     public function index() {
+        $this->load->library('pagination');
         $data = array(
             'page_title' => 'SAXA Gifts - Quản lý tài khoản',
         );
@@ -70,7 +71,47 @@ class User extends MY_Controller {
             }
             $data['param'] = $input;
         }
-        $list = $this->muser->listAccount(); // load all user
+        $filter = $this->input->get();
+        if (!empty($filter['page']) && is_numeric(intval($filter['page']))) {
+            $page = $filter['page'];
+        } else {
+            $page = 1;
+        }
+        // Config pagination:
+        $parmameter_page = 'page';
+        $queryString = $this->input->server('QUERY_STRING');
+        //remove parameter page
+        $queryString = preg_replace('/(\&|)page=[0-9]$/is', '', $queryString);
+        $queryString = preg_replace('/(\&|)page=$/is', '', $queryString);
+        $page_config = array(
+            'base_url' => base_url('user/?' . $queryString),
+            'per_page' => NUMBER_PAGE,
+            'use_page_numbers' => TRUE,
+            'page_query_string' => TRUE,
+            'query_string_segment' => $parmameter_page,
+            'next_link'      => BUTTON_NEXT,
+            'prev_link'      => BUTTON_PRE,
+            'first_link'     => BUTTON_FIRST,
+            'last_link'      => BUTTON_LAST,
+            'cur_tag_open'   => '<li class="active"><a href="#">',
+            'cur_tag_close'  => '</li></a>',
+            'prev_tag_open'  => '<li>',
+            'prev_tag_close' => '</li>',
+            'next_tag_open'  => '<li>',
+            'next_tag_close' => '</li>',
+            'num_tag_open'   => '<li>',
+            'num_tag_close'  => '</li>',
+            'full_tag_open'  => '<ul class="pagination pagination-centered">',
+            'full_tag_close' => '</ul>',
+        );
+        $offset = max(($page - 1), 0) * $page_config['per_page'];
+        $total_records = 0;
+        $list = $this->muser->listAccount($filter,$total_records, $offset, $page_config['per_page']); // load all user
+        if (!empty($list) && $total_records > NUMBER_PAGE) { // Pagination
+            $page_config["total_rows"] = $total_records;
+            $this->pagination->initialize($page_config);
+            $data["pagination"] = $this->pagination->create_links();
+        }
         $data['list'] = $list;
         $tpl["main_content"] = $this->load->view('user/list', $data, TRUE);
         $this->load->view(TEMPLATE, $tpl);

@@ -18,15 +18,14 @@ $config['css_path'] = array(
     'common/css/customezie.css',
     'common/css/style.css',
 );
-// Set link js 
 
+// Set link js 
 $config['js_path'] = array(
     'common/js/jquery-1.11.2.min.js',
     'common/js/jquery-ui.min.js',
     'common/js/bootstrap.min.js',
     'common/js/common.js',
     'contants',
-    
 );
 
 $config['permission'] = array(
