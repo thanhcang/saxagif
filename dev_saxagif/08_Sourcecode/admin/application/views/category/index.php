@@ -145,21 +145,13 @@
                     </tbody>
                 </table>
                 <?php if (!empty($pagination)): ?>
-                <div class="pagination" >
-                    <?php echo $pagination; ?>
-                </div>
-            <?php endif; ?>
+                    <div class="pagination" >
+                        <?php echo $pagination; ?>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>       
-<div id="dialog_content" class="dialog_content" style="display:none">
-    <div class="dialogModal_header"><?php echo $this->lang->line('CONFIRM') ?></div>
-    <div class="dialogModal_content"></div>
-    <div class="dialogModal_footer">
-        <button type="button" class="btn btn-primary btnConfirmDel" data-dialogmodal-but="ok"><?php echo $this->lang->line('OK') ?></button>
-        <button type="button" class="btn btn-default" data-dialogmodal-but="cancel"><?php echo $this->lang->line('CANCEL') ?></button>
-    </div>
-</div>
 <script>
     var MSG_DEL_CAT = '<?php echo $this->lang->line('CAT_MESS_DELETE') ?>';
     var IS_CAT = '<?php $class = $this->router->class;if(!empty($class)) echo '1' ?>';

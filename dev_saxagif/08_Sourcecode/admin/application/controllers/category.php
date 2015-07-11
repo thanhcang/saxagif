@@ -199,15 +199,18 @@ class Category extends MY_Controller
         if (empty($cat_id)) {
             redirect(base_url('category'));
         }
-        
+        $detail_cat = $this->mcategory->getDetail($cat_id);
+        if (empty($detail_cat)) {
+            redirect(base_url('category'));
+        }
         $tpl = array(
             'breadcrumb' => array(
                 base_url() => 'home',
                 base_url('category') => 'Danh mục',
-                base_url('category/edit/' .$cat_id ) => 'Sửa danh mục'),
+                'javascript:;' => 'Cập nhật',
+                '#' => htmlspecialchars($detail_cat['name']),
+              ),
         );
-        
-        $detail_cat = $this->mcategory->getDetail($cat_id);
         $data = array(
             'page_title' => $this->lang->line('CAT_TITLE_EDIT'),
             'language_type' => $this->_language,
@@ -263,15 +266,18 @@ class Category extends MY_Controller
     public function detail($cat_id = '')
     {
         if(!empty($cat_id) && filter_var($cat_id, FILTER_VALIDATE_INT, array('min_range' => 1))) {
+            $data = array(
+                'page_title'    => $this->lang->line('CAT_DETAIL'),
+                'catDetail'     => $this->mcategory->getDetail($cat_id, $parent = TRUE),
+            );
+            if(empty($data['catDetail'])) {
+                redirect(base_url('category'));
+            }
             $tpl = array(
                 'breadcrumb' => array(
                     base_url() => 'home',
                     base_url('category') => 'Danh mục',
-                    base_url('category/detail/' . $cat_id) => 'Chi tiết danh mục'),
-            );
-            $data = array(
-                'page_title'    => $this->lang->line('CAT_DETAIL'),
-                'catDetail'     => $this->mcategory->getDetail($cat_id, $parent = TRUE),
+                    'javascript:;' => $data['catDetail']['name']),
             );
             $tpl["main_content"] = $this->load->view('category/detail', $data, TRUE);
             $this->load->view(TEMPLATE, $tpl);

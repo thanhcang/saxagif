@@ -4,7 +4,7 @@ $(document).ready(function(){
     //confirmDelCategory();
     //editCategory();
     // Show category navigation:
-    if(IS_CAT) {
+    if(typeof IS_CAT != 'undefined') {
        $('.accordion').find('.child-cate').css('display','block');
     }
     $(".delCat").on('click', function(){
