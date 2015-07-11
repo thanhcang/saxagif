@@ -28,7 +28,9 @@
 
 .deleteDialog {
     width: 300px; 
-    top: 40%
+    top: 30%;
+    position: absolute;
+    left: 40% 
 }
 
 .text-align-center-i {
