@@ -15,7 +15,7 @@ class Mpartners extends MY_Model
      * @date 2015/06/21
      * List all partners
      */
-    public function listAll()
+    public function listAll($param, &$total, $offset = 0, $limit = 0)
     {
         $sql = "SELECT
                         pn.id,
@@ -31,6 +31,13 @@ class Mpartners extends MY_Model
                         " . $this->_tbl_partners . " AS pn
                 WHERE
                         pn.del_flg = 0";
+        $where = array(
+            'del_flg' => 0,
+        );
+        $total = MY_Model::get_total_result($sql, $where);
+        if ($limit > 0) {
+            $sql .= ' LIMIT ' . $offset . ',' . $limit;
+        }
         $query = $this->db->query($sql);
         if ($query->num_rows() == 0) {
             return FALSE;
