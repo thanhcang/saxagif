@@ -47,7 +47,7 @@ class Mpartners extends MY_Model
     {
         $data = array(
             'name'          => $params['name'],
-            'address'       => (!empty($params['adress'])) ? $params['address'] : '',
+            'address'       => (!empty($params['address'])) ? $params['address'] : '',
             'email'         => (!empty($params['email'])) ? $params['email'] : '',
             'phone'         => (!empty($params['phone'])) ? $params['phone'] : '',
             'url'           => (!empty($params['url'])) ? $params['url'] : '',
@@ -97,12 +97,16 @@ class Mpartners extends MY_Model
         return $query->row_array();
     }
     
-    public function delete($id)
-    {
-         $this->db->where('id', $id);
+    /**
+     * delete partners
+     * @param type $id
+     * @return type
+     */
+    public function delete($id) {
+        $this->db->where('id', $id);
         return $this->db->update($this->_tbl_partners, array('del_flg' => 1));
     }
-    
+
     /**
      * @author hnguyen0110@gmail.com
      * @date 2015/06/21

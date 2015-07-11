@@ -19,7 +19,7 @@ class Ajax extends MY_Controller {
         if ($this->is_logged_in() == FALSE) {
             $this->_return_session_timeout();
         }
-        $this->load->model(array('muser'));
+        $this->load->model(array('muser','mpartners'));
     }
 
     /**
@@ -98,6 +98,47 @@ class Ajax extends MY_Controller {
                     'code'  => 202,
                     'data' => 'success',
                     'href'  => base_url('user'),
+                );
+                echo json_encode($json_result);
+                return;
+            }
+        } else { // is hack
+            $json_result = array(
+                'result' => 1,
+                'code'   => 500,
+                'data'   => 'is hack',
+            );
+            echo json_encode($json_result);
+            return;
+        }
+    }
+    
+    /**
+     * delete parters
+     * @return type
+     */
+    public function deleteParters() {
+        $input = $this->input->post();
+        if ($this->isPostMethod() && !empty($input) && !empty($input['is_ajax']) && ($input['is_ajax'] == 'ajax')) { // view profile
+            $this->db->trans_off();
+            $this->db->trans_begin();
+            $this->mpartners->delete($input['id']);
+            if ($this->db->trans_status() === FALSE) {
+                $this->db->trans_rollback();
+                $json_result = array(
+                    'result' => 0,
+                    'code'   => 304,
+                    'data'   => 'Hệ thống chưa cập nhật được <br/> vui lòng thực hiện lại' ,
+                );
+                echo json_encode($json_result);
+                return;
+            } else {
+                $this->db->trans_commit();
+                $json_result = array(
+                    'result' => 1,
+                    'code'  => 202,
+                    'data' => 'success',
+                    'href'  => base_url('partners'),
                 );
                 echo json_encode($json_result);
                 return;

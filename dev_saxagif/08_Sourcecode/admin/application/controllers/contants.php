@@ -28,5 +28,6 @@ class Contants extends MY_Controller {
         echo "var CURRENT_LOGIN = '" . $this->session->userdata('user_id') . "';" . PHP_EOL;
         echo "var PATH_COMMON = '" . COMMON_PATH . "';" . PHP_EOL;
         echo "var URL_AJAX_DELETE_USER = '" . base_url('ajax/deleteUser') . "';" . PHP_EOL;
+        echo "var URL_AJAX_DELETE_PARTERS = '" . base_url('ajax/deleteParters') . "';" . PHP_EOL;
     }
 }

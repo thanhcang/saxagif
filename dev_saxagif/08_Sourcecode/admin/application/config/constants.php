@@ -72,7 +72,8 @@ $root_path = dirname(BASEPATH);
 define('COMMON_PATH', FCPATH.'/common/');
 define('VIEW_PATH', APPPATH.'/views/');
 define('TEMP_PATH', COMMON_PATH . 'temp/');
-define('IMAGE_PATH', COMMON_PATH . 'images/');
+define('IMAGE_PATH', COMMON_PATH . 'img/');
+define('IMAGE_PARTNERS_PATH', COMMON_PATH . 'img/partners/');
 define('IMG_PRODUCT_PATH', COMMON_PATH . '/multidata/product_img/');
 define('IMAGE_CATEGORY_PATH', COMMON_PATH . '/multidata/cat_logo/');
 // No change
@@ -97,3 +98,7 @@ define('BUTTON_NEXT','next');
 define('BUTTON_PRE','pre');
 define('BUTTON_FIRST','first');
 define('BUTTON_LAST','last');
+define('IMAGE_HEIGHT_300',300);
+define('IMAGE_WIDTH_300',300);
+define('IMAGE_HEIGHT_150',150);
+define('IMAGE_WIDTH_150',150);

@@ -54,7 +54,7 @@
     <div class="box col-md-8">
         <div class="box-inner">
             <div class="box-header well" data-original-title="">
-                <h2><i class="glyphicon glyphicon-user"></i> Danh sách</h2>
+                <h2><i class="glyphicon glyphicon-th-list"></i> Danh sách</h2>
             </div>
             <div class="box-content">
 <!--                <div CLass="pull-left">

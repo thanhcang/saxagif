@@ -153,7 +153,7 @@ class User extends MY_Controller {
             }
         }
         if (empty($error) && !empty($_FILES['logo']['name'])){
-            $this->_creatLogoUser($error,$upload_logo);
+            $this->_creatLogoUser($error,$upload_logo,$param['image']);
         }
     }
     
@@ -174,14 +174,21 @@ class User extends MY_Controller {
     /**
      * upload logo
      * @param array $error
+     * @param array $upload_logo
+     * @param string $oldImage
      * @return boolean
      * @throws Exception
      */
-    private function _creatLogoUser(&$error,&$upload_logo){
+    private function _creatLogoUser(&$error,&$upload_logo,$oldImage=''){
+        $dirImage = COMMON_PATH.'img/logo_member';
+        if (!is_dir($dirImage)){
+            @mkdir($dirImage, 0777);
+            @chmod($dirImage, 0777);
+        }
         $this->load->library('upload');
         $config['allowed_types'] = 'gif|jpg|png';
         $config['max_size'] = CONST_MAXBYTE_IMAGE;
-        $config['upload_path'] = COMMON_PATH.'img/logo_member/';
+        $config['upload_path'] = $dirImage.'/';
         $config['max_width'] = CONST_MAXWIDTH_LOGO;
         $config['max_height'] = CONST_MAXHEIGHT_LOGO;
         $this->upload->initialize($config);
@@ -241,13 +248,18 @@ class User extends MY_Controller {
                     'email'         => html_escape($input['email']),
                     'first_name'    => html_escape($input['first_name']),
                     'last_name'     => html_escape($input['last_name']),
-                    'image'         => !empty($upload_logo['file_name']) ? $upload_logo['file_name'] :'' ,
                     'level'         => !empty($input['level']) ? $input['level'] :1 ,
                     'update_user'   =>  $this->_user_login,
                     'update_date'   =>  date('Y-m-d H:i:s'),
                 );
                 if (!empty($input['password']) && $input['password'] != 'system123456Abc'){
                     $data['password'] = pass_hash($input['password']);
+                }
+                if (!empty($upload_logo['file_name'])) {
+                    $data['image'] = $upload_logo['file_name']; // update image
+                    if (!empty($param['image']) && is_file(COMMON_PATH . 'img/logo_member' . '/' . $param['image'])) { // delete old image
+                        unlink(COMMON_PATH . 'img/logo_member' . '/' . $param['image']);
+                    }
                 }
                 $where = array(
                     'id' => $input['user_id']

@@ -221,24 +221,26 @@ class MY_Controller extends CI_Controller
             $widthImage = $widthImageCurrent;
             $heightImage = $heightImageCurrent;
         }
-        
-        $this->load->library('image_lib'); 
-        $config['image_library'] = 'gd2';
-        $config['source_image']	= $imgPath . $name;
-        $config['create_thumb'] = TRUE;
-        $config['maintain_ratio'] = TRUE;
-        $config['width']	= $widthImage;
-        $config['height']	= $heightImage;
-        if ($imgPathThumb) {
-            $config['new_image'] = $imgPathThumb;
-        }
-        $config['quality'] = 100;
-        $this->image_lib->clear();
-        $this->image_lib->initialize($config);
-        if($this->image_lib->resize()) {
+        try {
+            $this->load->library('image_lib');
+            $config['image_library'] = 'gd2';
+            $config['source_image'] = $imgPath . $name;
+            //$config['create_thumb'] = TRUE;
+            //$config['maintain_ratio'] = TRUE;
+            $config['width'] = $widthImage;
+            $config['height'] = $heightImage;
+            if ($imgPathThumb) {
+                $config['new_image'] = $imgPathThumb;
+            }
+            $config['quality'] = 100;
+            $this->image_lib->clear();
+            $this->image_lib->initialize($config);
+            if ( ! $this->image_lib->resize()) {
+                throw new Exception($this->image_lib->display_errors());
+            }           
             return TRUE;
-        } else {
-            return FALSE;
+        } catch (Exception $ex) {
+            return $ex->getMessage();
         }
     }
     
