@@ -21,6 +21,12 @@ class Category extends MY_Controller
                 base_url() => 'home',
                 base_url('user') => 'Danh mục sản phẩm'),
         );
+       if (!empty($_GET['gift']) && filter_var($_GET['gift'], FILTER_VALIDATE_INT, array('min_range' => 1)) && $_GET['gift'] == '1' ) {
+            $catType = $_GET['gift'];
+        } else {
+            $catType = 0;
+        }
+        
         if (!empty($_GET['page']) && filter_var($_GET['page'], FILTER_VALIDATE_INT, array('min_range' => 1))) {
             $page = $_GET['page'];
         } else {
@@ -30,6 +36,7 @@ class Category extends MY_Controller
             'language_type' => $this->_language,
             'parent' => $this->mcategory->listParent(),
         );
+        $data['gift'] = $catType;
         $params = array();
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             $params = $this->input->get();
@@ -67,7 +74,7 @@ class Category extends MY_Controller
         
         $offset = max(($page - 1), 0) * $page_config['per_page'];
         $total_records = 0;
-        $data['list_data'] = $this->mcategory->search($params, $total_records, $offset, $page_config['per_page']);
+        $data['list_data'] = $this->mcategory->search($params, $total_records, $offset, $page_config['per_page'], $catType);
         if(!empty($data['list_data'])){
             // Pagination
             $this->load->library('pagination');
@@ -137,6 +144,7 @@ class Category extends MY_Controller
     
     public function create()
     {
+        
         $data = array(
             'page_title' => $this->lang->line('CAT_TITLE_CREATE'),
             'language_type' => $this->_language,
@@ -187,8 +195,16 @@ class Category extends MY_Controller
     {
         $cat_id = (int)$cat_id;
         if (empty($cat_id)) {
-            redirect(base_url('category/create'));
+            redirect(base_url('category'));
         }
+        
+        $tpl = array(
+            'breadcrumb' => array(
+                base_url() => 'home',
+                base_url('category') => 'Danh mục',
+                base_url('category/edit/' .$cat_id ) => 'Sửa danh mục'),
+        );
+        
         $detail_cat = $this->mcategory->getDetail($cat_id);
         $data = array(
             'page_title' => $this->lang->line('CAT_TITLE_EDIT'),
@@ -245,6 +261,12 @@ class Category extends MY_Controller
     public function detail($cat_id = '')
     {
         if(!empty($cat_id) && filter_var($cat_id, FILTER_VALIDATE_INT, array('min_range' => 1))) {
+            $tpl = array(
+                'breadcrumb' => array(
+                    base_url() => 'home',
+                    base_url('category') => 'Danh mục',
+                    base_url('category/detail/' . $cat_id) => 'Chi tiết danh mục'),
+            );
             $data = array(
                 'page_title'    => $this->lang->line('CAT_DETAIL'),
                 'catDetail'     => $this->mcategory->getDetail($cat_id, $parent = TRUE),
@@ -260,9 +282,15 @@ class Category extends MY_Controller
     public function delete()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['id'])) {
-            $cat_id = base64_decode($_POST['id']);
+            $cat_id = (int)$_POST['id'];
             if ($this->mcategory->delCat($cat_id)) {
-                echo 1;
+                $json_result = array(
+                    'result' => 1,
+                    'code'  => 202,
+                    'data' => 'success',
+                );
+                echo json_encode($json_result);
+                return;
             } else {
                 echo '';
             }

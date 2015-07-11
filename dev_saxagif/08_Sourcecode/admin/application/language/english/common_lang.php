@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 $lang['DELETE'] = 'Xóa';
-$lang['CREATE'] = 'Thêm mới';
+$lang['CREATE'] = 'Tạo mới';
 $lang['EDIT'] = 'Sửa';
 $lang['SEARCH'] = 'Tìm kiếm';
 $lang['CONFIRM'] = 'Xác nhận';

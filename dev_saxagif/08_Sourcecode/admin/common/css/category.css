@@ -11,3 +11,4 @@ input,select { max-width:350px; }
 .tbl-cat { margin-top: 10px; }
 .tbl-cat tbody tr td, .tbl-cat th { vertical-align: middle; }
 #frmSearch { padding-left: 0px;margin-top: 10px; }
+.bg_color > div { width: 100%!important; }

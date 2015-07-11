@@ -1,18 +1,4 @@
 <link rel="stylesheet" type="text/css" href="<?php echo base_url('common/css/category.css') ?>" />
-<div>
-    <ul class="breadcrumb">
-        <li>
-            <a href="index.html">Home</a>
-        </li>
-        <li>
-            <a href="index.html">Category</a>
-        </li>
-        <li>
-            <a href="index.html">Quà tặng công nghệ</a>
-        </li>
-    </ul>
-</div>
-
 <div class="row">
     <div class="box col-md-4">
         <div class="box-inner">
@@ -31,7 +17,7 @@
                     </div>
                     <div class="form-group">
                         <label for="inputColor"><?php echo $this->lang->line('CAT_BACKGROUND_COLOR') ?>: </label>
-                        <input type="color" value="<?php if(!empty($catDetail['bg_color'])) echo '#'. $catDetail['bg_color'] ?>" />
+                        <input type="color" value="<?php if(!empty($catDetail['bg_color'])) echo '#'. $catDetail['bg_color'] ?>" disabled="" />
                     </div>
                     <div class="form-group">
                         <label for="keyGoogle"><?php echo $this->lang->line('CAT_KEYWORD_SEO') ?>: </label>
@@ -61,16 +47,6 @@
                 <h2><i class="glyphicon glyphicon-asterisk"></i> <?php echo $this->lang->line('CAT_CHILD') ?></h2>
             </div>
             <div class="box-content">
-                <div class="pull-left">
-                    <select>
-                        <option>all dates</option>
-                    </select>
-                    <select>
-                        <option>all category</option>
-                    </select>
-                    <button type="button">Filter</button>
-                </div>
-                <div class="clearfix"></div>
                 <table class="table table-striped table-bordered responsive martopten datatable">
                     <colgroup>
                         <col width="5%"/>
@@ -92,9 +68,9 @@
                             <td><?php echo $i ?></td>
                             <td><?php echo htmlspecialchars($detail['name']) ?></td>
                             <td>
-                                <a href="javascript:;" class="editCat1 btn btn-success" cat_attr="<?php echo base64_encode($detail['id']) ?>" title="Sửa"><i class="glyphicon glyphicon-zoom-in icon-white"></i>View</a>
+                                <a href="<?php echo base_url('category/detail/' .$detail['id'] ) ?>" class="editCat1 btn btn-success" cat_attr="<?php echo base64_encode($detail['id']) ?>" title="Sửa"><i class="glyphicon glyphicon-zoom-in icon-white"></i>View</a>
                                 <a href="<?php echo base_url('category/edit/' . $detail['id']) ?>" class="btn btn-info"><i class="glyphicon glyphicon-edit icon-white"></i>Edit</a>
-                                <a href="javascript:;" title="Xóa" class="delCat btn btn-danger" cat_name="<?php echo htmlspecialchars($detail['name']) ?>" cat_attr="<?php echo base64_encode($detail['id']) ?>" ><i class="glyphicon glyphicon-trash icon-white"></i>Delete</a>
+                                <a href="javascript:;" title="Xóa" class="delCat btn btn-danger" cat_name="<?php echo htmlspecialchars($detail['name']) ?>" cat_attr="<?php echo $detail['id'] ?>" ><i class="glyphicon glyphicon-trash icon-white"></i>Delete</a>
                             </td>
                         </tr>
                         <?php
@@ -106,6 +82,7 @@
             </div>
         </div>
     </div>
-
 </div><!--/row-->
-
+<?php require_once(VIEW_PATH.'templates/popup/_confirmDelete.php') ;?>
+<?php require_once(VIEW_PATH.'templates/popup/_messageDialog.php') ;?>
+<script type="text/javascript" src="<?php echo base_url('common/js/category.js') ?>"></script>

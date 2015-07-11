@@ -24,5 +24,6 @@ $lang['CAT_MISSING_UPLOAD_ERR'] = 'Không upload được hình ảnh.';
 $lang['CAT_MESS_DELETE'] = 'Bạn thực sự muốn xóa danh mục ';
 $lang['CAT_MISSING_EXIST_NAME'] = 'Tên danh mục đã tồn tại, vui lòng chọn một tên khác.';
 $lang['CAT_MISSING_EXIST_SLUG'] = 'Slug đã tồn tại, vui lòng chọn một tên khác.';
+$lang['CAT_CHOOSE_GIFT'] = 'Giúp bạn chọn quà';
 
 

@@ -10,7 +10,7 @@ class Mcategory extends MY_Model
         parent::__construct();
     }
     
-    public function search($params, &$total, $offset = 0, $limit = 0)
+    public function search($params, &$total, $offset = 0, $limit = 0, $catType = '')
     {
         $arr_where = array();
         $sql = "SELECT
@@ -30,6 +30,10 @@ class Mcategory extends MY_Model
         if (!empty($params['name'])) {
             $sql .= " AND name LIKE ?";
             $arr_where[] = '%' . $params['name'] . '%';
+        }
+        if(isset($catType)) {
+            $sql .= " AND c.is_gift = ?";
+            $arr_where[] = $catType;
         }
         $total = MY_Model::get_total_result($sql, $arr_where);
         if ($limit > 0) {
@@ -74,6 +78,7 @@ class Mcategory extends MY_Model
             'bg_color'      => str_replace('#', '', $params['bg_color']),
             'language_type' => (int)$params['language_type'],
             'parent'        => (!empty($params['parent'])) ? $params['parent'] : 0,
+            'is_gift'        => (!empty($params['is_gift'])) ? $params['is_gift'] : 0,
         );
         
         if(!empty($params['logo'])) {

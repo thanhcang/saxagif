@@ -1,8 +1,20 @@
 $(document).ready(function(){
     setBgColor();
-    defaultFocus();
-    confirmDelCategory();
-    editCategory();
+    //defaultFocus();
+    //confirmDelCategory();
+    //editCategory();
+    
+    $(".delCat").on('click', function(){
+        var trActive = $(this).parent().parent(); 
+        var cat_id = $(this).attr('cat_attr');
+        var cat_name = $(this).attr('cat_name');
+        var deleteOk = $('.deleteOk'); 
+        $('#deleteModal').modal('show'); 
+        $('.messageDelete').text('Bạn muốn xóa danh mục ' + cat_name + ' ?');
+        deleteOk.on('click', function(){
+           _initdeleteCat(cat_id, trActive);
+        });
+    });
 });
 
 function defaultFocus() {
@@ -19,7 +31,7 @@ function setBgColor() {
         });
     }
 }
-
+/*
 function confirmDelCategory() {
     $('.delCat').click(function() {
         var cat_id = $(this).attr('cat_attr');
@@ -63,43 +75,40 @@ function confirmDelCategory() {
         });
     });
 }
+*/
 
-function editCategory() {
-    $('.editCat').on('click', function(){
-       var _catId = $(this).attr('cat_attr');
-       
-       var _frmCat = $('#frmCategory');
-       var _name = _frmCat.find('input[name="name"]');
-       var _slug = _frmCat.find('input[name="slug"]');
-       var _bgColor = _frmCat.find('input[name="bg_color"]');
-       var _languageType = _frmCat.find('select[name="language_type"]');
-       var _keywordSeo = _frmCat.find('input[name="keyword_seo"]');
-       var _desSeo = _frmCat.find('input[name="des_seo"]');
-       var _ID = _frmCat.find('input[name="category_id"]');
-       var _logo = _frmCat.find('input[name="logo"]');
-       
-       $.ajax({
-            type: 'POST',
-            data: { id: _catId },
+/**
+ * delete user
+ * @param {type} user_id
+ * @returns {undefined}
+ */
+function _initdeleteCat(cat_id, that) {
+    if (!cat_id.trim() || cat_id == 'undefined' || !isNaN(cat_id)) { // check user_id exist and is number
+        $.ajax({
             dataType: "json",
-            url: URL_EDIT_CAT,
-            contentType: "application/x-www-form-urlencoded",
-            success: function(result)
-            {
-                var obj = result.catDetail;
-               if(result) {
-                   console.log(obj);
-                   _name.val(obj.name);
-                   _slug.val(obj.slug);
-                   _bgColor.val('#' + obj.bg_color);
-                   _languageType.val(obj.language_type);
-                   _keywordSeo.val(obj.keyword_seo);
-                   _desSeo.val(obj.des_seo);
-                   _ID.val(obj.id);
-                   _logo.val(obj.logo);
-               }
+            url: URL_DEL_CAT,
+            type: 'POST',
+            data: {
+                'is_ajax': 'ajax',
+                'id': cat_id
+            },
+            async: false,
+        })
+        .done(function (e) {
+            $('#deleteModal').modal('hide');
+            if (Object.keys(e).length > 0 && e.result == 0 && e.code == 304) { // not modifield
+                $('#mesageModal').modal('show');
+                $('.messageDelete').text(e.data);
+            } else if (Object.keys(e).length > 0 && e.result == 0 && e.code == 500) { // is hack 
+                window.location = e.href;
+            } else if (Object.keys(e).length > 0 && e.result == 1 && e.code == 202) { // is success
+                that.remove();
+            } else {
+                // nothing
             }
+        })
+        .fail(function (e) {
+            // console.log(e);
         });
-    });
+    }
 }
-

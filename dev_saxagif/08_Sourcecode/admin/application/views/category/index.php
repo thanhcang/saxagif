@@ -22,22 +22,6 @@
                     <?php endif ?>
                     <div class="clearfix"></div>
                     <div class="form-group">
-                        <label><?php echo $this->lang->line('CAT_NAME') ?><span class="text-danger">*</span></label>
-                        <input type="text" name="name" class="form-control input-sm" id="name" value="<?php if(!empty($params['name'])) echo html_escape($params['name']) ?>" maxlength="255" />
-                    </div>
-                    <div class="form-group">
-                        <label><?php echo $this->lang->line('SLUG') ?><span class="text-danger">*</span></label>
-                        <input type="text" name="slug" class="form-control input-sm" id="slug" value="<?php if(!empty($params['slug'])) echo html_escape($params['slug']) ?>" maxlength="255" />
-                    </div>
-                    <div class="form-group">
-                        <label><?php echo $this->lang->line('CAT_BACKGROUND_COLOR') ?></label>
-                        <input type="text" name="bg_color" class="form-control input-sm" id="bg_color" value="<?php if(!empty($params['bg_color'])) echo html_escape($params['bg_color']) ?>" maxlength="7" />
-                    </div>
-                    <div class="form-group">
-                        <label><?php echo $this->lang->line('CAT_LOGO') ?></label>
-                        <input type="file" name="logo"  accept="image/*" class="form-control input-sm" id="logo" />
-                    </div>
-                    <div class="form-group">
                         <label><?php echo $this->lang->line('CHOOSE_LANGUAGE') ?></label>
                         <select name="language_type" class="form-control input-sm">
                             <?php if(!empty($language_type)): ?>
@@ -46,6 +30,22 @@
                             <?php endforeach; ?>
                             <?php endif; ?>
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <label><?php echo $this->lang->line('CAT_NAME') ?><span class="text-danger">*</span></label>
+                        <input type="text" name="name" class="form-control input-sm" id="name" value="<?php if(!empty($params['name'])) echo html_escape($params['name']) ?>" maxlength="255" />
+                    </div>
+                    <div class="form-group">
+                        <label><?php echo $this->lang->line('SLUG') ?><span class="text-danger">*</span></label>
+                        <input type="text" name="slug" class="form-control input-sm" id="slug" value="<?php if(!empty($params['slug'])) echo html_escape($params['slug']) ?>" maxlength="255" />
+                    </div>
+                    <div class="form-group bg_color">
+                        <label><?php echo $this->lang->line('CAT_BACKGROUND_COLOR') ?></label>
+                        <input type="text" name="bg_color" class="form-control input-sm" id="bg_color" value="<?php if(!empty($params['bg_color'])) echo html_escape($params['bg_color']) ?>" maxlength="7" />
+                    </div>
+                    <div class="form-group">
+                        <label><?php echo $this->lang->line('CAT_LOGO') ?></label>
+                        <input type="file" name="logo"  accept="image/*" class="input-sm" id="logo" />
                     </div>
                     <div class="form-group">
                         <label><?php echo $this->lang->line('CAT_PARENT') ?></label>
@@ -68,14 +68,15 @@
                         <label><?php echo $this->lang->line('CAT_DES_SEO') ?></label>
                         <input type="text" name="des_seo" class="form-control input-sm" id="des_seo" value="<?php if(!empty($params['des_seo'])) echo html_escape($params['des_seo']) ?>" maxlength="255" />
                     </div>
-                    <div class="form-control">
-                        <label><?php echo $this->lang->line('CAT_CHOOSE_HOME') ?></label>
-                        <input type="checkbox" name="is_home" value="1" />
+                    <?php if(!empty($gift)): ?>
+                    <div class="form-group">
+                        <label><?php echo $this->lang->line('CAT_CHOOSE_GIFT') ?></label>
+                        <input type="checkbox" name="is_gift" value="1" />
                     </div>
+                    <?php endif ?>
                     <div class="form-group">
                         <!--<input type="hidden" name="category_id" value="<?php if(!empty($params['category_id'])) echo $params['category_id'] ?>" />-->
-                        <button type="submit" class="button button-blue"><?php echo $this->lang->line('SAVE') ?></button>
-                        <button type="reset" class="button btn-default" ><?php echo $this->lang->line('RESET') ?></button>
+                        <button type="submit" class="button button-blue"><?php echo $this->lang->line('CREATE') ?></button>
                     </div>
                 </form>
             </div>
@@ -89,30 +90,19 @@
             </div>
             
             <div class="box-content">
-                <div CLass="pull-left">
-                    <select>
-                        <option>all dates</option>
-                    </select>
-                    <select>
-                        <option>all category</option>
-                    </select>
-                    <button type="button">Filter</button>
-                </div>
-                <div class="clearfix"></div>
                 <table class="table table-striped table-bordered responsive martopten datatable">
                     <colgroup>
                         <col width="5%"/>
-                        <col width="30%"/>
+                        <col width="50%"/>
                         <col width="10%"/>
-                        <col width="20%"/>
-                        <col width="25%"/>
+                        <col width="35%"/>
                     </colgroup>
                     <thead>
                         <tr>
                             <th><?php echo $this->lang->line('STT') ?></th>
                             <th><?php echo $this->lang->line('CAT_NAME') ?></th>
                             <th><?php echo $this->lang->line('CAT_BACKGROUND_COLOR') ?></th>
-                            <th><?php echo $this->lang->line('DISPLAY_POSITION') ?></th>
+                            <!--<th><?php echo $this->lang->line('DISPLAY_POSITION') ?></th>-->
                             <th></th>
                         </tr>
                     </thead>
@@ -125,11 +115,10 @@
                             <td width="160">
                                 <input type="color" value="<?php if(!empty($row['bg_color'])) echo '#'.$row['bg_color'] ?>" disabled="disabled" />
                             </td>
-                            <td><?php  ?></td>
                             <td>
                                 <a href="<?php echo base_url('category/detail/' . $row['id']) ?>" class="btn btn-success"><i class="glyphicon glyphicon-zoom-in icon-white"></i><?php echo $this->lang->line('VIEW') ?></a>
-                                <a href="<?php echo base_url('category/edit/' . $row['id']) ?>" class="editCat1 btn btn-info" cat_attr="<?php echo base64_encode($row['id']) ?>"><i class="glyphicon glyphicon-edit icon-white"></i><?php echo $this->lang->line('EDIT') ?></a>
-                                <a href="javascript:;" class="delCat btn btn-danger" cat_name="<?php echo htmlspecialchars($row['name']) ?>" cat_attr="<?php echo base64_encode($row['id']) ?>" ><i class="glyphicon glyphicon-trash icon-white"></i><?php echo $this->lang->line('DELETE') ?></a>
+                                <a href="<?php echo base_url('category/edit/' . $row['id']) ?>" class="editCat1 btn btn-info"><i class="glyphicon glyphicon-edit icon-white"></i><?php echo $this->lang->line('EDIT') ?></a>
+                                <a href="javascript:;" class="delCat btn btn-danger" cat_name="<?php echo htmlspecialchars($row['name']) ?>" cat_attr="<?php echo $row['id'] ?>" ><i class="glyphicon glyphicon-trash icon-white"></i><?php echo $this->lang->line('DELETE') ?></a>
                             </td>
                         </tr>
                         <?php endforeach; ?>
@@ -156,6 +145,7 @@
     var MSG_DEL_CAT = '<?php echo $this->lang->line('CAT_MESS_DELETE') ?>';
 </script>
 <script type="text/javascript" src="<?php echo base_url('common/js/evol.colorpicker.min.js') ?>"></script>
-<script type="text/javascript" src="<?php echo base_url('common/js/popModal.js') ?>"></script>
+<?php require_once(VIEW_PATH.'templates/popup/_confirmDelete.php') ;?>
+<?php require_once(VIEW_PATH.'templates/popup/_messageDialog.php') ;?>
 <script type="text/javascript" src="<?php echo base_url('common/js/category.js') ?>"></script>
 
