@@ -27,14 +27,24 @@ class Mcategory extends MY_Model
                 AS c WHERE 
                         c.del_flg = 0 
                         AND c.parent = 0";
-        if (!empty($params['name'])) {
-            $sql .= " AND name LIKE ?";
-            $arr_where[] = '%' . $params['name'] . '%';
-        }
+        
         if(isset($catType)) {
             $sql .= " AND c.is_gift = ?";
             $arr_where[] = $catType;
         }
+        
+        if(!empty($params['language_type'])) {
+            $language = (int)$params['language_type'];
+            $sql .= " AND c.language_type = ?";
+            $arr_where[] = $language;
+        }
+        
+        if (!empty($params['cat_id'])) {
+            $catId = $params['cat_id'];
+            $sql .= " AND c.id = ?";
+            $arr_where[] = $catId;
+        }
+        
         $total = MY_Model::get_total_result($sql, $arr_where);
         if ($limit > 0) {
             $sql .= ' LIMIT ' . $offset . ',' . $limit;
@@ -94,13 +104,13 @@ class Mcategory extends MY_Model
         }
         
         if (!empty($params['category_id'])) {
-            $data['update_user'] = $this->session->userdata('ses_user_id');
+            $data['update_user'] = $this->session->userdata('user_id');
             $data['update_date'] = date('Y-m-d H:i:s');
             $this->db->where('id', $params['category_id']);
             
             return $this->db->update($this->_tbl_category, $data);
         } else {
-            $data['create_user'] = $this->session->userdata('ses_user_id');
+            $data['create_user'] = $this->session->userdata('user_id');
             $data['create_date'] = date('Y-m-d H:i:s');
             
             return $this->db->insert($this->_tbl_category, $data);

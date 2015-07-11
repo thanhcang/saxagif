@@ -44,7 +44,7 @@
                     </div>
                     <div class="control-group">
                         <label for="logo"><?php echo $this->lang->line('CAT_LOGO') ?></label>
-                        <input type="file" name="logo"  accept="image/*" class="input-sm" id="logo" />
+                        <input type="file" name="logo"  accept="image/*" class="" id="logo" />
                     </div>
                     <?php if(!empty($detail_cat['parent'])): ?>
                     <div class="form-group">
@@ -69,12 +69,6 @@
                         <label for="des_seo"><?php echo $this->lang->line('CAT_DES_SEO') ?></label>
                         <input type="text" name="des_seo" id="des_seo" class="form-control" value="<?php if(!empty($detail_cat['des_seo']) && empty($params['des_seo'])) echo htmlspecialchars($detail_cat['keyword_seo']) ;elseif(!empty($params['des_seo'])) echo html_escape($params['des_seo']) ?>" maxlength="255" />
                     </div>
-                    <?php if ($detail_cat['parent'] === "0"): ?>
-                    <div class="control-group">
-                        <label><?php echo $this->lang->line('CAT_CHOOSE_GIFT') ?></label>
-                        <input type="checkbox" name="is_gift" value="1" <?php if(!empty($detail_cat['position'])) echo 'checked' ?> />
-                    </div>
-                    <?php endif ?>
                     <input type="hidden" value="<?php echo $detail_cat['id'] ?>" name="category_id" />
                     <button type="submit" class="button martopten pull-right"><?php echo $this->lang->line('EDIT') ?></button>
                     <div class="clearfix"></div>

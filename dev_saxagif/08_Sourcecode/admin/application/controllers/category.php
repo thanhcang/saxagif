@@ -16,6 +16,7 @@ class Category extends MY_Controller
     
     public function index()
     {
+        $items = array();
         $tpl = array(
             'breadcrumb' => array(
                 base_url() => 'home',
@@ -39,9 +40,9 @@ class Category extends MY_Controller
         $data['gift'] = $catType;
         $params = array();
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-            $params = $this->input->get();
+            $items = $this->input->get();
         }
-        $data['params'] = $params;
+        $data['items'] = $params;
         // Config pagination:
         $parmameter_page = 'page';
         $queryString = $this->input->server('QUERY_STRING');
@@ -74,7 +75,7 @@ class Category extends MY_Controller
         
         $offset = max(($page - 1), 0) * $page_config['per_page'];
         $total_records = 0;
-        $data['list_data'] = $this->mcategory->search($params, $total_records, $offset, $page_config['per_page'], $catType);
+        $data['list_data'] = $this->mcategory->search($items, $total_records, $offset, $page_config['per_page'], $catType);
         if(!empty($data['list_data'])){
             // Pagination
             $this->load->library('pagination');
@@ -138,6 +139,7 @@ class Category extends MY_Controller
         }
         //echo '<pre>';        print_r($data['list_data']);exit;
         $data['offset'] = $offset;
+        $data['items'] = $items;
         $tpl["main_content"] = $this->load->view('category/index', $data, TRUE);
         $this->load->view(TEMPLATE, $tpl);
     }

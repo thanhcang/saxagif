@@ -3,7 +3,10 @@ $(document).ready(function(){
     //defaultFocus();
     //confirmDelCategory();
     //editCategory();
-    
+    // Show category navigation:
+    if(IS_CAT) {
+       $('.accordion').find('.child-cate').css('display','block');
+    }
     $(".delCat").on('click', function(){
         var trActive = $(this).parent().parent(); 
         var cat_id = $(this).attr('cat_attr');

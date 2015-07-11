@@ -45,7 +45,7 @@
                     </div>
                     <div class="form-group">
                         <label><?php echo $this->lang->line('CAT_LOGO') ?></label>
-                        <input type="file" name="logo"  accept="image/*" class="input-sm" id="logo" />
+                        <input type="file" name="logo"  accept="image/*" class="" id="logo" />
                     </div>
                     <div class="form-group">
                         <label><?php echo $this->lang->line('CAT_PARENT') ?></label>
@@ -69,10 +69,7 @@
                         <input type="text" name="des_seo" class="form-control input-sm" id="des_seo" value="<?php if(!empty($params['des_seo'])) echo html_escape($params['des_seo']) ?>" maxlength="255" />
                     </div>
                     <?php if(!empty($gift)): ?>
-                    <div class="form-group">
-                        <label><?php echo $this->lang->line('CAT_CHOOSE_GIFT') ?></label>
-                        <input type="checkbox" name="is_gift" value="1" />
-                    </div>
+                    <input type="hidden" name="is_gift" value="1" />
                     <?php endif ?>
                     <div class="form-group">
                         <!--<input type="hidden" name="category_id" value="<?php if(!empty($params['category_id'])) echo $params['category_id'] ?>" />-->
@@ -86,22 +83,44 @@
     <div class="box col-md-8">
         <div class="box-inner">
             <div class="box-header well" data-original-title="">
-                <h2><i class="glyphicon glyphicon-user"></i><?php echo $this->lang->line('LIST_CATEGORY') ?></h2>
+                <h2><i class="glyphicon glyphicon-list"> </i><?php echo $this->lang->line('LIST_CATEGORY') ?></h2>
             </div>
             
             <div class="box-content">
+                <div class="pull-left">
+                    <form class="frmFilter" name="frmFilter" method="GET" action="">
+                        <select name="language_type">
+                            <option value=""><?php echo $this->lang->line('CHOOSE_LANGUAGE') ?></option>
+                            <?php if(!empty($language_type)): ?>
+                            <?php foreach ($language_type as $k=>$v): ?>
+                            <option value="<?php echo $k ?>" <?php if(!empty($items['language_type']) && $items['language_type'] == $k ) echo 'selected' ?>><?php echo $v; ?></option>
+                            <?php endforeach; ?>
+                            <?php endif; ?>
+                        </select>
+                        <select name="cat_id">
+                            <option value="">All category</option>
+                            <?php if(!empty($parent)): ?>
+                            <?php foreach ($parent as $row): ?>
+                            <option value="<?php echo $row['id'] ?>" <?php if(!empty($items['cat_id']) && $items['cat_id'] == $row['id'] ) echo 'selected' ?>><?php echo htmlspecialchars($row['name']) ?></option>
+                            <?php endforeach; ?>
+                            <?php endif ?>
+                        </select>
+                    <button type="submit">Filter</button>
+                    </form>
+                </div>
+                <div class="clearfix"></div>
                 <table class="table table-striped table-bordered responsive martopten datatable">
                     <colgroup>
                         <col width="5%"/>
                         <col width="50%"/>
-                        <col width="10%"/>
-                        <col width="35%"/>
+                        <col width="15%"/>
+                        <col width="30%"/>
                     </colgroup>
                     <thead>
                         <tr>
                             <th><?php echo $this->lang->line('STT') ?></th>
                             <th><?php echo $this->lang->line('CAT_NAME') ?></th>
-                            <th><?php echo $this->lang->line('CAT_BACKGROUND_COLOR') ?></th>
+                            <th class="text-center"><?php echo $this->lang->line('CAT_BACKGROUND_COLOR') ?></th>
                             <!--<th><?php echo $this->lang->line('DISPLAY_POSITION') ?></th>-->
                             <th></th>
                         </tr>
@@ -112,7 +131,7 @@
                         <tr class="cat_<?php echo $row['id'] ?>">
                             <td><?php echo $key+1+$offset ?></td>
                             <td><a href="<?php echo base_url('category/detail/' . $row['id']) ?>"><?php echo htmlspecialchars($row['name']) ?></a></td>
-                            <td width="160">
+                            <td width="160" class="text-center">
                                 <input type="color" value="<?php if(!empty($row['bg_color'])) echo '#'.$row['bg_color'] ?>" disabled="disabled" />
                             </td>
                             <td>
@@ -143,6 +162,7 @@
 </div>
 <script>
     var MSG_DEL_CAT = '<?php echo $this->lang->line('CAT_MESS_DELETE') ?>';
+    var IS_CAT = '<?php $class = $this->router->class;if(!empty($class)) echo '1' ?>';
 </script>
 <script type="text/javascript" src="<?php echo base_url('common/js/evol.colorpicker.min.js') ?>"></script>
 <?php require_once(VIEW_PATH.'templates/popup/_confirmDelete.php') ;?>
