@@ -89,7 +89,7 @@
                         <?php if (!empty($list)) : ?>
                         <?php foreach($list as $key=>$value) : ?>
                         <tr>
-                            <td><?php echo $key+1; ?></td>
+                            <td><?php echo $key+1+$offset; ?></td>
                             <td class=""><?php echo  $value['first_name'].' '.$value['last_name']; ?></td>
                             <td class=""></td>
                             <td class=""><?php echo  $value['email']; ?></td>
@@ -102,7 +102,7 @@
                                     <i class="glyphicon glyphicon-edit icon-white"></i>
                                     Edit
                                 </a>
-                                <a class="btn btn-danger" href="#">
+                                <a class="btn btn-danger deleteUser" attr_del="<?php echo $value['id']; ?>" href="javascript:;">
                                     <i class="glyphicon glyphicon-trash icon-white"></i>
                                     Delete
                                 </a>
@@ -119,4 +119,6 @@
         </div>
     </div>
 </div>
+<?php require_once(VIEW_PATH.'templates/popup/_confirmDelete.php') ;?>
+<?php require_once(VIEW_PATH.'templates/popup/_messageDialog.php') ;?>
 <script src="<?php echo base_url('common/js/user.js'); ?>"></script>

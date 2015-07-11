@@ -27,5 +27,6 @@ class Contants extends MY_Controller {
         echo "var URL_AJAX_PROFILE = '" . base_url('ajax/profileUser') . "';" . PHP_EOL;
         echo "var CURRENT_LOGIN = '" . $this->session->userdata('user_id') . "';" . PHP_EOL;
         echo "var PATH_COMMON = '" . COMMON_PATH . "';" . PHP_EOL;
+        echo "var URL_AJAX_DELETE_USER = '" . base_url('ajax/deleteUser') . "';" . PHP_EOL;
     }
 }

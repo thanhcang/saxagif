@@ -10,10 +10,11 @@ if (!defined('BASEPATH'))
 class Muser extends MY_Model {
 
     var $_table;
-
+    var $_login_user;
     public function __construct() {
         parent::__construct();
         $this->_table = 'd_user';
+        $this->_login_user = $this->session->userdata('user_id');;
     }
     
     /**
@@ -108,6 +109,24 @@ class Muser extends MY_Model {
      */
     public function add($param) {
         $this->db->insert($this->_table,$param);
+    }
+    
+    /**
+     * create new user
+     * @param type $param
+     */
+    public function deleteUser($param) {
+        $where = array(
+            'id' => $param['user_id']
+        );
+        $data = array(
+            'active' => 0,
+            'del_flg' => 1,
+            'update_user'=> $this->_login_user,
+            'update_date'=> date('Y-m-d H:i:s'),
+        );
+        $this->db->where($where);
+        $this->db->update($this->_table,$data);
     }
 
 }

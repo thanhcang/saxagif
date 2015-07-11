@@ -112,6 +112,7 @@ class User extends MY_Controller {
             $this->pagination->initialize($page_config);
             $data["pagination"] = $this->pagination->create_links();
         }
+        $data['offset'] = $offset;
         $data['list'] = $list;
         $tpl["main_content"] = $this->load->view('user/list', $data, TRUE);
         $this->load->view(TEMPLATE, $tpl);

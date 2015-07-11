@@ -1,19 +1,19 @@
 <div class="row">
     <div class="box col-md-12">
-        <div class="marb5pi">
-            <form action="" method="post">
-                <select name="language" class="form-control selectbox-language inline-block">
-                    <?php foreach ($this->config->item('language_type') as $key => $value): ?>
-                        <option value="<?php echo $key ?>" <?php echo !empty($list['language_type']) && $list['language_type'] == $key ? 'selected' : ''; ?> ><?php echo $value; ?></option>
-                    <?php endforeach; ?>
-                </select>
-                <input type="hidden" name="searchLanguage" value="1">
-                <button type="submit" class="button">Apply</button>
-            </form>
-        </div>
         <div class="box-inner">
             <div class="box-header well">
                 <h2><i class="glyphicon glyphicon-list-alt"></i> Cài đặt chung</h2>
+            </div>
+            <div class="box-content">
+                <form action="" method="post">
+                    <select name="language" class="form-control selectbox-language inline-block">
+                        <?php foreach ($this->config->item('language_type') as $key => $value): ?>
+                            <option value="<?php echo $key ?>" <?php echo !empty($list['language_type']) && $list['language_type'] == $key ? 'selected' : ''; ?> ><?php echo $value; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                    <input type="hidden" name="searchLanguage" value="1">
+                    <button type="submit" class="button">Apply</button>
+                </form>
             </div>
             <div class="box-content">
                 <?php if (!empty($error)):?>
