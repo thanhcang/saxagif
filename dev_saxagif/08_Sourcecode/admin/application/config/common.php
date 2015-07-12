@@ -32,3 +32,18 @@ $config['permission'] = array(
     1=>'Quản Lý',
     2=>'Biên tập',
 );
+
+$config['page'] = array(
+    '1' => 'Trang chủ',
+    '2' => 'Giới thiệu',
+    '3' => 'Liên hệ',
+    '4' => 'Sản phẩm'
+);
+
+$config['position'] = array(
+    1 => 'Slide show',
+    2 => 'Left menu 1',
+    3 => 'Left menu 2',
+    4 => 'Right menu 1',
+    5 => 'Footer'
+ );
