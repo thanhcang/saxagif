@@ -40,6 +40,12 @@
                             <?php endif; ?>
                         </select>
                     </div>
+                    <?php if (!empty($param['type']) && $param['type'] == 2 ): ?>
+                    <div class="form-group">
+                        <label>Hiển thị trang chủ</label>
+                        <input value="1" name="is_home" type="checkbox" <?php echo !empty($param['is_home']) ? 'checked' : ''; ?> />
+                    </div>
+                    <?php endif ?>
                     <div class="form-group">
                         <label><?php echo $this->lang->line('SLUG') ?></label>
                         <input type="text" name="slug" class="form-control input-sm" id="slug" value="<?php if(!empty($param['slug'])) echo html_escape($param['slug']) ?>" maxlength="255" />
@@ -53,18 +59,14 @@
                         <textarea name="des_seo" class="form-control noEnter"><?php if(!empty($param['des_seo'])) echo html_escape($param['des_seo']) ?></textarea>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="button button-blue"><?php echo $this->lang->line('CREATE') ?></button>
+                        <input type="hidden" value="<?php echo $param['id']?>" name="id" />
+                        <a href="<?php echo base_url('category'); ?>"><button type="button" class="button button-blue">Trở về</button></a>
+                        <button type="submit" class="button button-blue">Cập nhật</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>   
-</div>
-<div class="pageHomeTemp hide">
-    <div class="form-group pageHome">
-        <label>Hiển thị trang chủ</label>
-        <input type="checkbox" name="is_home" value="1" >
-    </div>
 </div>
 
 

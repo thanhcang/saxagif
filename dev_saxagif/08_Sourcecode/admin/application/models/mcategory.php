@@ -82,42 +82,32 @@ class Mcategory extends MY_Model
         return $query->result_array();
     }
     
-    public function create($params)
+    /**
+     * add children category
+     * @param type $params
+     * @return type
+     */
+    public function create($params , $parent)
     {
         $data = array(
             'name'          => $params['name'],
-            'slug'          => $params['slug'],
-            'bg_color'      => str_replace('#', '', $params['bg_color']),
+            'slug'          => !empty($params['slug']) ? slug_convert($params['slug']) : slug_convert($params['name']) ,
+            'bg_color'      => !empty($params['bg_color']),
             'language_type' => (int)$params['language_type'],
-            'parent'        => (!empty($params['parent'])) ? $params['parent'] : 0,
-            'is_gift'        => (!empty($params['is_gift'])) ? $params['is_gift'] : 0,
+            'parent'        => $parent,
+            'create_user'   => $this->_login_user,
+            'create_date'   => date('Y-m-d H:i:s'),
         );
-        
         if(!empty($params['logo'])) {
             $data['logo'] = $params['logo'];
         }
-        
         if(!empty($params['keyword_seo'])) {
             $data['keyword_seo'] = $params['keyword_seo'];
         }
-        
         if(!empty($params['des_seo'])) {
             $data['des_seo'] = $params['des_seo'];
         }
-        
-        if (!empty($params['category_id'])) {
-            $data['update_user'] = $this->session->userdata('user_id');
-            $data['update_date'] = date('Y-m-d H:i:s');
-            $this->db->where('id', $params['category_id']);
-            
-            return $this->db->update($this->_tbl_category, $data);
-        } else {
-            $data['create_user'] = $this->session->userdata('user_id');
-            $data['create_date'] = date('Y-m-d H:i:s');
-            
-            return $this->db->insert($this->_tbl_category, $data);
-        }
-            
+        return $this->db->insert($this->_tbl_category, $data);   
     }
     
     /**
@@ -147,6 +137,11 @@ class Mcategory extends MY_Model
         return $data;
     }
     
+    /**
+     * delete catetegory
+     * @param type $cat_id
+     * @return type
+     */
     public function delCat($cat_id)
     {
         $this->db->where('id', $cat_id);
@@ -156,12 +151,17 @@ class Mcategory extends MY_Model
     /**
      * @author hnguyen0110@gmail.com
      * @date 2015/06/14
-     * check name category exist
+     * @param string $name
+     * @param int $catId
+     * @return boolean
      */
-    public function checkExistName($name)
+    public function checkExistName($name , $catId = FALSE)
     {
         $this->db->select('id')
                 ->where('name', $name);
+        if (!empty($catId)){
+            $this->db->where('id <> ',$catId);
+        }
         $query = $this->db->get($this->_tbl_category);
         if ($query->num_rows() > 0) {
             return TRUE;
@@ -175,10 +175,13 @@ class Mcategory extends MY_Model
      * @date 2015/06/14
      * check slug category exist
      */
-    public function checkExistSlug($slug)
+    public function checkExistSlug($slug, $catId = FALSE)
     {
         $this->db->select('id')
                 ->where('slug', $slug);
+        if (!empty($catId)){
+            $this->db->where('id <> ',$catId);
+        }
         $query = $this->db->get($this->_tbl_category);
         if ($query->num_rows() > 0) {
             return TRUE;
@@ -197,10 +200,7 @@ class Mcategory extends MY_Model
      * @return boolean
      */
     public function listAllCategory($param, &$total, $offset = 0, $limit = 0) {
-        $arr_where = array(
-            'del_flg' => 0,
-            'parent' => 0,
-        );
+        $arr_where = array();
         $sql = "SELECT
                         c.id,
                         c.name,
@@ -223,12 +223,12 @@ class Mcategory extends MY_Model
             $arr_where[] = $language;
         }
         if (!empty($param['sCatId'])) {
-            $catId = $params['sCatId'];
+            $catId = $param['sCatId'];
             $sql .= " AND c.id = ?";
             $arr_where[] = $catId;
         }
         if (!empty($param['sType'])) {
-            $type = $params['sType'];
+            $type = $param['sType'];
             $sql .= " AND c.type = ?";
             $arr_where[] = $type;
         }
@@ -238,6 +238,48 @@ class Mcategory extends MY_Model
         }
         $query = $this->db->query($sql, $arr_where);
         //echo $this->db->last_query();die;
+        if ($query->num_rows() == 0) {
+            return FALSE;
+        }
+        return $query->result_array();
+    }
+    
+    /**
+     * getl all children category
+     * @param array $param
+     * @param int $total
+     * @param int $offset
+     * @param int $limit
+     * @param int $parent
+     * @return boolean
+     */
+    public function listAllChildrenCategory($param, &$total, $offset = 0, $limit = 0, $parent) {
+        $arr_where = array(
+            $parent,
+        );
+        $sql = "SELECT
+                        c.id,
+                        c.name,
+                        c.logo,
+                        c.slug,
+                        c.bg_color,
+                        c.language_type,
+                        c.parent,
+                        c.keyword_seo,
+                        c.des_seo,
+                        c.type,
+                        is_home
+                FROM " . $this->_tbl_category . "
+                AS c WHERE 
+                        c.del_flg = 0 
+                        AND c.parent <> 0
+                        AND parent = ?
+                        ";
+        $total = MY_Model::get_total_result($sql, $arr_where);
+        if ($limit > 0) {
+            $sql .= ' LIMIT ' . $offset . ',' . $limit;
+        }
+        $query = $this->db->query($sql, $arr_where);
         if ($query->num_rows() == 0) {
             return FALSE;
         }
@@ -261,6 +303,25 @@ class Mcategory extends MY_Model
             'create_date' => date('Y-m-d H:i:s'),
         );
         $this->db->insert($this->_tbl_category, $data);
+    }
+    
+    /**
+     * update category
+     * @param type $param
+     */
+    public function updateCategory($param) {
+        $where = array(
+            'id' => $param['id'],
+        );
+        $data = array(
+          'name' => $param['name'],  
+          'keyword_seo' => $param['keyword_seo'],  
+          'des_seo' => $param['des_seo'],  
+          'is_home' => !empty($param['is_home']) ? $param['is_home'] : 0,  
+          'slug' => !empty($param['name']) ? slug_convert($param['slug']) : slug_convert($param['name']),  
+        );
+        $this->db->where($where);
+        $this->db->update($this->_tbl_category, $data);
     }
 
 }

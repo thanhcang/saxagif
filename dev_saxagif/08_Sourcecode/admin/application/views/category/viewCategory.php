@@ -9,8 +9,7 @@
                     <colgroup>
                         <col width="20%"/>
                         <col width="85%"/>
-                    </colgroup>
-                    
+                    </colgroup>         
                     <tr>
                         <td><b>Ngôn ngữ</b></td>
                         <td><?php echo $language_type[$catDetail['language_type']]; ?></td>
@@ -23,6 +22,12 @@
                         <td><b>Loại danh mục</b></td>
                         <td><?php echo $typeCategory[$catDetail['type']] ?></td>
                     </tr>
+                    <?php if ($catDetail['type'] == 2) : ?>
+                    <tr>
+                        <td><b>Hiên thị trang chủ</b></td>
+                        <td><?php echo  !empty($catDetail['is_home']) ? 'hiển thị' : 'không hiển thị'; ?></td>
+                    </tr>
+                    <?php endif;?>
                     <tr>
                         <td><b>Slug(URL Seo)</b></td>
                         <td><?php echo $catDetail['slug'] ?></td>

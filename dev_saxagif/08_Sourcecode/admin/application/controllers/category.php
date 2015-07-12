@@ -125,7 +125,7 @@ class Category extends MY_Controller {
         $tpl = array(
             'breadcrumb' => array(
                 base_url() => 'Home',
-                base_url('user') => 'Danh mục',
+                base_url('category') => 'Danh mục',
                 'javascriipt:;' => $detail['name']),
         );
         $data['catDetail'] = $detail;
@@ -161,55 +161,106 @@ class Category extends MY_Controller {
                 'javascriipt:;' => $param['name']),
         );
         if ($this->isPostMethod()){
-            
+            $param = $this->input->post();
+            $error = array();
+            $this->_validateUpdateCategory($param, $error);
+            if (empty($error)){
+                $this->db->trans_off();
+                $this->db->trans_begin();
+                $this->mcategory->updateCategory($param);
+                if ($this->db->trans_status() === FALSE) {
+                    $this->db->trans_rollback();
+                    $error[] = 'Hệ thống chưa cập nhật <br/> Vui lòng thử lại';
+                } else {
+                    $this->db->trans_commit();
+                    redirect(base_url('category/viewCategory'.'/'.$param['id']));
+                    return;
+                }
+            }
+            $data['error'] = $error;
         }
         $data['param'] = $param;
         $data['catId'] = $id;
         $tpl["main_content"] = $this->load->view('category/updateCategory', $data, TRUE);
         $this->load->view(TEMPLATE, $tpl);
     }
-
+    
     /**
-     * load list category
+     * list children category
+     * @param type $id
+     * @return type
      */
-    public function index1() {
-        $items = array();
+    public function childrenCategory($id) {
+        if (empty($id) || !is_numeric($id) || $id < 1) {
+            redirect(base_url('category'));
+            return;
+        }
+        $parent = $this->mcategory->getDetail($id);
+        if (empty($parent)) {
+            redirect(base_url('category'));
+            return;
+        }
         $tpl = array(
             'breadcrumb' => array(
                 base_url() => 'home',
-                base_url('user') => 'Danh mục'),
+                base_url('category') => 'Danh mục',
+                base_url('category/viewCategory' . '/' . $parent['id']) => $parent['name'],
+                'javascript:;' => 'Danh mục con',
+            ),
         );
-        if (!empty($_GET['gift']) && filter_var($_GET['gift'], FILTER_VALIDATE_INT, array('min_range' => 1)) && $_GET['gift'] == '1') {
-            $catType = $_GET['gift'];
-        } else {
-            $catType = 0;
-        }
-
-        if (!empty($_GET['page']) && filter_var($_GET['page'], FILTER_VALIDATE_INT, array('min_range' => 1))) {
-            $page = $_GET['page'];
+        $items = $this->input->get();
+        if (!empty($items['page']) && filter_var($items['page'], FILTER_VALIDATE_INT, array('min_range' => 1))) {
+            $page = $items['page'];
         } else {
             $page = 1;
         }
         $data = array(
             'language_type' => $this->_language,
-            'parent' => $this->mcategory->listParent(),
         );
-        $data['gift'] = $catType;
-        $params = array();
-        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-            $items = $this->input->get();
+        /**
+         * Insert, update category
+         */
+        if ($this->isPostMethod()) {
+            $error = array();
+            $params = $this->input->post();
+            $this->_validateChildren($params, $error); // Check validation input
+            if (empty($error)) {
+                if (!empty($_FILES['logo']['name'])) {
+                    $checkUpload = $this->uploadPhoto($_FILES['logo'], 'logo', IMAGE_CATEGORY_PATH, TRUE, $maxWidth = 1366, $maxHeight = 768, $maxSize = 200000);
+                    if ($checkUpload) {
+                        $params['logo'] = $checkUpload; // Get logo name:
+                        $is_resize = $this->resizePhoto($checkUpload, $width = IMAGE_WIDTH_400, $height = IMAGE_HEIGHT_400, IMAGE_CATEGORY_PATH);
+                        if ($is_resize != TRUE) { // not resize
+                            $error[] = 'Không xử lý được file ảnh <br/> vui lòng kiểm tra lại';
+                        }
+                    } else {
+                        $error[] = 'File ảnh chưa được up <br/> vui lòng kiểm tra lại';
+                    }
+                }
+                if (empty($error)) {
+                    $this->db->trans_off();
+                    $this->db->trans_begin();
+                    $this->mcategory->create($params,$parent['id']); // new children category
+                    if ($this->db->trans_status() === FALSE) {
+                        $this->db->trans_rollback();
+                        $error[] = 'Hệ thống chưa cập nhật được dữ liệu <br/> vui lòng kiểm tra lại';
+                    } else {
+                        $this->db->trans_commit();
+                        $params = array();
+                    }
+                }
+            }
+            $data['params'] = $params;
+            $data['cat_errors'] = $error;
         }
-        $data['items'] = $params;
         // Config pagination:
         $parmameter_page = 'page';
         $queryString = $this->input->server('QUERY_STRING');
         //remove parameter page
-
         $queryString = preg_replace('/(\&|)page=[0-9]$/is', '', $queryString);
         $queryString = preg_replace('/(\&|)page=$/is', '', $queryString);
-
         $page_config = array(
-            'base_url' => base_url('category/?' . $queryString),
+            'base_url' => base_url('category/childrenCategory' . '/' . $parent['id'] . '?' . $queryString),
             'per_page' => NUMBER_PAGE,
             'use_page_numbers' => TRUE,
             'page_query_string' => TRUE,
@@ -231,7 +282,7 @@ class Category extends MY_Controller {
         );
         $offset = max(($page - 1), 0) * $page_config['per_page'];
         $total_records = 0;
-        $data['list_data'] = $this->mcategory->search($items, $total_records, $offset, $page_config['per_page'], $catType);
+        $data['list_data'] = $this->mcategory->listAllChildrenCategory($items, $total_records, $offset, $page_config['per_page'], $parent['id']);
         if (!empty($data['list_data'])) {
             // Pagination
             $this->load->library('pagination');
@@ -239,67 +290,13 @@ class Category extends MY_Controller {
             $this->pagination->initialize($page_config);
             $data["pagination"] = $this->pagination->create_links();
         }
-
-        /**
-         * Insert, update category
-         */
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $error = array();
-            $params = $this->input->post();
-
-            // Check validation input
-            $this->_validate($params, $error);
-            //echo '<pre>';            print_r($_FILES['logo']);exit;
-            if (empty($error)) {
-
-                $checkUpload = $this->uploadPhoto($_FILES['logo'], 'logo', TEMP_PATH, TRUE, $maxWidth = 1366, $maxHeight = 768, $maxSize = 200000);
-                if ($checkUpload) {
-                    // Get logo name:
-                    $params['logo'] = $checkUpload;
-                    if ($this->resizePhoto($checkUpload, $width = IMAGE_WIDTH_400, $height = IMAGE_HEIGHT_400, TEMP_PATH, IMAGE_CATEGORY_PATH)) {
-                        // Add watermarking photo:
-                        //$this->watermarkingPhoto(IMAGE_CATEGORY_PATH, $checkUpload);
-                        // Remove tmp file:
-                        $tmpFile = TEMP_PATH . $checkUpload;
-                        if (file_exists($tmpFile)) {
-                            $fh = fopen($tmpFile, "rb");
-                            $imgData = fread($fh, filesize($tmpFile));
-                            fclose($fh);
-                            unlink($tmpFile);
-                        }
-                    }
-                    // Remove file:
-                    if (!empty($_POST['category_id'])) {
-                        $catId = (int) $_POST['category_id'];
-                        $detailCat = $this->mcategory->getDetail($catId);
-                        if ($detailCat) {
-                            if (!empty($detailCat['logo'])) {
-                                $imgFile = IMAGE_CATEGORY_PATH . $detailCat['logo'];
-                                if (file_exists($imgFile)) {
-                                    $fh = fopen($imgFile, "rb");
-                                    $imgData = fread($fh, filesize($imgFile));
-                                    fclose($fh);
-                                    unlink($imgFile);
-                                }
-                            }
-                        }
-                    }
-                }
-
-                if ($this->mcategory->create($params)) {
-                    redirect(base_url('category'));
-                }
-            }
-            $data['params'] = $params;
-            $data['cat_errors'] = $error;
-        }
-        //echo '<pre>';        print_r($data['list_data']);exit;
         $data['offset'] = $offset;
         $data['items'] = $items;
+        $data['parent'] = $parent['id'];
         $tpl["main_content"] = $this->load->view('category/index', $data, TRUE);
         $this->load->view(TEMPLATE, $tpl);
     }
-    
+
     /**
      *  new category
      */
@@ -517,6 +514,84 @@ class Category extends MY_Controller {
         //Validate
         if ($this->form_validation->run() == FALSE) {
             $errors = $this->form_validation->error_array();
+        }
+    }
+    
+    /**
+     * validate update category
+     * @param type $data
+     * @param type $errors
+     */
+    private function _validateUpdateCategory(&$data, &$errors) {
+        //Trim
+        foreach ($data as $k => $item) {
+            if (is_string($item)) {
+                $data[$k] = trim($item);
+            }
+        }
+        //Load
+        $this->load->library('form_validation');
+        // Set rules:
+        $this->form_validation->set_rules("name", $this->lang->line('CAT_MISSING_EMPTY_NAME'), "required|trim|xss_clean|max_length[255]");
+        $this->form_validation->set_rules("slug", $this->lang->line('MISSING_EMPTY_SLUG'), "trim|max_length[255]|");
+        $this->form_validation->set_rules("keyword_seo", $this->lang->line('KEYWORD_SEO'), "trim|max_length[255]");
+        $this->form_validation->set_rules("des_seo", $this->lang->line('DESCRIPTION_SEO'), "trim|max_length[255]");
+        // Set Message:
+        $this->form_validation->set_message('required', '%s');
+        //Validate
+        if ($this->form_validation->run() == FALSE) {
+            $errors = $this->form_validation->error_array();
+        }
+        if (empty($errors)) {
+            $isExistsName = $this->mcategory->checkExistName($data['name'], $data['id']);
+            if ($isExistsName == TRUE) {
+                $errors[] = 'Tên danh mục đã tồn tại';
+            }
+            if (!empty($data['slug'])) {
+                $isExistsSlug = $this->mcategory->checkExistSlug($data['slug'], $data['id']);
+                if ($isExistsSlug == TRUE) {
+                    $errors[] = 'Slug đã tồn tại';
+                }
+            }
+        }
+    }
+    
+    /**
+     * validate update category
+     * @param type $data
+     * @param type $errors
+     */
+    private function _validateChildren(&$data, &$errors) {
+        //Trim
+        foreach ($data as $k => $item) {
+            if (is_string($item)) {
+                $data[$k] = trim($item);
+            }
+        }
+        //Load
+        $this->load->library('form_validation');
+        // Set rules:
+        $this->form_validation->set_rules("name", $this->lang->line('CAT_MISSING_EMPTY_NAME'), "required|trim|xss_clean|max_length[255]");
+        $this->form_validation->set_rules("slug", $this->lang->line('MISSING_EMPTY_SLUG'), "trim|max_length[255]|");
+        $this->form_validation->set_rules("keyword_seo", $this->lang->line('KEYWORD_SEO'), "trim|max_length[255]");
+        $this->form_validation->set_rules("des_seo", $this->lang->line('DESCRIPTION_SEO'), "trim|max_length[255]");
+        // Set Message:
+        $this->form_validation->set_message('required', '%s');
+        //Validate
+        if ($this->form_validation->run() == FALSE) {
+            $errors = $this->form_validation->error_array();
+        }
+        if (empty($errors)) {
+            $isExistsName = $this->mcategory->checkExistName($data['name']);
+            if ($isExistsName == TRUE) {
+                $errors[] = 'Tên danh mục đã tồn tại';
+            }
+            if (!empty($data['slug'])) {
+                $isExistsSlug = $this->mcategory->checkExistSlug($data['slug']);
+                if ($isExistsSlug == TRUE) {
+                    $errors[] = 'Slug đã tồn tại';
+                }
+            }
         }
     }
 
