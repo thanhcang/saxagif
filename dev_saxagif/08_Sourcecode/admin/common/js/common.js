@@ -57,6 +57,7 @@ $(document).ready(function(){
         var user_id = $(this).attr('attUser') 
         ajaxProfile(user_id);
     });
+    initNoAcceptEnterKey();
 });
 
 /**
@@ -125,8 +126,8 @@ function initNoAcceptSpaceKey(element) {
  * @param {type} element
  * @returns {undefined}
  */
-function initNoAcceptEnterKey(element) {
-    element.keypress(function (event) {
+function initNoAcceptEnterKey() {
+    $('.noEnter').keypress(function (event) {
         var keycode = event.charCode || event.keyCode;
         if (keycode == 13) {
             event.preventDefault();

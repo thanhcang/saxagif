@@ -54,3 +54,8 @@ $config['typeCategory'] = array(
     1=>'danh mục',
     2=>'sự kiện',
 );
+$config['position_news'] = array(
+    1 => 'Trang chủ',
+    2 => 'Giới thiệu',
+    3 => 'Liên hệ',
+); 
