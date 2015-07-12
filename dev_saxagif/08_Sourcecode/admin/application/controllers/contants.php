@@ -31,7 +31,7 @@ class Contants extends MY_Controller {
         echo "var URL_AJAX_DELETE_PARTERS = '" . base_url('ajax/deleteParters') . "';" . PHP_EOL;
         
         //Category news
-         echo "var URL_DEL_CAT_NEWS = '" . base_url('category_news/delete') . "';" . PHP_EOL;
+         echo "var URL_DEL_CAT_NEWS = '" . base_url('ajax/deleteCategory') . "';" . PHP_EOL;
          echo "var URL_DETAIL_CAT_NEWS = '" . base_url('category_news/detailCatNews') . "';" . PHP_EOL;
          
     }

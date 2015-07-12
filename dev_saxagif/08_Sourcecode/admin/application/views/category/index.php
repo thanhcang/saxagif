@@ -10,7 +10,7 @@
                 <h2><i class="glyphicon glyphicon-plus"></i><?php echo $this->lang->line('NEW_ADD') ?></h2>
             </div>
             <div class="box-content">
-                <form name="frmCategory" id="frmCategory" method="POST" action="<?php echo base_url('category') ?>" enctype="multipart/form-data">
+                <form name="frmCategory" id="frmCategory" method="POST" action="<?php echo base_url('category/childrenCategory'.'/'.$parent) ?>" enctype="multipart/form-data">
                     <?php if(!empty($cat_errors)): ?>
                     <div class="error">
                         <ul>
@@ -23,7 +23,7 @@
                     <div class="clearfix"></div>
                     <div class="form-group">
                         <label><?php echo $this->lang->line('CHOOSE_LANGUAGE') ?></label>
-                        <select name="language_type" class="form-control input-sm">
+                        <select name="language_type" class="form-control">
                             <?php if(!empty($language_type)): ?>
                             <?php foreach ($language_type as $k=>$v): ?>
                             <option value="<?php echo $k ?>" <?php if(!empty($params['language_type']) && $params['language_type'] == $k ) echo 'selected' ?>><?php echo $v; ?></option>
@@ -46,19 +46,6 @@
                     <div class="form-group">
                         <label><?php echo $this->lang->line('CAT_LOGO') ?></label>
                         <input type="file" name="logo"  accept="image/*" class="" id="logo" />
-                    </div>
-                    <div class="form-group">
-                        <label><?php echo $this->lang->line('CAT_PARENT') ?></label>
-                        <div class="controls">
-                            <select name="parent" class="form-control">
-                                <option value="">&nbsp;</option>
-                                <?php if(!empty($parent)): ?>
-                                <?php foreach ($parent as $p): ?>
-                                <option value="<?php echo $p['id'] ?>" <?php if(!empty($params['parent']) && $params['parent'] == $p['id'] ) echo 'selected' ?>><?php echo $p['name'] ?></option>
-                                <?php endforeach ?>
-                                <?php endif; ?>
-                            </select>
-                        </div>
                     </div>
                     <div class="form-group">
                         <label><?php echo $this->lang->line('CAT_KEYWORD_SEO') ?></label>
@@ -85,7 +72,6 @@
             <div class="box-header well" data-original-title="">
                 <h2><i class="glyphicon glyphicon-th-list"> </i> Danh sách</h2>
             </div>
-            
             <div class="box-content">
                 <div class="pull-left">
                     <form class="frmFilter" name="frmFilter" method="GET" action="">
@@ -111,7 +97,8 @@
                 <table class="table table-striped table-bordered responsive martopten datatable">
                     <colgroup>
                         <col width="5%"/>
-                        <col width="50%"/>
+                        <col width="30%"/>
+                        <col width="20%"/>
                         <col width="15%"/>
                         <col width="30%"/>
                     </colgroup>
@@ -119,8 +106,8 @@
                         <tr>
                             <th><?php echo $this->lang->line('STT') ?></th>
                             <th><?php echo $this->lang->line('CAT_NAME') ?></th>
+                            <th>logo</th>
                             <th class="text-center"><?php echo $this->lang->line('CAT_BACKGROUND_COLOR') ?></th>
-                            <!--<th><?php echo $this->lang->line('DISPLAY_POSITION') ?></th>-->
                             <th></th>
                         </tr>
                     </thead>

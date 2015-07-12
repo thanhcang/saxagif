@@ -72,23 +72,28 @@
                 <div class="pull-left">
                     <form class="frmFilter" name="frmFilter" method="GET" action="">
                         <select name="sLanguageType">
-                            <option value="1">chọn ngôn ngữ</option>
+                            <option value="">chọn ngôn ngữ</option>
                             <?php if(!empty($language_type)): ?>
                                 <?php foreach ($language_type as $k=>$v): ?>
-                                    <option value="<?php echo $k ?>" <?php if(!empty($sParam['slanguageType']) && $sParam['slanguageType'] == $k ) echo 'selected' ?>><?php echo $v; ?></option>
+                                    <option value="<?php echo $k ?>" <?php if(!empty($sParam['sLanguageType']) && $sParam['sLanguageType'] == $k ) echo 'selected' ?>><?php echo $v; ?></option>
                                 <?php endforeach; ?>
                             <?php endif; ?>
                         </select>
                         <select name="sType">
-                            <option value="1">chọn loại danh mục</option>
+                            <option value="">chọn loại danh mục</option>
                         <?php if(!empty($typeCategory)) : ?>
                             <?php foreach($typeCategory as $key=>$value): ?>
-                                <option value="<?php echo $key?>" <?php echo (!empty($sParam['type']) && $key == $sParam['type']) ? 'selected' :''; ?> ><?php echo $value?></option>
+                                <option value="<?php echo $key?>" <?php echo (!empty($sParam['sType']) && $key == $sParam['sType']) ? 'selected' :''; ?> ><?php echo $value?></option>
                             <?php endforeach;?>
                         <?php endif; ?>
                         </select>
                         <select name="sCatId"> 
-                            <option value="1">tên danh mục</option>
+                            <option value="">tên danh mục</option>
+                            <?php if(!empty($list_data)): ?>
+                            <?php foreach ($list_data as $key => $row): ?>
+                                <option value="<?php echo $row['id'];?>" <?php echo (!empty($sParam['sCatId']) && $row['id'] == $sParam['sCatId']) ? 'selected' :''; ?> ><?php echo $row['name']?></option>
+                            <?php endforeach;?>
+                            <?php endif; ?>
                         </select>
                         <button type="submit">Filter</button>
                     </form>
@@ -120,10 +125,10 @@
                             </td>
                             <td>
                                 <a class="btn btn-success viewCategory" href="<?php echo base_url('category/viewCategory/' . $row['id']) ?>"><i class="glyphicon glyphicon-zoom-in icon-white"></i>Xem</a>
-                                <a href="<?php echo base_url('category/edit/' . $row['id']) ?>" class="editCat1 btn btn-info"><i class="glyphicon glyphicon-edit icon-white"></i><?php echo $this->lang->line('EDIT') ?></a>
+                                <a href="<?php echo base_url('category/updateCategory/' . $row['id']) ?>" class="editCat1 btn btn-info"><i class="glyphicon glyphicon-edit icon-white"></i><?php echo $this->lang->line('EDIT') ?></a>
                                 <a href="javascript:;" class="delCat btn btn-danger" cat_name="<?php echo htmlspecialchars($row['name']) ?>" cat_attr="<?php echo $row['id'] ?>" ><i class="glyphicon glyphicon-trash icon-white"></i><?php echo $this->lang->line('DELETE') ?></a>
-                                <?php if (!empty($row['is_home'])): ?>
-                                <a href="<?php echo base_url('category/detail/' . $row['id']) ?>" class="btn btn-success" title="thêm danh mục con"><i class="glyphicon glyphicon-plus icon-white"></i>Thêm</a>
+                                <?php if (!empty($row['type']) && $row['type'] == 1): ?>
+                                <a href="<?php echo base_url('category/childrenCategory/' . $row['id']) ?>" class="btn btn-success" title="thêm danh mục con"><i class="glyphicon glyphicon-plus icon-white"></i>Thêm</a>
                                 <?php endif; ?>
                             </td>
                         </tr>
@@ -146,4 +151,6 @@
         <input type="checkbox" name="is_home" value="1" >
     </div>
 </div>
+<?php require_once(VIEW_PATH.'templates/popup/_confirmDelete.php') ;?>
+<?php require_once(VIEW_PATH.'templates/popup/_messageDialog.php') ;?>
 <script src="<?php echo base_url('common/js/category.js'); ?>"></script>
