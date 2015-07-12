@@ -42,7 +42,10 @@ class Category_news extends MY_Controller
             // Set rules:
             $this->_validate($params, $error);
             if (empty($error)) {
-                $this->mcategory_news->save($params);
+                $isInsert = $this->mcategory_news->save($params);
+                if($isInsert) {
+                    $params = array();
+                }
             }
             $data['params'] = $params;
             $data['cat_news_errors'] = $error;
@@ -186,7 +189,7 @@ class Category_news extends MY_Controller
             $is_detailCat = $this->mcategory_news->getDetail($input['catNewsId']);
             if ($is_detailCat) {
                 $positions = $this->config->item('position');
-                $is_detailCat['position_name'] = $positions[$is_detailCat['id']];
+                $is_detailCat['position_name'] = $positions[$is_detailCat['position']];
                 $json_result = array(
                     'result' => 1,
                     'code'  => 202,
@@ -213,7 +216,11 @@ class Category_news extends MY_Controller
             return;
         }
     }
-
+    
+    /**
+     * Delete Category news
+     * @return type
+     */
 
     public function delete()
     {
@@ -247,7 +254,7 @@ class Category_news extends MY_Controller
 
         // Set rules:
         $this->form_validation->set_rules("name", $this->lang->line('CAT_NEWS_MISSING_NAME_EMPTY'), "required|trim|xss_clean|max_length[255]|callback__checkExistName");
-        $this->form_validation->set_rules("slug", $this->lang->line('MISSING_EMPTY_SLUG'), "required|trim|max_length[255]|callback__checkExistSlug");
+        $this->form_validation->set_rules("slug", $this->lang->line('MISSING_EMPTY_SLUG'), "trim|max_length[255]|callback__checkExistSlug");
         $this->form_validation->set_rules("language_type", $this->lang->line('PRO_MISSING_PRICE_INVALID'), "required|trim|integer|max_length[1]");
         $this->form_validation->set_rules("keyword_seo", $this->lang->line('PRO_DESCRIPTION'),  "trim|max_length[255]");
         $this->form_validation->set_rules("des_seo", $this->lang->line('PRO_CONTENT'),"trim|max_length[255]");
@@ -286,7 +293,8 @@ class Category_news extends MY_Controller
     public function _checkExistSlug()
     {
         if (empty($_POST['category_news_id'])) {
-            if ($this->mcategory_news->checkExistSlug($_POST['slug'])) {
+            $slugName = slug_convert($_POST['slug']);
+            if (!empty($_POST['slug']) && $this->mcategory_news->checkExistSlug($slugName)) {
                 $this->form_validation->set_message('_checkExistSlug', $this->lang->line('CAT_NEWS_MISSING_SLUG_EXIST'));
                 return FALSE;
             } else {

@@ -21,7 +21,7 @@
                     <div class="clearfix"></div>
                     <div class="form-group">
                         <label><?php echo $this->lang->line('CHOOSE_LANGUAGE') ?></label>
-                        <select name="language_type" class="form-control input-sm">
+                        <select name="language_type" class="form-control">
                             <?php if(!empty($language_type)): ?>
                             <?php foreach ($language_type as $k=>$v): ?>
                             <option value="<?php echo $k ?>" <?php if(!empty($params['language_type']) && $params['language_type'] == $k ) echo 'selected' ?>><?php echo $v; ?></option>
@@ -31,30 +31,30 @@
                     </div>
                     <div class="form-group">
                         <label><?php echo $this->lang->line('CAT_NEWS_NAME') ?><span class="text-danger">*</span></label>
-                        <input type="text" name="name" class="form-control input-sm" id="name" value="<?php if(!empty($params['name'])) echo html_escape($params['name']) ?>" maxlength="255" />
+                        <input type="text" name="name" class="form-control" id="name" value="<?php if(!empty($params['name'])) echo html_escape($params['name']) ?>" maxlength="255" />
                     </div>
                     <div class="form-group">
                         <label><?php echo $this->lang->line('SLUG') ?><span class="text-danger">*</span></label>
-                        <input type="text" name="slug" class="form-control input-sm" id="slug" value="<?php if(!empty($params['slug'])) echo html_escape($params['slug']) ?>" maxlength="255" />
+                        <input type="text" name="slug" class="form-control" id="slug" value="<?php if(!empty($params['slug'])) echo html_escape($params['slug']) ?>" maxlength="255" />
                     </div>
                     <div class="form-group">
                         <label><?php echo $this->lang->line('CAT_NEWS_POSITION') ?></label>
-                        <select name="position" class="form-control input-sm">
+                        <select name="position" class="form-control">
                             <option value="">&nbsp;</option>
                             <?php if(!empty($position)): ?>
                             <?php foreach ($position as $key=>$value): ?>
-                            <option value="<?php echo $k ?>"><?php echo $value ?></option>
+                            <option value="<?php echo $k ?>" <?php if(!empty($params['position']) && $params['position'] == $key ) echo 'selected' ?>><?php echo $value ?></option>
                             <?php endforeach; ?>
                             <?php endif ?>
                         </select>
                     </div>
                     <div class="form-group">
                         <label><?php echo $this->lang->line('KEYWORD_SEO') ?></label>
-                        <input type="text" name="keyword_seo" class="form-control input-sm" id="keyword_seo" value="<?php if(!empty($params['keyword_seo'])) echo html_escape($params['keyword_seo']) ?>" maxlength="255" />
+                        <input type="text" name="keyword_seo" class="form-control" id="keyword_seo" value="<?php if(!empty($params['keyword_seo'])) echo html_escape($params['keyword_seo']) ?>" maxlength="255" />
                     </div>
                     <div class="form-group">
                         <label><?php echo $this->lang->line('DESCRIPTION_SEO') ?></label>
-                        <input type="text" name="des_seo" class="form-control input-sm" id="des_seo" value="<?php if(!empty($params['des_seo'])) echo html_escape($params['des_seo']) ?>" maxlength="255" />
+                        <input type="text" name="des_seo" class="form-control" id="des_seo" value="<?php if(!empty($params['des_seo'])) echo html_escape($params['des_seo']) ?>" maxlength="255" />
                     </div>
                     <div class="form-group">
                         <button type="submit" class="button button-blue"><?php echo $this->lang->line('CREATE') ?></button>
@@ -74,9 +74,10 @@
                 <div class="pull-left">
                     <form class="frmFilter" name="frmFilter" method="GET" action="<?php echo base_url('category_news') ?>">
                         <select name="language_type">
+                            <option value=""><?php echo $this->lang->line('CHOOSE_LANGUAGE') ?></option>
                             <?php if(!empty($language_type)): ?>
                             <?php foreach ($language_type as $k=>$v): ?>
-                            <option value="<?php echo $k ?>" <?php if(!empty($items['language_type']) && $items['language_type'] == $k ) echo 'selected'; elseif($k == 1) echo 'selected' ?>><?php echo $v; ?></option>
+                            <option value="<?php echo $k ?>" <?php if(!empty($items['language_type']) && $items['language_type'] == $k ) echo 'selected'; ?>><?php echo $v; ?></option>
                             <?php endforeach; ?>
                             <?php endif; ?>
                         </select>
@@ -95,13 +96,15 @@
                 <table class="table table-striped table-bordered responsive martopten datatable">
                     <colgroup>
                         <col width="5%"/>
-                        <col width="50%"/>
-                        <col width="45%"/>
+                        <col width="35%"/>
+                        <col width="20%"/>
+                        <col width="40%"/>
                     </colgroup>
                     <thead>
                         <tr>
                             <th><?php echo $this->lang->line('STT') ?></th>
-                            <th><?php echo $this->lang->line('CAT_NAME') ?></th>
+                            <th><?php echo $this->lang->line('CAT_NEWS_NAME') ?></th>
+                            <th><?php echo $this->lang->line('CAT_NEWS_POSITION') ?></th>
                             <th></th>
                         </tr>
                     </thead>
@@ -111,6 +114,7 @@
                         <tr class="cat_<?php echo $row['id'] ?>">
                             <td><?php echo $key+1+$offset ?></td>
                             <td><a href="javascript:;" class="btnShowDetail" attrCatNews="<?php echo $row['id'] ?>"><?php echo htmlspecialchars($row['name']) ?></a></td>
+                            <td><?php if(!empty($row['position']) && !empty($position[$row['position']])) echo $position[$row['position']] ?></td>
                             <td>
                                 <a href="javascript:;" class="btn btn-success btnShowDetail" attrCatNews="<?php echo $row['id'] ?>"><i class="glyphicon glyphicon-zoom-in icon-white"></i><?php echo $this->lang->line('VIEW') ?></a>
                                 <a href="<?php echo base_url('category_news/edit/' . $row['id']) ?>" class="editCat1 btn btn-info"><i class="glyphicon glyphicon-edit icon-white"></i><?php echo $this->lang->line('EDIT') ?></a>

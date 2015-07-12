@@ -18,6 +18,7 @@ class Mcategory_news extends MY_Model
                         cn.id,
                         cn.name,
                         cn.slug,
+                        cn.position,
                         cn.language_type,
                         cn.keyword_seo,
                         cn.des_seo
@@ -69,10 +70,15 @@ class Mcategory_news extends MY_Model
     {
         $data = array(
             'name'          => $params['name'],
-            'slug'          => $params['slug'],
             'language_type' => (int)$params['language_type'],
             'position'      => $params['position'],
         );
+        
+        if(!empty($params['slug'])) {
+            $data['slug']  = slug_convert($params['slug']);
+        } else {
+            $data['slug'] = slug_convert($params['name']);
+        }
         
         if(!empty($params['keyword_seo'])) {
             $data['keyword_seo'] = $params['keyword_seo'];
