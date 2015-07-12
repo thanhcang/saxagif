@@ -14,7 +14,7 @@ class Muser extends MY_Model {
     public function __construct() {
         parent::__construct();
         $this->_table = 'd_user';
-        $this->_login_user = $this->session->userdata('user_id');;
+        $this->_login_user = $this->session->userdata('user_id');
     }
     
     /**

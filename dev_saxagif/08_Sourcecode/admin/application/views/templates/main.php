@@ -83,12 +83,8 @@
                                 <li class="nav-header">Danh mục quản lý</li>
                                 <li><a class="ajax-link" href="manager_menu.html"><i class="glyphicon glyphicon-book"></i><span> Quản lý menu</span></a>
                                 </li>
-                                <li class="accordion"  onclick="showChildCat(this)">
-                                    <a href="javascript:;"><i class="glyphicon glyphicon-plus"></i><span> Danh mục</span></a>
-                                    <ul class="nav nav-pills nav-stacked child-cate" style="display: none;">
-                                        <li><a href="<?php echo base_url('category/?&gift=1') ?>"><i class="glyphicon glyphicon-gift"></i> <span>Giúp bạn chọn quà</span></a></li>
-                                        <li><a href="<?php echo base_url('category/?&gift=0') ?>"><i class="glyphicon glyphicon-list-alt"></i> <span>Danh mục sản phẩm</span></a></li>
-                                    </ul>
+                                <li>
+                                    <a class="ajax-link" href="<?php echo base_url('category') ?>"><i class="glyphicon glyphicon-plus"></i><span> Danh mục</span></a>
                                 </li>
                                 <li><a class="ajax-link" href="<?php echo base_url('product') ?>"><i class="glyphicon glyphicon-tags"></i><span> Sản phẩm</span></a>
                                 </li>

@@ -32,3 +32,8 @@ $config['permission'] = array(
     1=>'Quản Lý',
     2=>'Biên tập',
 );
+
+$config['typeCategory'] = array(
+    1=>'danh mục',
+    2=>'sự kiện',
+);

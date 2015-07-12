@@ -79,7 +79,7 @@ function ajaxProfile(user_id) {
         if (Object.keys(e).length > 0 && e.result == 0 && e.code == 404 ) { // not find                  
         } else if (Object.keys(e).length > 0 && e.result == 0 && e.code == 500 ) { // is hack 
         } else if (Object.keys(e).length > 0 && e.result == 1 && e.code == 202 ){ // is success
-            var _image =BASE_URL+'common/img/logo_member/NoImage.jpg';
+            var _image =BASE_URL+'common/img/logo_member/no-img.jpg';
             var _pUserName  = $('#pUserName');
             var _pFirstName = $('#pFirstName');
             var _pLastName  = $('#pLastName');
@@ -106,7 +106,7 @@ function ajaxProfile(user_id) {
 }
 
 /**
- * not accpt enter key 
+ * not accpt space key 
  * @param {type} element
  * @returns {undefined}
  */
@@ -114,6 +114,21 @@ function initNoAcceptSpaceKey(element) {
     element.keypress(function (event) {
         var keycode = event.charCode || event.keyCode;
         if (keycode == 32) {
+            event.preventDefault();
+            return false;
+        }
+    });
+}
+
+/**
+ * not accpt enter key 
+ * @param {type} element
+ * @returns {undefined}
+ */
+function initNoAcceptEnterKey(element) {
+    element.keypress(function (event) {
+        var keycode = event.charCode || event.keyCode;
+        if (keycode == 13) {
             event.preventDefault();
             return false;
         }

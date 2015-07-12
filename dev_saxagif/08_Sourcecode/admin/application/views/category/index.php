@@ -7,7 +7,7 @@
     <div class="box col-md-4">
         <div class="box-inner">
             <div class="box-header well">
-                <h2><i class="glyphicon glyphicon-list-alt"></i><?php echo $this->lang->line('NEW_ADD') ?></h2>
+                <h2><i class="glyphicon glyphicon-plus"></i><?php echo $this->lang->line('NEW_ADD') ?></h2>
             </div>
             <div class="box-content">
                 <form name="frmCategory" id="frmCategory" method="POST" action="<?php echo base_url('category') ?>" enctype="multipart/form-data">
@@ -83,14 +83,13 @@
     <div class="box col-md-8">
         <div class="box-inner">
             <div class="box-header well" data-original-title="">
-                <h2><i class="glyphicon glyphicon-list"> </i><?php echo $this->lang->line('LIST_CATEGORY') ?></h2>
+                <h2><i class="glyphicon glyphicon-th-list"> </i> Danh sách</h2>
             </div>
             
             <div class="box-content">
                 <div class="pull-left">
                     <form class="frmFilter" name="frmFilter" method="GET" action="">
                         <select name="language_type">
-                            <option value=""><?php echo $this->lang->line('CHOOSE_LANGUAGE') ?></option>
                             <?php if(!empty($language_type)): ?>
                             <?php foreach ($language_type as $k=>$v): ?>
                             <option value="<?php echo $k ?>" <?php if(!empty($items['language_type']) && $items['language_type'] == $k ) echo 'selected' ?>><?php echo $v; ?></option>

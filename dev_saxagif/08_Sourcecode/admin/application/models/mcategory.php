@@ -6,8 +6,10 @@
  */
 class Mcategory extends MY_Model
 {
+    var $_login_user;
     public function __construct() {
         parent::__construct();
+        $this->_login_user = $this->session->userdata('user_id');
     }
     
     public function search($params, &$total, $offset = 0, $limit = 0, $catType = '')
@@ -179,6 +181,80 @@ class Mcategory extends MY_Model
         }
         
     }
+    
+    /**
+     * get all list category
+     * @param array $param
+     * @param int $total
+     * @param int $offset
+     * @param int $limit
+     * @return boolean
+     */
+    public function listAllCategory($param, &$total, $offset = 0, $limit = 0) {
+        $arr_where = array(
+            'del_flg' => 0,
+            'parent' => 0,
+        );
+        $sql = "SELECT
+                        c.id,
+                        c.name,
+                        c.logo,
+                        c.slug,
+                        c.bg_color,
+                        c.language_type,
+                        c.parent,
+                        c.keyword_seo,
+                        c.des_seo,
+                        c.type
+                FROM " . $this->_tbl_category . "
+                AS c WHERE 
+                        c.del_flg = 0 
+                        AND c.parent = 0";
+        if (!empty($param['sLanguageType'])) {
+            $language = (int) $param['sLanguageType'];
+            $sql .= " AND c.language_type = ?";
+            $arr_where[] = $language;
+        }
+        if (!empty($param['sCatId'])) {
+            $catId = $params['sCatId'];
+            $sql .= " AND c.id = ?";
+            $arr_where[] = $catId;
+        }
+        if (!empty($param['sType'])) {
+            $type = $params['sType'];
+            $sql .= " AND c.type = ?";
+            $arr_where[] = $type;
+        }
+        $total = MY_Model::get_total_result($sql, $arr_where);
+        if ($limit > 0) {
+            $sql .= ' LIMIT ' . $offset . ',' . $limit;
+        }
+        $query = $this->db->query($sql, $arr_where);
+        //echo $this->db->last_query();die;
+        if ($query->num_rows() == 0) {
+            return FALSE;
+        }
+        return $query->result_array();
+    }
+    
+    /**
+     * 
+     * @param type $param
+     */
+    public function addParentCategory($param) {
+        $data = array(
+            'language_type' => $param['language_type'],
+            'name' => html_escape($param['name']),
+            'type' => $param['type'],
+            'slug' => $param['type'],
+            'keyword_seo' => !empty($param['keyword_seo']) ? html_escape($param['keyword_seo']) : '',
+            'des_seo' => !empty($param['des_seo']) ? html_escape($param['des_seo']) : '',
+            'create_user' => $this->_login_user,
+            'create_date' => date('Y-m-d H:i:s'),
+        );
+        $this->db->insert($this->_tbl_category, $data);
+    }
+
 }
 
 
