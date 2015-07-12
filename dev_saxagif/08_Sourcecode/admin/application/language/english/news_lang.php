@@ -8,8 +8,8 @@ $lang['NEWS_MISSING_TITLE_EMPTY'] = 'Trường tiêu đề không được rỗn
 $lang['NEWS_EDIT'] = 'Sửa tin tức';
 $lang['NEWS_DETAIL'] = 'Chi tiết tin tức';
 $lang['NEWS_MESS_DEL'] = 'Bạn thực sự muốn xóa tin <br/>';
-$lang['NEWS_'] = '';
-$lang['NEWS_'] = '';
+$lang['NEWS_CAT_NAME'] = 'Thuộc danh mục';
+$lang['NEWS_CREATE'] = 'Tạo mới tin tức';
 $lang['NEWS_'] = '';
 
 
