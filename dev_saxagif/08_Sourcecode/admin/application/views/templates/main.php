@@ -88,6 +88,11 @@
                                 </li>
                                 <li><a class="ajax-link" href="<?php echo base_url('product') ?>"><i class="glyphicon glyphicon-tags"></i><span> Sản phẩm</span></a>
                                 </li>
+                                <li>
+                                    <a class="ajax-link" href="<?php echo base_url('category_news') ?>">
+                                        <i class="glyphicon glyphicon-align-justify"></i><span> Danh mục tin tức</span>
+                                    </a>
+                                </li>
                                 <li><a class="ajax-link" href="<?php echo base_url('news') ?>"><i
                                             class="glyphicon glyphicon-edit"></i><span> Tin tức</span></a></li>
                                 <li><a class="ajax-link" href="customer_opinion.html"><i class="glyphicon glyphicon-comment"></i><span> Ý kiến khách hàng</span></a>
