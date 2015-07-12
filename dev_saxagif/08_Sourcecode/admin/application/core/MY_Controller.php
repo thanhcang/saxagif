@@ -168,9 +168,9 @@ class MY_Controller extends CI_Controller
         $config['upload_path'] = $uploadPath;
         if ($isImage) {
             $config['allowed_types'] = 'png|jpg|jpeg|gif|bmp|tiff|raw';
-            $fileTmpName = explode('.',$file['name']);
-            $fileName = $this->rd_letter().'.'.end($fileTmpName);
-            $config['file_name'] = $fileName;
+//            $fileTmpName = explode('.',$file['name']);
+//            $fileName = $this->rd_letter().'.'.end($fileTmpName);
+//            $config['file_name'] = $fileName;
         } else {
             $config['allowed_types'] = '*';
         }
@@ -191,7 +191,7 @@ class MY_Controller extends CI_Controller
         if(!$this->upload->do_upload($name)) {
             return FALSE;
         } else {
-            return $fileName;
+            return $file['name'];
         }
     }
     

@@ -229,7 +229,7 @@ class Category extends MY_Controller {
                     $checkUpload = $this->uploadPhoto($_FILES['logo'], 'logo', IMAGE_CATEGORY_PATH, TRUE, $maxWidth = 1366, $maxHeight = 768, $maxSize = 200000);
                     if ($checkUpload) {
                         $params['logo'] = $checkUpload; // Get logo name:
-                        $is_resize = $this->resizePhoto($checkUpload, $width = IMAGE_WIDTH_400, $height = IMAGE_HEIGHT_400, IMAGE_CATEGORY_PATH);
+                        $is_resize = $this->resizePhoto($checkUpload,  IMAGE_WIDTH_250,  IMAGE_WIDTH_250, IMAGE_CATEGORY_PATH);
                         if ($is_resize != TRUE) { // not resize
                             $error[] = 'Không xử lý được file ảnh <br/> vui lòng kiểm tra lại';
                         }
@@ -261,7 +261,7 @@ class Category extends MY_Controller {
         $queryString = preg_replace('/(\&|)page=$/is', '', $queryString);
         $page_config = array(
             'base_url' => base_url('category/childrenCategory' . '/' . $parent['id'] . '?' . $queryString),
-            'per_page' => NUMBER_PAGE,
+            'per_page' => NUMBER_PAGE_PARTNERS,
             'use_page_numbers' => TRUE,
             'page_query_string' => TRUE,
             'query_string_segment' => $parmameter_page,

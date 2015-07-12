@@ -92,7 +92,7 @@ class Mcategory extends MY_Model
         $data = array(
             'name'          => $params['name'],
             'slug'          => !empty($params['slug']) ? slug_convert($params['slug']) : slug_convert($params['name']) ,
-            'bg_color'      => !empty($params['bg_color']),
+            'bg_color'      => !empty($params['bg_color']) ? $params['bg_color'] : '' ,
             'language_type' => (int)$params['language_type'],
             'parent'        => $parent,
             'create_user'   => $this->_login_user,

@@ -117,6 +117,11 @@
                         <tr class="cat_<?php echo $row['id'] ?>">
                             <td><?php echo $key+1+$offset ?></td>
                             <td><a href="<?php echo base_url('category/detail/' . $row['id']) ?>"><?php echo htmlspecialchars($row['name']) ?></a></td>
+                            <td class="text-center">
+                                <?php if (!empty($row['logo'])) :?> 
+                                <img src="<?php echo base_url(URL_IMAGE_CHILDREN_CATEGORY.'/'.$row['logo']) ?>"
+                                <?php endif ;?> 
+                            </td>
                             <td width="160" class="text-center">
                                 <input type="color" value="<?php if(!empty($row['bg_color'])) echo '#'.$row['bg_color'] ?>" disabled="disabled" />
                             </td>
