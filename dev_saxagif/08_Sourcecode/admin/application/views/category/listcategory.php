@@ -54,7 +54,7 @@
                     </div>
                     <div class="form-group">
                         <label><?php echo $this->lang->line('CAT_DES_SEO') ?></label>
-                        <textarea name="des_seo" class="form-control"><?php if(!empty($param['des_seo'])) echo html_escape($param['des_seo']) ?></textarea>
+                        <textarea name="des_seo" class="form-control noEnter"><?php if(!empty($param['des_seo'])) echo html_escape($param['des_seo']) ?></textarea>
                     </div>
                     <div class="form-group">
                         <button type="submit" class="button button-blue"><?php echo $this->lang->line('CREATE') ?></button>
@@ -104,7 +104,7 @@
                     <thead>
                         <tr>
                             <th class="text-align-center-i"><?php echo $this->lang->line('STT') ?></th>
-                            <th class="text-align-center-i"><?php echo $this->lang->line('CAT_NAME') ?></th>
+                            <th><?php echo $this->lang->line('CAT_NAME') ?></th>
                             <th class="text-align-center-i">Loại</th>
                             <th></th>
                         </tr>
@@ -114,14 +114,17 @@
                         <?php foreach ($list_data as $key => $row): ?>
                         <tr>
                             <td class="text-align-center-i"><?php echo $key+1+$offset ?></td>
-                            <td class="text-align-center-i"><a href="<?php echo base_url('category/detail/' . $row['id']) ?>"><?php echo htmlspecialchars($row['name']) ?></a></td>
+                            <td><a href="javascript:;"><?php echo htmlspecialchars($row['name']) ?></a></td>
                             <td class="text-align-center-i">
                                 <?php echo $typeCategory[$row['type']] ?>
                             </td>
-                            <td class="text-align-center-i">
-                                <a href="<?php echo base_url('category/detail/' . $row['id']) ?>" class="btn btn-success"><i class="glyphicon glyphicon-zoom-in icon-white"></i><?php echo $this->lang->line('VIEW') ?></a>
+                            <td>
+                                <a class="btn btn-success viewCategory" href="<?php echo base_url('category/viewCategory/' . $row['id']) ?>"><i class="glyphicon glyphicon-zoom-in icon-white"></i>Xem</a>
                                 <a href="<?php echo base_url('category/edit/' . $row['id']) ?>" class="editCat1 btn btn-info"><i class="glyphicon glyphicon-edit icon-white"></i><?php echo $this->lang->line('EDIT') ?></a>
                                 <a href="javascript:;" class="delCat btn btn-danger" cat_name="<?php echo htmlspecialchars($row['name']) ?>" cat_attr="<?php echo $row['id'] ?>" ><i class="glyphicon glyphicon-trash icon-white"></i><?php echo $this->lang->line('DELETE') ?></a>
+                                <?php if (!empty($row['is_home'])): ?>
+                                <a href="<?php echo base_url('category/detail/' . $row['id']) ?>" class="btn btn-success" title="thêm danh mục con"><i class="glyphicon glyphicon-plus icon-white"></i>Thêm</a>
+                                <?php endif; ?>
                             </td>
                         </tr>
                         <?php endforeach; ?>
@@ -137,5 +140,10 @@
         </div>
     </div>     
 </div>
-
-
+<div class="pageHomeTemp hide">
+    <div class="form-group pageHome">
+        <label>Hiển thị trang chủ</label>
+        <input type="checkbox" name="is_home" value="1" >
+    </div>
+</div>
+<script src="<?php echo base_url('common/js/category.js'); ?>"></script>

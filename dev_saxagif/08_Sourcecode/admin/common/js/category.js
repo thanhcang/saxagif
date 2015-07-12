@@ -1,5 +1,8 @@
 $(document).ready(function(){
     var desSeo = $('textarea[name=des_seo]');
+    var pageHomeTemp = $('.pageHomeTemp');
+    var type = $('select[name=type]');
+    var form = $('form#frmCategory');
     setBgColor();
     // Show category navigation:
     if(typeof IS_CAT != 'undefined') {
@@ -18,6 +21,12 @@ $(document).ready(function(){
     });
     // vtcanglt add code 20150712
     initNoAcceptEnterKey(desSeo);
+    type.on('change', function(){ // choose show home
+        form.find('.pageHome').remove();
+        if ($(this).find('option:selected').val() == 2){
+            $(this).parent().after(pageHomeTemp.html());
+        } 
+    });
 });
 
 function defaultFocus() {

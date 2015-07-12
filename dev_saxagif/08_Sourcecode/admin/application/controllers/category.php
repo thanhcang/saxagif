@@ -101,6 +101,73 @@ class Category extends MY_Controller {
         $tpl["main_content"] = $this->load->view('category/listcategory', $data, TRUE);
         $this->load->view(TEMPLATE, $tpl);
     }
+    
+    /**
+     * show detail parent category
+     * @param type $id
+     * @return type
+     */
+    public function viewCategory($id) {
+        if (empty($id) || !is_numeric($id) || $id < 1) {
+            redirect(base_url('category'));
+            return;
+        }
+        $detail = $this->mcategory->getDetail($id);
+        if (empty($detail)) {
+            redirect(base_url('category'));
+            return;
+        }
+        $data = array(
+            'page_title' => 'SAXA Gifts - chi tiết danh mục',
+            'typeCategory' => $this->config->item('typeCategory'),
+            'language_type' => $this->config->item('language_type'),
+        );
+        $tpl = array(
+            'breadcrumb' => array(
+                base_url() => 'Home',
+                base_url('user') => 'Danh mục',
+                'javascriipt:;' => $detail['name']),
+        );
+        $data['catDetail'] = $detail;
+        $tpl["main_content"] = $this->load->view('category/viewCategory', $data, TRUE);
+        $this->load->view(TEMPLATE, $tpl);
+    }
+    
+    /**
+     * update category
+     * @param type $id
+     * @return type
+     */
+    public function updateCategory($id) {
+        if (empty($id) || !is_numeric($id) || $id < 1) {
+            redirect(base_url('category'));
+            return;
+        }
+        $param = $this->mcategory->getDetail($id);
+        if (empty($param)) {
+            redirect(base_url('category'));
+            return;
+        }
+        $data = array(
+            'page_title' => 'SAXA Gifts - cập nhật danh mục',
+            'typeCategory' => $this->config->item('typeCategory'),
+            'language_type' => $this->config->item('language_type'),
+        );
+        $tpl = array(
+            'breadcrumb' => array(
+                base_url() => 'Home',
+                base_url('user') => 'Danh mục',
+                '#' => 'Cập nhật',
+                'javascriipt:;' => $param['name']),
+        );
+        if ($this->isPostMethod()){
+            
+        }
+        $data['param'] = $param;
+        $data['catId'] = $id;
+        $tpl["main_content"] = $this->load->view('category/updateCategory', $data, TRUE);
+        $this->load->view(TEMPLATE, $tpl);
+    }
 
     /**
      * load list category

@@ -120,6 +120,12 @@ class Mcategory extends MY_Model
             
     }
     
+    /**
+     * get detail category
+     * @param type $cat_id
+     * @param type $parent
+     * @return boolean
+     */
     public function getDetail($cat_id, $parent = FALSE)
     {
         $data = array();
@@ -205,7 +211,8 @@ class Mcategory extends MY_Model
                         c.parent,
                         c.keyword_seo,
                         c.des_seo,
-                        c.type
+                        c.type,
+                        is_home
                 FROM " . $this->_tbl_category . "
                 AS c WHERE 
                         c.del_flg = 0 
@@ -246,7 +253,8 @@ class Mcategory extends MY_Model
             'language_type' => $param['language_type'],
             'name' => html_escape($param['name']),
             'type' => $param['type'],
-            'slug' => $param['type'],
+            'is_home' => !empty($param['is_home']) ? $param['is_home'] : 0 ,
+            'slug' => !empty($param['slug']) ? slug_convert($param['slug']) : slug_convert($param['name']) ,
             'keyword_seo' => !empty($param['keyword_seo']) ? html_escape($param['keyword_seo']) : '',
             'des_seo' => !empty($param['des_seo']) ? html_escape($param['des_seo']) : '',
             'create_user' => $this->_login_user,

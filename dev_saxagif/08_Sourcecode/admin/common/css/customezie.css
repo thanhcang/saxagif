@@ -10,6 +10,9 @@
 .inline-block{
     display:  inline-block;
 }
+.dblock{
+    display: block;
+}
 .marb5pi{
     margin-bottom: 5px
 }
