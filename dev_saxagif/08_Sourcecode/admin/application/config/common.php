@@ -53,4 +53,4 @@ $config['position'] = array(
 $config['typeCategory'] = array(
     1=>'danh mục',
     2=>'sự kiện',
-)
+);
