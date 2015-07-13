@@ -5,6 +5,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="css/layout.css" type="text/css" rel="stylesheet" media="all"/>
         <link rel="stylesheet" href="css/vertical.news.slider.css?v=1.0">
+        <link rel="stylesheet" href="css/jquery.popup.css" type="text/css">
         <script type="text/javascript" src="js/jssor.js"></script>
         <script type="text/javascript" src="js/jssor.slider.js"></script>
         <script>
@@ -44,7 +45,7 @@
                 <div class="w_header">
                     <div class="w_content">
                         <div class="w_logo">
-                            <div class="logo"><img src="images/logo.png"/></div>
+                            <div class="logo"></div>
                             <div class="language">
                                 <ul>
                                     <li class="normal"><a href="#">Eng</a></li>
@@ -53,8 +54,7 @@
                             </div>
                         </div>
                         <div class="note_slogan">
-                            <p>SỨ MỆNH CỦA MỘT CÔNG TY LÀ GÌ,</p>
-                            <p>NẾU KHÔNG PHẢI LÀ ĐEM LẠI HẠNH PHÚC CHO KHÁCH HÀNG CỦA MÌNH?</p>
+                            <img src="images/CAU-THONG-DIEP.gif"/>
                         </div>
                         <ul class="list_slg">
                             <li>
@@ -79,17 +79,80 @@
                             <div class="mn_left"><img src="images/logo_menu.png"/></div>
                             <div class="mn_right">
                                 <div class="search">
+                                    <div class="btn_selectSearch selectSearch_home"><img src="images/select_search.png"/></div>
                                     <input type="text" class="input_search"/>
                                     <button type="button"><img src="images/icon_search.png"/></button>
                                 </div>
                                 <div class="menu">
                                     <ul>
                                         <li class="active">Trang chủ</li>
-                                        <li class="category_product_mn"><a href="#">Danh mục sản phẩm</a></li>
+                                        <li class="category_product_mn" id="category_product_mn" onclick="showMask('submn_product')">Danh mục sản phẩm</li>
                                         <li><a href="#">Thắc mắc và hướng dẫn</a></li>
                                         <li><a href="#">Hợp tác</a></li>
                                         <li><a href="#">Gia nhập cùng SAXA</a></li>
                                         <li><a href="#">Liên lạc với SAXA</a></li>
+                                    </ul>
+                                    <ul class="submn_product" id="submn_product">
+                                        <li>
+                                            <ul>
+                                                <li class="header">Quà tặng công nghệ</li>
+                                                <li class="submn" onclick="hideMask('submn_product')"><a href="#">USB</a></li>
+                                                <li class="submn" onclick="hideMask('submn_product')"><a href="#">Tấm lót chuột</a></li>
+                                                <li class="submn" onclick="hideMask('submn_product')"><a href="#">USB</a></li>
+                                                <li class="submn" onclick="hideMask('submn_product')"><a href="#">USB</a></li>                                                
+                                                <li class="submn" onclick="hideMask('submn_product')"><a href="#">USB</a></li>
+                                                <li class="submn" onclick="hideMask('submn_product')"><a href="#">Tấm lót chuột</a></li>
+                                                
+                                                <li class="header">Bộ giftset</li>
+                                                <li class="submn" onclick="hideMask('submn_product')"><a href="#">USB</a></li>
+                                                <li class="submn" onclick="hideMask('submn_product')"><a href="#">Tấm lót chuột</a></li>
+                                                
+                                                <li class="header">Bộ giftset</li>
+                                                <li class="submn" onclick="hideMask('submn_product')"><a href="#">USB</a></li>
+                                                <li class="submn" onclick="hideMask('submn_product')"><a href="#">Tấm lót chuột</a></li>
+                                                <li class="submn" onclick="hideMask('submn_product')"><a href="#">USB</a></li>
+                                                <li class="submn" onclick="hideMask('submn_product')"><a href="#">USB</a></li>                                                
+                                                <li class="submn" onclick="hideMask('submn_product')"><a href="#">USB</a></li>
+                                                <li class="submn" onclick="hideMask('submn_product')"><a href="#">Tấm lót chuột</a></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <ul>
+                                                <li class="header">Quà tặng công nghệ</li>
+                                                <li class="submn" onclick="hideMask('submn_product')"><a href="#">USB</a></li>
+                                                <li class="submn" onclick="hideMask('submn_product')"><a href="#">Tấm lót chuột</a></li>
+                                                <li class="submn" onclick="hideMask('submn_product')"><a href="#">USB</a></li>
+                                                <li class="submn" onclick="hideMask('submn_product')"><a href="#">USB</a></li>                                                
+                                                <li class="submn" onclick="hideMask('submn_product')"><a href="#">USB</a></li>
+                                                <li class="submn" onclick="hideMask('submn_product')"><a href="#">Tấm lót chuột</a></li>
+                                                
+                                                <li class="header">Bộ giftset</li>
+                                                <li class="submn" onclick="hideMask('submn_product')"><a href="#">USB</a></li>
+                                                <li class="submn" onclick="hideMask('submn_product')"><a href="#">Tấm lót chuột</a></li>
+                                                <li class="submn" onclick="hideMask('submn_product')"><a href="#">Tấm lót chuột</a></li>
+                                                <li class="submn" onclick="hideMask('submn_product')"><a href="#">Tấm lót chuột</a></li>
+                                                <li class="submn" onclick="hideMask('submn_product')"><a href="#">Tấm lót chuột</a></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <ul>
+                                                <li class="header">Quà tặng công nghệ</li>
+                                                <li class="submn" onclick="hideMask('submn_product')"><a href="#">USB</a></li>
+                                                <li class="submn" onclick="hideMask('submn_product')"><a href="#">Tấm lót chuột</a></li>
+                                                <li class="submn" onclick="hideMask('submn_product')"><a href="#">USB</a></li>
+                                                <li class="submn" onclick="hideMask('submn_product')"><a href="#">USB</a></li>                                                
+                                                <li class="submn" onclick="hideMask('submn_product')"><a href="#">USB</a></li>
+                                                <li class="submn" onclick="hideMask('submn_product')"><a href="#">Tấm lót chuột</a></li>
+                                                
+                                                <li class="header">Bộ giftset</li>
+                                                <li class="submn" onclick="hideMask('submn_product')"><a href="#">USB</a></li>
+                                                <li class="submn" onclick="hideMask('submn_product')"><a href="#">Tấm lót chuột</a></li>
+                                                <li class="submn" onclick="hideMask('submn_product')"><a href="#">USB</a></li>
+                                                <li class="submn" onclick="hideMask('submn_product')"><a href="#">USB</a></li>                                                
+                                                <li class="submn" onclick="hideMask('submn_product')"><a href="#">USB</a></li>
+                                                <li class="submn" onclick="hideMask('submn_product')"><a href="#">Tấm lót chuột</a></li>
+                                            </ul>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -203,11 +266,11 @@
                             <div class="box_l">
                                 <div class="box_head">Câu chuyện khách hàng</div>
                                 <div class="box_main">
-                                    <p>Nơi đây, chúng tôi chia sẻ những câu chuyện đặc biệt. Có thể đó là những tự hào, những trăn trở, hoặc đôi lúc là những niềm vui, nỗi buồn sau lưng những thành công của khách hàng....</p>
+                                    <p style="height:100px">Nơi đây, chúng tôi chia sẻ những câu chuyện đặc biệt. Có thể đó là những tự hào, những trăn trở, hoặc đôi lúc là những niềm vui, nỗi buồn sau lưng những thành công của khách hàng....</p>
                                     <hr/>
                                     <div class="header">Chuyện hay trong ngày</div>
                                     <p class="pic_news"><img src="images/pic_1.png"/></p>
-                                    <p>Nơi đây, chúng tôi chia sẻ những câu chuyện đặc biệt. Có thể đó là những tự hào, những trăn trở, </p>
+                                    <p style="height:55px">Nơi đây, chúng tôi chia sẻ những câu chuyện đặc biệt. Có thể đó là những tự hào, những trăn trở, </p>
                                 </div>
                                 <div class="box_foot"></div>
                             </div>
@@ -218,7 +281,7 @@
                                     <form class="send_mail_customer">
                                         <input type="text" placeholder="Tên khách hàng"/><br/>
                                         <input type="text" placeholder="Email"/><br/>
-                                        <input type="button" value="Gửi"/>
+                                        <input type="button" value="Gửi" class="js__p_start"/>
                                         <div class="clearfix"></div>
                                     </form>
                                 </div>
@@ -283,24 +346,24 @@
                                     <p class='pic_news'><img src="images/video.png"/></p>
                                     <hr/>
                                     <div class="header">Marketing</div>
-                                    <p class="news_r">
+                                    <div class="news_r">
                                         <img src="images/pic_1.png"/>
-                                        <span>totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, </span>
-                                    </p>
+                                        <p>totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, </p>
+                                    </div>
                                     <div class="clearfix"></div>
                                     <hr/>
                                     <div class="header">Quan niệm thời gian</div>
-                                    <p class="news_r">
+                                    <div class="news_r">
                                         <img src="images/pic_1.png"/>
-                                        <span>totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, </span>
-                                    </p>
+                                        <p>totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, </p>
+                                    </div>
                                     <div class="clearfix"></div>
                                     <hr/>
                                     <div class="header">Cảm hứng sống</div>
-                                    <p class="news_r">
+                                    <div class="news_r">
                                         <img src="images/pic_1.png"/>
-                                        <span>totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, </span>
-                                    </p>
+                                        <p>totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, </p>
+                                    </div>
                                     <div class="clearfix"></div>
                                     <a href="#" class="link">Xem thêm</a>
                                     <div class="clearfix"></div>
@@ -478,16 +541,35 @@
                     </div>
                 </div>
             </div>
-            <script src="js/jquery-1.8.1.min.js"></script>
-            <script src="js/vertical.news.slider.js"></script>
+        </div>
+        <script src="js/jquery-1.8.1.min.js"></script>
+        <script src="js/vertical.news.slider.js"></script>
 
-            <script>
+        <script>
                                         function showMask(id) {
                                             document.getElementById(id).style.display = 'block';
                                         }
                                         function hideMask(id) {
                                             document.getElementById(id).style.display = 'none';
                                         }
-            </script>
+        </script>
+        <!--=============Popup=============-->
+        <script type="text/javascript" src="js/jquery.popup.js"></script>
+        <script type="text/javascript">
+            $(function() {
+                $(".js__p_start, .js__p_another_start").simplePopup();
+            });
+        </script>
+        <!--Layout Popup-->
+
+        <div class="p_body js__p_body js__fadeout"></div>
+        <div class="popup js__popup js__slide_top"> <a href="#" class="p_close js__p_close" title="Close"></a>
+            <div class="p_content">
+                <p class="note_mail">
+                    Cảm ơn bạn đã chia sẻ với SAXA<br/>
+                    những chia sẻ của bạn rất có giá trị với chúng tôi
+                </p>
+            </div>
+        </div>
     </body>
 </html>

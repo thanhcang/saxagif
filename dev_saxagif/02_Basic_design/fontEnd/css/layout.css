@@ -161,8 +161,17 @@ a:hover{
 }
 .logo{
     width:540px;
+    height:627px;
     margin: auto;
     position: relative;
+    background: url(../images/logo.png) no-repeat;
+}
+.logo:hover{
+    width:891px;
+    height: 912px;
+    margin: auto;
+    background: url(../images/logo-hieu-ung.gif) no-repeat;
+    cursor:pointer;
 }
 .language{
     background: #fff;
@@ -309,10 +318,7 @@ a:hover{
     padding: 7px 25px;
     height: 24px;
     border-right: 0;
-}
-.menu li.category_product_mn a,.menu li.category_product_mn a:hover{
-    color: #fff;
-    background: transparent;
+    cursor:pointer;
 }
 .menu li a{
     color: #7eb235;
@@ -330,6 +336,11 @@ a:hover{
 .content_left{
     float: left;
     width: 285px;
+    height: 750px; 
+}
+.content_left p{ 
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .content_left_QA{
     float: left;
@@ -338,11 +349,13 @@ a:hover{
 .content_right{
     float: right;
     width: 285px;
+    height: 750px;
 }
 .content_center{
     float: left;
     width: 542px;
     margin: 0 49px;
+    height: 750px;
 }
 .box_l{
     margin-bottom: 5px;
@@ -413,8 +426,9 @@ a:hover{
     font-size: 12px;
     border: none;
     float: right;
+    cursor: pointer;
 }
-p.news_r{
+.news_r{
     margin: 13px 0 0;
 }
 .news_r img{
@@ -422,13 +436,13 @@ p.news_r{
     width:100px;
     margin-right: 10px;
 }
-.news_r span{
-    float: left;
-    width:100px;
+.news_r p{
+    /*float: left;*/
+    /*width:100px;*/
     text-align: justify;
     color: #464646;
     overflow: hidden;
-    height: 60px;
+    height: 83px;
 }
 .link, .see_more{
     border-radius: 10px;
@@ -460,6 +474,9 @@ p.news_r{
     color: #1c1c1c;
     text-align: justify;
     line-height: 20px;
+    height: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
 }
 .list_gift li{
@@ -553,6 +570,7 @@ p.news_r{
     float: left;
     width: 393px;
     margin-left: 20px;
+    margin-top: 40px;
 }
 .text_cont img{
     margin: 0 10px;
@@ -2093,18 +2111,78 @@ p.news_r{
     margin: 15px 0 0;
 }
 .giftset li{
-   display: inline-block;
-   width: 125px;
-   height: 92px;
-   margin-right: 10px;
+    display: inline-block;
+    width: 125px;
+    height: 92px;
+    margin-right: 10px;
 }
 .giftset li:last-child{
-   margin-right: 0;
+    margin-right: 0;
 }
 .giftset li img{
-   width: 125px;
-   height: 92px;
-   box-shadow: 0 0 10px rgba(0,0,0,.5)
+    width: 125px;
+    height: 92px;
+    box-shadow: 0 0 10px rgba(0,0,0,.5)
+}
+.selectSearch_home{
+    position: absolute;
+    top: 6px;
+    right: 237px;
+    border-right: 1px solid #acaaaa;
+    padding-right: 8px;
+    padding-top: 5px;
+    height: 20px;
+}
+.note_mail{
+    font-size: 24px;
+    font-weight: normal;
+    color: #7eb235;
+    text-align: center;
+    width: 500px;
+    margin-top: 120px;
+}
+.submn_product{
+    background: #fff;
+    padding: 18px 6px;
+    position: absolute;
+    height: auto;
+    z-index:1000;
+    box-shadow:  0 0 5px rgba(0,0,0,.5);
+    display:none;
+}
+.submn_product li{
+    height: auto;
+    width:154px;
+    display: inline-block;
+    border-right: 1px solid #b7b8b9;
+    padding-right: 6px;
+    margin-right: 6px;
+    vertical-align:top;
+}
+.submn_product li:last-child{
+    border-right:0;
+    padding-right: 0;
+    margin-right: 0;
+}
+.submn_product li ul li{
+    display: block;
+    border-right: 0;
+    padding-right: 0;
+    margin-right: 0;
+}
+.submn_product li ul li.header{
+    background: #7eb235;
+    text-align: center;
+    color: #fff;
+    font-weight:bold;
+    width:154px;
+    padding:3px 0;
+}
+.submn_product li ul li.submn{
+    text-align: left;
+}
+.submn_product li ul li.submn a{
+    color:#595958 !important;
 }
 /*fix css chrome*/
 /*@media screen and (-webkit-min-device-pixel-ratio:0){
