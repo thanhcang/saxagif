@@ -1,21 +1,5 @@
 <link rel="stylesheet" type="text/css" href="<?php echo base_url('common/css/popModal.css') ?>" />
 <link rel="stylesheet" type="text/css" href="<?php echo base_url('common/css/product.css') ?>" />
-<div>
-    <ul class="breadcrumb">
-        <li>
-            <a href="index.html">Home</a>
-        </li>
-        <li>
-            <a href="index.html">Category</a>
-        </li>
-        <li>
-            <a href="#">Quà tặng công nghệ</a>
-        </li>
-        <li>
-            <a href="#">USB</a>
-        </li>
-    </ul>
-</div>
 <?php if($this->session->flashdata('msg-success')): ?>
 <div class="row msg-success">
     <?php echo $this->session->flashdata('msg-success') ?>
@@ -205,8 +189,6 @@
 <script>
     var MSG_DEL_PRO = '<?php echo $this->lang->line('PRO_CONFIRM_DEL') ?>';
 </script>
-<script type="text/javascript" src="<?php echo base_url('common/js/popModal.js') ?>"></script>
-<script type="text/javascript" src="<?php echo base_url('common/js/tinymce/tinymce.min.js') ?>"></script>
-<script type="text/javascript" src="<?php echo base_url('common/js/product.js') ?>"></script>
+<script type="text/javascript" src="<?php echo base_url('common/js/product1.js') ?>"></script>
 
 

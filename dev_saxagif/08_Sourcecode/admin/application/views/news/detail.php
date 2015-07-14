@@ -6,6 +6,7 @@
                 <h2><i class="glyphicon glyphicon-list-alt"></i><?php echo $this->lang->line('VIEW') ?></h2>
             </div>
             <div class="box-content">
+                
                 <div class="pic_news">
                     <?php if(!empty($detailNews['avatar']) && file_exists(IMAGE_NEWS_PATH . $detailNews['avatar'])): ?>
                         <img src="<?php echo base_url('common/multidata/news/' . $detailNews['avatar']) ?>" width="200" height="150" /> 

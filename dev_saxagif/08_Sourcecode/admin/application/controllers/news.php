@@ -239,6 +239,46 @@ class News extends MY_Controller
     }
     
     /**
+     * @author HoaHN<hoahn@vccvn.com>
+     * @date 20150713
+     * Review add news
+     */
+    public function review()
+    {
+        $data = array(
+            'language_type' => $this->_language,
+            'position'      => $this->config->item('position_news'),
+        );
+        $params = array();
+        if($this->isPostMethod()) {
+            $tpl = array(
+                'breadcrumb' => array(
+                    base_url() => 'home',
+                    base_url('news') => 'Tin tức',
+                    'javascript:;' => 'Xem trước'),
+            );
+            $params = $this->input->post();
+            if(!empty($params['catNews'])) {
+                $catNewsId = (int)$params['catNews'];
+                $data['catNewsDetail'] =  $this->mcategory_news->getDetail($catNewsId);
+            }
+            if(!empty($_FILES['avatar'])) {
+                //echo '<pre>';                print_r($_FILES['avatar']);exit;
+                $path = $_FILES['avatar']['tmp_name'];
+                $type = pathinfo($path, PATHINFO_EXTENSION);
+                $img = file_get_contents($path);
+                $avatar = 'data:image/' . $type . ';base64,' . base64_encode($img);
+                $params['avatar'] = $avatar;
+            }
+            $data['params'] = $params;
+            $tpl["main_content"] = $this->load->view('news/review', $data, TRUE);
+            $this->load->view(TEMPLATE, $tpl);
+        } else {
+            redirect(base_url('news'));
+        }
+    }
+    
+    /**
      * Delete news
      * @return type
      */
