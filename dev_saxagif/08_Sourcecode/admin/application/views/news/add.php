@@ -1,3 +1,4 @@
+<link rel="stylesheet" type="text/css" href="<?php echo base_url('common/css/news.css') ?>" />
 <div class="row">
 <div class="box col-md-12">
     <div class="box-inner">

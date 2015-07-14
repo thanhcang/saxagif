@@ -12,7 +12,7 @@ $(document).ready(function(){
            _initdeleteNews(news_id, trActive);
         });
     });
-    
+    backPage();
 });
 /**
  * delete user
@@ -90,4 +90,9 @@ function validateNews() {
     } 
 }
 
-
+function backPage() {
+    $('.btnBack').click(function(){
+        parent.history.back();
+        return false;
+    });
+}

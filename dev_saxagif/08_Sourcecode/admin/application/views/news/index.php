@@ -63,7 +63,7 @@
                         <?php if (!empty($list_news)): foreach ($list_news as $key => $news): ?>
                         <tr class="news_<?php echo $news['id'] ?>">
                             <td class="text-center"><?php echo $key+1+$offset ?></td>
-                            <td class=""><?php echo $news['title'] ?></td>
+                            <td class=""><?php echo _substr($news['title'],50) ?></td>
                             <td class="">
                                 <?php if(!empty($news['position']) && !empty($position[$news['position']]))
                                     echo $position[$news['position']];

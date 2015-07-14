@@ -42,7 +42,7 @@ CKEDITOR.editorConfig = function(config) {
 
     // Simplify the dialog windows.
     config.removeDialogTabs = 'image:advanced;link:advanced';
-    config.height = 350;        // 500 pixels high.
+    config.height = 350;        // 350 pixels high.
     //Add extension youtube
     config.extraPlugins = 'youtube';
     //config.toolbar = [{ name: 'insert', items: ['Image', 'Youtube']}];

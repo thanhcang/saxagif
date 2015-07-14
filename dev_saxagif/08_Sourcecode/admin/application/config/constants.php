@@ -76,6 +76,7 @@ define('IMAGE_PATH', COMMON_PATH . 'img/');
 define('IMAGE_PARTNERS_PATH', COMMON_PATH . 'img/partners/');
 define('IMG_PRODUCT_PATH', COMMON_PATH . '/multidata/product_img/');
 define('IMAGE_CATEGORY_PATH', COMMON_PATH . '/multidata/cat_logo/');
+define('IMAGE_NEWS_PATH', COMMON_PATH . '/multidata/news/');
 // No change
 define('SALT', 'saxagifts!$23');
 
