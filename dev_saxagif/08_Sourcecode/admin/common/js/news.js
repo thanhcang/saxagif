@@ -12,6 +12,7 @@ $(document).ready(function(){
            _initdeleteNews(news_id, trActive);
         });
     });
+    backPage();
 });
 /**
  * delete user
@@ -47,4 +48,51 @@ function _initdeleteNews(news_id, that) {
             // console.log(e);
         });
     }
+}
+
+function reviewNews() {
+    $('.reviewNews').on('click', function(){
+        var _frmNews = $('#frmNews');
+        _frmNews.attr('action', URL_REVIEW_NEWS);
+        _frmNews.submit();
+    });
+}
+
+function validateNews() {
+    var _frmNews = $('#frmNews');
+    var _error = $('.error-news');
+    var rel = true;
+    var _title = $('#txtTitle');
+    var _catNewsId = $('#catNews');
+    var _content = $('#ckeditor_content');
+    
+    if(rel && _title.val() == '') {
+        _error.html('Trường tiêu đề không được rỗng.');
+        _title.focus();
+        rel = false;
+    }
+    if(rel && _catNewsId.val() == '') {
+        _error.html('Trường danh mục tin không được rỗng.');
+        _catNewsId.focus();
+        rel = false;
+        
+    }
+    if(rel && _content.val() == '') {
+        //_error.html('Trường nội dung không được rỗng.');
+        //_content.focus();
+        //rel = false;
+    }
+    
+    if (rel) {
+        _error.html('');
+        _frmNews.attr('action', URL_REVIEW_NEWS);
+        _frmNews.submit();
+    } 
+}
+
+function backPage() {
+    $('.btnBack').click(function(){
+        parent.history.back();
+        return false;
+    });
 }

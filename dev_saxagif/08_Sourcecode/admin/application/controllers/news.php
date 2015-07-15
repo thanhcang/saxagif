@@ -199,6 +199,19 @@ class News extends MY_Controller
                         }
 
                     }
+                    // Review upload new news:
+                    if($this->input->post('is_review') && $this->input->post('avatar')) {
+                        $filename = TEMP_PATH . trim($_POST['avatar']);
+                        if(rename($filename, IMAGE_NEWS_PATH)){
+                            if (file_exists($filename)) {
+                                $fh = fopen($filename, "rb");
+                                $imgData = fread($fh, filesize($filename));
+                                fclose($fh);
+                                // Remove temp file:
+                                unlink($filename);
+                            }
+                        }
+                    }
                     if ($this->mnews->save($params)) {
                         redirect(base_url('news'));
                     }
@@ -239,6 +252,44 @@ class News extends MY_Controller
     }
     
     /**
+     * @author HoaHN<hoahn@vccvn.com>
+     * @date 20150713
+     * Review add news
+     */
+    public function review()
+    {
+        $data = array(
+            'language_type' => $this->_language,
+            'position'      => $this->config->item('position_news'),
+        );
+        $params = array();
+        if($this->isPostMethod()) {
+            $tpl = array(
+                'breadcrumb' => array(
+                    base_url() => 'home',
+                    base_url('news') => 'Tin tức',
+                    'javascript:;' => 'Xem trước'),
+            );
+            $params = $this->input->post();
+            if(!empty($params['catNews'])) {
+                $catNewsId = (int)$params['catNews'];
+                $data['catNewsDetail'] =  $this->mcategory_news->getDetail($catNewsId);
+            }
+            if(!empty($_FILES['avatar']) && $_FILES['avatar']['error'] == '0' ) {
+                $checkUpload = $this->uploadPhoto($_FILES['avatar'], 'avatar', TEMP_PATH, TRUE, $maxWidth = 1366, $maxHeight = 768, $maxSize = 200000);
+                if ($checkUpload) {
+                    $params['avatar'] = $checkUpload;
+                }
+            }
+            $data['params'] = $params;
+            $tpl["main_content"] = $this->load->view('news/review', $data, TRUE);
+            $this->load->view(TEMPLATE, $tpl);
+        } else {
+            redirect(base_url('news'));
+        }
+    }
+    
+    /**
      * Delete news
      * @return type
      */
@@ -274,7 +325,7 @@ class News extends MY_Controller
 
         // Set rules:
         $this->form_validation->set_rules("txtTitle", $this->lang->line('NEWS_MISSING_TITLE_EMPTY'),"required|trim|max_length[255]|callback__checkExistTitle");
-        $this->form_validation->set_rules("description", $this->lang->line('NEWS_DESCRIPTION'), "trim|max_length[300]");
+        $this->form_validation->set_rules("description", $this->lang->line('NEWS_DESCRIPTION'), "trim|max_length[3000]");
         $this->form_validation->set_rules("content", $this->lang->line('NEWS_CONTENT'), "trim|");
         $this->form_validation->set_rules("catNews", $this->lang->line('NEWS_CAT'),  "trim|integer|max_length[11]");
         $this->form_validation->set_rules("position", $this->lang->line('POSITION'),"trim");

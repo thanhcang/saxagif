@@ -1,3 +1,4 @@
+<link rel="stylesheet" type="text/css" href="<?php echo base_url('common/css/news.css') ?>" />
 <!-- content starts -->
 <div class="row">
     <div class="box col-md-12">
@@ -6,13 +7,14 @@
                 <h2><i class="glyphicon glyphicon-list-alt"></i><?php echo $this->lang->line('VIEW') ?></h2>
             </div>
             <div class="box-content">
-                <div class="pic_news">
-                    <?php if(!empty($detailNews['avatar']) && file_exists(IMAGE_NEWS_PATH . $detailNews['avatar'])): ?>
-                        <img src="<?php echo base_url('common/multidata/news/' . $detailNews['avatar']) ?>" width="200" height="150" /> 
-                    <?php endif ?>
-                </div>
+                <h3 class="title-news"><?php echo htmlspecialchars($detailNews['title']) ?></h3>
+                <div class="line"></div>
                 <div class="cont_news">
-                    <label><?php echo htmlspecialchars($detailNews['title']) ?></label>
+                    <?php if(!empty($detailNews['avatar']) && file_exists(IMAGE_NEWS_PATH . $detailNews['avatar'])): ?>
+                    <div class="avatar-news">
+                        <img src="<?php echo base_url('common/temp/' . $detailNews['avatar']) ?>" />
+                    </div>
+                    <?php endif ?>
                     <p>
                         <?php if(!empty($detailNews['content'])) echo $detailNews['content'] ?>
                     </p>
