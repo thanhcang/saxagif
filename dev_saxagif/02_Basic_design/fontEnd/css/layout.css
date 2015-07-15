@@ -43,9 +43,9 @@ ul{
 a{
     text-decoration: none;
 }
-a:hover{
+/*a:hover{
     background:transparent;
-}
+}*/
 .position_relative{
     position: relative;
 }
@@ -93,6 +93,9 @@ a:hover{
 }
 .width_1220{
     width: 1220px !important; 
+}
+.height_45{
+    height:45px;
 }
 .height_183{
     height:183px !important;
@@ -338,7 +341,7 @@ a:hover{
     width: 285px;
     height: 750px; 
 }
-.content_left p{ 
+.content_left p, .content_right p{ 
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -1228,6 +1231,9 @@ a:hover{
     text-align: center;
     float:right;
 }
+.join_us .cont_join header .more_join a{
+    color: #fff;
+}
 .join_us .cont_join .join{
     color: #2a2a2a;
     text-align: justify;
@@ -1715,8 +1721,9 @@ a:hover{
     font-weight: normal;
     background: #7eb235;
     /*background: url('../images/arrow_mn_product.png') no-repeat center right #7eb235;*/
-    background-position: 77px 8px;
-    padding: 0px 20px 5px 5px;
+    /*background-position: 77px 8px;*/
+    padding: 0px 5px 5px 5px;
+    /*padding: 0px 20px 5px 5px;*/
     border-radius: 5px;
     cursor:pointer;
 }
@@ -2183,6 +2190,16 @@ a:hover{
 }
 .submn_product li ul li.submn a{
     color:#595958 !important;
+}
+.submn_product li ul li.submn a:hover{
+    color: #f5821f !important; 
+}
+.mail_intro{
+    height: 80px;
+}
+.p_cont_pro{
+    height: auto !important;
+    padding-bottom: 300px;
 }
 /*fix css chrome*/
 /*@media screen and (-webkit-min-device-pixel-ratio:0){

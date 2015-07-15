@@ -11,7 +11,8 @@
     font-style: normal;
 }
 .popup {
-    position:fixed; z-index:2; top:60px; left:50%;
+    position:fixed;
+    z-index:2; top:60px; left:50%;
     -moz-box-shadow:4px 4px 30px #130507;
     -webkit-box-shadow:4px 4px 30px #130507;
     box-shadow:4px 4px 30px #130507;
@@ -24,7 +25,7 @@
 }
 .p_content {
      min-height:300px;
-     background: url(../images/bg_popup.png) center bottom #fdfdeb;
+     background: url(../images/bg_popup.png) center bottom #fdfdeb no-repeat;
     /*width:100%;*/ 
     text-align:left; 
     font-size:14px; 

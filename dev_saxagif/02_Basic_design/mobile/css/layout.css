@@ -41,38 +41,7 @@ input,select,th,td{
 }
 img { max-width: 100%; height: auto;}
 @media \0screen { img { width: auto; /* for ie 8 */ } }
-p{
-    font-size: 1.9em; /* display text 19px*/
-}
 a{color: #666; text-decoration: none;}
-.size-xx-large{
-    font-size:  xx-large;
-}
-
-.size-x-large{
-    font-size: x-large;
-}
-
-.size-large
-{
-    font-size: large;
-}
-
-.size-medium{
-    font-size: medium;
-}
-
-.size-small{
-    font-size: small;
-}
-
-.size-x-small{
-    font-size: x-small;
-}
-
-.size-xx-small{
-    font-size: xx-small;
-}
 ul{
     margin:0;
     padding:0;
@@ -148,7 +117,7 @@ a{
         background: url(../images/bg_main.png)repeat top center;
     }
     .w_content{
-        min-height: 1117px;
+        /*min-height: 1117px;*/
         background: url(../images/bg_footer.png)no-repeat bottom center;
         position: relative;
         background-size: contain;
@@ -167,8 +136,6 @@ a{
         text-transform: uppercase;
     }
     .menu_hot ul{
-        margin: 0;
-        padding:0;
         border-bottom: 1px solid #000;
     }
     .menu_hot ul li{
@@ -176,8 +143,8 @@ a{
         width: 44%;
         margin-right: 11%;
         border-top: 1px solid #7eb235;
-        list-style: circle;
-        font-size: 5em;
+        list-style-type: circle;
+        font-size: 3em;
         color: #7eb235;
         padding-top: 2%;
         margin-bottom: 2%;
@@ -200,7 +167,7 @@ a{
         width:100%;
         margin-bottom: 2%;
     }
-    
+
     .category_product .img_product_t{
         float: left;
         width: 46%;
@@ -214,22 +181,182 @@ a{
         width: 46%;
         color: #fff;
         padding-left: 7.5%;
-        padding-top: 17%;
+        padding-top: 6%;
     }
     .category_product .topic_product strong{
-        font-size: 8.5em;
+        font-size: 6em;
         font-family: 'UTM Bebas';
         text-transform: uppercase;
     }
     .category_product .topic_product small{
         font-size: 3.2em;
     }
+    .story_staff{
+        margin-top:10px;
+    }
+    .header_story, .category_foot label{
+        float:left;
+        font-size: 4em;
+        font-family: 'UTM Bebas';
+        text-transform: uppercase;
+        color: #1e1e1e;
+        width: 70%;
+        word-wrap: break-word;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .see_more{
+        float: right;
+        font-size: 3.7em;
+        font-family: 'UTM Bebas';
+        color: #7eb235;
+    }
+    .see_more a{
+        color: #7eb235;
+    }
+    .pic_staff{
+        float: left;
+        width:20%;
+        margin-right: 5%;
+    }
+    .pic_staff  img{
+        border-radius: 100%;
+        BORDER: 2px solid #7eb235;
+        width:100%;
+    }
+    .staff_say, .news_cont{
+        float: left;
+        width: 70%;
+        overflow: hidden;
+    }
+    .staff_say  label, .news_cont label{
+        font-size: 3.5em;
+        font-family: 'UTM Bebas';
+        color: #7eb235;
+        font-weight:700;		
+        word-wrap: break-word;
+        white-space: nowrap;
+    }
+    .staff_say  p, .news_cont p{
+        font-size: 3.5em;
+        font-family: 'UTM Bebas';
+        color: #3a3a39;
+        text-align: justify;
+        margin:0;
+        height: 80px;		
+        text-overflow: ellipsis;
+    }
+    .news_top{
+        border-top: 1px solid #000;
+        margin-top: 20px;
+        padding-top:20px;
+    }
+    .news_cont{
+        width: 60%;
+        margin-top:20px;
+    }
+    .pic_news{
+        float: left;
+        width:32%;
+        margin-right: 3%;
+        margin-top:20px;
+    }
+    .pic_news img{
+        width: 100%;
+    }
+    .category_foot{
+        border-top: 1px solid #000;
+        margin-top: 30px;
+        padding-top:20px;
+        padding-bottom: 50px;
+    }
+    .category_foot label{
+        float:none;
+    }
+    .category{
+        margin-top:20px;
+        border-top: 1px dashed #7b7b73;
+        padding-top: 20px;
+    }
+    .category ul li{
+        color: #595958;
+        font-size: 3em;
+        list-style: none;
+    }
+    .category ul li a{
+        color: #595958;
+    }
+    .category ul  li.header_cate{
+        font-size: 3.5em;
+        color: #7eb235;
+    }
+    footer{
+        color: #fff;
+        font-size: 2em;
+        background: #8dc63f;
+        padding: 0 4%;
+    }
+    footer img.logo_foot{
+        width:20%;
+    }
+    footer .slogan_foot{
+        font-family: 'UTM Bebas';
+        border-bottom: 1px solid #fff;
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+    }
+    footer .address label{
+        font-family: 'UTM Bebas';
+    }
+    footer .copyright{
+        margin-bottom: 0;
+        padding-bottom: 10px;
+    }
 }
 /* Dành cho máy tính bảng chiều dọc */
-@media all and (min-width: 600px) {}
+@media all and (min-width: 600px) {
+    .category_product .topic_product{
+        padding-top: 15%;
+    }
+    .category_product .topic_product strong{
+        font-size: 8.5em;
+    }
+    .header_story, .category_foot label{
+        font-size: 6em;
+    }
+    .staff_say  p, .news_cont p{
+        height: auto;
+    }
+    footer{
+        font-size: 3em;
+    }
+    .menu_hot ul li{
+        font-size: 5em;
+    }
+}
 
 /* Dành cho máy tính bảng chiều ngang */
-@media all and (min-width: 1024px) {}
+@media all and (min-width: 1024px) {
+    .category_product .topic_product{
+        padding-top: 17%;
+    }
+    .category_product .topic_product strong{
+        font-size: 8.5em;
+    }
+    .header_story, .category_foot label{
+        font-size: 6em;
+    }
+    .staff_say  p, .news_cont p{
+        height: auto;
+    }
+    footer{
+        font-size: 3em;
+    }
+    .menu_hot ul li{
+        font-size: 5em;
+    }
+}
 
 /* Dành cho màn hình desktop */
 @media all and (min-width: 1280px) {}
