@@ -323,6 +323,10 @@ a{
     border-right: 0;
     cursor:pointer;
 }
+.menu li.category_product_mn:hover{
+    color: #fff;
+    background: #f5821f;
+}
 .menu li a{
     color: #7eb235;
     text-decoration: none;
@@ -773,8 +777,9 @@ a{
     text-align: center;
     font-size: 41px;
     font-family: 'iCiel Simplifica';
+    background: transparent;
     color: #fff;
-    background: #89bc41;
+    border: 1px solid #fff;
     padding: 20px 33px 0;
     list-style: none;
 }
