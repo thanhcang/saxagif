@@ -91,8 +91,8 @@ a{
 .width_1135{
     width: 1135px !important; 
 }
-.width_1220{
-    width: 1220px !important; 
+.width_1175{
+    width: 1175px !important; 
 }
 .height_45{
     height:45px;
@@ -1542,10 +1542,10 @@ a{
 #tabs_video ul li,
 #tabs_news ul li{
     display:inline-block;
-    font-size:20px;
+    font-size:17px;
     font-weight: normal;
     color: #fff;
-    padding:10px 5px;
+    padding:10px 20px;
 }
 #tabs ul li:last-child a,
 #tabs_video ul li:last-child a,
@@ -1589,10 +1589,11 @@ a{
     float:left;
     margin-right: 23px;
     width: 317px;
+    height:162px;
+    overflow: hidden;
 }
 .img_tab img{
-    width: 317px;
-    height:162px;
+    width: 100%;
 }
 .main_tab{
     float: left;
@@ -1630,16 +1631,19 @@ a{
     margin-right: 5px;
 }
 .sort_view .sort_year input{
-    width: 149px;
-    height:40px;
+    width: 135px;
+    height:25px;
     box-shadow: 0 0 5px rgba(0,0,0,.5);
     border-radius: 10px;
     padding:0 5px;
 }
-.sort_view .sort_month{
+.pagination{
+    margin-right:55px;
+}
+.sort_view .sort_month, .pagination{
     float: right;
 }
-.sort_view .sort_month ul{
+.sort_view .sort_month ul, .pagination ul{
     position: relative !important;
     background: transparent !important;
     float: none !important;
@@ -1647,7 +1651,7 @@ a{
     float: right !important;
     top: 0!important;
 }
-.sort_view .sort_month ul li{
+.sort_view .sort_month ul li,.pagination ul li{
     display: inline-block;
     border:2px solid #7eb235;
     margin-right:10px;
@@ -1655,15 +1659,15 @@ a{
     padding: 5px !important;
     font-size: 19px !important;
 }
-.sort_view .sort_month ul li a{
+.sort_view .sort_month ul li a,.pagination ul li a{
     color: #7eb235 !important;
     border-right: 0 !important;
     padding-right: 0 !important;
 }
-.sort_view .sort_month ul li:last-child{
+.sort_view .sort_month ul li:last-child,.pagination ul li:last-child{
     margin-right:0;
 }
-.sort_view .sort_month ul li.active{
+.sort_view .sort_month ul li.active,.pagination ul li.active{
     background: #7eb235;
     color:#fff;
 }
@@ -1993,20 +1997,36 @@ a{
     color: #1c1c1c;
     line-height: 20px;
 }
-.partner{
-    margin:25px 0 0;
-    padding:0;
+.partner_list label{
+    color: #7eb235;
+    font-family: 'UTM Bebas';
+    font-size:40px;
+    text-transform: uppercase;
 }
-.partner li{
+.partner_list a.bullet_partner_l{
+    float: left;
+    margin:200px 0 0 17px;
+}
+.partner_list a.bullet_partner_r{
+    margin:200px 17px 0 0;
+    float: left;
+}
+.partner_list .partner{
+    margin:25px 20px 0;
+    padding:0;
+    float: left;
+    width: 1110px;
+}
+.partner_list .partner li{
     display: inline-block;
     width: 134px;
     height:111px;
-    margin:0 20px 20px 0;
+    margin:0 25px 20px 0;
 }
-.partner li:nth-child(7n){
+.partner_list .partner li:nth-child(7n){
     margin-right: 0;
 }
-.partner li img{
+.partner_list .partner li img{
     border: 2px solid #7eb235;
 }
 .error{
