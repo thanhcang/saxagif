@@ -87,10 +87,11 @@ class Mcategory extends MY_Model
      * @param type $params
      * @return type
      */
-    public function create($params , $parent)
+    public function addChildCategory($params , $parent)
     {
         $data = array(
             'name'          => $params['name'],
+            'is_home'       => !empty($params['is_home']) ? 1 : 0 ,
             'slug'          => !empty($params['slug']) ? slug_convert($params['slug']) : slug_convert($params['name']) ,
             'bg_color'      => !empty($params['bg_color']) ? $params['bg_color'] : '' ,
             'language_type' => (int)$params['language_type'],
@@ -121,19 +122,33 @@ class Mcategory extends MY_Model
         $data = array();
         $q = $this->db->select('*')
                 ->where('id', $cat_id)
+                ->where('del_flg', 0)
                 ->get($this->_tbl_category);
         if ($q->num_rows() == 0) {
             return FALSE;
         }
         $data = $q->row_array();
-        if ($parent) {
-            $this->db->where('parent', $cat_id)
-                    ->where('del_flg', 0);
-            $q = $this->db->get($this->_tbl_category);
-            if (count($q) > 0 ) {
-                $data['cat_parent'] = $q->result_array();
-            }
+        return $data;
+    }
+    
+    /**
+     * get detail category
+     * @param type $cat_id
+     * @param type $parent
+     * @return boolean
+     */
+    public function getDetailTypeCategory($cat_id)
+    {
+        $data = array();
+        $q = $this->db->select('*')
+                ->where('id', $cat_id)
+                ->where('del_flg', 0)
+                ->where('type', 1)
+                ->get($this->_tbl_category);
+        if ($q->num_rows() == 0) {
+            return FALSE;
         }
+        $data = $q->row_array();
         return $data;
     }
     
@@ -158,7 +173,8 @@ class Mcategory extends MY_Model
     public function checkExistName($name , $catId = FALSE)
     {
         $this->db->select('id')
-                ->where('name', $name);
+                ->where('name', $name)
+                ->where('del_flg', 0);
         if (!empty($catId)){
             $this->db->where('id <> ',$catId);
         }
@@ -178,7 +194,8 @@ class Mcategory extends MY_Model
     public function checkExistSlug($slug, $catId = FALSE)
     {
         $this->db->select('id')
-                ->where('slug', $slug);
+                ->where('slug', $slug)
+                ->where('del_flg', 0);
         if (!empty($catId)){
             $this->db->where('id <> ',$catId);
         }
@@ -270,11 +287,18 @@ class Mcategory extends MY_Model
                         c.type,
                         is_home
                 FROM " . $this->_tbl_category . "
-                AS c WHERE 
+                AS c 
+                WHERE 
                         c.del_flg = 0 
                         AND c.parent <> 0
                         AND parent = ?
                         ";
+        if (!empty($param['language_type'])){
+            $sql .= " AND language_type = ?";
+            $arr_where[] = $param['language_type'];
+        } else {
+            $sql .= " AND language_type = 1" ;            
+        }
         $total = MY_Model::get_total_result($sql, $arr_where);
         if ($limit > 0) {
             $sql .= ' LIMIT ' . $offset . ',' . $limit;
@@ -287,7 +311,7 @@ class Mcategory extends MY_Model
     }
     
     /**
-     * 
+     * add parent category
      * @param type $param
      */
     public function addParentCategory($param) {
@@ -301,6 +325,7 @@ class Mcategory extends MY_Model
             'des_seo' => !empty($param['des_seo']) ? html_escape($param['des_seo']) : '',
             'create_user' => $this->_login_user,
             'create_date' => date('Y-m-d H:i:s'),
+            'event_img' => !empty($param['event_img']) ? $param['event_img'] : '' ,
         );
         $this->db->insert($this->_tbl_category, $data);
     }
@@ -320,10 +345,55 @@ class Mcategory extends MY_Model
           'is_home' => !empty($param['is_home']) ? $param['is_home'] : 0,  
           'slug' => !empty($param['name']) ? slug_convert($param['slug']) : slug_convert($param['name']),  
         );
+        if (!empty($param['event_img'])){
+            $data['event_img'] = $param['event_img'];
+        }
         $this->db->where($where);
         $this->db->update($this->_tbl_category, $data);
     }
+    
+    /**
+     * get data child category
+     * @param type $id
+     * @return boolean
+     */
+    public function viewChildCategory($id) {
+        $this->db->select('p.id,p.name,p.logo,p.bg_color,p.language_type,p.keyword_seo,p.des_seo,p.position,t.name as parent_name');
+        $this->db->where('p.id', $id);
+        $this->db->join('d_category as t', 'p.parent = t.id', 'inner');
+        $query =$this->db->get('d_category as p');
+        
+        if ($query->num_rows() > 0){
+            return $query->row_array();
+        }
+        return FALSE;
+    }
+    
+    /**
+     * update child category
+     * @param type $param
+     * 
+     */
+    public function updateChildCategory($param) {
+        $where = array(
+            'id' => $param['id']
+        );
+        
+        $data = array(
+            'name' => htmlspecialchars($param['name']),
+            'slug' => htmlspecialchars($param['slug']),
+            'bg_color' => htmlspecialchars($param['bg_color']),
+            'keyword_seo' => htmlspecialchars($param['keyword_seo']),
+            'des_seo' => htmlspecialchars($param['des_seo']),
+            'is_home' => !empty($param['is_home']) ? $param['is_home'] : 0,
+            'parent' => $param['parent'],
+        );
+        if (!empty($param['logo'])){
+            $data['logo'] = htmlspecialchars($param['logo']);
+        }
+        
+        $this->db->where($where);
+        $this->db->update('d_category', $data);
+    }
 
 }
-
-

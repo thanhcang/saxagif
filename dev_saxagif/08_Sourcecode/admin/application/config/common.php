@@ -52,7 +52,7 @@ $config['position'] = array(
     6 => 'Header',
  );
 $config['typeCategory'] = array(
-    1=>'danh mục',
+    1=>'danh mục sản phẩm',
     2=>'sự kiện',
 );
 $config['position_news'] = array(

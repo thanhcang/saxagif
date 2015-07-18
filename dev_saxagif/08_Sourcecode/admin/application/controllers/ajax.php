@@ -19,7 +19,7 @@ class Ajax extends MY_Controller {
         if ($this->is_logged_in() == FALSE) {
             $this->_return_session_timeout();
         }
-        $this->load->model(array('muser','mpartners','mcategroy'));
+        $this->load->model(array('muser','mpartners','mcategory'));
     }
 
     /**
@@ -160,10 +160,10 @@ class Ajax extends MY_Controller {
      */
     public function deleteCategory() {
         $input = $this->input->post();
-        if ($this->isPostMethod() && !empty($input) && !empty($input['is_ajax']) && ($input['is_ajax'] == 'ajax')) { // view profile
+        if ($this->isPostMethod() && !empty($input) && !empty($input['is_ajax']) && ($input['is_ajax'] == 'ajax')) { 
             $this->db->trans_off();
             $this->db->trans_begin();
-            $this->mcategroy->delCat($input['id']);
+            $this->mcategory->delCat($input['id']);
             if ($this->db->trans_status() === FALSE) {
                 $this->db->trans_rollback();
                 $json_result = array(
@@ -192,6 +192,33 @@ class Ajax extends MY_Controller {
             );
             echo json_encode($json_result);
             return;
+        }
+    }
+    
+    /**
+     * view child category
+     * @return type
+     */
+    public function viewChildCategory() {
+        $input = $this->input->post();
+        if ($this->isPostMethod() && !empty($input) && !empty($input['is_ajax']) && ($input['is_ajax'] == 'ajax')) { // view profile
+            $category = $this->mcategory->viewChildCategory($input['id']);
+            if (!empty($category)) {
+                $json_result = array(
+                    'result' => 1,
+                    'code' => 202,
+                    'data' => $category,
+                );
+                echo json_encode($json_result);
+                return;
+            } else {
+                $json_result = array(
+                    'result' => 0,
+                    'code' => 404,
+                );
+                echo json_encode($json_result);
+                return;
+            }
         }
     }
 

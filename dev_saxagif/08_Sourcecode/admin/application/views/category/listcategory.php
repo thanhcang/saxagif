@@ -150,6 +150,10 @@
         <label>Hiển thị trang chủ</label>
         <input type="checkbox" name="is_home" value="1" >
     </div>
+    <div class="form-group pageHome">
+        <label>Hình slideshow</label>
+        <input type="file" name="event_img" />
+    </div>
 </div>
 <?php require_once(VIEW_PATH.'templates/popup/_confirmDelete.php') ;?>
 <?php require_once(VIEW_PATH.'templates/popup/_messageDialog.php') ;?>

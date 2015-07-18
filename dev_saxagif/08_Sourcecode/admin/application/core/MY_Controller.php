@@ -184,14 +184,16 @@ class MY_Controller extends CI_Controller
             $config['max_size'] = $maxSize;
         }
         
-        $config['overwrite'] = TRUE;
+//        $config['overwrite'] = TRUE;
         
         $this->load->library('upload');
         $this->upload->initialize($config);
-        if(!$this->upload->do_upload($name)) {
+        $is_upload = $this->upload->do_upload($name);
+        if(!$is_upload) {
             return FALSE;
         } else {
-            return $file['name'];
+            $upload_logo = $this->upload->data();
+            return $upload_logo['file_name'];
         }
     }
     

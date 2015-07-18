@@ -80,8 +80,8 @@
 
                             </div>
                             <ul class="nav nav-pills nav-stacked main-menu">
-                                <li class="nav-header">Danh mục quản lý</li>
-                                <li><a class="ajax-link" href="manager_menu.html"><i class="glyphicon glyphicon-book"></i><span> Quản lý menu</span></a>
+                                <li class="nav-header">
+                                    <i class="glyphicon glyphicon-book"></i><span> menu quản lý </span>
                                 </li>
                                 <li>
                                     <a class="ajax-link" href="<?php echo base_url('category') ?>"><i class="glyphicon glyphicon-plus"></i><span> Danh mục</span></a>

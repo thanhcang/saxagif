@@ -46,6 +46,19 @@
                         <input value="1" name="is_home" type="checkbox" <?php echo !empty($param['is_home']) ? 'checked' : ''; ?> />
                     </div>
                     <?php endif ?>
+                    <?php if (!empty($param['type']) && $param['type'] == 2  ) : ?>
+                    <div class="form-group">
+                        <label>Hình slideshow</label>
+                        <input type="file" name="event_img" />
+                    </div>
+                    <?php endif ?>
+                    <?php if (!empty($event_img) && !empty($param['type']) && $param['type'] == 2) : ?>
+                    <div class="form-group">                        
+                        <div>
+                            <img src="<?php echo base_url('common/multidata/slide'.'/'.$event_img)?>" />
+                        </div>
+                    </div>
+                    <?php endif ?>
                     <div class="form-group">
                         <label><?php echo $this->lang->line('SLUG') ?></label>
                         <input type="text" name="slug" class="form-control input-sm" id="slug" value="<?php if(!empty($param['slug'])) echo html_escape($param['slug']) ?>" maxlength="255" />

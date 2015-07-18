@@ -44,3 +44,7 @@
     display: block;
     margin: 5px;
 }
+
+#bg_color{
+    cursor: pointer;
+}
