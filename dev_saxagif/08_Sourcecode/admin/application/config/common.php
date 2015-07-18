@@ -48,7 +48,8 @@ $config['position'] = array(
     2 => 'Left menu 1',
     3 => 'Left menu 2',
     4 => 'Right menu 1',
-    5 => 'Footer'
+    5 => 'Footer',
+    6 => 'Header',
  );
 $config['typeCategory'] = array(
     1=>'danh mục',

@@ -9,7 +9,12 @@ class MY_Controller extends CI_Controller
     {
         parent::__construct();
         $this->data['page_title'] = 'Saxagifts';
-        $this->data['categories'] = $this->category_model->listAll();
+        
+        $this->data['cat_menu'] = $this->category_model->getCategoryByType($type = IS_CATEGORY);
+        // Get news category show position page:
+        $this->data['news_cat_position'] = $this->category_news_model->getCatNewsShowPage($lang = LANG_VN);
+        $this->lang->load('common');
+        
     }
  
     protected function render($the_view = NULL, $template = 'master')

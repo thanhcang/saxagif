@@ -1,77 +1,58 @@
 <div class="content">
     <div class="content_left">
         <div class="box_l">
-            <div class="box_head">Câu chuyện khách hàng</div>
-            <div class="box_main">
-                <p>Nơi đây, chúng tôi chia sẻ những câu chuyện đặc biệt. Có thể đó là những tự hào, những trăn trở, hoặc đôi lúc là những niềm vui, nỗi buồn sau lưng những thành công của khách hàng....</p>
-                <hr/>
-                <div class="header">Chuyện hay trong ngày</div>
-                <p class="pic_news"><img src="<?php echo base_url('common/images/pic_1.png') ?>"/></p>
-                <p>Nơi đây, chúng tôi chia sẻ những câu chuyện đặc biệt. Có thể đó là những tự hào, những trăn trở, </p>
-            </div>
-            <div class="box_foot"></div>
+            <?php if(!empty($news_cat_position)): ?>
+            <?php foreach ($news_cat_position as $news_cat): ?>
+            <?php if($news_cat['position'] == LEFT_POSITION): ?>
+            <div class="box_head"><?php echo htmlspecialchars($news_cat['name']) ?></div>
+                <div class="box_main">
+                    <p><?php if(!empty($news_cat['title'])) echo _substr($news_cat['title'], 150) ?></p>
+                    <hr/>
+                    <div class="header"><?php echo htmlspecialchars($news_cat['name']) ?></div>
+                    <p class="pic_news"><img src="<?php echo base_url('common/images/pic_1.png') ?>"/></p>
+                    <p><?php if(!empty($news_cat['title'])) echo _substr($news_cat['title'], 100) ?></p>
+                </div>
+                <div class="box_foot"></div>
+            <?php endif ?>
+            <?php endforeach ?>
+            <?php endif ?>
         </div>
         <div class="box_l">
             <div class="box_head">Chia sẻ và kết nối</div>
             <div class="box_main">
                 <p>Chia sẻ email với chúng tôi để nhận những thông tin sự kiện mới nhất từ Saxa bạn nhé!Chia sẻ email với chúng tôi để nhận những thông tin sự kiện </p>
-                <form class="send_mail_customer">
-                    <input type="text" placeholder="Tên khách hàng"/><br/>
-                    <input type="text" placeholder="Email"/><br/>
-                    <input type="button" value="Gửi"/>
+                <form name="frmSendCustomer" id="frmSendCustomer" class="send_mail_customer">
+                    <input type="text" name="customer_name" placeholder="Tên khách hàng"/><br/>
+                    <input type="text" name="email_address" placeholder="Email"/><br/>
+                    <input type="button" id="sendMailCustomer" value="Gửi" class="js__p_start"/>
                     <div class="clearfix"></div>
                 </form>
             </div>
             <div class="box_foot"></div>
         </div>
     </div>
-
     <div class="content_center">
-        <div class="header_c">Giúp bạn chọn quà</div>
+        <div class="header_c"><?php echo $this->lang->line('choose_gift') ?></div>
         <p class="intro_c">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." sunt in culpa qui officia deserunt mollit </p>
         <ul class="list_gift">
-            <li>
-                <div onmouseover="showMask('mask1')">
-                    <img src="<?php echo base_url('common/images/product_luxurious.png') ?>" />
+            <?php if(!empty($cat_gift)): ?>
+            <?php foreach ($cat_gift as $key=>$gift): $mask = $key+1; ?>
+            <a href="<?php echo base_url($gift['slug']) ?>">
+            <li class="<?php if($key == 1) echo 'last' ?>">
+                <div onmouseover="showMask('<?php echo 'mask'.$mask; ?>')">
+                    <img src="<?php echo base_url('admin/common/multidata/cat_logo/' . $gift['logo']) ?>" />
                     <div class="title_product">
-                        <span>Sang Trọng</span><br/>
+                        <span><?php echo ucwords($gift['name']) ?></span><br/>
                         <span class="price_product">>200.000</span>
                     </div>
                 </div>
-                <div id="mask1" class="mask" style="background: #000;" onmouseout="hideMask('mask1')">  
+                <div id="mask<?php echo $mask ?>" class="mask" style="background:<?php if(!empty($gift['bg_color'])) echo $gift['bg_color'];else echo '#000' ?>;" onmouseout="hideMask('<?php echo 'mask'. $mask ?>')">  
                     <img src="<?php echo base_url('common/images/plus_product_home.png') ?>"/>
                 </div>
             </li>
-            <li class="last">
-                <img src="<?php echo base_url('common/images/product_luxurious.png') ?>" onmouseover="showMask('mask2')" />
-                <div class="title_product">
-                    <span>Sang Trọng</span><br/>
-                    <span class="price_product">>200.000</span>
-                </div>
-                <div id="mask2" class="mask" style="background: #ff0000;" onmouseout="hideMask('mask2')">  
-                    <img src="<?php echo base_url('common/images/plus_product_home.png') ?>"/>
-                </div>
-            </li>
-            <li>
-                <img src="<?php echo base_url('common/images/product_luxurious.png') ?>" onmouseover="showMask('mask3')"/>
-                <div class="title_product">
-                    <span>Sang Trọng</span><br/>
-                    <span class="price_product">>200.000</span>
-                </div>
-                <div id="mask3" class="mask" style="background: #ff0;" onmouseout="hideMask('mask3')">  
-                    <img src="<?php echo base_url('common/images/plus_product_home.png') ?>"/>
-                </div>
-            </li>
-            <li>
-                <img src="<?php echo base_url('common/images/product_luxurious.png') ?>" onmouseover="showMask('mask4')" />
-                <div class="title_product">
-                    <span>Sang Trọng</span><br/>
-                    <span class="price_product">>200.000</span>
-                </div>
-                <div id="mask4" class="mask" style="background: #000;" onmouseout="hideMask('mask4')">  
-                    <img src="<?php echo base_url('common/images/plus_product_home.png') ?>"/>
-                </div>
-            </li>
+            </a>
+            <?php endforeach; ?>
+            <?php endif ?>
         </ul>
     </div>
 
@@ -85,21 +66,21 @@
                 <div class="header">Marketing</div>
                 <p class="news_r">
                     <img src="<?php echo base_url('common/images/pic_1.png') ?>"/>
-                    <span>totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, </span>
+                    <span>totam rem aperiam, eaque ipsa quae ab. </span>
                 </p>
                 <div class="clearfix"></div>
                 <hr/>
                 <div class="header">Quan niệm thời gian</div>
                 <p class="news_r">
                     <img src="<?php echo base_url('common/images/pic_1.png') ?>"/>
-                    <span>totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, </span>
+                    <span>totam rem aperiam, eaque ipsa quae ab.</span>
                 </p>
                 <div class="clearfix"></div>
                 <hr/>
                 <div class="header">Cảm hứng sống</div>
                 <p class="news_r">
                     <img src="<?php echo base_url('common/images/pic_1.png') ?>"/>
-                    <span>totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, </span>
+                    <span>totam rem aperiam, eaque ipsa quae ab.</span>
                 </p>
                 <div class="clearfix"></div>
                 <a href="#" class="link">Xem thêm</a>
@@ -184,3 +165,6 @@
     </div>
     <div class="clearfix"></div>
 </div>
+<script type="text/javascript">
+    var URL_SEND_MAIL_CUSTOMER = '<?php echo base_url('home/sendMailCustomer') ?>';
+</script>
