@@ -28,6 +28,12 @@
                         <td><?php echo  !empty($catDetail['is_home']) ? 'hiển thị' : 'không hiển thị'; ?></td>
                     </tr>
                     <?php endif;?>
+                    <?php if (!empty($catDetail['event_img'])) : ?>
+                    <tr>
+                        <td><b>Hình slideshow</b></td>
+                        <td><img src="<?php echo base_url('common/multidata/slide'.'/'.$catDetail['event_img'])?>" /></td>
+                    </tr>
+                    <?php endif;?>
                     <tr>
                         <td><b>Slug(URL Seo)</b></td>
                         <td><?php echo $catDetail['slug'] ?></td>

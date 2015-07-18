@@ -31,7 +31,7 @@ class Category extends MY_Controller {
         $tpl = array(
             'breadcrumb' => array(
                 base_url() => 'Home',
-                base_url('user') => 'Danh mục'),
+                base_url('category') => 'Danh mục'),
         );
         $item = $this->input->get(); // get param search
         $param = array(); // param new category
@@ -40,16 +40,30 @@ class Category extends MY_Controller {
             $error = array();
             $this->_validate($param, $error);
             if (empty($error)) { // new category
-                $this->db->trans_off();
-                $this->db->trans_begin();
-                $this->mcategory->addParentCategory($param);
-                if ($this->db->trans_status() === FALSE) {
-                    $this->db->trans_rollback();
-                    $error[] = 'Hệ thống chưa thêm được danh mục<br/> Vui lòng thử lại';
-                } else {
-                    $this->db->trans_commit();
-                    $item = array(); // reset form search
-                    $param = array(); // reset form new category
+                if (!empty($_FILES['event_img']['name'])) {
+                    $checkUpload = $this->uploadPhoto($_FILES['event_img'], 'event_img', URL_IMAGE_SLIDE_CATEGORY, TRUE, 1366, 768, $maxSize = 200000);
+                    if ($checkUpload) {
+                        $param['event_img'] = $checkUpload; // Get logo name:
+                        $is_resize = $this->resizePhoto($checkUpload,  923,  376, URL_IMAGE_SLIDE_CATEGORY);
+                        if ($is_resize != TRUE) { // not resize
+                            $error[] = 'Không xử lý được file ảnh <br/> vui lòng kiểm tra lại';
+                        }
+                    } else {
+                        $error[] = 'File ảnh chưa được up <br/> vui lòng kiểm tra lại';
+                    }
+                }
+                if (empty($error)) {
+                    $this->db->trans_off();
+                    $this->db->trans_begin();
+                    $this->mcategory->addParentCategory($param);
+                    if ($this->db->trans_status() === FALSE) {
+                        $this->db->trans_rollback();
+                        $error[] = 'Hệ thống chưa thêm được danh mục<br/> Vui lòng thử lại';
+                    } else {
+                        $this->db->trans_commit();
+                        $item = array(); // reset form search
+                        $param = array(); // reset form new category
+                    }
                 }
             }
             $data['error'] = $error;
@@ -153,10 +167,11 @@ class Category extends MY_Controller {
             'typeCategory' => $this->config->item('typeCategory'),
             'language_type' => $this->config->item('language_type'),
         );
+        $event_img = $param['event_img'];
         $tpl = array(
             'breadcrumb' => array(
                 base_url() => 'Home',
-                base_url('user') => 'Danh mục',
+                base_url('category') => 'Danh mục',
                 '#' => 'Cập nhật',
                 'javascriipt:;' => $param['name']),
         );
@@ -165,22 +180,42 @@ class Category extends MY_Controller {
             $error = array();
             $this->_validateUpdateCategory($param, $error);
             if (empty($error)){
-                $this->db->trans_off();
-                $this->db->trans_begin();
-                $this->mcategory->updateCategory($param);
-                if ($this->db->trans_status() === FALSE) {
-                    $this->db->trans_rollback();
-                    $error[] = 'Hệ thống chưa cập nhật <br/> Vui lòng thử lại';
-                } else {
-                    $this->db->trans_commit();
-                    redirect(base_url('category/viewCategory'.'/'.$param['id']));
-                    return;
+                if (!empty($_FILES['event_img']['name'])) {
+                    $checkUpload = $this->uploadPhoto($_FILES['event_img'], 'event_img', URL_IMAGE_SLIDE_CATEGORY, TRUE, 1366, 768, $maxSize = 200000);
+                    if ($checkUpload) {
+                        $param['event_img'] = $checkUpload; // Get logo name:
+                        $is_resize = $this->resizePhoto($checkUpload,  923,  376, URL_IMAGE_SLIDE_CATEGORY);
+                        if ($is_resize != TRUE) { // not resize
+                            $error[] = 'Không xử lý được file ảnh <br/> vui lòng kiểm tra lại';
+                        } else {
+                            unlink(URL_IMAGE_SLIDE_CATEGORY.$event_img);
+                        }
+                    } else {
+                        $error[] = 'File ảnh chưa được up <br/> vui lòng kiểm tra lại';
+                    }
+                }
+                
+                if (empty($error)) {
+                    $this->db->trans_off();
+                    $this->db->trans_begin();
+                    $this->mcategory->updateCategory($param);
+                    if ($this->db->trans_status() === FALSE) {
+                        $this->db->trans_rollback();
+                        $error[] = 'Hệ thống chưa cập nhật <br/> Vui lòng thử lại';
+                    } else {
+                        $this->db->trans_commit();
+                        redirect(base_url('category/viewCategory' . '/' . $param['id']));
+                        return;
+                    }
                 }
             }
             $data['error'] = $error;
         }
+        
         $data['param'] = $param;
         $data['catId'] = $id;
+        $data['event_img'] = $event_img;
+        
         $tpl["main_content"] = $this->load->view('category/updateCategory', $data, TRUE);
         $this->load->view(TEMPLATE, $tpl);
     }
@@ -195,7 +230,7 @@ class Category extends MY_Controller {
             redirect(base_url('category'));
             return;
         }
-        $parent = $this->mcategory->getDetail($id);
+        $parent = $this->mcategory->getDetailTypeCategory($id);
         if (empty($parent)) {
             redirect(base_url('category'));
             return;
@@ -240,7 +275,7 @@ class Category extends MY_Controller {
                 if (empty($error)) {
                     $this->db->trans_off();
                     $this->db->trans_begin();
-                    $this->mcategory->create($params,$parent['id']); // new children category
+                    $this->mcategory->addChildCategory($params,$parent['id']); // new children category
                     if ($this->db->trans_status() === FALSE) {
                         $this->db->trans_rollback();
                         $error[] = 'Hệ thống chưa cập nhật được dữ liệu <br/> vui lòng kiểm tra lại';
@@ -261,7 +296,7 @@ class Category extends MY_Controller {
         $queryString = preg_replace('/(\&|)page=$/is', '', $queryString);
         $page_config = array(
             'base_url' => base_url('category/childrenCategory' . '/' . $parent['id'] . '?' . $queryString),
-            'per_page' => NUMBER_PAGE_PARTNERS,
+            'per_page' => NUMBER_PAGE,
             'use_page_numbers' => TRUE,
             'page_query_string' => TRUE,
             'query_string_segment' => $parmameter_page,
@@ -292,7 +327,7 @@ class Category extends MY_Controller {
         }
         $data['offset'] = $offset;
         $data['items'] = $items;
-        $data['parent'] = $parent['id'];
+        $data['parent'] = $parent;
         $tpl["main_content"] = $this->load->view('category/index', $data, TRUE);
         $this->load->view(TEMPLATE, $tpl);
     }
@@ -312,7 +347,6 @@ class Category extends MY_Controller {
             $error = array();
             $params = $this->input->post();
             if (!empty($_FILES['logo'])) {
-                //echo '<pre>';                print_r($_FILES['logo']);
                 $fileTmpName = date('YmdHis') . '_' . $_FILES['logo']['name'];
                 $fileName = str_replace(' ', '_', $fileTmpName);
                 $config_upload = array(
@@ -357,8 +391,8 @@ class Category extends MY_Controller {
         if (empty($cat_id)) {
             redirect(base_url('category'));
         }
-        $detail_cat = $this->mcategory->getDetail($cat_id);
-        if (empty($detail_cat)) {
+        $params = $this->mcategory->getDetail($cat_id);
+        if (empty($params)) {
             redirect(base_url('category'));
         }
         $tpl = array(
@@ -366,86 +400,65 @@ class Category extends MY_Controller {
                 base_url() => 'home',
                 base_url('category') => 'Danh mục',
                 'javascript:;' => 'Cập nhật',
-                '#' => htmlspecialchars($detail_cat['name']),
+                '#' => htmlspecialchars($params['name']),
             ),
         );
+        
         $data = array(
             'page_title' => $this->lang->line('CAT_TITLE_EDIT'),
             'language_type' => $this->_language,
             'parent' => $this->mcategory->listParent(),
         );
-
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $logo = $params['logo'];
+        $parent = $this->mcategory->listParent();
+        
+        if ($this->isPostMethod()) {
             $error = array();
             $params = $this->input->post();
-            $checkUpload = $this->uploadPhoto($_FILES['logo'], 'logo', TEMP_PATH, TRUE, $maxWidth = 1366, $maxHeight = 768, $maxSize = 200000);
-            if ($checkUpload) {
-                // Get logo name:
-                $params['logo'] = $checkUpload;
-                if ($this->resizePhoto($checkUpload, $width = IMAGE_WIDTH_400, $height = IMAGE_HEIGHT_400, TEMP_PATH, IMAGE_CATEGORY_PATH)) {
-                    // Add watermarking photo:
-                    // Remove tmp file:
-                    $tmpFile = TEMP_PATH . $checkUpload;
-                    if (file_exists($tmpFile)) {
-                        $fh = fopen($tmpFile, "rb");
-                        $imgData = fread($fh, filesize($tmpFile));
-                        fclose($fh);
-                        unlink($tmpFile);
-                    }
-                }
-                // Remove file:
-                if (!empty($detail_cat['logo'])) {
-                    $imgFile = IMAGE_CATEGORY_PATH . $detail_cat['logo'];
-                    if (file_exists($imgFile)) {
-                        $fh = fopen($imgFile, "rb");
-                        $imgData = fread($fh, filesize($imgFile));
-                        fclose($fh);
-                        unlink($imgFile);
-                    }
-                }
-            }
             // Check validation input
-            $this->_validate($params, $error);
-            //echo '<pre>';            print_r($params);exit;
+            $this->_validateChildren($params, $error);
             if (empty($error)) {
-                if ($this->mcategory->create($params)) {
-                    redirect(base_url('category'));
+                if (!empty($_FILES['logo']['name'])) {
+                    $checkUpload = $this->uploadPhoto($_FILES['logo'], 'logo', IMAGE_CATEGORY_PATH, TRUE, $maxWidth = 1366, $maxHeight = 768, $maxSize = 200000);
+                    if ($checkUpload) {
+                        $params['logo'] = $checkUpload; // Get logo name:
+                        $is_resize = $this->resizePhoto($checkUpload, IMAGE_WIDTH_250, IMAGE_WIDTH_250, IMAGE_CATEGORY_PATH);
+                        if ($is_resize != TRUE) { // not resize
+                            $error[] = 'Không xử lý được file ảnh <br/> vui lòng kiểm tra lại';
+                        } else {
+                            // remove image old
+                            unlink(IMAGE_CATEGORY_PATH.$logo);
+                        }
+                    } else {
+                        $error[] = 'File ảnh chưa được up <br/> vui lòng kiểm tra lại';
+                    }
                 }
             }
-            $data['params'] = $params;
+            
+            // update child category
+            if (empty($error)) {
+                $this->db->trans_off();
+                $this->db->trans_begin();
+                $this->mcategory->updateChildCategory($params);
+                if ($this->db->trans_status() === FALSE) {
+                    $this->db->trans_rollback();
+                    $error[] = 'Hệ thống chưa cập nhật <br/> Vui lòng thử lại';
+                } else {
+                    $this->db->trans_commit();
+                    redirect(base_url('category/childrenCategory').'/'.$params['parent']);
+                }
+            }
             $data['cat_errors'] = $error;
         }
-        $data['detail_cat'] = $detail_cat;
-        //echo '<pre>';        print_r($data['detail_cat']);exit;
+        $data['params'] = $params;
+        $data['logo'] = $logo;
+        $data['parent'] = $parent;
+        
         $tpl["main_content"] = $this->load->view('category/edit', $data, TRUE);
         $this->load->view(TEMPLATE, $tpl);
     }
 
-    /*
-     * categroy detail
-     */
-    public function detail($cat_id = '') {
-        if (!empty($cat_id) && filter_var($cat_id, FILTER_VALIDATE_INT, array('min_range' => 1))) {
-            $data = array(
-                'page_title' => $this->lang->line('CAT_DETAIL'),
-                'catDetail' => $this->mcategory->getDetail($cat_id, $parent = TRUE),
-            );
-            if (empty($data['catDetail'])) {
-                redirect(base_url('category'));
-            }
-            $tpl = array(
-                'breadcrumb' => array(
-                    base_url() => 'home',
-                    base_url('category') => 'Danh mục',
-                    'javascript:;' => $data['catDetail']['name']),
-            );
-            $tpl["main_content"] = $this->load->view('category/detail', $data, TRUE);
-            $this->load->view(TEMPLATE, $tpl);
-        } else {
-            redirect(base_url('category'));
-        }
-    }
-
+   
     /**
      * delete category
      * @return type
@@ -582,14 +595,27 @@ class Category extends MY_Controller {
             $errors = $this->form_validation->error_array();
         }
         if (empty($errors)) {
-            $isExistsName = $this->mcategory->checkExistName($data['name']);
-            if ($isExistsName == TRUE) {
-                $errors[] = 'Tên danh mục đã tồn tại';
-            }
-            if (!empty($data['slug'])) {
-                $isExistsSlug = $this->mcategory->checkExistSlug($data['slug']);
-                if ($isExistsSlug == TRUE) {
-                    $errors[] = 'Slug đã tồn tại';
+            if (empty($data['id'])) {
+                $isExistsName = $this->mcategory->checkExistName($data['name']);
+                if ($isExistsName == TRUE) {
+                    $errors[] = 'Tên danh mục đã tồn tại';
+                }
+                if (!empty($data['slug'])) {
+                    $isExistsSlug = $this->mcategory->checkExistSlug($data['slug']);
+                    if ($isExistsSlug == TRUE) {
+                        $errors[] = 'Slug đã tồn tại';
+                    }
+                }
+            } else {
+                $isExistsName = $this->mcategory->checkExistName($data['name'], $data['id']);
+                if ($isExistsName == TRUE) {
+                    $errors[] = 'Tên danh mục đã tồn tại';
+                }
+                if (!empty($data['slug'])) {
+                    $isExistsSlug = $this->mcategory->checkExistSlug($data['slug'], $data['id']);
+                    if ($isExistsSlug == TRUE) {
+                        $errors[] = 'Slug đã tồn tại';
+                    }
                 }
             }
         }
