@@ -69,9 +69,9 @@
                     <div class="form-group cont-giftset">
                         <label>
                             <?php echo $this->lang->line('PRO_DISTRIBUTION') ?>
-                            <button type="button" id="add-giftset">+</button>
+                            <input type="text" name="searchProduct" value="" placeholder="Nhập mã code ..." class="form-inline noEnter" style="font-weight: initial; " />
+                            <button type="button" id="add-giftset"><i class="glyphicon glyphicon-search"></i></button>
                         </label>
-                        <input name="pro_distribution" id="giftset" class="form-control noEnter giftset" value="<?php if(!empty($params['pro_distribution'])) echo htmlspecialchars($params['pro_distribution']) ?>" maxlength="300" />
                     </div>
                     <div class="form-group">
                         <label><?php echo $this->lang->line('PRO_DESCRIPTION') ?></label>
@@ -114,6 +114,8 @@
 <div id="main_loader" class="hide"></div>
 
 <?php require_once(VIEW_PATH.'templates/popup/_messageDialog.php') ;?>
+<?php require_once(VIEW_PATH.'templates/popup/_productdistribution.php') ;?>
+<?php require_once(VIEW_PATH.'templates/popup/_tableSearchChoseProduct.php') ;?>
 <script type="text/javascript" src="<?php echo base_url('common/js/ckfinder/ckfinder.js') ?>"></script>
 <script type="text/javascript" src="<?php echo base_url('common/js/ckeditor/ckeditor.js') ?>"></script>
 <script type="text/javascript">

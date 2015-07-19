@@ -81,9 +81,6 @@ class Mproduct extends MY_Model
         if (!empty($params['promotion'])) {
             $data['promotion'] = $params['promotion'];
         }
-        if (!empty($params['pro_distribution'])) {
-            $data['pro_distribution']  = $params['pro_distribution'] ;
-        }
         
         if (!empty($params['product_id'])) {
             $data['update_user'] = $this->session->userdata('ses_user_id');
@@ -101,6 +98,7 @@ class Mproduct extends MY_Model
             }
         }
         
+        // insert image product
         if (!empty($proId)) {
             if(!empty($params['name_image'])) {
                 foreach ($params['name_image'] as $imageName) {
@@ -114,6 +112,22 @@ class Mproduct extends MY_Model
                 }
             }
         }
+        
+        // insert d_product_coordinator
+        if (!empty($proId)) {
+            if(!empty($params['pro_distribution'])) {
+                foreach ($params['pro_distribution']  as $value) {
+                    $data = array(
+                        'product_id' => $proId,
+                        'product_code' => $value,
+                        'create_user' => $this->session->userdata('ses_user_id'),
+                        'create_date' => date('Y-m-d H:i:s'),
+                    );
+                    $this->db->insert('d_product_coordinator', $data);
+                }
+            }
+        }
+        
         if ($this->db->trans_status() === FALSE) {
             $this->db->trans_rollback();
             return FALSE;
@@ -287,6 +301,24 @@ class Mproduct extends MY_Model
             return FALSE;
         }
         
+    }
+    
+    /**
+     * get all product by name
+     * @param string $name
+     * @return boolean
+     */
+    public function getProductByName($name='') {
+        $this->db->where('del_flg', 0);
+        if (!empty($name)){
+            $this->db->like('product_code', $name, 'after');
+        }
+        $query = $this->db->get($this->_tbl_product);
+        
+        if ($query->num_rows() > 0){
+            return $query->result_array();
+        }
+        return FALSE;
     }
     
 }
