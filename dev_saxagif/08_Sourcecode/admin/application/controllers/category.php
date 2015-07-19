@@ -521,7 +521,7 @@ class Category extends MY_Controller {
         $this->form_validation->set_rules("parent", 'Parent', "trim|integer");
         $this->form_validation->set_rules("keyword_seo", $this->lang->line('KEYWORD_SEO'), "trim|max_length[255]");
         $this->form_validation->set_rules("des_seo", $this->lang->line('DESCRIPTION_SEO'), "trim|max_length[255]");
-        $this->form_validation->set_rules("is_home", $this->lang->line('CAT_CHOOSE_HOME'), "trim|max_length[1]|interger");
+//        $this->form_validation->set_rules("is_home", $this->lang->line('CAT_CHOOSE_HOME'), "trim|max_length[1]|interger");
         // Set Message:
         $this->form_validation->set_message('required', '%s');
         //Validate

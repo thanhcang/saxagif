@@ -232,6 +232,7 @@ class MY_Controller extends CI_Controller
             $config['width'] = $widthImage;
             $config['height'] = $heightImage;
             if ($imgPathThumb) {
+                $config['create_thumb'] = TRUE;
                 $config['new_image'] = $imgPathThumb;
             }
             $config['quality'] = 100;

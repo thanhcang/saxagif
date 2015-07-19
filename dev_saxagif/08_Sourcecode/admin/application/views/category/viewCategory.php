@@ -2,13 +2,13 @@
     <div class="box col-md-8">
         <div class="box-inner">
             <div class="box-header well">
-                <h2><i class="glyphicon glyphicon-list-alt"></i> Cập nhật</h2>
+                <h2><i class="glyphicon glyphicon-list-alt"></i> Chi tiết</h2>
             </div>
             <div class="box-content">
                 <table class="table responsive martopten datatable">
                     <colgroup>
-                        <col width="20%"/>
-                        <col width="85%"/>
+                        <col width="25%"/>
+                        <col width="75%"/>
                     </colgroup>         
                     <tr>
                         <td><b>Ngôn ngữ</b></td>
@@ -22,7 +22,7 @@
                         <td><b>Loại danh mục</b></td>
                         <td><?php echo $typeCategory[$catDetail['type']] ?></td>
                     </tr>
-                    <?php if ($catDetail['type'] == 2) : ?>
+                    <?php if ($catDetail['type'] == 3) : ?>
                     <tr>
                         <td><b>Hiên thị trang chủ</b></td>
                         <td><?php echo  !empty($catDetail['is_home']) ? 'hiển thị' : 'không hiển thị'; ?></td>
@@ -34,6 +34,16 @@
                         <td><img src="<?php echo base_url('common/multidata/slide'.'/'.$catDetail['event_img'])?>" /></td>
                     </tr>
                     <?php endif;?>
+                    <tr>
+                        <td><b>Mô tả ngắn</b></td>
+                        <td><?php echo nl2br($catDetail['note'])  ?></td>
+                    </tr>
+                    <?php if (!empty($catDetail['price'])) : ?>
+                    <tr>
+                        <td><b>Giá</b></td>
+                        <td><?php echo $catDetail['price'];  ?></td>
+                    </tr>
+                    <?php endif ?>
                     <tr>
                         <td><b>Slug(URL Seo)</b></td>
                         <td><?php echo $catDetail['slug'] ?></td>

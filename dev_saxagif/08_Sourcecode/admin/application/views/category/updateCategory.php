@@ -40,7 +40,7 @@
                             <?php endif; ?>
                         </select>
                     </div>
-                    <?php if (!empty($param['type']) && $param['type'] == 2 ): ?>
+                    <?php if (!empty($param['type']) && $param['type'] == 3 ): ?>
                     <div class="form-group">
                         <label>Hiển thị trang chủ</label>
                         <input value="1" name="is_home" type="checkbox" <?php echo !empty($param['is_home']) ? 'checked' : ''; ?> />
@@ -59,6 +59,10 @@
                         </div>
                     </div>
                     <?php endif ?>
+                    <div class="form-group">
+                        <label>Mô tả ngắn</label>
+                        <textarea name="note" class="form-control" placeholder="Nhập mô tả ngắn"><?php echo !empty($param['note']) ? htmlspecialchars($param['note']) : '' ; ?></textarea>
+                    </div>
                     <div class="form-group">
                         <label><?php echo $this->lang->line('SLUG') ?></label>
                         <input type="text" name="slug" class="form-control input-sm" id="slug" value="<?php if(!empty($param['slug'])) echo html_escape($param['slug']) ?>" maxlength="255" />

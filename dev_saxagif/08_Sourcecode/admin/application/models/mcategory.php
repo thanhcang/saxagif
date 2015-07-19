@@ -61,6 +61,10 @@ class Mcategory extends MY_Model
         return $list_cat;
     }
     
+    /**
+     * get lisst category 
+     * @return boolean
+     */
     public function listAll()
     {
         $this->db->select('id, name, parent')
@@ -72,6 +76,10 @@ class Mcategory extends MY_Model
         return $query->result_array();
     }
     
+    /**
+     * get list category parent
+     * @return boolean
+     */
     public function listParent()
     {
         $sql = "SELECT id, name FROM " .$this->_tbl_category ." AS c WHERE del_flg = 0 AND c.parent = 0";
@@ -139,17 +147,22 @@ class Mcategory extends MY_Model
      */
     public function getDetailTypeCategory($cat_id)
     {
-        $data = array();
-        $q = $this->db->select('*')
-                ->where('id', $cat_id)
-                ->where('del_flg', 0)
-                ->where('type', 1)
-                ->get($this->_tbl_category);
-        if ($q->num_rows() == 0) {
-            return FALSE;
+        $where = array($cat_id);
+        $sql =  "SELECT
+                        *
+                FROM
+                        d_category AS c
+                WHERE
+                        c.del_flg = 0
+                AND (c.type = 1 )
+                AND ( id = ?)
+                ";
+        $query = $this->db->query($sql, $where);
+        
+        if ( $query->num_rows() > 0 ){
+            return $query->row_array();
         }
-        $data = $q->row_array();
-        return $data;
+        return FALSE;
     }
     
     /**
@@ -326,6 +339,8 @@ class Mcategory extends MY_Model
             'create_user' => $this->_login_user,
             'create_date' => date('Y-m-d H:i:s'),
             'event_img' => !empty($param['event_img']) ? $param['event_img'] : '' ,
+            'note' => !empty($param['note']) ? $param['note'] : '' ,
+            'price' => !empty($param['price']) ? $param['price'] : '' ,
         );
         $this->db->insert($this->_tbl_category, $data);
     }
@@ -340,10 +355,11 @@ class Mcategory extends MY_Model
         );
         $data = array(
           'name' => $param['name'],  
-          'keyword_seo' => $param['keyword_seo'],  
-          'des_seo' => $param['des_seo'],  
+          'keyword_seo' => htmlspecialchars($param['keyword_seo']),  
+          'des_seo' => htmlspecialchars(($param['des_seo'])),  
           'is_home' => !empty($param['is_home']) ? $param['is_home'] : 0,  
           'slug' => !empty($param['name']) ? slug_convert($param['slug']) : slug_convert($param['name']),  
+          'note' => !empty($param['note']) ? htmlspecialchars($param['note']) : '',  
         );
         if (!empty($param['event_img'])){
             $data['event_img'] = $param['event_img'];
@@ -394,6 +410,44 @@ class Mcategory extends MY_Model
         
         $this->db->where($where);
         $this->db->update('d_category', $data);
+    }
+    
+    /**
+     * get data child category by type
+     * @param int $type
+     * @return boolean
+     */
+    public function getChildCategoryByType($type) {
+        $where = array();
+        if ($type == 1){
+            $sql = "SELECT
+                        p.`name`,
+                        c.`name` AS child_name,
+                        c.id 
+                    FROM
+                          d_category c
+                    INNER JOIN d_category AS p ON c.parent = p.id
+                    where c.del_flg = 0 and p.del_flg = 0
+                    ";
+        } else {
+            $sql = "SELECT
+                        c.`name`,
+                        c.id 
+                    FROM
+                       d_category c
+                       where c.type = ? and c.del_flg = 0   
+                    ";
+            $where[] = $type;
+        } 
+        
+        if ( !empty($sql)){
+            $query= $this->db->query($sql, $where);
+            if ($query->num_rows() > 0){
+                return $query->result_array();
+            }
+        }
+        
+        return FALSE;
     }
 
 }

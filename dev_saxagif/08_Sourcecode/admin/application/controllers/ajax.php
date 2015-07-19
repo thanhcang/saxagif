@@ -221,5 +221,45 @@ class Ajax extends MY_Controller {
             }
         }
     }
+    
+    
+    /**
+     * get child category 
+     * @return type
+     */
+    public function getChildCategory() {
+        $input = $this->input->post();
+        if ($this->isPostMethod() && !empty($input) && !empty($input['is_ajax']) && ($input['is_ajax'] == 'ajax')) {
+            $category = $this->mcategory->getChildCategoryByType($input['id']);
+            if (!empty($category)) {
+                
+                if ($input['id'] == 1){
+                    $temp = '';
+                    foreach ($category as $key){
+                        if ($temp == $key['name']){
+                            array_push($result[$key['name']], array('child_name' => $key['child_name'] ,  'id' => $key['id']));                            
+                        } else {
+                            $result[$key['name']][] = array('child_name' => $key['child_name'] ,  'id' => $key['id']);  
+                        }
+                        $temp = $key['name'];
+                    }
+                    $json_result = array(
+                        'result' => 1,
+                        'code' => 202,
+                        'data' => $result,
+                    );
+                    echo json_encode($json_result, JSON_UNESCAPED_UNICODE);
+                } else {
+                    $json_result = array(
+                        'result' => 1,
+                        'code' => 202,
+                        'data' => $category,
+                    );
+                    echo json_encode($json_result, JSON_UNESCAPED_UNICODE);
+                }
+                return;
+            }
+        }
+    }
 
 }

@@ -48,12 +48,12 @@ $config['position'] = array(
     2 => 'Left menu 1',
     3 => 'Left menu 2',
     4 => 'Right menu 1',
-    5 => 'Footer',
-    6 => 'Header',
+    5 => 'Footer'
  );
 $config['typeCategory'] = array(
     1=>'danh mục sản phẩm',
     2=>'sự kiện',
+    3=>'giúp bạn chọn quà',
 );
 $config['position_news'] = array(
     1 => 'Trang chủ',

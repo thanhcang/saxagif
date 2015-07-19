@@ -54,12 +54,7 @@
                         </div>
                     </div>
                     <?php endif ?>
-                    
-                    <div class="control-group">
-                        <label for="logo">Hiển thị trang chủ</label>
-                        <input type="checkbox" name="is_home" value="1" <?php echo !empty($params['is_home']) ? "checked" : '' ?>/>
-                    </div>
-                    
+                                      
                     <div class="form-group">
                         <label><?php echo $this->lang->line('CAT_PARENT') ?></label>
                         <div class="controls">

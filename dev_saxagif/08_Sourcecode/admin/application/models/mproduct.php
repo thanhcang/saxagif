@@ -65,15 +65,15 @@ class Mproduct extends MY_Model
         $this->db->trans_start();
         $proId = '';
         $data = array(
-            'product_code'      => $params['product_code'],
-            'name'              => $params['name'],
+            'product_code'      => htmlspecialchars($params['product_code']),
+            'name'              => htmlspecialchars($params['name']),
             'price'             => (!empty($params['price'])) ? $params['price'] : 0,
             'description'       => (!empty($params['description'])) ? $params['description'] : '',
             'content'           => (!empty($params['content'])) ? $params['content'] : '',
             'book_limit'        => (!empty($params['book_limit'])) ? $params['book_limit'] : '',
             'delivery_days'     => (!empty($params['delivery_days'])) ? $params['delivery_days'] : '',
-            'slug'              => $params['slug'],
-            'cat_id'            => $params['cat_id'],
+            'slug'              => !empty($params['slug']) ? slug_convert($params['slug']) : slug_convert($params['name']) ,
+            'cat_id'            => $params['catname'],
             'language_type'     => (int)$params['language_type'],
             'keyword_seo'       => (!empty($params['keyword_seo'])) ? $params['keyword_seo'] : '',
             'des_seo'           => (!empty($params['des_seo'])) ? $params['des_seo'] : '',  
@@ -92,7 +92,6 @@ class Mproduct extends MY_Model
             if($this->db->update($this->_tbl_product, $data)) {
                 $proId = (int)$params['product_id']; 
             }
-            echo $this->db->last_query();
             
         } else {
             $data['create_user'] = $this->session->userdata('ses_user_id');

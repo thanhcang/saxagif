@@ -1,6 +1,7 @@
 $(document).ready(function(){
     var desSeo = $('textarea[name=des_seo]');
     var pageHomeTemp = $('.pageHomeTemp');
+    var pricePresentTemp = $('.pricePresent');
     var type = $('select[name=type]');
     var form = $('form#frmCategory');
     setBgColor();
@@ -25,15 +26,32 @@ $(document).ready(function(){
     // set up image and show home
     if (type.find('option:selected').val() == 2) {
         form.find('.pageHome').remove();
+        form.find('.pricePresent').remove();
         type.after(pageHomeTemp.html());
+    }
+    
+    // set up price for presetnt
+    if (type.find('option:selected').val() == 3) {
+        form.find('.pageHome').remove();
+        form.find('.pricePresent').remove();
+        type.after(pricePresentTemp.html());
     }
     
     // set up image and show home when check
     type.on('change', function(){ // choose show home
         form.find('.pageHome').remove();
+        form.find('.pricePresent').remove();
+        
+        // event
         if ($(this).find('option:selected').val() == 2){
             $(this).parent().after(pageHomeTemp.html());
-        } 
+        }
+        
+        // price present
+        if ($(this).find('option:selected').val() == 3){
+            $(this).parent().after(pricePresentTemp.html());
+        }
+        
     });
     
     //view child category

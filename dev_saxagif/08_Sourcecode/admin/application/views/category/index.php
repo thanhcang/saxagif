@@ -47,10 +47,12 @@
                         <label><?php echo $this->lang->line('CAT_LOGO') ?></label>
                         <input type="file" name="logo"  accept="image/*" class="noEnter" id="logo" />
                     </div>
+                    <?php if ($parent['type'] == 3) : ?>
                     <div class="form-group">
                         <label for="logo">Hiển thị trang chủ</label>
                         <input type="checkbox" name="is_home" value="1" <?php echo !empty($params['is_home']) ? "checked" : '' ?>/>
                     </div>
+                    <?php endif ?>
                     <div class="form-group">
                         <label><?php echo $this->lang->line('CAT_KEYWORD_SEO') ?></label>
                         <input type="text" name="keyword_seo" class="form-control noEnter" id="keyword_seo" value="<?php if(!empty($params['keyword_seo'])) echo html_escape($params['keyword_seo']) ?>" maxlength="255" />
@@ -59,9 +61,6 @@
                         <label><?php echo $this->lang->line('CAT_DES_SEO') ?></label>
                         <textarea name="des_seo" class="form-control noEnter"><?php if(!empty($params['des_seo'])) echo html_escape($params['des_seo']) ?></textarea>
                     </div>
-                    <?php if(!empty($gift)): ?>
-                    <input type="hidden" name="is_gift" value="1" />
-                    <?php endif ?>
                     <div class="form-group">
                         <button type="submit" class="button button-blue"><?php echo $this->lang->line('CREATE') ?></button>
                     </div>

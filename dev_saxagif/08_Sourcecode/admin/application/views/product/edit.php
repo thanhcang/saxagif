@@ -1,23 +1,4 @@
 <link rel="stylesheet" type="text/css" href="<?php echo base_url('common/css/product.css') ?>" />
-<div>
-    <ul class="breadcrumb">
-        <li>
-            <a href="index.html">Home</a>
-        </li>
-        <li>
-            <a href="index.html">Category</a>
-        </li>
-        <li>
-            <a href="index.html">Quà tặng công nghệ</a>
-        </li>
-        <li>
-            <a href="index.html">USB</a>
-        </li>
-        <li>
-            <a href="index.html">USB1</a>
-        </li>
-    </ul>
-</div>
 <div class="row">
     <div class="box col-md-12">
         <div class="box-inner">

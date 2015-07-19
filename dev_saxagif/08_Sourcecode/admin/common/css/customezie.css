@@ -48,3 +48,25 @@
 #bg_color{
     cursor: pointer;
 }
+
+.tPreviewImage{
+    display: inline-block;
+    width: 100px;
+    margin-right: 10px;
+    height: 100px;
+}
+
+.tPreviewImage img{
+    width: 100%;
+    height:100%;
+}
+
+#main_loader{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: transparent url(../images/ajax_loader.gif) center center no-repeat;
+    z-index: 9999;
+}
