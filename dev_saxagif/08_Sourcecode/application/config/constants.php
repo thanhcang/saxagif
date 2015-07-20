@@ -40,7 +40,7 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 #HoaHN 2015/06/06
 define('MAIL_ADDR', 'hnguyen0110@gmail.com');
 
-define('START_YEAR', 2015);
+define('START_YEAR', 2010);
 define('END_YEAR', date('Y'));
 define('DEFAULT_TITLE', 'SAXA Gifts - Công ty quà tặng doanh nghiệp cao cấp');
 define('TEMPLATE', 'templates/main');
@@ -67,9 +67,22 @@ define('COMMON_PATH', $root_path . '/common/');
 define('TEMP_PATH', COMMON_PATH . 'temp/');
 define('IMAGE_PATH', COMMON_PATH . 'images/');
 define('IMG_PRODUCT_PATH', COMMON_PATH . '/multidata/product_img/');
+define('IMG_SLIDESHOW', COMMON_PATH . '/multidata/slideshow/');
+define('LANG_VN', 1);
+define('LANG_EN', 2);
+define('IS_HOME', 1);
+define('IS_GIFT', 3);
+define('IS_CATEGORY', 1);
+define('HEADER_POSITION', 6);
+define('LEFT_POSITION', 2);
+define('RIGHT_POSITION', 4);
+define('FOOTER_POSITION', 5);
+define('HOTLINE', '0906 605 405');
+define('COMPANY_NAME', 'SAXA GROUP co., ltd');
+define('PROMOTION', 1);
+
 // No change
 define('SALT', 'saxagifts!$23');
-
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

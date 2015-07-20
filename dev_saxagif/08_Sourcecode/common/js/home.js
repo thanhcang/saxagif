@@ -4,7 +4,7 @@ $(document).ready(function(){
 
 function getSendMail() {
     $('#sendMailCustomer').on('click', function(){
-        $(".js__p_start, .js__p_another_start").simplePopup();
+        //$(".js__p_start, .js__p_another_start").simplePopup();
         var _isThis = $(this);
         _isThis.addClass('js__p_start');
         var _parternMail = /^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/;
@@ -40,8 +40,9 @@ function getSendMail() {
             async: false,
         })
         .done(function(e){
-            if(e.length() == null )
-            $(".js__p_start, .js__p_another_start").simplePopup();
+            if(e.length != null )
+            //$(".js__p_start, .js__p_another_start").simplePopup();
+            $('.js__p_start').trigger('click');
         });
         }
         

@@ -67,5 +67,55 @@ class Home_model extends MY_Model
         return $query->result_array();
     }
     
+    /**
+     * @author HoaHN<hnguyen0110@gmail.com>
+     * @date 2015/07/19
+     * Get setting show footer
+     */
+    public function getSettingFooter($language = LANG_VN)
+    {
+        $sql = "SELECT
+                        s.id,
+                        s.sitename,
+                        s.shortcut,
+                        s.logo,
+                        s.key_google,
+                        s.des_google,
+                        s.phone,
+                        s.fax,
+                        s.email,
+                        s.address,
+                        s.slogan,
+                        s.language_type
+                FROM
+                        m_setting AS s
+                WHERE
+                        s.language_type = 1";
+        $query = $this->db->query($sql, array($language));
+        if ($query->num_rows() == 0 ) {
+            return FALSE;
+        }
+        return $query->row_array();
+    }
     
+    public function getGift()
+    {
+        $sql = "SELECT
+                        p.id,
+                        p.name AS product_name,
+                        p.slug,
+                        pi.name AS image_name
+                FROM
+                        d_product AS p
+                INNER JOIN d_product_image AS pi ON p.id = pi.product_id
+                WHERE
+                        p.promotion = 1
+                GROUP BY
+                        p.id";
+        $query = $this->db->query($sql);
+        if ($query->num_rows() == 0 ) {
+            return FALSE;
+        }
+        return $query->result_array();
+    }
 }

@@ -2261,6 +2261,8 @@ a{
 .link_posts li a:hover{
     color: #7db341;
 }
+.contactErr { color: red; }
+.contactErr ul li { list-style: none; }
 /*fix css chrome*/
 /*@media screen and (-webkit-min-device-pixel-ratio:0){
 }*/

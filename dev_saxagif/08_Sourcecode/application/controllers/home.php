@@ -9,14 +9,13 @@ class Home extends MY_Controller
     public function __construct()
     {
         parent::__construct();
-        //$this->lang->load('category');
-        $this->load->model(array('home_model', 'category_news_model'));
+        //$this->load->model(array('home_model', 'category_news_model'));
     }
     
     public function index()
     {
         // Get category gift
-        $this->data['cat_gift'] = $this->category_model->getCategoryByType($type = IS_HOME, $gift = IS_GIFT);
+        $this->data['cat_gift'] = $this->category_model->getCategoryByType($type = IS_GIFT,TRUE);
         // Get list slideshow
         $this->data['slideshow'] = $this->home_model->getSlideShow();
         
@@ -34,6 +33,17 @@ class Home extends MY_Controller
             } else {
                 echo '';
             }
+        } else {
+            echo '';
+        }
+    }
+    
+    public function setLanguage()
+    {
+        if ($this->input->post('language')) {
+            $language_type = (int)$this->input->post('language');
+            $this->session->set_userdata('ses_language',$language_type);
+            echo 1;
         } else {
             echo '';
         }

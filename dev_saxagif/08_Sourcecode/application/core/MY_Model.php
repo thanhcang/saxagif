@@ -10,6 +10,7 @@ class MY_Model extends CI_Model {
     protected $_tbl_category_news = 'd_news_category';
     protected $_tbl_news = 'd_news';
     protected $_table_send_mail = 'd_send_mail';
+    protected $_table_setting = 'm_setting';
             
     function __construct()
     {
