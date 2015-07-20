@@ -19,7 +19,7 @@ class Ajax extends MY_Controller {
         if ($this->is_logged_in() == FALSE) {
             $this->_return_session_timeout();
         }
-        $this->load->model(array('muser','mpartners','mcategory'));
+        $this->load->model(array('muser','mpartners','mcategory','mproduct'));
     }
 
     /**
@@ -257,6 +257,68 @@ class Ajax extends MY_Controller {
                     );
                     echo json_encode($json_result, JSON_UNESCAPED_UNICODE);
                 }
+                return;
+            }
+        }
+    }
+    
+    /**
+     * get all product by name 
+     * @param type $param
+     */
+    public function getProductByName() {
+        $input = $this->input->post();
+        if ($this->isPostMethod() && !empty($input) && !empty($input['is_ajax']) && ($input['is_ajax'] == 'ajax')) {
+            $product = $this->mproduct->getProductByName($input['name']);
+            if (!empty($product)) {
+                $json_result = array(
+                    'result' => 1,
+                    'code' => 202,
+                    'data' => $product,
+                );
+                echo json_encode($json_result, JSON_UNESCAPED_UNICODE);
+                return;
+            } else {
+                $json_result = array(
+                    'result' => 0,
+                    'code' => 404,
+                );
+                echo json_encode($json_result, JSON_UNESCAPED_UNICODE);
+                return;
+            }
+        }
+    }
+   
+   /**
+    * procee choose product
+    * @return type
+    */
+   public function processChooseProduct() {
+        
+        if ($this->isPostMethod()) {
+            $input = $this->input->post();
+            
+            if (!empty($input)) {
+                foreach ($input['sProductCode'] as $key => $value) {
+                    list($code,$name) = explode(',', $value);
+                    $result[] = array(
+                    'product_code' => $code,
+                    'name' => $name,
+                    );
+                }
+                $json_result = array(
+                    'result' => 1,
+                    'code' => 202,
+                    'data' => $result,
+                );
+                echo json_encode($json_result, JSON_UNESCAPED_UNICODE);
+                return;
+            } else {
+                $json_result = array(
+                    'result' => 0,
+                    'code' => 404,
+                );
+                echo json_encode($json_result, JSON_UNESCAPED_UNICODE);
                 return;
             }
         }

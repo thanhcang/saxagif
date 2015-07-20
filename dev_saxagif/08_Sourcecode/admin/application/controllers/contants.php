@@ -20,6 +20,7 @@ class Contants extends MY_Controller {
         echo "var URL_AUTO_GIFTSET = '" . base_url('product/showAutoGiftset') . "';" . PHP_EOL;
         echo "var URL_CATEGORY_IMAGE = '" . base_url('common/multidata/cat_logo') . "';" . PHP_EOL;
         echo "var URL_GET_CHILD_CATEGORY = '" . base_url('ajax/getChildCategory') . "';" . PHP_EOL;
+        echo "var URL_GET_PRODUCT = '" . base_url('ajax/getProductByName') . "';" . PHP_EOL;
         
         // Partners
         echo "var URL_DEL_PAR = '" . base_url('partners/delete') . "';" . PHP_EOL;
