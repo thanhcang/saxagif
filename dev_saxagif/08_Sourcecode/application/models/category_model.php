@@ -26,7 +26,8 @@ class Category_model extends MY_Model
                             c.parent,
                             c.slug,
                             c.logo,
-                            c.bg_color
+                            c.bg_color,
+                            c.price
                     FROM
                             d_category AS c
                     WHERE

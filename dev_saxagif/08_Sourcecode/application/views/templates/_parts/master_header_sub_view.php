@@ -6,8 +6,8 @@
     <div class="lang_p">
         <div class="language">
             <ul>
-                <li class="normal"><a href="javascript:;" class="lang_type" attr_val="<?php echo LANG_EN ?>">Eng</a></li>
-                <li class="active"><a href="javascrit:;" class="lang_type" attr_val="<?php echo LANG_VN ?>">Vn</a></li>
+                <li class="<?php if($language == LANG_EN) echo 'active'; else echo 'normal' ?>"><a href="javascript:;" class="lang_type" attr_val="<?php echo LANG_EN ?>">Eng</a></li>
+                <li class="<?php if($language == LANG_VN) echo 'active'; else echo 'normal' ?>"><a href="javascrit:;" class="lang_type" attr_val="<?php echo LANG_VN ?>">Vn</a></li>
             </ul>
         </div>
     </div>

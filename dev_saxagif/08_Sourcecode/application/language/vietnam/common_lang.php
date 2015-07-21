@@ -11,3 +11,5 @@ $lang['page_contact'] = 'Liên lạc với SAXA';
 $lang['send'] = 'Gửi';
 $lang['phanhoi'] = 'Phản hồi của bạn';
 $lang['giftfromsaxa'] = 'Quà tặng từ SAXA';
+$lang['view_more'] = 'Xem thêm';
+$lang['customer_name'] = 'Tên khách hàng';

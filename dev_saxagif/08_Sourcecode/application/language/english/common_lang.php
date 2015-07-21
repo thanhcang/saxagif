@@ -11,3 +11,5 @@ $lang['page_contact'] = 'Contact SAXA';
 $lang['send'] = 'Send';
 $lang['phanhoi'] = 'Your feedback';
 $lang['giftfromsaxa'] = 'Gift from SAXA';
+$lang['view_more'] = 'View more';
+$lang['customer_name'] = 'Customer name';

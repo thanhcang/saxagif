@@ -50,8 +50,9 @@
                 </div>
             </div>
             <script src="<?php echo base_url('common/js/vertical.news.slider.js') ?>"></script>
-            <script src="<?php echo base_url('common/js/home.js') ?>"></script>
             <script src="<?php echo base_url('common/js/common.js') ?>"></script>
+            <script src="<?php echo base_url('common/js/home.js') ?>"></script>
+            
             <!--=============Popup=============-->
             <script type="text/javascript" src="<?php echo base_url('common/js/jquery.popup.js') ?>"></script>
             <!--Layout Popup-->
@@ -66,12 +67,12 @@
             </div>
 
             <script>
-                                        function showMask(id) {
-                                            document.getElementById(id).style.display = 'block';
-                                        }
-                                        function hideMask(id) {
-                                            document.getElementById(id).style.display = 'none';
-                                        }
+                function showMask(id) {
+                    document.getElementById(id).style.display = 'block';
+                }
+                function hideMask(id) {
+                    document.getElementById(id).style.display = 'none';
+                }
             </script>
     </body>
 </html>
