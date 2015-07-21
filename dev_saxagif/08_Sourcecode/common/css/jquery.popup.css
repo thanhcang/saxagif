@@ -11,8 +11,8 @@
     font-style: normal;
 }
 .popup {
-    position:fixed; z-index:2; top:60px; left:50%;
-    width:800px; height:572px; background: url(../images/bg_popup.png) center bottom #fdfdeb;
+    position:fixed;
+    z-index:2; top:60px; left:50%;
     -moz-box-shadow:4px 4px 30px #130507;
     -webkit-box-shadow:4px 4px 30px #130507;
     box-shadow:4px 4px 30px #130507;
@@ -20,8 +20,18 @@
     -o-transition:top 800ms;
     -webkit-transition:top 800ms;
     transition:top 800ms;
+    background: #fdfdeb;
+    width:800px;
 }
-.p_content { width:100%; text-align:left; font-size:14px; padding:35px;font-family: 'UTM Neo Sans Intel'; }
+.p_content {
+    min-height:300px;
+    background: url(../images/bg_popup.png) center bottom #fdfdeb no-repeat;
+    /*width:100%;*/ 
+    text-align:left; 
+    font-size:14px; 
+    padding:35px;
+    font-family: 'UTM Neo Sans Intel';
+}
 .p_anch {
     float:left; position:relative; z-index:1; width:100%;
     margin:80px 0 0 0; text-align:center; font-size:18px;
@@ -58,10 +68,12 @@
 .cont_talk .img_staff{
     float: left;
     margin-right:20px;
+    height: 140px;
+    width: 140px;
+    overflow: hidden;
 }
 .cont_talk .img_staff img{
-    width: 140px;
-    height: 140px;
+    width: 100%;
 }
 .cont_talk .talk_one{
     width: 547px;
@@ -73,19 +85,20 @@
     font-family: 'UTM BEBAS';
     color: #7db341;
     font-weight: normal;
+    margin: 10px 0;
 }
 .other_talk{
     margin: 15px 0 0;
 }
 .other_talk li{
-   display: inline-block;
-   width: 112px;
-   height: 112px;
-   margin-right: 5px;
+    display: inline-block;
+    width: 112px;
+    height: 112px;
+    margin-right: 5px;
+    overflow: hidden;
 }
 .other_talk li img{
-   width: 112px;
-   height: 112px;
+    width: 100%;
 }
 .follow_talk{
     margin-top: 25px;
@@ -98,4 +111,24 @@
     margin-right: 15px;
     margin-top:5px;
     float: left;
+}
+/*product*/
+.popup_product {
+    position:fixed; z-index:2; top:60px; left:50%;
+    width:800px; height:auto; background:#fdfdeb;
+    -moz-box-shadow:4px 4px 30px #130507;
+    -webkit-box-shadow:4px 4px 30px #130507;
+    box-shadow:4px 4px 30px #130507;
+    -moz-transition:top 800ms;
+    -o-transition:top 800ms;
+    -webkit-transition:top 800ms;
+    transition:top 800ms;
+    overflow-x: auto; 
+}
+.popup_product  .p_content{
+    width:700px; 
+    text-align:left; 
+    font-size:14px; 
+    padding:84px 40px 84px 60px; 
+    font-family: 'UTM Neo Sans Intel'; 
 }

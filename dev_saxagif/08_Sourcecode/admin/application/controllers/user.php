@@ -34,7 +34,7 @@ class User extends MY_Controller {
         $tpl = array(
             'breadcrumb' => array(
                 base_url() => 'home',
-                base_url('user') => 'Quản lý danh sách danh sách'),
+                base_url('user') => 'danh sách user'),
         );
         if ($this->isPostMethod()) {
             $input = $this->input->post();

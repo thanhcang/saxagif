@@ -51,8 +51,9 @@ $config['position'] = array(
     5 => 'Footer'
  );
 $config['typeCategory'] = array(
-    1=>'danh mục',
+    1=>'danh mục sản phẩm',
     2=>'sự kiện',
+    3=>'giúp bạn chọn quà',
 );
 $config['position_news'] = array(
     1 => 'Trang chủ',

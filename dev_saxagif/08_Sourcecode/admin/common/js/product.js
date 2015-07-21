@@ -1,25 +1,10 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ *  product js
  */
 
-tinyMCE.init({
-    mode: "exact",
-    elements : "content",
-    theme_advanced_toolbar_location : "top",
-    theme_advanced_buttons1 : "bold,italic,underline,strikethrough,separator,"
-    + "justifyleft,justifycenter,justifyright,justifyfull,formatselect,"
-    + "bullist,numlist,outdent,indent",
-    theme_advanced_buttons2 : "link,unlink,anchor,image,separator,"
-    +"undo,redo,cleanup,code,separator,sub,sup,charmap",
-    theme_advanced_buttons3 : "",
-    height:"200px",
-    width:"650px"
-});
 
 $(function(){
-    $('#price').numberFormat({type: 'float'});
+//    $('#price').numberFormat({type: 'float'});
     confirmDelProduct();
 });
 

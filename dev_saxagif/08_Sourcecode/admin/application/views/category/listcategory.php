@@ -45,6 +45,10 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        <label>Mô tả ngắn</label>
+                        <textarea name="note" class="form-control" placeholder="Nhập nội dung mô tả ngắn"><?php echo (!empty($param['note'])) ?  $param['note'] : ''  ?></textarea>
+                    </div>
+                    <div class="form-group">
                         <label><?php echo $this->lang->line('SLUG') ?></label>
                         <input type="text" name="slug" class="form-control input-sm" id="slug" value="<?php if(!empty($param['slug'])) echo html_escape($param['slug']) ?>" maxlength="255" />
                     </div>
@@ -102,9 +106,9 @@
                 <table class="table table-striped table-bordered responsive martopten datatable">
                     <colgroup>
                         <col width="5%"/>
-                        <col width="45%"/>
+                        <col width="40%"/>
                         <col width="15%"/>
-                        <col width="35%"/>
+                        <col width="40%"/>
                     </colgroup>
                     <thead>
                         <tr>
@@ -127,8 +131,11 @@
                                 <a class="btn btn-success viewCategory" href="<?php echo base_url('category/viewCategory/' . $row['id']) ?>"><i class="glyphicon glyphicon-zoom-in icon-white"></i>Xem</a>
                                 <a href="<?php echo base_url('category/updateCategory/' . $row['id']) ?>" class="editCat1 btn btn-info"><i class="glyphicon glyphicon-edit icon-white"></i><?php echo $this->lang->line('EDIT') ?></a>
                                 <a href="javascript:;" class="delCat btn btn-danger" cat_name="<?php echo htmlspecialchars($row['name']) ?>" cat_attr="<?php echo $row['id'] ?>" ><i class="glyphicon glyphicon-trash icon-white"></i><?php echo $this->lang->line('DELETE') ?></a>
-                                <?php if (!empty($row['type']) && $row['type'] == 1): ?>
+                                <?php if (!empty($row['type']) && ( $row['type'] == 1)): ?>
                                 <a href="<?php echo base_url('category/childrenCategory/' . $row['id']) ?>" class="btn btn-success" title="thêm danh mục con"><i class="glyphicon glyphicon-plus icon-white"></i>Thêm</a>
+                                <?php endif; ?>
+                                <?php if (!empty($row['type']) &&  $row['type'] == 3 && !empty($row['is_home']) ): ?>
+                                <a href="javascript:;" class="btn btn-success" title="hiên thị trang chủ"><i class="glyphicon glyphicon-bookmark icon-white"></i>Trang chủ</a>
                                 <?php endif; ?>
                             </td>
                         </tr>
@@ -147,10 +154,28 @@
 </div>
 <div class="pageHomeTemp hide">
     <div class="form-group pageHome">
+        <label>Hình slideshow</label>
+        <input type="file" name="event_img" />
+    </div>
+    
+    <div class="form-group pageHome">
         <label>Hiển thị trang chủ</label>
-        <input type="checkbox" name="is_home" value="1" >
+        <input type="checkbox" name="is_home" value="1" <?php echo (!empty($param['price'])) ? 'checked' : '' ?> >
     </div>
 </div>
+
+<div class="pricePresent hide">
+    <div class="form-group pricePresent">
+        <label>Giá</label>
+        <input type="text" name="price" value="<?php echo (!empty($param['price'])) ? $param['price'] : ''  ?>" class="form-control" placeholder="Nhập giá" />
+    </div>
+    
+    <div class="form-group pricePresent">
+        <label>Hiển thị trang chủ</label>
+        <input type="checkbox" name="is_home" value="1" <?php echo (!empty($param['price'])) ? 'checked' : ''  ?> />
+    </div>
+</div>
+
 <?php require_once(VIEW_PATH.'templates/popup/_confirmDelete.php') ;?>
 <?php require_once(VIEW_PATH.'templates/popup/_messageDialog.php') ;?>
 <script src="<?php echo base_url('common/js/category.js'); ?>"></script>

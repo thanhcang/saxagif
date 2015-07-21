@@ -65,24 +65,21 @@ class Mproduct extends MY_Model
         $this->db->trans_start();
         $proId = '';
         $data = array(
-            'product_code'      => $params['product_code'],
-            'name'              => $params['name'],
+            'product_code'      => htmlspecialchars($params['product_code']),
+            'name'              => htmlspecialchars($params['name']),
             'price'             => (!empty($params['price'])) ? $params['price'] : 0,
             'description'       => (!empty($params['description'])) ? $params['description'] : '',
             'content'           => (!empty($params['content'])) ? $params['content'] : '',
             'book_limit'        => (!empty($params['book_limit'])) ? $params['book_limit'] : '',
             'delivery_days'     => (!empty($params['delivery_days'])) ? $params['delivery_days'] : '',
-            'slug'              => $params['slug'],
-            'cat_id'            => $params['cat_id'],
+            'slug'              => !empty($params['slug']) ? slug_convert($params['slug']) : slug_convert($params['name']) ,
+            'cat_id'            => $params['catname'],
             'language_type'     => (int)$params['language_type'],
             'keyword_seo'       => (!empty($params['keyword_seo'])) ? $params['keyword_seo'] : '',
             'des_seo'           => (!empty($params['des_seo'])) ? $params['des_seo'] : '',  
         );
         if (!empty($params['promotion'])) {
             $data['promotion'] = $params['promotion'];
-        }
-        if (!empty($params['pro_distribution'])) {
-            $data['pro_distribution']  = $params['pro_distribution'] ;
         }
         
         if (!empty($params['product_id'])) {
@@ -92,7 +89,6 @@ class Mproduct extends MY_Model
             if($this->db->update($this->_tbl_product, $data)) {
                 $proId = (int)$params['product_id']; 
             }
-            echo $this->db->last_query();
             
         } else {
             $data['create_user'] = $this->session->userdata('ses_user_id');
@@ -102,6 +98,7 @@ class Mproduct extends MY_Model
             }
         }
         
+        // insert image product
         if (!empty($proId)) {
             if(!empty($params['name_image'])) {
                 foreach ($params['name_image'] as $imageName) {
@@ -115,6 +112,22 @@ class Mproduct extends MY_Model
                 }
             }
         }
+        
+        // insert d_product_coordinator
+        if (!empty($proId)) {
+            if(!empty($params['pro_distribution'])) {
+                foreach ($params['pro_distribution']  as $value) {
+                    $data = array(
+                        'product_id' => $proId,
+                        'product_code' => $value,
+                        'create_user' => $this->session->userdata('ses_user_id'),
+                        'create_date' => date('Y-m-d H:i:s'),
+                    );
+                    $this->db->insert('d_product_coordinator', $data);
+                }
+            }
+        }
+        
         if ($this->db->trans_status() === FALSE) {
             $this->db->trans_rollback();
             return FALSE;
@@ -288,6 +301,24 @@ class Mproduct extends MY_Model
             return FALSE;
         }
         
+    }
+    
+    /**
+     * get all product by name
+     * @param string $name
+     * @return boolean
+     */
+    public function getProductByName($name='') {
+        $this->db->where('del_flg', 0);
+        if (!empty($name)){
+            $this->db->like('product_code', $name, 'after');
+        }
+        $query = $this->db->get($this->_tbl_product);
+        
+        if ($query->num_rows() > 0){
+            return $query->result_array();
+        }
+        return FALSE;
     }
     
 }

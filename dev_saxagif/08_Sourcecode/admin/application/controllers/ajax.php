@@ -19,7 +19,7 @@ class Ajax extends MY_Controller {
         if ($this->is_logged_in() == FALSE) {
             $this->_return_session_timeout();
         }
-        $this->load->model(array('muser','mpartners','mcategroy'));
+        $this->load->model(array('muser','mpartners','mcategory','mproduct'));
     }
 
     /**
@@ -160,10 +160,10 @@ class Ajax extends MY_Controller {
      */
     public function deleteCategory() {
         $input = $this->input->post();
-        if ($this->isPostMethod() && !empty($input) && !empty($input['is_ajax']) && ($input['is_ajax'] == 'ajax')) { // view profile
+        if ($this->isPostMethod() && !empty($input) && !empty($input['is_ajax']) && ($input['is_ajax'] == 'ajax')) { 
             $this->db->trans_off();
             $this->db->trans_begin();
-            $this->mcategroy->delCat($input['id']);
+            $this->mcategory->delCat($input['id']);
             if ($this->db->trans_status() === FALSE) {
                 $this->db->trans_rollback();
                 $json_result = array(
@@ -192,6 +192,135 @@ class Ajax extends MY_Controller {
             );
             echo json_encode($json_result);
             return;
+        }
+    }
+    
+    /**
+     * view child category
+     * @return type
+     */
+    public function viewChildCategory() {
+        $input = $this->input->post();
+        if ($this->isPostMethod() && !empty($input) && !empty($input['is_ajax']) && ($input['is_ajax'] == 'ajax')) { // view profile
+            $category = $this->mcategory->viewChildCategory($input['id']);
+            if (!empty($category)) {
+                $json_result = array(
+                    'result' => 1,
+                    'code' => 202,
+                    'data' => $category,
+                );
+                echo json_encode($json_result);
+                return;
+            } else {
+                $json_result = array(
+                    'result' => 0,
+                    'code' => 404,
+                );
+                echo json_encode($json_result);
+                return;
+            }
+        }
+    }
+    
+    
+    /**
+     * get child category 
+     * @return type
+     */
+    public function getChildCategory() {
+        $input = $this->input->post();
+        if ($this->isPostMethod() && !empty($input) && !empty($input['is_ajax']) && ($input['is_ajax'] == 'ajax')) {
+            $category = $this->mcategory->getChildCategoryByType($input['id']);
+            if (!empty($category)) {
+                
+                if ($input['id'] == 1){
+                    $temp = '';
+                    foreach ($category as $key){
+                        if ($temp == $key['name']){
+                            array_push($result[$key['name']], array('child_name' => $key['child_name'] ,  'id' => $key['id']));                            
+                        } else {
+                            $result[$key['name']][] = array('child_name' => $key['child_name'] ,  'id' => $key['id']);  
+                        }
+                        $temp = $key['name'];
+                    }
+                    $json_result = array(
+                        'result' => 1,
+                        'code' => 202,
+                        'data' => $result,
+                    );
+                    echo json_encode($json_result, JSON_UNESCAPED_UNICODE);
+                } else {
+                    $json_result = array(
+                        'result' => 1,
+                        'code' => 202,
+                        'data' => $category,
+                    );
+                    echo json_encode($json_result, JSON_UNESCAPED_UNICODE);
+                }
+                return;
+            }
+        }
+    }
+    
+    /**
+     * get all product by name 
+     * @param type $param
+     */
+    public function getProductByName() {
+        $input = $this->input->post();
+        if ($this->isPostMethod() && !empty($input) && !empty($input['is_ajax']) && ($input['is_ajax'] == 'ajax')) {
+            $product = $this->mproduct->getProductByName($input['name']);
+            if (!empty($product)) {
+                $json_result = array(
+                    'result' => 1,
+                    'code' => 202,
+                    'data' => $product,
+                );
+                echo json_encode($json_result, JSON_UNESCAPED_UNICODE);
+                return;
+            } else {
+                $json_result = array(
+                    'result' => 0,
+                    'code' => 404,
+                );
+                echo json_encode($json_result, JSON_UNESCAPED_UNICODE);
+                return;
+            }
+        }
+    }
+   
+   /**
+    * procee choose product
+    * @return type
+    */
+   public function processChooseProduct() {
+        
+        if ($this->isPostMethod()) {
+            $input = $this->input->post();
+            
+            if (!empty($input)) {
+                foreach ($input['sProductCode'] as $key => $value) {
+                    list($code,$name) = explode(',', $value);
+                    $result[] = array(
+                    'product_code' => $code,
+                    'name' => $name,
+                    );
+                }
+                $json_result = array(
+                    'result' => 1,
+                    'code' => 202,
+                    'data' => $result,
+                );
+                echo json_encode($json_result, JSON_UNESCAPED_UNICODE);
+                return;
+            } else {
+                $json_result = array(
+                    'result' => 0,
+                    'code' => 404,
+                );
+                echo json_encode($json_result, JSON_UNESCAPED_UNICODE);
+                return;
+            }
         }
     }
 

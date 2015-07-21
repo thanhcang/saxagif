@@ -12,11 +12,15 @@ class Contants extends MY_Controller {
         // Category
         echo "var URL_DEL_CAT = '" . base_url('category/delete') . "';" . PHP_EOL;
         echo "var URL_EDIT_CAT = '" . base_url('category/editCat') . "';" . PHP_EOL;
+        echo "var URL_VIEW_CHILD_CATEGORY = '" . base_url('ajax/viewChildCategory') . "';" . PHP_EOL;
         
         // Product
         echo "var URL_DEL_PRO = '" . base_url('product/delete') . "';" . PHP_EOL;
         echo "var URL_EDIT_PRO = '" . base_url('product/editPro') . "';" . PHP_EOL;
         echo "var URL_AUTO_GIFTSET = '" . base_url('product/showAutoGiftset') . "';" . PHP_EOL;
+        echo "var URL_CATEGORY_IMAGE = '" . base_url('common/multidata/cat_logo') . "';" . PHP_EOL;
+        echo "var URL_GET_CHILD_CATEGORY = '" . base_url('ajax/getChildCategory') . "';" . PHP_EOL;
+        echo "var URL_GET_PRODUCT = '" . base_url('ajax/getProductByName') . "';" . PHP_EOL;
         
         // Partners
         echo "var URL_DEL_PAR = '" . base_url('partners/delete') . "';" . PHP_EOL;

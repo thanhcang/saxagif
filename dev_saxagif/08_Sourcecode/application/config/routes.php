@@ -37,7 +37,14 @@
 | in the URL cannot be matched to a valid route.
 |
 */
-
+$route['contact.html'] = 'contact';
+$route['join-saxa.html'] = 'join_saxa';
+$route['co-operate.html'] = 'co_operate';
+$route['QA.html'] = 'question_answer';
+$route['mission.html'] = 'about/index';
+$route['who-we-are.html'] = 'about/who_we_are';
+$route['we-do-for-you.html'] = 'about/we_do_for_you';
+$route['we-expect-from-you.html'] = 'about/we_expect_from_you';
 $route['default_controller'] = "home";
 $route['404_override'] = '';
 

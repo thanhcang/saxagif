@@ -31,8 +31,11 @@ class Product extends MY_Controller
             'language_type' => $this->_language,
             'listCat'       => $this->mcategory->listAll(),
         );
-        
-        // Show list product
+        $tpl = array(
+            'breadcrumb' => array(
+                base_url() => 'Home',
+                base_url('product') => 'Sản phẩm'),
+        );
         
         // Config pagination:
         $parmameter_page = 'page';
@@ -60,6 +63,7 @@ class Product extends MY_Controller
         $total_records = 0;
         $data['listProduct'] = $this->mproduct->listAll($params, $total_records, $offset, $page_config['per_page']);
         if(!empty($data['listProduct'])){
+            $this->load->library('pagination');
             // Pagination
             $page_config["total_rows"] = $total_records;
             $this->pagination->initialize($page_config);
@@ -100,7 +104,7 @@ class Product extends MY_Controller
                     redirect(base_url('product'));
                 }
             }
-            //echo '<pre>';            print_r($error);exit;
+            
             $data['params'] = $params;
             $data['pro_errors'] = $error;
         }
@@ -141,6 +145,71 @@ class Product extends MY_Controller
         }
     }
     
+    /**
+     * 
+     * @param type $param
+     */
+    public function add() {
+        // init param
+        $params = array();
+        $data = array(
+            'page_title'    => $this->lang->line('PRO_TITLE'),
+            'language_type' => $this->_language,
+            'listCat'       => $this->mcategory->listAll(),
+            'typeCategory'  => $this->config->item('typeCategory'),
+        );
+        $tpl = array(
+            'breadcrumb' => array(
+                base_url() => 'Home',
+                base_url('product') => 'Sản phẩm',
+                'javascript:;' => 'Thêm mới',
+                ),
+        );
+                
+        // Add product
+        if ($this->isPostMethod()){
+            $params = $this->input->post();
+            
+            $this->_validate($params, $error);
+            if (empty($error)) {
+                // we retrieve the number of files that were uploaded
+                $numberOfFiles = sizeof($_FILES['image']['tmp_name']);
+                $files = $_FILES['image'];
+                for($i = 0; $i < $numberOfFiles; $i++) {
+                    $_FILES['image']['name'] = $files['name'][$i];
+                    $_FILES['image']['type'] = $files['type'][$i];
+                    $_FILES['image']['tmp_name'] = $files['tmp_name'][$i];
+                    $_FILES['image']['error'] = $files['error'][$i];
+                    $_FILES['image']['size'] = $files['size'][$i];
+                    $checkUpload = $this->uploadPhoto($_FILES['image'], 'image', IMAGE_PRODUCT_PATH, TRUE, $maxWidth = 1366, $maxHeight = 768, $maxSize = 200000 );
+                    if (!$checkUpload){
+                        $error[] = 'hình chưa được up, vui lòng kiểm tra lại';
+                        break;
+                    } else {
+                        // Create thumbnail image product:
+                        $this->resizePhoto($checkUpload, $width = IMAGE_WIDTH_300, $height = IMAGE_HEIGHT_300, IMAGE_PRODUCT_PATH, IMAGE_THUMB_PRODUCT_PATH);
+                        $params['name_image'][] = $checkUpload;
+                    }
+                }
+                
+                // create product
+                if ($this->mproduct->create($params)) {
+                    redirect(base_url('product'));
+                }
+            }
+            
+            $data['params'] = $params;
+            $data['pro_errors'] = $error;
+        }
+        
+        $tpl["main_content"] = $this->load->view('product/new', $data, TRUE);
+        $this->load->view(TEMPLATE, $tpl);
+    }
+    
+    /**
+     * edit product
+     * @param type $proId
+     */
     public function edit($proId = '')
     {
         if (!empty($proId) && filter_var($proId, FILTER_VALIDATE_INT, array('min_range' => 1)) ) {
@@ -149,7 +218,14 @@ class Product extends MY_Controller
                 'detailPro'     => $this->mproduct->detail($proId),
                 'listCat'       => $this->mcategory->listAll(),
             );
-            
+            $tpl = array(
+                'breadcrumb' => array(
+                    base_url() => 'Home',
+                    base_url('product') => 'Sản phẩm',
+                    'javascript:;' => 'Thêm mới',
+                ),
+            );
+
             // Edit product
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $params = $this->input->post();
@@ -161,18 +237,18 @@ class Product extends MY_Controller
                         $numberOfFiles = sizeof($_FILES['image']['tmp_name']);
                         $files = $_FILES['image'];
                         for($i = 0; $i < $numberOfFiles; $i++) {
-                            if($_FILES['image']['error'][$i] != 0) {
-                                $error[] = 'Could\'t upload the file(s)';
-                            }
                             $_FILES['image']['name'] = $files['name'][$i];
                             $_FILES['image']['type'] = $files['type'][$i];
                             $_FILES['image']['tmp_name'] = $files['tmp_name'][$i];
                             $_FILES['image']['error'] = $files['error'][$i];
                             $_FILES['image']['size'] = $files['size'][$i];
                             $checkUpload = $this->uploadPhoto($_FILES['image'], 'image', IMAGE_PRODUCT_PATH, TRUE, $maxWidth = 1366, $maxHeight = 768, $maxSize = 200000 );
+                            if (!$checkUpload){
+                                $error[] = 'hình chưa được upload.<br> vui lòng kiểm tra lại file hình';
+                            } else
                             if($checkUpload) {
                                 // Create thumbnail image product:
-                                $this->resizePhoto($checkUpload, $width = IMAGE_WIDTH_300, $height = IMAGE_HEIGHT_300, IMAGE_PRODUCT_PATH, IMAGE_THUMB_PRODUCT_PATH);
+                                $this->resizePhoto($checkUpload,IMAGE_WIDTH_300,IMAGE_HEIGHT_300, IMAGE_PRODUCT_PATH, IMAGE_THUMB_PRODUCT_PATH);
                                 $params['name_image'][] = $checkUpload;
                             }
                         }
@@ -184,7 +260,7 @@ class Product extends MY_Controller
                     }
                     
                 }
-                //echo '<pre>';            print_r($error);exit;
+                
                 $data['params'] = $params;
                 $data['pro_errors'] = $error;
             }
@@ -222,7 +298,7 @@ class Product extends MY_Controller
         //Trim
         foreach ($data as $k => $item) {
             if (is_string($item)) {
-                $data[$k] = trim($item);
+                $data[$k] = trim(htmlspecialchars($item));
             }
         }
         //Load
@@ -231,18 +307,20 @@ class Product extends MY_Controller
         // Set rules:
         $this->form_validation->set_rules("product_code", $this->lang->line('PRO_MISSING_CODE_EMPTY'),"required|trim|xss_clean|max_length[255]|callback__checkExistCode");
         $this->form_validation->set_rules("name", $this->lang->line('PRO_MISSING_EMPTY_NAME'), "required|trim|xss_clean|max_length[255]|callback__checkExistName");
-        $this->form_validation->set_rules("price", $this->lang->line('PRO_MISSING_PRICE_INVALID'), "trim|numeric");
+        $this->form_validation->set_rules("price", $this->lang->line('PRO_MISSING_PRICE_INVALID'), "trim");
         $this->form_validation->set_rules("description", $this->lang->line('PRO_DESCRIPTION'),  "trim|xss_clean");
         $this->form_validation->set_rules("content", $this->lang->line('PRO_CONTENT'),"trim|xss_clean");
-        $this->form_validation->set_rules("book_limit", $this->lang->line('PRO_BOOK_LIMIT'), "integer|trim|xss_clean|max_length[11]");
+        $this->form_validation->set_rules("book_limit", $this->lang->line('PRO_BOOK_LIMIT'), "trim|xss_clean");
         $this->form_validation->set_rules("delivery_days", $this->lang->line('PRO_DELIVERY_DAYS'), "trim|max_length[255]");
-        $this->form_validation->set_rules("cat_id", $this->lang->line('PRO_MISSING_CAT_EMPTY'), "required|trim|max_length[11]|integer");
+//        $this->form_validation->set_rules("cat_id", $this->lang->line('PRO_MISSING_CAT_EMPTY'), "required|trim|max_length[11]|integer");
         $this->form_validation->set_rules("language_type", $this->lang->line('CHOOSE_LANGUAGE'), "integer|trim|xss_clean|max_length[2]");
         $this->form_validation->set_rules("keyword_seo", $this->lang->line('PRO_KEYWORD_SEO'), "trim|max_length[255]");
         $this->form_validation->set_rules("des_seo", $this->lang->line('PRO_DES_SEO'), "trim|max_length[255]");
-        $this->form_validation->set_rules("slug", $this->lang->line('PRO_MISSING_SLUG_EMPTY'), "required|trim|max_length[255]|callback__checkExistSlug");
+        $this->form_validation->set_rules("slug", $this->lang->line('PRO_MISSING_SLUG_EMPTY'), "trim|max_length[255]|callback__checkExistSlug");
         $this->form_validation->set_rules("pro_distribution", $this->lang->line('PRO_DISTRIBUTION'), "trim|max_length[255]");
         $this->form_validation->set_rules("promotion", $this->lang->line('PRO_MISSING_PROMOTION_INVALID'), "trim|max_length[1]|min_length[1]|integer");
+        $this->form_validation->set_rules("type", 'Chọn loại danh mục', "required|trim");
+        $this->form_validation->set_rules("catname", 'Chọn danh mục', "required|trim");
         
         // Set Message:
         $this->form_validation->set_message('required', '%s');
