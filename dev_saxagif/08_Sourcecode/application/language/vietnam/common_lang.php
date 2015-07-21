@@ -13,3 +13,5 @@ $lang['phanhoi'] = 'Phản hồi của bạn';
 $lang['giftfromsaxa'] = 'Quà tặng từ SAXA';
 $lang['view_more'] = 'Xem thêm';
 $lang['customer_name'] = 'Tên khách hàng';
+$lang['customers_saxa'] = 'Khách hàng của SAXA';
+$lang['saxa_program'] = 'Chương trình của SAXA';

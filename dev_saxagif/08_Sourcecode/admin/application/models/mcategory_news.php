@@ -72,6 +72,10 @@ class Mcategory_news extends MY_Model
             'name'          => $params['name'],
             'language_type' => (int)$params['language_type'],
             'position'      => $params['position'],
+            'title'         => (!empty($params['title'])) ? $params['title'] : '',
+            'avatar'        => (!empty($params['avatar'])) ? $params['avatar'] : '',
+            'keyword_seo'   => (!empty($params['keyword_seo'])) ? $params['keyword_seo'] : '',
+            'des_seo'        => (!empty($params['des_seo'])) ? $params['des_seo'] : '',
         );
         
         if(!empty($params['slug'])) {
@@ -79,15 +83,6 @@ class Mcategory_news extends MY_Model
         } else {
             $data['slug'] = slug_convert($params['name']);
         }
-        
-        if(!empty($params['keyword_seo'])) {
-            $data['keyword_seo'] = $params['keyword_seo'];
-        }
-        
-        if(!empty($params['des_seo'])) {
-            $data['des_seo'] = $params['des_seo'];
-        }
-        
         if (!empty($params['cat_news_id'])) {
             $data['update_user'] = $this->session->userdata('user_id');
             $data['update_date'] = date('Y-m-d H:i:s');

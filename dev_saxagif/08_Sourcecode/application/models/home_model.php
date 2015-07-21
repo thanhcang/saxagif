@@ -118,4 +118,24 @@ class Home_model extends MY_Model
         }
         return $query->result_array();
     }
+    
+    public function getNewsByHome($position = '')
+    {
+        $sql = "SELECT
+                        n.title,
+                        n.description,
+                        n.avatar,
+                        n.id_news_cat,
+                        n.language_type
+                FROM
+                        d_news AS n
+                WHERE
+                        n.del_flg = 0
+                AND n.is_home = 1";
+        $query = $this->db->query($sql);
+        if($query->num_rows() == 0) {
+            return FALSE;
+        }
+        return $query->result_array();
+    }
 }

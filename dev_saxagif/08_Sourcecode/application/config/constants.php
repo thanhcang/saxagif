@@ -75,6 +75,7 @@ define('IS_GIFT', 3);
 define('IS_CATEGORY', 1);
 define('HEADER_POSITION', 6);
 define('LEFT_POSITION', 2);
+define('LEFT_POSITION_2', 3);
 define('RIGHT_POSITION', 4);
 define('FOOTER_POSITION', 5);
 define('HOTLINE', '0906 605 405');

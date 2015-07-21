@@ -13,3 +13,5 @@ $lang['phanhoi'] = 'Your feedback';
 $lang['giftfromsaxa'] = 'Gift from SAXA';
 $lang['view_more'] = 'View more';
 $lang['customer_name'] = 'Customer name';
+$lang['customers_saxa'] = 'SAXA customers';
+$lang['saxa_program'] = 'SAXA program';

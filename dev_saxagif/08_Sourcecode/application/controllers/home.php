@@ -19,6 +19,8 @@ class Home extends MY_Controller
         // Get list slideshow
         $this->data['slideshow'] = $this->home_model->getSlideShow();
         
+        // Get news position right:
+        $this->data['news_home'] = $this->home_model->getNewsByHome();
         //echo '<pre>';        print_r($this->data['news_cat_position']);exit;
         $this->render('home/index_view');
     }

@@ -1,34 +1,91 @@
+<?php
+if(!empty($news_cat_position)) {
+    foreach ($news_cat_position as $news_cat):
+        if($news_cat['position'] == LEFT_POSITION) {
+            $name = htmlspecialchars($news_cat['name']);
+            $title = (!empty($news_cat['title'])) ? _substr($news_cat['title'], 150) : '';
+            $img_url = base_url('common/images/pic_1.png');
+            $cat_left_one = <<<EOF
+                <div class="box_head">{$name}</div>
+                 <div class="box_main">
+                     <p>{$title}</p>
+                     <hr/>
+                     <div class="header">{$name}</div>
+                     <p class="pic_news"><img src="{$img_url}"/></p>
+                     <p>{$title}</p>
+                 </div>
+                 <div class="box_foot"></div>     
+            
+EOF;
+        }
+        if($news_cat['position'] == LEFT_POSITION_2) {
+            $name = htmlspecialchars($news_cat['name']);
+            $title = (!empty($news_cat['title'])) ? _substr($news_cat['title'], 150) : '';
+            $img_url = base_url('common/images/pic_1.png');
+            $customer_name = $this->lang->line('customer_name');
+            $btn_send = $this->lang->line('send');
+            $cat_left_two = <<<EOF
+                <div class="box_head">{$name}</div>
+                <div class="box_main">
+                    <p>{$title}</p>
+                    <form name="frmSendCustomer" id="frmSendCustomer" class="send_mail_customer">
+                        <input type="text" name="customer_name" placeholder="{$customer_name}"/><br/>
+                        <input type="text" name="email_address" placeholder="Email"/><br/>
+                        <input type="button" id="sendMailCustomer" value="{$btn_send}" class="js__p_start"/>
+                        <div class="clearfix"></div>
+                    </form>
+                </div>
+                <div class="box_foot"></div>     
+EOF;
+        }
+        if ($news_cat['position'] == RIGHT_POSITION ) {
+            $name = htmlspecialchars($news_cat['name']);
+            $title = htmlspecialchars($news_cat['title']);
+            $cat_right_one = <<<EOF
+                <div class="box_head">{$name}</div>
+                <div class="box_main">
+                    <p>{$title}</p>
+EOF;
+        }
+        if($news_cat['position'] == FOOTER_POSITION) {
+            $name = htmlspecialchars($news_cat['name']);
+            $slug = base_url($news_cat['slug']);
+            $view_more = $this->lang->line('view_more');
+            $image = base_url('common/images/nhay_kep.png');
+            $title = (!empty($news_cat['title'])) ? $news_cat['title'] : '';
+            $quotation = base_url('common/images/nhay_kep.png');
+            $our_work = base_url('common/images/our_work.png');
+            $cat_footer = <<<EOF
+                    <div class="header_other_services">
+                    <div class="tit_our_work">{$name}</div>
+                    <div class="see_more"><a href="{$slug}">{$view_more}</a></div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="content_our_work">
+                    <div class="pic_character"><img src="{$our_work}"/></div>
+                    <div class="talk_character">
+                        <div class="text_cont" >
+                            <img src="{$image}" class="pull-left"/>
+                            <span class="pull-left">
+                                {$title}
+                            </span> 
+                            <img src="{$quotation}" class="pull-right"/>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+EOF;
+        }
+    endforeach;
+}
+?>
 <div class="content">
     <div class="content_left">
         <div class="box_l">
-            <?php if(!empty($news_cat_position)): ?>
-            <?php foreach ($news_cat_position as $news_cat): ?>
-            <?php if($news_cat['position'] == LEFT_POSITION): ?>
-            <div class="box_head"><?php echo htmlspecialchars($news_cat['name']) ?></div>
-                <div class="box_main">
-                    <p><?php if(!empty($news_cat['title'])) echo _substr($news_cat['title'], 150) ?></p>
-                    <hr/>
-                    <div class="header"><?php echo htmlspecialchars($news_cat['name']) ?></div>
-                    <p class="pic_news"><img src="<?php echo base_url('common/images/pic_1.png') ?>"/></p>
-                    <p><?php if(!empty($news_cat['title'])) echo _substr($news_cat['title'], 100) ?></p>
-                </div>
-                <div class="box_foot"></div>
-            <?php endif ?>
-            <?php endforeach ?>
-            <?php endif ?>
+            <?php echo $cat_left_one; ?>
         </div>
         <div class="box_l">
-            <div class="box_head">Chia sáº» vÃ  káº¿t ná»‘i</div>
-            <div class="box_main">
-                <p>Chia sáº» email vá»›i chÃºng tÃ´i Ä‘á»ƒ nháº­n nhá»¯ng thÃ´ng tin sá»± kiá»‡n má»›i nháº¥t tá»« Saxa báº¡n nhÃ©!Chia sáº» email vá»›i chÃºng tÃ´i Ä‘á»ƒ nháº­n nhá»¯ng thÃ´ng tin sá»± kiá»‡n </p>
-                <form name="frmSendCustomer" id="frmSendCustomer" class="send_mail_customer">
-                    <input type="text" name="customer_name" placeholder="<?php echo $this->lang->line('customer_name') ?>"/><br/>
-                    <input type="text" name="email_address" placeholder="Email"/><br/>
-                    <input type="button" id="sendMailCustomer" value="<?php echo $this->lang->line('send') ?>" class="js__p_start"/>
-                    <div class="clearfix"></div>
-                </form>
-            </div>
-            <div class="box_foot"></div>
+            <?php echo $cat_left_two ?>   
         </div>
     </div>
     <div class="content_center">
@@ -58,34 +115,19 @@
 
     <div class="content_right">
         <div class="box_l">
-            <div class="box_head">Truyá»�n cáº£m há»©ng</div>
-            <div class="box_main">
-                <p>Náº¿u báº¡n khÃ´ng giÃ u vÃ¬ sá»‘ lÆ°á»£ng, thÃ¬ hÃ£y lÃ m giÃ u báº±ng cháº¥t lÆ°á»£ng!</p>
+            <?php echo $cat_right_one ?>
                 <p class='pic_news'><img src="<?php echo base_url('common/images/video.png') ?>"/></p>
                 <hr/>
-                <div class="header">Marketing</div>
-                <p class="news_r">
-                    <img src="<?php echo base_url('common/images/pic_1.png') ?>"/>
-                    <span>totam rem aperiam, eaque ipsa quae ab. </span>
-                </p>
-                <div class="clearfix"></div>
-                <hr/>
-                <div class="header">Quan niá»‡m thá»�i gian</div>
-                <p class="news_r">
-                    <img src="<?php echo base_url('common/images/pic_1.png') ?>"/>
-                    <span>totam rem aperiam, eaque ipsa quae ab.</span>
-                </p>
-                <div class="clearfix"></div>
-                <hr/>
-                <div class="header">Cáº£m há»©ng sá»‘ng</div>
-                <p class="news_r">
-                    <img src="<?php echo base_url('common/images/pic_1.png') ?>"/>
-                    <span>totam rem aperiam, eaque ipsa quae ab.</span>
-                </p>
-                <div class="clearfix"></div>
-                <a href="#" class="link">Xem thÃªm</a>
-                <div class="clearfix"></div>
-            </div>
+                <?php if(!empty($news_home)): ?>
+                <?php foreach ($news_cat as $news): ?>
+                <div class="header"><?php if(!empty($news['title'])) echo htmlspecialchars($news['title']) ?></div>
+                    <p class="news_r">
+                        <img src="<?php //echo base_url('common/images/'.$news['avatar']) ?>"/>
+                        <span><?php if(!empty($news['description'])) echo htmlspecialchars($news['description']) ?></span>
+                    </p>
+                    <div class="clearfix"></div>
+                <?php endforeach; ?>
+                <?php endif; ?>
             <div class="box_foot"></div>
         </div>
     </div>
@@ -94,36 +136,11 @@
 </div>
 <div class="other_services">
     <div class="our_work">
-        <div class="header_other_services">
-            <?php if(!empty($news_cat_position)): ?>
-            <?php foreach ($news_cat_position as $news_cat): ?>
-                <?php if($news_cat['position'] == FOOTER_POSITION): ?>
-                <div class="tit_our_work"><?php echo htmlspecialchars($news_cat['name']) ?></div>
-                <div class="see_more"><a href="<?php echo $news_cat['slug'] ?>"><?php echo $this->lang->line('view_more') ?></a></div>
-                <div class="clearfix"></div>
-                <?php endif ?>
-            <?php endforeach ?>
-            <?php endif ?>
-        </div>
-
-        <div class="content_our_work">
-            <div class="pic_character"><img src="<?php echo base_url('common/images/our_work.png') ?>"/></div>
-            <div class="talk_character">
-                <div class="text_cont" >
-                    <img src="<?php echo base_url('common/images/nhay_kep.png') ?>" class="pull-left"/>
-                    <span class="pull-left">
-                        <font>Chá»‹ Nguyá»…n GÃ¬ GÃ¬ Ä�Ã³ - Marketing</font><br/>
-                        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut 
-                    </span> 
-                    <img src="<?php echo base_url('common/images/nhay_kep.png') ?>" class="pull-right"/>
-                </div>
-            </div>
-            <div class="clearfix"></div>
-        </div>
+        <?php echo $cat_footer; ?>
     </div>
     <div class="customer_saxa">
         <div class="header_other_services text-align-center">
-            <div class="tit_customer_saxa">khÃ¡ch hÃ ng cá»§a saxa</div>
+            <div class="tit_customer_saxa"><?php echo $this->lang->line('customers_saxa') ?></div>
             <div class="clearfix"></div>
         </div>
         <div class="slide_customer">
@@ -148,7 +165,7 @@
     </div>
     <div class="programe_saxa">
         <div class="header_other_services text-align-center">
-            <div class="tit_customer_saxa">chÆ°Æ¡ng trÃ¬nh cá»§a saxa</div>
+            <div class="tit_customer_saxa"><?php echo $this->lang->line('saxa_program') ?></div>
             <div class="clearfix"></div>
         </div>
         <div class="slide_customer">

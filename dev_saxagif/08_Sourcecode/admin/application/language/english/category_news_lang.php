@@ -10,4 +10,7 @@ $lang['CAT_NEWS_DETAIL'] = 'Chi tiết danh mục tin tức';
 $lang['CAT_NEWS_POSITION'] = 'Vị trí hiển thị';
 $lang['CAT_NEWS_PAGE'] = 'Trang hiển thị';
 $lang['CAT_NEWS_MISSING_POSITION_EMPTY'] = 'Trường vị trí hiển thị không được rỗng.';
+$lang['CAT_AVATAR'] = 'Ảnh đại diện';
+$lang['CAT_TITLE'] = 'Tiêu đề';
+$lang['CAT_MISSING_LENGTH_TITLE'] = 'Tiêu đề không được vượt quá 255 kí tự';
 
