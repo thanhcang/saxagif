@@ -94,6 +94,9 @@ a{
 .width_1175{
     width: 1175px !important; 
 }
+.width_1220{
+    width: 1220px !important; 
+}
 .height_45{
     height:45px;
 }
@@ -406,6 +409,9 @@ a{
     text-transform: uppercase;
     text-align: center;
     font-size: 23px;
+}
+.box_main div.header a{
+    color: #7eb235;
 }
 .box_foot,.box_foot_QA{
     background: url(../images/box_f.png) repeat-y top center;
@@ -866,6 +872,7 @@ a{
     width:785px;
     margin-top:45px;
 }
+.cont_topic h4 a{color: #7eb235;}
 .content_join{
     margin-top:45px;
     border-bottom: 1px dashed #7eb235;
@@ -1173,6 +1180,9 @@ a{
     border-bottom: 1px solid #72736c;
     padding-bottom: 24px;
     margin-bottom: 20px;
+}
+.articles_ h4 a, .articles h4 a{
+    color:#7eb235;
 }
 .people_join{
     float: left;
@@ -1603,6 +1613,9 @@ a{
     font-size: 20px;
     color: #7eb235;
     font-weight: normal;
+}
+.main_tab label a{
+    color: #7eb235;
 }
 .main_tab .des_tab{
     text-align: justify;
@@ -2225,6 +2238,28 @@ a{
 .p_cont_pro{
     height: auto !important;
     padding-bottom: 300px;
+}
+.img_pages{
+    width: 100%;
+}
+.link_posts{
+    margin: 0 20px;
+    list-style-type: none;
+}
+.link_posts li{
+    margin: 10px 0;
+    /* Thiết lập icon bullet_green.png làm ảnh nền cho li*/
+   background-image: url('../images/bullet_green.png');
+   background-repeat: no-repeat;
+   /* Xác định vị trí của ảnh nền */
+   background-position: 0 5px;
+   padding-left: 15px;
+}
+.link_posts li a{
+    color: #000;
+}
+.link_posts li a:hover{
+    color: #7db341;
 }
 /*fix css chrome*/
 /*@media screen and (-webkit-min-device-pixel-ratio:0){
