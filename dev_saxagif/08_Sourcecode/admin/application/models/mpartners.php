@@ -130,4 +130,28 @@ class Mpartners extends MY_Model
             return FALSE;
         }    
     }
+    
+    /**
+     * get all partners by name
+     * @param string $name
+     * @return boolean
+     */
+    public function getpartnerByName($name='') {
+        $this->db->select('name,
+                        id, 
+                        CASE
+                        WHEN note <> "" THEN CONCAT(SUBSTR(note,1,50),"...") 
+                        WHEN note = "" THEN "" 
+                        END as note', FALSE);
+        $this->db->where('del_flg', 0);
+        if (!empty($name)){
+            $this->db->like('name', $name, 'after');
+        }
+        $query = $this->db->get($this->_tbl_partners);
+        
+        if ($query->num_rows() > 0){
+            return $query->result_array();
+        }
+        return FALSE;
+    }
 }

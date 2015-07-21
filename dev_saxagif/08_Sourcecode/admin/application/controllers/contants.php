@@ -21,6 +21,9 @@ class Contants extends MY_Controller {
         echo "var URL_CATEGORY_IMAGE = '" . base_url('common/multidata/cat_logo') . "';" . PHP_EOL;
         echo "var URL_GET_CHILD_CATEGORY = '" . base_url('ajax/getChildCategory') . "';" . PHP_EOL;
         echo "var URL_GET_PRODUCT = '" . base_url('ajax/getProductByName') . "';" . PHP_EOL;
+        echo "var URL_CHECK_PRODUCT = '" . base_url('ajax/checkProduct') . "';" . PHP_EOL;
+        echo "var URL_DELETE_PRODUCT = '" . base_url('ajax/deleteProduct') . "';" . PHP_EOL;
+        echo "var URL_GET_PARTNER = '" . base_url('ajax/getpartnerByName') . "';" . PHP_EOL;
         
         // Partners
         echo "var URL_DEL_PAR = '" . base_url('partners/delete') . "';" . PHP_EOL;

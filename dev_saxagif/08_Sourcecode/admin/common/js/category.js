@@ -99,7 +99,7 @@ function _initdeleteCat(cat_id, that) {
                 $('.messageDelete').text(e.data);
             } else if (Object.keys(e).length > 0 && e.result == 0 && e.code == 500) { // is hack 
                 window.location = e.href;
-            } else if (Object.keys(e).length > 0 && e.result == 1 && e.code == 202) { // is success
+            } else if (Object.keys(e).length > 0 && e.result == 1 && e.code == 200) { // is success
                 that.remove();
             } else {
                 // nothing
