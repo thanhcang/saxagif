@@ -220,10 +220,14 @@ class Mproduct extends MY_Model
         return $data;        
     }
     
+    /**
+     * delete pro
+     * @param type $proId
+     */
     public function delPro($proId)
     {
         $this->db->where('id', $proId);
-        return $this->db->update($this->_tbl_product, array('del_flg' => 1));
+        $this->db->delete($this->_tbl_product);
     }
     
     /**
@@ -309,6 +313,7 @@ class Mproduct extends MY_Model
      * @return boolean
      */
     public function getProductByName($name='') {
+        $this->db->select('name, product_code, id');
         $this->db->where('del_flg', 0);
         if (!empty($name)){
             $this->db->like('product_code', $name, 'after');
@@ -318,6 +323,36 @@ class Mproduct extends MY_Model
         if ($query->num_rows() > 0){
             return $query->result_array();
         }
+        return FALSE;
+    }
+    
+    /**
+     * check product
+     * @param array $param
+     * @return boolean
+     */
+    public function checkProduct($param) {
+        if (empty($param)){
+            return FALSE;
+        } 
+        
+        $param = trimArray($param);
+        
+        if (!empty($param['name'])){
+            $this->db->where('name', $param['name']);
+        } elseif (!empty ($param['product_code'])){
+            $this->db->where('product_code', $param['product_code']);
+        } elseif (!empty($param['id'])){
+            $this->db->where('id', $param['id']);
+        } else {
+            // nothing
+        }
+        $this->db->where('del_flg', 0);
+        $query = $this->db->get($this->_tbl_product);
+        
+        if ($query->num_rows() > 0){
+            return $query->row_array();
+        } 
         return FALSE;
     }
     

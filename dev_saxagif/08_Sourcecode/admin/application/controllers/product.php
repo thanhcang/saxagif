@@ -170,7 +170,7 @@ class Product extends MY_Controller
         if ($this->isPostMethod()){
             $params = $this->input->post();
             
-            $this->_validate($params, $error);
+            //$this->_validate($params, $error);
             if (empty($error)) {
                 // we retrieve the number of files that were uploaded
                 $numberOfFiles = sizeof($_FILES['image']['tmp_name']);

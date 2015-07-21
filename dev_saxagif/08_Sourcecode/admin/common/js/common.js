@@ -57,7 +57,15 @@ $(document).ready(function(){
         var user_id = $(this).attr('attUser') 
         ajaxProfile(user_id);
     });
+    
+    // no enter
     initNoAcceptEnterKey();
+    
+    // no space
+    initNoAcceptSpaceKeyCommon();
+    
+    // noComma
+    initNoAcceptcommaKeyCommon();
 });
 
 /**
@@ -130,6 +138,36 @@ function initNoAcceptEnterKey() {
     $('.noEnter').keypress(function (event) {
         var keycode = event.charCode || event.keyCode;
         if (keycode == 13) {
+            event.preventDefault();
+            return false;
+        }
+    });
+}
+
+/**
+ * not accpet space key 
+ * @param {type} element
+ * @returns {undefined}
+ */
+function initNoAcceptSpaceKeyCommon() {
+    $('.noSpace').keypress(function (event) {
+        var keycode = event.charCode || event.keyCode;
+        if (keycode == 32) {
+            event.preventDefault();
+            return false;
+        }
+    });
+}
+
+/**
+ * not accpet comma key 
+ * @param {type} element
+ * @returns {undefined}
+ */
+function initNoAcceptcommaKeyCommon() {
+    $('.noComma').keypress(function (event) {
+        var keycode = event.charCode || event.keyCode;
+        if (keycode == 188) {
             event.preventDefault();
             return false;
         }
