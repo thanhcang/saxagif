@@ -10,7 +10,14 @@ class Mcustomer extends MY_Model
         parent::__construct();
     }
     
-    public function search()
+    /**
+     * get search category
+     * @param int $total
+     * @param int $offset
+     * @param int $limit
+     * @return boolean
+     */
+    public function search(&$total, $offset = 0, $limit = 0)
     {
         $sql = "SELECT
                         c.id,
@@ -25,7 +32,14 @@ class Mcustomer extends MY_Model
                         " . $this->_tbl_customer . " AS c
                 WHERE
                         c.del_flg = 0";
+        
+        
+        $total = MY_Model::get_total_result($sql);
+        if ($limit > 0) {
+            $sql .= ' LIMIT ' . $offset . ',' . $limit;
+        }
         $query = $this->db->query($sql);
+        
         if ($query->num_rows() == 0) {
             return FALSE;
         }
