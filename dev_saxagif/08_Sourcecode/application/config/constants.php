@@ -63,11 +63,12 @@ define('OFFSET_LISTTENNING', 60);
  */
 $root_path = dirname(BASEPATH);
 
-define('COMMON_PATH', $root_path . '/common/');
+define('COMMON_PATH', FCPATH.'/common/');
 define('TEMP_PATH', COMMON_PATH . 'temp/');
 define('IMAGE_PATH', COMMON_PATH . 'images/');
 define('IMG_PRODUCT_PATH', COMMON_PATH . '/multidata/product_img/');
 define('IMG_SLIDESHOW', COMMON_PATH . '/multidata/slideshow/');
+define('IMAGE_CUSTOMER_PATH', COMMON_PATH . '/multidata/news/');
 define('LANG_VN', 1);
 define('LANG_EN', 2);
 define('IS_HOME', 1);

@@ -18,7 +18,7 @@ class Category_model extends MY_Model
         return $query->result_array();
     }
     
-    public function getCategoryByType($type, $gift = FALSE)
+    public function getCategoryByType($type, $gift = FALSE, $language = LANG_VN)
     {
         $sql_str = "SELECT
                             c.id,
@@ -38,8 +38,8 @@ class Category_model extends MY_Model
         } else {
             $sql_str .= " AND c.is_home = 0";
         }
-        $sql_str .= " ORDER BY c.id ASC";
-        $query = $this->db->query($sql_str, array($type));
+        $sql_str .= " AND c.language_type = ? ORDER BY c.id ASC";
+        $query = $this->db->query($sql_str, array($type, $language));
         if ($query->num_rows() == 0 ) {
             return FALSE;
         }

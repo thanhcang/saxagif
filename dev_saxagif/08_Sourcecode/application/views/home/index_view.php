@@ -1,4 +1,8 @@
 <?php
+//echo '<pre>';
+//print_r($customers);
+?>
+<?php
 if(!empty($news_cat_position)) {
     foreach ($news_cat_position as $news_cat):
         if($news_cat['position'] == LEFT_POSITION) {
@@ -57,23 +61,10 @@ EOF;
             $our_work = base_url('common/images/our_work.png');
             $cat_footer = <<<EOF
                     <div class="header_other_services">
-                    <div class="tit_our_work">{$name}</div>
-                    <div class="see_more"><a href="{$slug}">{$view_more}</a></div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="content_our_work">
-                    <div class="pic_character"><img src="{$our_work}"/></div>
-                    <div class="talk_character">
-                        <div class="text_cont" >
-                            <img src="{$image}" class="pull-left"/>
-                            <span class="pull-left">
-                                {$title}
-                            </span> 
-                            <img src="{$quotation}" class="pull-right"/>
-                        </div>
+                        <div class="tit_our_work">{$name}</div>
+                        <div class="see_more"><a href="{$slug}">{$view_more}</a></div>
+                        <div class="clearfix"></div>
                     </div>
-                    <div class="clearfix"></div>
-                </div>
 EOF;
         }
     endforeach;
@@ -94,8 +85,9 @@ EOF;
         <ul class="list_gift">
             <?php if(!empty($cat_gift)): ?>
             <?php foreach ($cat_gift as $key=>$gift): $mask = $key+1; ?>
-            <a href="<?php echo base_url($gift['slug']) ?>">
+            <!--<a href="<?php echo base_url($gift['slug']) ?>">-->
             <li class="<?php if($key == 1) echo 'last' ?>">
+                <a href="<?php echo base_url($gift['slug']) ?>">
                 <div onmouseover="showMask('<?php echo 'mask'.$mask; ?>')">
                     <img src="<?php echo base_url('admin/common/multidata/cat_logo/' . $gift['logo']) ?>" />
                     <div class="title_product">
@@ -106,8 +98,9 @@ EOF;
                 <div id="mask<?php echo $mask ?>" class="mask" style="background:<?php if(!empty($gift['bg_color'])) echo $gift['bg_color'];else echo '#000' ?>;" onmouseout="hideMask('<?php echo 'mask'. $mask ?>')">  
                     <img src="<?php echo base_url('common/images/plus_product_home.png') ?>"/>
                 </div>
+                </a>
             </li>
-            </a>
+            <!--</a>-->
             <?php endforeach; ?>
             <?php endif ?>
         </ul>
@@ -119,24 +112,52 @@ EOF;
                 <p class='pic_news'><img src="<?php echo base_url('common/images/video.png') ?>"/></p>
                 <hr/>
                 <?php if(!empty($news_home)): ?>
-                <?php foreach ($news_cat as $news): ?>
-                <div class="header"><?php if(!empty($news['title'])) echo htmlspecialchars($news['title']) ?></div>
-                    <p class="news_r">
-                        <img src="<?php //echo base_url('common/images/'.$news['avatar']) ?>"/>
-                        <span><?php if(!empty($news['description'])) echo htmlspecialchars($news['description']) ?></span>
-                    </p>
-                    <div class="clearfix"></div>
+                <?php foreach ($news_home as $news): ?>
+                    <div class="header"><?php if(!empty($news['title'])) echo htmlspecialchars($news['title']) ?></div>
+                    <div class="news_r">
+                        <img src="<?php echo base_url('common/multidata/news/'.$news['avatar']) ?>"/>
+                        <p><?php if(!empty($news['description'])) echo htmlspecialchars($news['description']) ?></p>
+                        <div class="clearfix"></div>
+                    </div> 
                 <?php endforeach; ?>
                 <?php endif; ?>
-            <div class="box_foot"></div>
         </div>
+        <div class="box_foot"></div>
     </div>
     <div class="clearfix"></div>
 
 </div>
+<div class="clearfix"></div>
 <div class="other_services">
-    <div class="our_work">
+    <div class="our_work" id="slider3_container" style="position: relative; top: 0px; left: 0px; width: 656px; height: 219px; ">
         <?php echo $cat_footer; ?>
+        <?php if(!empty($customers)):
+        $quotation = base_url('common/images/nhay_kep.png');
+        ?>
+            <?php foreach ($customers as $key=>$value): ?>
+                <?php if($value['id_news_cat'] == 17): ?>
+                <div u="slides" class="content_our_work" style="cursor: move; position: absolute; left: 0px; top: 46px; width:656px; height: 219px; overflow: hidden;">
+<!--                    <div u="caption" style="cursor: move; position: absolute; left: 0px; top: 46px; width:656px; height: 219px; overflow: hidden;">-->
+                        <div class="pic_character"><img src="<?php echo url_img('common/multidata/news/', $value['avatar']) ?>"/></div>
+                        <div class="talk_character">
+                            <div class="text_cont" >
+                                <img src="<?php echo $quotation ?>" class="pull-left"/>
+                                <span class="pull-left">
+                                    <?php if(!empty($value['description'])) echo _substr(htmlspecialchars($value['description']),200) ?>
+                                </span> 
+                                <img src="<?php echo $quotation ?>" class="pull-right"/>
+                            </div>
+                        </div>
+<!--                    </div>-->
+                </div>
+                <?php endif ?>
+            <?php endforeach; ?>
+        <?php endif ?>
+        <span u="arrowleft" class="jssora11l slideCus" attr_num="first" style="top: 110px; left: -14px;"></span>
+        <span u="arrowright" class="jssora11r slideCus" attr_num="last" style="top: 110px; right: -14px;"></span>
+        <script>
+            jssor_slider3_starter('slider3_container');
+        </script>
     </div>
     <div class="customer_saxa">
         <div class="header_other_services text-align-center">
@@ -150,13 +171,17 @@ EOF;
                 <!-- Slides Container -->
                 <div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width:226px; height: 209px;
                      overflow: hidden;">
-                    <div><img u="image" src="<?php echo base_url('common/images/product_slide_sub.png') ?>" /></div>
-                    <div><img u="image" src="<?php echo base_url('common/images/product_slide_sub.png') ?>" /></div>
-                    <div><img u="image" src="<?php echo base_url('common/images/product_slide_sub.png') ?>" /></div>
+                    <?php if(!empty($customers)): ?>
+                    <?php foreach ($customers as $key=>$value): ?>
+                        <?php if($value['id_news_cat'] == 21): ?>
+                            <div><a href="<?php echo base_url('news/' . $value['slug']) ?>"><img u="image" src="<?php echo url_img('common/multidata/news/', $value['avatar'])  ?>" /></a></div>
+                        <?php endif ?>
+                    <?php endforeach; ?>
+                    <?php endif ?>
                 </div>
 
-                <span u="arrowleft" class="jssora11l" style="top: 76px; left: -14px;"></span>
-                <span u="arrowright" class="jssora11r" style="top: 76px; right: -14px;"></span>
+                <span u="arrowleft" class="jssora11l slideCus" attr_num="first" style="top: 76px; left: -14px;"></span>
+                <span u="arrowright" class="jssora11r slideCus" attr_num="last" style="top: 76px; right: -14px;"></span>
                 <script>
                     jssor_slider1_starter('slider1_container');
                 </script>
@@ -172,14 +197,18 @@ EOF;
             <div id="slider2_container" style="position: relative; top: 0px; left: 0px; width: 226px; height: 209px; ">
 
                 <!-- Slides Container -->
-                <div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width:226px; height: 209px; overflow: hidden;">
-                    <div><img u="image" src="<?php echo base_url('common/images/product_slide_sub.png') ?>" /></div>
-                    <div><img u="image" src="<?php echo base_url('common/images/product_slide_sub.png') ?>" /></div>
-                    <div><img u="image" src="<?php echo base_url('common/images/product_slide_sub.png') ?>" /></div>
+                <div u="slides" class="contentCustomer" style="cursor: move; position: absolute; left: 0px; top: 0px; width:226px; height: 209px; overflow: hidden;">
+                    <?php if(!empty($customers)): ?>
+                    <?php foreach ($customers as $key=>$value): ?>
+                        <?php if($value['id_news_cat'] == 22): ?>
+                            <div><a href="<?php echo base_url('news/' . $value['slug']) ?>"><img u="image" src="<?php echo url_img('common/multidata/news/', $value['avatar'])  ?>" /></a></div>
+                        <?php endif ?>
+                    <?php endforeach; ?>
+                    <?php endif ?>
                 </div>
 
-                <span u="arrowleft" class="jssora11l" style="top: 76px; left: -14px;"></span>
-                <span u="arrowright" class="jssora11r" style="top: 76px; right: -14px;"></span>
+                <span u="arrowleft" class="jssora11l slideProgramLeft" attr_num="first" style="top: 76px; left: -14px;"></span>
+                <span u="arrowright" class="jssora11r slideProgramRight" attr_num="last" style="top: 76px; right: -14px;"></span>
                 <script>
                     jssor_slider2_starter('slider2_container');
                 </script>

@@ -4,6 +4,7 @@ class MY_Controller extends CI_Controller
 {
     protected $data = array();
     protected $langs = array();
+    var $_className = array();
             
     function __construct()
     {
@@ -15,6 +16,7 @@ class MY_Controller extends CI_Controller
         } else {
             $this->langs = LANG_VN;
         }
+        $this->langs = LANG_VN;
         $language = $this->langs;
         $this->data['language'] = $language;
         $this->settingLanguage($language);
@@ -36,7 +38,11 @@ class MY_Controller extends CI_Controller
         // Get class and method controllers:
         $this->data['class'] = $this->router->class;
         $this->data['method'] = $this->router->method;
-
+        
+        // get controller : class name
+        if ($this->router->class != 'home'){
+            $this->_className = $this->checkSlug();
+        }
         
     }
  
@@ -75,4 +81,23 @@ class MY_Controller extends CI_Controller
         $this->lang->load('common', $lang_default);
         $this->lang->load('contact', $lang_default);
     }
+    
+    /**
+     * check exits slug
+     * @return boolean
+     */
+    public function checkSlug() {
+        $slug = end($this->uri->segment_array());
+        $this->db->where('slug', $slug);
+        $query = $this->db->get('d_slug');
+        
+        if ($query->num_rows() > 0 ){
+            return $query->row_array();
+        } else {
+            redirect(base_url('404'));
+        }
+    }
+    
+    
+    
 }

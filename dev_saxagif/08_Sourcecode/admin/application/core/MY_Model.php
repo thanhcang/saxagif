@@ -58,7 +58,7 @@ class MY_Model extends CI_Model {
      * @date 2015/07/25
      * Check exist slug all table
      */
-    public function checkAllExistSlug($slug_name)
+    public function checkAllExistSlug($slug_name, $table = '', $id = '')
     {
         $sql = "SELECT slug FROM d_news WHERE del_flg = 0 AND slug = ?
                 UNION ALL SELECT slug FROM d_category WHERE del_flg = 0 AND slug = ? 

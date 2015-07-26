@@ -15,3 +15,4 @@ $lang['view_more'] = 'View more';
 $lang['customer_name'] = 'Customer name';
 $lang['customers_saxa'] = 'SAXA customers';
 $lang['saxa_program'] = 'SAXA program';
+$lang['products_saxa'] = 'Products Saxa';

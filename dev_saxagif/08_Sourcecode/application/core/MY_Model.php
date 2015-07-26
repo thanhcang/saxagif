@@ -54,4 +54,19 @@ class MY_Model extends CI_Model {
         }
         return $total;
     }
+    
+    /**
+     * check exits slug
+     * @return boolean
+     */
+    public function checkSlug() {
+        $slug = end($this->uri->segment_array());
+        $this->db->where('slug', $slug);
+        $query = $this->db->get('d_slug');
+        
+        if ($query->num_rows() > 0 ){
+            return $query->row_array();
+        }
+        return FALSE;
+    }
 }

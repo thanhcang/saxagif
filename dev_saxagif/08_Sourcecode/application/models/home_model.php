@@ -90,7 +90,7 @@ class Home_model extends MY_Model
                 FROM
                         m_setting AS s
                 WHERE
-                        s.language_type = 1";
+                        s.language_type = ?";
         $query = $this->db->query($sql, array($language));
         if ($query->num_rows() == 0 ) {
             return FALSE;
@@ -98,7 +98,7 @@ class Home_model extends MY_Model
         return $query->row_array();
     }
     
-    public function getGift()
+    public function getGift($language = LANG_VN)
     {
         $sql = "SELECT
                         p.id,
@@ -110,16 +110,17 @@ class Home_model extends MY_Model
                 INNER JOIN d_product_image AS pi ON p.id = pi.product_id
                 WHERE
                         p.promotion = 1
+                    AND p.language_type = ?
                 GROUP BY
                         p.id";
-        $query = $this->db->query($sql);
+        $query = $this->db->query($sql, array($language));
         if ($query->num_rows() == 0 ) {
             return FALSE;
         }
         return $query->result_array();
     }
     
-    public function getNewsByHome($position = '')
+    public function getNewsByHome($position = '', $language = LANG_VN)
     {
         $sql = "SELECT
                         n.title,
@@ -131,8 +132,25 @@ class Home_model extends MY_Model
                         d_news AS n
                 WHERE
                         n.del_flg = 0
-                AND n.is_home = 1";
-        $query = $this->db->query($sql);
+                AND n.is_home = 1 AND language_type = ? AND n.id_news_cat = 20 ORDER BY n.id ASC";
+        $query = $this->db->query($sql, array($language));
+        if($query->num_rows() == 0) {
+            return FALSE;
+        }
+        return $query->result_array();
+    }
+    
+    /**
+     * @author hnguyen0110@gmail.com
+     * @date 2015/07/24
+     * get customer slide
+     */
+    public function getCustomer($language = LANG_VN)
+    {
+        $sql = "SELECT n.title,n.description,n.avatar,n.slug,n.id_news_cat
+                FROM d_news AS n WHERE (n.id_news_cat = 21 || n.id_news_cat = 22 || n.id_news_cat = 17 )
+                AND del_flg = 0 AND n.language_type = ? AND is_home = 1 ORDER BY n.id DESC";
+        $query = $this->db->query($sql, array($language));
         if($query->num_rows() == 0) {
             return FALSE;
         }

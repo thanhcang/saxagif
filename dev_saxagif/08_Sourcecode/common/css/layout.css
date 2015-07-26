@@ -2266,3 +2266,30 @@ a{
 /*fix css chrome*/
 /*@media screen and (-webkit-min-device-pixel-ratio:0){
 }*/
+.icon_share .share_google, .icon_share .share_skype, .icon_share .share_fb {
+    width: 48px;
+    height: 50px;
+    display: inline-block;
+    /*border-radius: 3px;*/
+}
+.icon_share .share_google {
+    background-image: url('../images/icon_g+.png');
+}
+.icon_share .share_google:hover {
+    background: #fff url('../images/icon_g+_.png');
+    /*background-color:;*/
+}
+.icon_share .share_skype {
+    background-image: url('../images/icon_skype.png');
+}
+.icon_share .share_skype:hover {
+    background-image: url('../images/icon_skype_.png');
+    background-color:#fff;
+}
+.icon_share .share_fb {
+    background-image: url('../images/icon_fb.png');
+}
+.icon_share .share_fb:hover {
+    background-image: url('../images/icon_fb_.png');
+    background-color:#fff;
+}

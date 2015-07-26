@@ -15,3 +15,6 @@ $lang['view_more'] = 'Xem thêm';
 $lang['customer_name'] = 'Tên khách hàng';
 $lang['customers_saxa'] = 'Khách hàng của SAXA';
 $lang['saxa_program'] = 'Chương trình của SAXA';
+$lang['mess_thank_customer'] = 'Cảm ơn bạn đã chia sẻ với SAXA<br/>
+                        những chia sẻ của bạn rất có giá trị với chúng tôi';
+$lang['products_saxa'] = 'Sản phẩm của saxa';

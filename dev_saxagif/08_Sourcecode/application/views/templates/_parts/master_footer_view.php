@@ -9,7 +9,7 @@
             <ul class="sub_category">
             <?php foreach ($cat_menu as $cat_child): ?>
                 <?php if($cat_child['parent'] == $cat['id']): ?>
-                <li><a href="#"><?php echo htmlspecialchars($cat_child['name']) ?></a></li>
+                <li><a href="<?php echo base_url($cat['slug'].'/'.$cat_child['slug']) ?>"><?php echo htmlspecialchars($cat_child['name']) ?></a></li>
                 <?php endif; ?>
             <?php endforeach; ?>
             </ul>
@@ -60,8 +60,7 @@
             <div class="popup js__popup js__slide_top"> <a href="#" class="p_close js__p_close" title="Close"></a>
                 <div class="p_content">
                     <p class="note_mail">
-                        Cảm ơn bạn đã chia sẻ với SAXA<br/>
-                        những chia sẻ của bạn rất có giá trị với chúng tôi
+                        <?php echo $this->lang->line('mess_thank_customer') ?>
                     </p>
                 </div>
             </div>

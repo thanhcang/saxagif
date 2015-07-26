@@ -46,6 +46,14 @@ $route['who-we-are.html'] = 'about/who_we_are';
 $route['we-do-for-you.html'] = 'about/we_do_for_you';
 $route['we-expect-from-you.html'] = 'about/we_expect_from_you';
 $route['default_controller'] = "home";
+
+$default_controller = 'home';
+$route['(:any)'] = 'common';
+$route['(:any)/(:any)'] = 'common';
+$route['404'] = 'My404';
+//$controller_exceptions = array('product','news');
+//$route["^((?!\b".implode('\b|\b', $controller_exceptions)."\b).*)$"] = $default_controller.'/$1';
+
 $route['404_override'] = '';
 
 

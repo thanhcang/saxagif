@@ -17,6 +17,10 @@ class Category_news extends MY_Controller
     
     public function index()
     {
+//        $check = $this->mcategory_news->checkAllExistSlug('tin_tuc_tong_hop');
+//        if($check) {
+//            echo 'Slug da ton tai';exit;
+//        }
         $params = array();
         $errors = array();
         $items = array();

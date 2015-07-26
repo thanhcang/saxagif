@@ -13,6 +13,8 @@ class Contants extends MY_Controller {
         // Home
         echo "var URL_SEND_MAIL_CUSTOMER = '" . base_url('home/sendMailCustomer') . "';" . PHP_EOL;
         echo "var URL_SET_LANGUAGE = '" . base_url('home/setLanguage') . "';" . PHP_EOL;
+        echo "var URL_SHOW_CUSTOMER = '" . base_url('home/slideCustomer') . "';" . PHP_EOL;
+        echo "var IMAGE_CUSTOMER_PATH = '" . base_url(IMAGE_CUSTOMER_PATH) . "';" . PHP_EOL;
         
         // Contact:
         echo "var CT_MISSING_EMPTY_NAME = '" . $this->lang->line('ct_missing_empty_name') . "';" . PHP_EOL;
