@@ -29,7 +29,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html"> <img alt="Charisma Logo" src="<?php  echo base_url('common/img/logo20.png') ?>" class="hidden-xs"/>
+                <a class="navbar-brand" href="<?php echo base_url(); ?>"> <img alt="Charisma Logo" src="<?php  echo base_url('common/img/logo20.png') ?>" class="hidden-xs"/>
                     <span>Saxagif</span></a>
                 <!-- user dropdown starts -->
                 <div class="btn-group pull-right">
