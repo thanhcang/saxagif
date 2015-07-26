@@ -34,7 +34,7 @@
     </ul>
 </div>
 <div class="footer">
-        <div class="logo_foot"><img src="<?php echo base_url('common/images/logo_footer.png') ?>"/></div>
+        <div class="logo_foot"><img src="<?php echo url_img(URL_IMAGES,'logo_footer.png') ?>"/></div>
         <div class="slogan_foot">
             <?php if($setting_footer['slogan']) echo strtoupper($setting_footer['slogan']) ?>
         </div>
@@ -56,14 +56,14 @@
             <!--=============Popup=============-->
             <script type="text/javascript" src="<?php echo base_url('common/js/jquery.popup.js') ?>"></script>
             <!--Layout Popup-->
-            <div class="p_body js__p_body js__fadeout"></div>
+            <!--<div class="p_body js__p_body js__fadeout"></div>
             <div class="popup js__popup js__slide_top"> <a href="#" class="p_close js__p_close" title="Close"></a>
                 <div class="p_content">
                     <p class="note_mail">
                         <?php echo $this->lang->line('mess_thank_customer') ?>
                     </p>
                 </div>
-            </div>
+            </div>-->
 
             <script>
                 function showMask(id) {

@@ -337,6 +337,7 @@ a{
 .menu li a:hover{
     color: #f5821f;
 }
+.menu li:first-child { border-right: none; }
 .slide_top{
     margin-top: 40px;
 }
@@ -1793,11 +1794,15 @@ a{
     height:145px;
     margin-bottom: 15px;
 }
+.product ul li p { text-transform: uppercase; }
 .product ul li .name_product{
     font-size:13px;
     color: #2e2e2e;
     margin:0;
     padding:0;
+    font-weight: 600;
+    font-family: arial,sans-serif;
+    text-transform: capitalize;
 }
 .tabs_choose_gift{
     background: url('../images/line_bg_shadow.png') no-repeat top center;

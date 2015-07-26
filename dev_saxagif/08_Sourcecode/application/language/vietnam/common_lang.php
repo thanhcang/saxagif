@@ -18,3 +18,4 @@ $lang['saxa_program'] = 'Chương trình của SAXA';
 $lang['mess_thank_customer'] = 'Cảm ơn bạn đã chia sẻ với SAXA<br/>
                         những chia sẻ của bạn rất có giá trị với chúng tôi';
 $lang['products_saxa'] = 'Sản phẩm của saxa';
+$lang['view_more'] = 'Xem thêm';

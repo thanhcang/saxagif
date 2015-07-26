@@ -5,7 +5,7 @@
             <?php foreach ($slideshow as $key=>$slide): ?>
                 <div class="news-content <?php if($key === "0") echo 'top-content' ?>">
                     <a href="<?php echo base_url($slide['slug']) ?>">
-                    <img src="<?php echo url_img('common/multidata/slideshow/', $slide['avatar']) ?>"/>
+                    <img src="<?php echo url_img(URL_SLIDESHOW_IMAGE, $slide['avatar']) ?>"/>
                     <div class="title_slide">
                         <div class="topic_slide"><?php if(!empty($slide['name'])) echo htmlspecialchars($slide['name']) ?></div>
                         <div class="cont_slide">

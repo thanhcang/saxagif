@@ -84,7 +84,9 @@ define('COMPANY_NAME', 'SAXA GROUP co., ltd');
 define('PROMOTION', 1);
 define('CATEGORY_PARENT', 1);
 define('CATEGORY_CHILD', 2);
-
+define('URL_PRODUCT_IMAGE', 'common/multidata/product_img/');
+define('URL_IMAGES', 'common/images/');
+define('URL_SLIDESHOW_IMAGE', 'common/multidata/slideshow/');
 // No change
 define('SALT', 'saxagifts!$23');
 

@@ -18,7 +18,6 @@ class Product extends MY_Controller
        
         $data = array();
         $slug = end($this->uri->segment_array());
-        
         $listCategory = $this->product_model->getProductByCategory($slug);
         $this->data['listCategory'] = $this->processCategoryList($listCategory);
         $this->data['page_title'] = 'Product';

@@ -47,7 +47,7 @@ class News extends MY_Controller
         
         $page_config = array(
             'base_url'    => base_url('news/?' . $queryString),
-            'per_page' => NUMBER_PAGE,
+            'per_page' => 3,
             'use_page_numbers' => TRUE,
             'page_query_string' => TRUE,
             'query_string_segment' => $parmameter_page,
