@@ -82,6 +82,8 @@ define('FOOTER_POSITION', 5);
 define('HOTLINE', '0906 605 405');
 define('COMPANY_NAME', 'SAXA GROUP co., ltd');
 define('PROMOTION', 1);
+define('CATEGORY_PARENT', 1);
+define('CATEGORY_CHILD', 2);
 
 // No change
 define('SALT', 'saxagifts!$23');
