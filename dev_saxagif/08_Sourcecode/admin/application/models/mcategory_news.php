@@ -130,7 +130,8 @@ class Mcategory_news extends MY_Model
     public function checkExistName($name)
     {
         $this->db->select('id')
-                ->where('name', $name);
+                ->where('name', $name)
+                ->where('del_flg', 0);
         $query = $this->db->get($this->_tbl_category_news);
         if ($query->num_rows() > 0) {
             return TRUE;
@@ -147,7 +148,8 @@ class Mcategory_news extends MY_Model
     public function checkExistSlug($slug)
     {
         $this->db->select('id')
-                ->where('slug', $slug);
+                ->where('slug', $slug)
+                ->where('del_flg', 0);
         $query = $this->db->get($this->_tbl_category_news);
         if ($query->num_rows() > 0) {
             return TRUE;

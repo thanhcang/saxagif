@@ -158,10 +158,30 @@ class Product extends MY_Controller
                         $params['name_image'][] = $checkUpload;
                     }
                 }
+                // check slug common
+                if (empty($error)) {
+                    if (!empty($param['slug'])){
+                        $slug = slug_convert($param['slug']);
+                    } else if (!empty($param['name'])) {
+                        $slug = slug_convert($param['name']);
+                    } else if (!empty($param['title'])) {
+                        $slug = slug_convert($param['title']);
+                    } else {
+                        $slug = '';
+                    }
+                    
+                    $is_check = $this->mcommon->checkSlug($slug);
+                    
+                    if ($is_check == TRUE) {
+                        $error[] = 'Slugs đã tồn tại, trong hệ thống, <br /> Hãy kiểm tra lại name hoặc slug';
+                    }
+                }
                 
                 // create product
-                if ($this->mproduct->create($params)) {
-                    redirect(base_url('product'));
+                if (empty($error)) {
+                    if ($this->mproduct->create($params)) {
+                        redirect(base_url('product'));
+                    }
                 }
             }
             

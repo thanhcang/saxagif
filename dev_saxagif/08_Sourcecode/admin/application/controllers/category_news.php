@@ -42,9 +42,32 @@ class Category_news extends MY_Controller
             // Set rules:
             $this->_validate($params, $error);
             if (empty($error)) {
-                $isInsert = $this->mcategory_news->save($params);
-                if($isInsert) {
-                    $params = array();
+                // check slug common
+                if (empty($error)) {
+                    if (!empty($param['slug'])){
+                        $slug = slug_convert($param['slug']);
+                    } else if (!empty($param['name'])) {
+                        $slug = slug_convert($param['name']);
+                    } else if (!empty($param['title'])) {
+                        $slug = slug_convert($param['title']);
+                    } else {
+                        $slug = '';
+                    }
+                    
+                    $is_check = $this->mcommon->checkSlug($slug);
+                    
+                    if ($is_check == TRUE) {
+                        $error[] = 'Slugs đã tồn tại, trong hệ thống, <br /> Hãy kiểm tra lại name hoặc slug';
+                    }
+                }
+                
+                if (empty($error)) {
+                    $isInsert = $this->mcategory_news->save($params);
+                    if ($isInsert) {
+                        $slug_insert = !empty($params['slug']) ? slug_convert($params['slug']) : slug_convert($params['name']);
+                        $this->mcommon->createSlug($slug_insert, 'd_news_category', 'news');
+                        $params = array();
+                    }
                 }
             }
             $data['params'] = $params;
@@ -126,15 +149,44 @@ class Category_news extends MY_Controller
                     'javascript:;' => 'Cập nhật',
                     '#' => $detailCatNews['name']),
             );
+            $old_slug = $detailCatNews['slug'];
             
             if ($this->input->post()) {
                 $params = $this->input->post();
                 $this->_validate($params, $error);
                 
                 if (empty($error)) {
-                    $params['cat_news_id'] = $id;
-                    if($this->mcategory_news->save($params)) {
-                        redirect(base_url('category_news'));
+                    // check slug common    
+                    if (empty($error)) {
+                        if ($old_slug != $params['slug']) {
+
+                            if (!empty($params['slug'])) {
+                                $slug = slug_convert($params['slug']);
+                            } else if (!empty($params['name'])) {
+                                $slug = slug_convert($params['name']);
+                            } else if (!empty($params['title'])) {
+                                $slug = slug_convert($params['title']);
+                            } else {
+                                $slug = '';
+                            }
+
+                            $is_check = $this->mcommon->checkSlug($slug);
+
+                            if ($is_check == TRUE) {
+                                $error[] = 'Slugs đã tồn tại, trong hệ thống, <br /> Hãy kiểm tra lại name hoặc slug';
+                            }
+                        }
+                    }
+                    if (empty($error)) {
+                        $params['cat_news_id'] = $id;
+                        if ($this->mcategory_news->save($params)) {
+                            if ($old_slug != $params['slug']) {
+                                $this->mcommon->delete($old_slug);
+                                $slug_insert = !empty($params['slug']) ? slug_convert($params['slug']) : slug_convert($params['name']);
+                                $this->mcommon->createSlug($slug_insert, 'd_news_category', 'news');
+                            }
+                            redirect(base_url('category_news'));
+                        }
                     }
                 }
                 $data['params'] = $params;

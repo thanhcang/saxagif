@@ -38,6 +38,7 @@ class Category extends MY_Controller {
         if ($this->isPostMethod()){
             $param = $this->input->post();
             $error = array();
+            
             $this->_validate($param, $error);
             if (empty($error)) { // new category
                 if (!empty($_FILES['event_img']['name'])) {
@@ -52,10 +53,32 @@ class Category extends MY_Controller {
                         $error[] = 'File ảnh chưa được up <br/> vui lòng kiểm tra lại';
                     }
                 }
+                
+                // check slug exist
+                if (empty($error)) {
+                    if (!empty($param['slug'])){
+                        $slug = slug_convert($param['slug']);
+                    } else if (!empty($param['name'])) {
+                        $slug = slug_convert($param['name']);
+                    } else if (!empty($param['title'])) {
+                        $slug = slug_convert($param['title']);
+                    }
+                    
+                    $is_check = $this->mcommon->checkSlug($slug);
+                    
+                    if ($is_check == TRUE) {
+                        $error[] = 'Slugs đã tồn tại, trong hệ thống, <br /> Hãy kiểm tra lại name hoặc slug';
+                    }
+                }
+
                 if (empty($error)) {
                     $this->db->trans_off();
                     $this->db->trans_begin();
                     $this->mcategory->addParentCategory($param);
+                    //insert slug common
+                    $slug_insert  =  !empty($params['slug']) ? slug_convert($params['slug']) : slug_convert($params['name']);
+                    $this->mcommon->createSlug($slug_insert,'d_category', 'category');
+                    
                     if ($this->db->trans_status() === FALSE) {
                         $this->db->trans_rollback();
                         $error[] = 'Hệ thống chưa thêm được danh mục<br/> Vui lòng thử lại';
@@ -168,6 +191,8 @@ class Category extends MY_Controller {
             'language_type' => $this->config->item('language_type'),
         );
         $event_img = $param['event_img'];
+        $old_slug = $param['slug'];
+        
         $tpl = array(
             'breadcrumb' => array(
                 base_url() => 'Home',
@@ -195,10 +220,38 @@ class Category extends MY_Controller {
                     }
                 }
                 
+                // check slug common    
+                if (empty($error)) {
+                    if ($old_slug != $param['slug']) {
+                        
+                        if (!empty($param['slug'])) {
+                            $slug = slug_convert($param['slug']);
+                        } else if (!empty($param['name'])) {
+                            $slug = slug_convert($param['name']);
+                        } else if (!empty($param['title'])) {
+                            $slug = slug_convert($param['title']);
+                        } else {
+                            $slug = '';
+                        }
+
+                        $is_check = $this->mcommon->checkSlug($slug);
+
+                        if ($is_check == TRUE) {
+                            $error[] = 'Slugs đã tồn tại, trong hệ thống, <br /> Hãy kiểm tra lại name hoặc slug';
+                        }
+                    }
+                }
+
                 if (empty($error)) {
                     $this->db->trans_off();
                     $this->db->trans_begin();
                     $this->mcategory->updateCategory($param);
+                    
+                    if ($old_slug != $param['slug']) {
+                        $this->mcommon->delete($old_slug);
+                        $slug_insert = !empty($param['slug']) ? slug_convert($param['slug']) : slug_convert($param['name']);
+                        $this->mcommon->createSlug($slug_insert, 'd_category', 'category');
+                    }
                     if ($this->db->trans_status() === FALSE) {
                         $this->db->trans_rollback();
                         $error[] = 'Hệ thống chưa cập nhật <br/> Vui lòng thử lại';
@@ -272,10 +325,35 @@ class Category extends MY_Controller {
                         $error[] = 'File ảnh chưa được up <br/> vui lòng kiểm tra lại';
                     }
                 }
+                
+                // check slug common
+                if (empty($error)) {
+                    if (!empty($param['slug'])){
+                        $slug = slug_convert($param['slug']);
+                    } else if (!empty($param['name'])) {
+                        $slug = slug_convert($param['name']);
+                    } else if (!empty($param['title'])) {
+                        $slug = slug_convert($param['title']);
+                    } else {
+                        $slug = '';
+                    }
+                    
+                    $is_check = $this->mcommon->checkSlug($slug);
+                    
+                    if ($is_check == TRUE) {
+                        $error[] = 'Slugs đã tồn tại, trong hệ thống, <br /> Hãy kiểm tra lại name hoặc slug';
+                    }
+                }
+                
                 if (empty($error)) {
                     $this->db->trans_off();
                     $this->db->trans_begin();
                     $this->mcategory->addChildCategory($params,$parent['id']); // new children category
+                    
+                    //insert slug common
+                    $slug_insert  =  !empty($params['slug']) ? slug_convert($params['slug']) : slug_convert($params['name']);
+                    $this->mcommon->createSlug($slug_insert,'d_category', 'category');
+                    
                     if ($this->db->trans_status() === FALSE) {
                         $this->db->trans_rollback();
                         $error[] = 'Hệ thống chưa cập nhật được dữ liệu <br/> vui lòng kiểm tra lại';
@@ -415,6 +493,7 @@ class Category extends MY_Controller {
         );
         $logo = $params['logo'];
         $parent = $params['parent'];
+        $old_slug = $params['slug'];
         
         if ($this->isPostMethod()) {
             $error = array();
@@ -439,11 +518,39 @@ class Category extends MY_Controller {
                 }
             }
             
+            
+            // check slug common    
+            if (empty($error)) {
+                if ($old_slug != $params['slug']) {
+
+                    if (!empty($params['slug'])) {
+                        $slug = slug_convert($params['slug']);
+                    } else if (!empty($params['name'])) {
+                        $slug = slug_convert($params['name']);
+                    } else if (!empty($param['title'])) {
+                        $slug = slug_convert($params['title']);
+                    } else {
+                        $slug = '';
+                    }
+
+                    $is_check = $this->mcommon->checkSlug($slug);
+
+                    if ($is_check == TRUE) {
+                        $error[] = 'Slugs đã tồn tại, trong hệ thống, <br /> Hãy kiểm tra lại name hoặc slug';
+                    }
+                }
+            }
+
             // update child category
             if (empty($error)) {
                 $this->db->trans_off();
                 $this->db->trans_begin();
                 $this->mcategory->updateChildCategory($params);
+                if ($old_slug != $params['slug']) {
+                    $this->mcommon->delete($old_slug);
+                    $slug_insert = !empty($params['slug']) ? slug_convert($params['slug']) : slug_convert($params['name']);
+                    $this->mcommon->createSlug($slug_insert, 'd_category', 'category');
+                }
                 if ($this->db->trans_status() === FALSE) {
                     $this->db->trans_rollback();
                     $error[] = 'Hệ thống chưa cập nhật <br/> Vui lòng thử lại';

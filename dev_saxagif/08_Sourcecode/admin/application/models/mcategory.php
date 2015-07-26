@@ -421,7 +421,7 @@ class Mcategory extends MY_Model
         
         $data = array(
             'name' => htmlspecialchars($param['name']),
-            'slug' => htmlspecialchars($param['slug']),
+            'slug' => !empty($param['slug']) ? slug_convert($param['slug']) : slug_convert($param['name']),
             'bg_color' => htmlspecialchars($param['bg_color']),
             'keyword_seo' => htmlspecialchars($param['keyword_seo']),
             'des_seo' => htmlspecialchars($param['des_seo']),

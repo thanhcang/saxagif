@@ -47,23 +47,25 @@ class News extends MY_Controller
         
         $page_config = array(
             'base_url'    => base_url('news/?' . $queryString),
-            'per_page' => 3,
+            'per_page' => NUMBER_PAGE,
             'use_page_numbers' => TRUE,
             'page_query_string' => TRUE,
             'query_string_segment' => $parmameter_page,
-            'next_link'      => BUTTON_NEXT,
-            'prev_link'      => BUTTON_PRE,
-            'first_link'     => BUTTON_FIRST,
-            'last_link'      => BUTTON_LAST,
-            'cur_tag_open'   => '<li class="active"><a href="#">',
-            'cur_tag_close'  => '</li></a>',
-            'prev_tag_open'  => '<li>',
+            'next_link' => BUTTON_NEXT,
+            'prev_link' => BUTTON_PRE,
+            'first_link' => BUTTON_FIRST,
+            'last_link' => BUTTON_LAST,
+            'cur_tag_open' => '<li class="active"><a href="#">',
+            'cur_tag_close' => '</li></a>',
+            'prev_tag_open' => '<li>',
             'prev_tag_close' => '</li>',
-            'next_tag_open'  => '<li>',
+            'next_tag_open' => '<li>',
             'next_tag_close' => '</li>',
-            'num_tag_open'   => '<li>',
-            'num_tag_close'  => '</li>',
-            'full_tag_open'  => '<ul class="pagination pagination-centered">',
+            'num_tag_open' => '<li>',
+            'num_tag_close' => '</li>',
+            'last_tag_open'=> '<li>',
+            'last_tag_close'=> '</li>',
+            'full_tag_open' => '<ul class="pagination pagination-centered">',
             'full_tag_close' => '</ul>',
         );
         
@@ -124,8 +126,32 @@ class News extends MY_Controller
                         }
                     }    
                 }
-                if($this->mnews->save($params)) {
-                    redirect(base_url('news'));
+                
+                // check slug common
+                if (empty($error)) {
+                    if (!empty($params['txtSlug'])){
+                        $slug = slug_convert($params['txtSlug']);
+                    } else if (!empty($params['name'])) {
+                        $slug = slug_convert($params['name']);
+                    } else if (!empty($params['txtTitle'])) {
+                        $slug = slug_convert($params['txtTitle']);
+                    } else {
+                        $slug = '';
+                    }
+                    
+                    $is_check = $this->mcommon->checkSlug($slug);
+                    
+                    if ($is_check == TRUE) {
+                        $error[] = 'Slugs đã tồn tại, trong hệ thống, <br /> Hãy kiểm tra lại name hoặc slug';
+                    }
+                }
+                
+                if (empty($error)) {
+                    if ($this->mnews->save($params)) {
+                        $slug_insert = !empty($params['txtSlug']) ? slug_convert($params['txtSlug']) : slug_convert($params['txtTitle']);
+                        $this->mcommon->createSlug($slug_insert, 'd_news', 'news');
+                        redirect(base_url('news'));
+                    }
                 }
             }
             $data['params'] = $params;
@@ -144,9 +170,11 @@ class News extends MY_Controller
     {
         if (!empty($newsId) && filter_var($newsId, FILTER_VALIDATE_INT, array('min_range' => 1)) ) {
             $detailNews = $this->mnews->detail($newsId);
+            
             if(empty($detailNews)) {
                 redirect(base_url('news'));
             }
+            
             $tpl = array(
                 'breadcrumb' => array(
                     base_url() => 'home',
@@ -162,6 +190,8 @@ class News extends MY_Controller
                 'listAllCatNews'=> $this->mcategory_news->listAll(),
                 'position'      => $this->config->item('position_news'),
             );
+            $old_slug = $detailNews['slug'];
+            
             if ($this->input->post()) {
                 $error = array();
                 $params = $this->input->post();
@@ -212,8 +242,38 @@ class News extends MY_Controller
                             }
                         }
                     }
-                    if ($this->mnews->save($params)) {
-                        redirect(base_url('news'));
+                
+                    // check slug common    
+                    if (empty($error)) {
+                        if ($old_slug != $params['txtSlug']) {
+
+                            if (!empty($params['txtSlug'])) {
+                                $slug = slug_convert($params['txtSlug']);
+                            } else if (!empty($params['name'])) {
+                                $slug = slug_convert($param['name']);
+                            } else if (!empty($params['txtTitle'])) {
+                                $slug = slug_convert($params['txtTitle']);
+                            } else {
+                                $slug = '';
+                            }
+
+                            $is_check = $this->mcommon->checkSlug($slug);
+
+                            if ($is_check == TRUE) {
+                                $error[] = 'Slugs đã tồn tại, trong hệ thống, <br /> Hãy kiểm tra lại name hoặc slug';
+                            }
+                        }
+                    }
+                    
+                    if (empty($error)) {
+                        if ($this->mnews->save($params)) {
+                            if ($old_slug != $params['slug']) {
+                                $this->mcommon->delete($old_slug);
+                                $slug_insert = !empty($params['txtSlug']) ? slug_convert($params['txtSlug']) : slug_convert($params['txtTitle']);
+                                $this->mcommon->createSlug($slug_insert, 'd_news', 'news');
+                            }
+                            redirect(base_url('news'));
+                        }
                     }
                 }
                 $data['params'] = $params;
@@ -325,8 +385,8 @@ class News extends MY_Controller
 
         // Set rules:
         $this->form_validation->set_rules("txtTitle", $this->lang->line('NEWS_MISSING_TITLE_EMPTY'),"required|trim|max_length[255]|callback__checkExistTitle");
-        $this->form_validation->set_rules("description", $this->lang->line('NEWS_DESCRIPTION'), "trim|max_length[3000]");
-        $this->form_validation->set_rules("content", $this->lang->line('NEWS_CONTENT'), "trim|");
+        $this->form_validation->set_rules("description", 'Nhập mô tả', "required|trim|max_length[3000]");
+        $this->form_validation->set_rules("content", 'Nhập nội dung ', "trim|required");
         $this->form_validation->set_rules("catNews", $this->lang->line('NEWS_CAT'),  "trim|integer|max_length[11]");
         $this->form_validation->set_rules("position", $this->lang->line('POSITION'),"trim");
         $this->form_validation->set_rules("language_type", $this->lang->line('CHOOSE_LANGUAGE'), "trim|max_length[255]");
