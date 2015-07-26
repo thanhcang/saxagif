@@ -204,7 +204,7 @@ class Category extends MY_Controller {
                         $error[] = 'Hệ thống chưa cập nhật <br/> Vui lòng thử lại';
                     } else {
                         $this->db->trans_commit();
-                        redirect(base_url('category/viewCategory' . '/' . $param['id']));
+                        redirect(base_url('category'));
                         return;
                     }
                 }
@@ -239,8 +239,7 @@ class Category extends MY_Controller {
             'breadcrumb' => array(
                 base_url() => 'home',
                 base_url('category') => 'Danh mục',
-                base_url('category/viewCategory' . '/' . $parent['id']) => $parent['name'],
-                'javascript:;' => 'Danh mục con',
+                base_url('category/childrenCategory' . '/' . $parent['id']) => $parent['name'],
             ),
         );
         $items = $this->input->get();
@@ -258,6 +257,7 @@ class Category extends MY_Controller {
         if ($this->isPostMethod()) {
             $error = array();
             $params = $this->input->post();
+            $params['parent_level'] = $parent['level'];
             $this->_validateChildren($params, $error); // Check validation input
             if (empty($error)) {
                 if (!empty($_FILES['logo']['name'])) {
@@ -328,6 +328,10 @@ class Category extends MY_Controller {
         $data['offset'] = $offset;
         $data['items'] = $items;
         $data['parent'] = $parent;
+        
+        if ($parent['level'] < 2){
+            $data['isAddCategory'] = TRUE;
+        }
         $tpl["main_content"] = $this->load->view('category/index', $data, TRUE);
         $this->load->view(TEMPLATE, $tpl);
     }
@@ -410,7 +414,7 @@ class Category extends MY_Controller {
             'parent' => $this->mcategory->listParent(),
         );
         $logo = $params['logo'];
-        $parent = $this->mcategory->listParent();
+        $parent = $params['parent'];
         
         if ($this->isPostMethod()) {
             $error = array();
@@ -445,7 +449,11 @@ class Category extends MY_Controller {
                     $error[] = 'Hệ thống chưa cập nhật <br/> Vui lòng thử lại';
                 } else {
                     $this->db->trans_commit();
-                    redirect(base_url('category/childrenCategory').'/'.$params['parent']);
+                    if (!empty($parent)){
+                        redirect(base_url('category/childrenCategory').'/'.$parent);
+                    } else {
+                        redirect(base_url('category'));
+                    }
                 }
             }
             $data['cat_errors'] = $error;
@@ -466,19 +474,32 @@ class Category extends MY_Controller {
     public function delete() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['id'])) {
             $cat_id = (int) $_POST['id'];
-            if ($this->mcategory->delCat($cat_id)) {
+            $is_delete = $this->mcategory->delCat($cat_id);
+            if ($is_delete == TRUE) {
                 $json_result = array(
                     'result' => 1,
-                    'code' => 202,
+                    'code' => 200,
                     'data' => 'success',
                 );
                 echo json_encode($json_result);
                 return;
             } else {
-                echo '';
+                $json_result = array(
+                    'result' => 1,
+                    'code' => 304,
+                    'data' => 'fail',
+                );
+                echo json_encode($json_result);
+                return;
             }
         } else {
-            echo '';
+            $json_result = array(
+                    'result' => 1,
+                    'code' => 404,
+                    'data' => 'fail',
+                );
+                echo json_encode($json_result);
+                return;
         }
     }
 

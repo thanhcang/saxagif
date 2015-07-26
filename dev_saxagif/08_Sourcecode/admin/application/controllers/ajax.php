@@ -237,9 +237,9 @@ class Ajax extends MY_Controller {
                     $temp = '';
                     foreach ($category as $key){
                         if ($temp == $key['name']){
-                            array_push($result[$key['name']], array('child_name' => $key['child_name'] ,  'id' => $key['id']));                            
+                            array_push($result[$key['name']], array('child_name' => $key['child_name'] ,  'id' => $key['id'] , 'level'=>$key['level']));                            
                         } else {
-                            $result[$key['name']][] = array('child_name' => $key['child_name'] ,  'id' => $key['id']);  
+                            $result[$key['name']][] = array('child_name' => $key['child_name'] ,  'id' => $key['id'] , 'level'=>$key['level']);  
                         }
                         $temp = $key['name'];
                     }
@@ -258,6 +258,12 @@ class Ajax extends MY_Controller {
                     echo json_encode($json_result, JSON_UNESCAPED_UNICODE);
                 }
                 return;
+            } else {
+                $json_result = array(
+                    'result' => 0,
+                    'code' => 404,
+                );
+                echo json_encode($json_result, JSON_UNESCAPED_UNICODE);
             }
         }
     }
@@ -335,7 +341,7 @@ class Ajax extends MY_Controller {
                 }
                 $json_result = array(
                     'result' => 1,
-                    'code' => 202,
+                    'code' => 200,
                     'data' => $result,
                 );
                 echo json_encode($json_result, JSON_UNESCAPED_UNICODE);
@@ -361,10 +367,17 @@ class Ajax extends MY_Controller {
             $input = $this->input->post();
             
             if (!empty($input)) {                
+                foreach ($input['sidpartner'] as $key => $value) {
+                    list($id,$name) = explode(',', $value);
+                    $result[] = array(
+                    'id' => $id,
+                    'name' => $name,
+                    );
+                }
                 $json_result = array(
                     'result' => 1,
-                    'code' => 202,
-                    'data' => $input['sidpartner'],
+                    'code' => 200,
+                    'data' => $result,
                 );
                 echo json_encode($json_result, JSON_UNESCAPED_UNICODE);
                 return;

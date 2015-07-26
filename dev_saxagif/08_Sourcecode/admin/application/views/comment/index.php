@@ -1,9 +1,3 @@
-<link rel="stylesheet" type="text/css" href="<?php echo base_url('common/css/product.css') ?>" />
-<?php if($this->session->flashdata('msg-success')): ?>
-<div class="row msg-success">
-    <?php echo $this->session->flashdata('msg-success') ?>
-</div>
-<?php endif ?>
 <div class="row">
     <div class="box col-md-12">
         <div class="box-inner">
@@ -30,18 +24,16 @@
                 <table class="table table-bordered table-striped responsive martopten datatable">
                     <colgroup>
                         <col width="5%">
-                        <col width="20%">
-                        <col width="20%">
-                        <col width="20%">
-                        <col width="5%">
-                        <col width="30%">
+                        <col width="25%">
+                        <col width="35%">
+                        <col width="35%">
                     </colgroup>
                     <thead>
                         <tr>
                             <th><?php echo $this->lang->line('STT') ?></th>
-                            <th><?php echo 'Mã' ?></th>
-                            <th><?php echo 'Tên' ?></th>
-                            <th><?php echo 'Danh mục' ?></th>
+                            <th><?php echo 'Tên khách hàng' ?></th>
+                            <th><?php echo 'Câu hỏi' ?></th>
+                            <th><?php echo 'Câu trả lời' ?></th>
                             <th>&nbsp;</th>
                             <th>&nbsp;</th>
                         </tr>
@@ -74,18 +66,7 @@
         </div>
     </div>
 </div>
-
-<div id="dialog_content" class="dialog_content" style="display:none">
-    <div class="dialogModal_header"><?php echo $this->lang->line('CONFIRM') ?></div>
-    <div class="dialogModal_content"></div>
-    <div class="dialogModal_footer">
-        <button type="button" class="btn btn-primary btnConfirmDel" data-dialogmodal-but="ok"><?php echo $this->lang->line('OK') ?></button>
-        <button type="button" class="btn btn-default" data-dialogmodal-but="cancel"><?php echo $this->lang->line('CANCEL') ?></button>
-    </div>
-</div>
-
 <?php require_once(VIEW_PATH.'templates/popup/_confirmDelete.php') ;?>
 <?php require_once(VIEW_PATH.'templates/popup/_messageDialog.php') ;?>
-<script src="<?php echo base_url('common/js/product.js'); ?>" /> </script>
 
 

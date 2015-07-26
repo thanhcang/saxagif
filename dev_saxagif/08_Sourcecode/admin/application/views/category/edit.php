@@ -55,7 +55,7 @@
                     </div>
                     <?php endif ?>
                                       
-                    <div class="form-group">
+<!--                    <div class="form-group">
                         <label><?php echo $this->lang->line('CAT_PARENT') ?></label>
                         <div class="controls">
                             <select name="parent" class="form-control">
@@ -65,7 +65,7 @@
                                 <?php endforeach; ?>
                             </select>
                         </div>
-                    </div>
+                    </div>-->
                     <div class="control-group">
                         <label for="keyword_seo"><?php echo $this->lang->line('CAT_KEYWORD_SEO') ?></label>
                         <input type="text" name="keyword_seo" id="keyword_seo" class="form-control noEnter" value="<?php echo (!empty($params['keyword_seo'])) ?  htmlspecialchars($params['keyword_seo']) : ''; ?>" maxlength="255" />

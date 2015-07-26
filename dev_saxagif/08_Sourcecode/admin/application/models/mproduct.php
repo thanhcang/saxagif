@@ -38,10 +38,34 @@ class Mproduct extends MY_Model
                     c.name AS category_name
                 FROM " . $this->_tbl_product . " AS p
                 INNER JOIN " . $this->_tbl_category . " AS c ON p.cat_id = c.id
-                WHERE p.del_flg = 0
-                ORDER BY p.id DESC";
+                WHERE p.del_flg = 0";
         
-        $total = MY_Model::get_total_result($sql);
+        if (!empty($params['s_product_code'])){
+            $sql .= " AND product_code like ? ";
+            $arrWhere[] = '%'.$params['s_product_code'].'%';
+        }
+        
+        if (!empty($params['s_name'])){
+            $sql .= " AND p.name like ? ";
+            $arrWhere[] = '%'.$params['s_name'].'%';
+        }
+        
+        if (!empty($params['sType'])){
+            $sql .= " AND c.type = ? ";
+            $arrWhere[] = $params['sType'];
+        }
+        
+        if (!empty($params['sPromotion'])){
+            $sql .= " AND promotion = 1 ";
+        }
+        
+        if (!empty($params['sType'])){
+            
+        }
+        
+        $sql .= " ORDER BY p.id DESC ";
+        
+        $total = MY_Model::get_total_result($sql, $arrWhere);
         
         if ($limit > 0) {
             $sql .= " LIMIT " . $offset . ',' . $limit;
@@ -128,6 +152,21 @@ class Mproduct extends MY_Model
             }
         }
         
+        // insert product customer
+        if (!empty($proId)) {
+            if (!empty($params['pro_Partner'])) {
+                foreach ($params['pro_Partner'] as $value) {
+                    $data = array(
+                        'product_id' => $proId,
+                        'customer_id' => $value,
+                        'create_user' => $this->session->userdata('ses_user_id'),
+                        'create_date' => date('Y-m-d H:i:s'),
+                    );
+                    $this->db->insert('d_product_customer', $data);
+                }
+            }
+        }
+
         if ($this->db->trans_status() === FALSE) {
             $this->db->trans_rollback();
             return FALSE;

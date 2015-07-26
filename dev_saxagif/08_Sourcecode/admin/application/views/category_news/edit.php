@@ -37,14 +37,6 @@
                         <input type="text" name="slug" id="slug" class="form-control" class="" value="<?php  if(!empty($detailCatNews['slug']) && empty($params['slug'])) echo htmlspecialchars($detailCatNews['slug']) ;elseif(!empty($params['slug'])) echo htmlspecialchars($params['slug']) ?>" maxlength="255" placeholder="slug( URL Seo )" />
                     </div>
                     <div class="form-group">
-                        <label><?php echo $this->lang->line('CAT_AVATAR') ?></label>
-                        <input type="file" name="avatar"  accept="image/*" class="noEnter" id="avatar" />
-                    </div>
-                    <div class="form-group">
-                        <label><?php echo $this->lang->line('CAT_TITLE') ?></label>
-                        <input type="text" name="title" class="form-control" value="<?php if(!empty($detailCatNews['title'])) echo htmlspecialchars($detailCatNews['title']) ?>" />
-                    </div>
-                    <div class="form-group">
                         <label><?php echo $this->lang->line('CAT_NEWS_POSITION') ?></label>
                         <select name="position" class="form-control">
                             <option value="">&nbsp;</option>

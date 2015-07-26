@@ -17,10 +17,6 @@ class Category_news extends MY_Controller
     
     public function index()
     {
-//        $check = $this->mcategory_news->checkAllExistSlug('tin_tuc_tong_hop');
-//        if($check) {
-//            echo 'Slug da ton tai';exit;
-//        }
         $params = array();
         $errors = array();
         $items = array();
@@ -46,18 +42,6 @@ class Category_news extends MY_Controller
             // Set rules:
             $this->_validate($params, $error);
             if (empty($error)) {
-                if (!empty($_FILES['avatar']['name'])) {
-                    $checkUpload = $this->uploadPhoto($_FILES['avatar'], 'avatar', IMAGE_CAT_NEWS_PATH, TRUE, 1366, 768, $maxSize = 200000);
-                    if ($checkUpload) {
-                        $param['avatar'] = $checkUpload; // Get logo name:
-                        $is_resize = $this->resizePhoto($checkUpload,  923,  376, IMAGE_CAT_NEWS_PATH);
-                        if ($is_resize != TRUE) { // not resize
-                            $error[] = 'Không xử lý được file ảnh <br/> vui lòng kiểm tra lại';
-                        }
-                    } else {
-                        $error[] = 'File ảnh chưa được up <br/> vui lòng kiểm tra lại';
-                    }
-                }
                 $isInsert = $this->mcategory_news->save($params);
                 if($isInsert) {
                     $params = array();
@@ -146,28 +130,7 @@ class Category_news extends MY_Controller
             if ($this->input->post()) {
                 $params = $this->input->post();
                 $this->_validate($params, $error);
-                if (!empty($_FILES['avatar']['name'])) {
-                    $checkUpload = $this->uploadPhoto($_FILES['avatar'], 'avatar', IMAGE_CAT_NEWS_PATH, TRUE, 1366, 768, $maxSize = 200000);
-                    if ($checkUpload) {
-                        $param['avatar'] = $checkUpload; // Get logo name:
-                        $is_resize = $this->resizePhoto($checkUpload,  923,  376, IMAGE_CAT_NEWS_PATH);
-                        if ($is_resize != TRUE) { // not resize
-                            $error[] = 'Không xử lý được file ảnh <br/> vui lòng kiểm tra lại';
-                        }
-                    } else {
-                        $error[] = 'File ảnh chưa được up <br/> vui lòng kiểm tra lại';
-                    }
-                    // Remove file:
-                    if(!empty($detailCatNews['avatar'])) {
-                        $imgFile = IMAGE_CAT_NEWS_PATH . $detailCatNews['avatar'];
-                        if (file_exists($imgFile)) {
-                            $fh = fopen($imgFile, "rb");
-                            $imgData = fread($fh, filesize($imgFile));
-                            fclose($fh);
-                            unlink($imgFile);
-                        }
-                    }
-                }
+                
                 if (empty($error)) {
                     $params['cat_news_id'] = $id;
                     if($this->mcategory_news->save($params)) {
@@ -296,7 +259,6 @@ class Category_news extends MY_Controller
         $this->form_validation->set_rules("keyword_seo", $this->lang->line('PRO_DESCRIPTION'),  "trim|max_length[255]");
         $this->form_validation->set_rules("des_seo", $this->lang->line('PRO_CONTENT'),"trim|max_length[255]");
         $this->form_validation->set_rules("position", $this->lang->line('CAT_NEWS_MISSING_POSITION_EMPTY'),  "trim|max_length[2]|integer|required");
-        $this->form_validation->set_rules("title", $this->lang->line('CAT_MISSING_LENGTH_TITLE'),  "trim|max_length[255]");
         // Set Message:
         $this->form_validation->set_message('required', '%s');
         //Validate

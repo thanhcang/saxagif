@@ -52,25 +52,4 @@ class MY_Model extends CI_Model {
         }
         return $total;
     }
-    
-    /**
-     * @author HoaHN<hnguyen0110@gmail.com>
-     * @date 2015/07/25
-     * Check exist slug all table
-     */
-    public function checkAllExistSlug($slug_name, $table = '', $id = '')
-    {
-        $sql = "SELECT slug FROM d_news WHERE del_flg = 0 AND slug = ?
-                UNION ALL SELECT slug FROM d_category WHERE del_flg = 0 AND slug = ? 
-                UNION ALL SELECT slug FROM d_news_category WHERE del_flg = 0 AND slug = ?
-                UNION ALL SELECT slug FROM d_product WHERE del_flg = 0 AND slug = ?";
-        $query = $this->db->query($sql, array($slug_name,$slug_name,$slug_name,$slug_name));
-        echo $this->db->last_query();die;
-        if ($query->num_rows() > 0) {
-            return TRUE;
-        }else {
-            return FALSE;
-        }
-        
-    }
 }

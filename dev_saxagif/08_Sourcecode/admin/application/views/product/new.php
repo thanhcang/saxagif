@@ -125,6 +125,7 @@
 <?php require_once(VIEW_PATH.'templates/popup/_productdistribution.php') ;?>
 <?php require_once(VIEW_PATH.'templates/popup/_tableSearchChoseProduct.php') ;?>
 <?php require_once(VIEW_PATH.'templates/popup/_tableSearchChosePartner.php') ;?>
+<?php require_once(VIEW_PATH.'templates/popup/_tableChosePartner.php') ;?>
 <script type="text/javascript" src="<?php echo base_url('common/js/ckfinder/ckfinder.js') ?>"></script>
 <script type="text/javascript" src="<?php echo base_url('common/js/ckeditor/ckeditor.js') ?>"></script>
 <script type="text/javascript">

@@ -86,7 +86,7 @@ $(document).ready(function(){
             })
             .done(function (e) {
         
-                 if (Object.keys(e).length > 0 && e.result == 0 && e.code == 500) { // is hack 
+                if (Object.keys(e).length > 0 && e.result == 0 && e.code == 500) { // is hack 
                     window.location = e.href;
                 } else if (Object.keys(e).length > 0 && e.result == 1 && e.code == 202 && type == 1) { // is success, category
                     var option = '<select name="catname" class="form-control" >';
@@ -94,7 +94,9 @@ $(document).ready(function(){
                     $.each(e.data, function(key , value){
                         option += '<optgroup label="'+key+'">';
                         $.each(value, function(t_k, t_v){
-                           option += '<option value="' + t_v.id + '">' + t_v.child_name + '</option>'; 
+                           if(t_v.level == 3){
+                               option += '<option value="' + t_v.id + '">' + t_v.child_name + '</option>'; 
+                           }
                         });
                         option += '</optgroup>';
                     });
@@ -210,51 +212,57 @@ $(document).ready(function(){
             }
         })
         .done(function(e){
-            var trData = '';
-            var tbTempSearchProduct = $('#tbTempResultSearchProduct').find('.form-group').find('table > tbody');
-            var searchProduct = $('input[name=searchProduct]');
-            var tbTempResultSearchProduct =  formProduct.find('.tbRenderProduct');
-            var trTbTempResultSearchProduct = tbTempResultSearchProduct.find('tbody > tr');
-            var is_add = true;
-            
-            // show data when search
+            if (Object.keys(e).length > 0 && e.result == 0 && e.code == 500) { // is hack 
+                window.location = e.href;
+            } else if (Object.keys(e).length > 0 && e.result == 1 && e.code == 200) { // is success, category
+                var trData = '';
+                var tbTempSearchProduct = $('#tbTempResultSearchProduct').find('.form-group').find('table > tbody');
+                var searchProduct = $('input[name=searchProduct]');
+                var tbTempResultSearchProduct = formProduct.find('.tbRenderProduct');
+                var trTbTempResultSearchProduct = tbTempResultSearchProduct.find('tbody > tr');
+                var is_add = true;
 
-            $.each(e.data, function(key, value){
-                $(trTbTempResultSearchProduct).each(function(){
-                    if ($(this).find('td').first().text() == value.name ){
-                        is_add = false;
+                // show data when search
+
+                $.each(e.data, function (key, value) {
+                    $(trTbTempResultSearchProduct).each(function () {
+                        if ($(this).find('td').first().text() == value.name) {
+                            is_add = false;
+                        }
+                    });
+                    if (is_add == true) {
+                        trData += '<tr>';
+
+                        trData += '<td>';
+                        trData += value.name;
+                        trData += '</td>';
+
+                        trData += '<td>';
+                        trData += value.product_code;
+                        trData += '</td>';
+
+                        trData += '<td class="center-text">';
+                        trData += '<button type="button" class="removeProductGift" attr-code="' + value.product_code + '"><i class="glyphicon glyphicon-remove red"></i></button>';
+                        trData += '<input type="hidden" name="pro_distribution[]" value="' + value.product_code + '" />';
+                        trData += '</td>';
+
+                        trData += '</tr>';
                     }
                 });
-                if (is_add == true) {
-                    trData += '<tr>';
 
-                    trData += '<td>';
-                    trData += value.name;
-                    trData += '</td>';
+                // render data 
+                tbTempSearchProduct.html(trData);
 
-                    trData += '<td>';
-                    trData += value.product_code;
-                    trData += '</td>';
-
-                    trData += '<td class="center-text">';
-                    trData += '<button type="button" class="removeProductGift" attr-code="' + value.product_code + '"><i class="glyphicon glyphicon-remove red"></i></button>';
-                    trData += '<input type="hidden" name="pro_distribution[]" value="' + value.product_code + '" />';
-                    trData += '</td>';
-
-                    trData += '</tr>';
+                // drawing data
+                if (tbTempResultSearchProduct.length == 0) {
+                    searchProduct.parent().parent().after($('#tbTempResultSearchProduct').html());
+                } else {
+                    tbTempResultSearchProduct.find('tbody').append(trData);
                 }
-            });
-            
-            // render data 
-            tbTempSearchProduct.html(trData);
-            
-            // drawing data
-            if (tbTempResultSearchProduct.length == 0){
-                searchProduct.parent().parent().after($('#tbTempResultSearchProduct').html());        
+                initRemoveProductGift();
             } else {
-                tbTempResultSearchProduct.find('tbody').append(trData);
+                // nothing
             }
-            initRemoveProductGift();
             $('#main_loader').addClass('hide');
         })
         .fail(function(){
@@ -296,7 +304,7 @@ $(document).ready(function(){
                     trData += '</td>';
                     
                     trData += '<td>';
-                    trData += '<input type="checkbox" value="'+value.id+'" name="sidpartner[]" />';
+                    trData += '<input type="checkbox" value="' + value.id + ','+ value.name +'" name="sidpartner[]" />';
                     trData += '</td>';
                     
                     trData += '<td>';
@@ -349,51 +357,55 @@ $(document).ready(function(){
             }
         })
         .done(function(e){
-            var trData = '';
-            var tbTempSearchProduct = $('#tbTempResultSearchPartner').find('.form-group').find('table > tbody');
-            var searchProduct = $('input[name=searchCustomer]');
-            var tbTempResultSearchProduct =  formProduct.find('.tbRenderProduct');
-            var trTbTempResultSearchProduct = tbTempResultSearchProduct.find('tbody > tr');
-            var is_add = true;
             
-            // show data when search
+            if (Object.keys(e).length > 0 && e.result == 0 && e.code == 500) { // is hack 
+                window.location = e.href;
+            } else if (Object.keys(e).length > 0 && e.result == 0 && e.code == 404) {
+            } else if (Object.keys(e).length > 0 && e.result == 1 && e.code == 200) {
+                var trData = '';
+                var tbTempSearchProduct = $('#tbTempResultSearchPartner').find('.form-group').find('table > tbody');
+                var searchProduct = $('input[name=searchCustomer]');
+                var tbTempResultSearchProduct = formProduct.find('.tbRenderPartner');
+                var trTbTempResultSearchProduct = tbTempResultSearchProduct.find('tbody > tr');
+                var is_add = true;
 
-            $.each(e.data, function(key, value){
-                $(trTbTempResultSearchProduct).each(function(){
-                    if ($(this).find('td').first().text() == value.name ){
-                        is_add = false;
+                // show data when search
+
+                $.each(e.data, function (key, value) {
+                    $(trTbTempResultSearchProduct).each(function () {
+                        if ($(this).find('td').first().text() == value.name) {
+                            is_add = false;
+                        }
+                    });
+                    if (is_add == true) {
+                        trData += '<tr>';
+
+                        trData += '<td>';
+                        trData += value.name;
+                        trData += '</td>';
+
+                        trData += '<td class="center-text">';
+                        trData += '<button type="button" class="removePartner" attr-id="' + value.id + '"><i class="glyphicon glyphicon-remove red"></i></button>';
+                        trData += '<input type="hidden" name="pro_Partner[]" value="' + value.id + '" />';
+                        trData += '</td>';
+
+                        trData += '</tr>';
                     }
                 });
-                if (is_add == true) {
-                    trData += '<tr>';
 
-                    trData += '<td>';
-                    trData += value.name;
-                    trData += '</td>';
+                // render data 
+                tbTempSearchProduct.html(trData);
 
-                    trData += '<td>';
-                    trData += value.note;
-                    trData += '</td>';
-
-                    trData += '<td class="center-text">';
-                    trData += '<button type="button" class="removePartner" attr-id="' + value.id + '"><i class="glyphicon glyphicon-remove red"></i></button>';
-                    trData += '<input type="hidden" name="pro_Partner[]" value="' + value.id + '" />';
-                    trData += '</td>';
-
-                    trData += '</tr>';
+                // drawing data
+                if (tbTempResultSearchProduct.length == 0) {
+                    searchProduct.parent().parent().after($('#tbTempResultSearchPartner').html());
+                } else {
+                    tbTempResultSearchProduct.find('tbody').append(trData);
                 }
-            });
-            
-            // render data 
-            tbTempSearchProduct.html(trData);
-            
-            // drawing data
-            if (tbTempResultSearchProduct.length == 0){
-                searchProduct.parent().parent().after($('#tbTempResultSearchPartner').html());        
+                initRemoveProductGift();
             } else {
-                tbTempResultSearchProduct.find('tbody').append(trData);
+                // nothing
             }
-            initRemoveProductGift();
             $('#main_loader').addClass('hide');
         })
         .fail(function(){
@@ -514,7 +526,21 @@ function initRemoveProductGift(){
     var tbTempResultSearchProduct =  formProduct.find('.tbRenderProduct');
     $('.removeProductGift').on('click', function(){
         $(this).parent().parent().remove();
-        console.log(tbTempResultSearchProduct.find('table > tbody').length);
+        if (tbTempResultSearchProduct.find('table > tbody > tr').length == 0){
+            tbTempResultSearchProduct.remove();
+        }
+    });
+}
+
+/**
+ * remove partner
+ * @returns {undefined}
+ */
+function initRemoveProductGift(){
+    var formProduct = $('#frmProduct');
+    var tbTempResultSearchProduct =  formProduct.find('.tbRenderPartner');
+    $('.removePartner').on('click', function(){
+        $(this).parent().parent().remove();
         if (tbTempResultSearchProduct.find('table > tbody > tr').length == 0){
             tbTempResultSearchProduct.remove();
         }

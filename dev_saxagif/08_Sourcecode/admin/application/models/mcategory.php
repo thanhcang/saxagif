@@ -106,6 +106,7 @@ class Mcategory extends MY_Model
             'parent'        => $parent,
             'create_user'   => $this->_login_user,
             'create_date'   => date('Y-m-d H:i:s'),
+            'level'         =>  $params['parent_level'] +1,
         );
         if(!empty($params['logo'])) {
             $data['logo'] = $params['logo'];
@@ -172,8 +173,29 @@ class Mcategory extends MY_Model
      */
     public function delCat($cat_id)
     {
-        $this->db->where('id', $cat_id);
-        return $this->db->update($this->_tbl_category,array('del_flg' => 1));
+        if (empty($cat_id)){
+            return FALSE;
+        }
+        
+        $where = array($cat_id, $cat_id);
+
+        $sql = "UPDATE
+                    d_category
+                SET del_flg = 1
+                WHERE
+                   parent = ?
+                OR id = ?";
+        $this->db->query($sql, $where);
+        $this->db->trans_off();
+        $this->db->trans_begin();
+
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+            return FALSE;
+        } else {
+            $this->db->trans_commit();
+            return TRUE;
+        }
     }
     
     /**
@@ -341,6 +363,7 @@ class Mcategory extends MY_Model
             'event_img' => !empty($param['event_img']) ? $param['event_img'] : '' ,
             'note' => !empty($param['note']) ? $param['note'] : '' ,
             'price' => !empty($param['price']) ? $param['price'] : '' ,
+            'level' => 1,
         );
         $this->db->insert($this->_tbl_category, $data);
     }
@@ -402,7 +425,7 @@ class Mcategory extends MY_Model
             'keyword_seo' => htmlspecialchars($param['keyword_seo']),
             'des_seo' => htmlspecialchars($param['des_seo']),
             'is_home' => !empty($param['is_home']) ? $param['is_home'] : 0,
-            'parent' => $param['parent'],
+//            'parent' => $param['parent'],
         );
         if (!empty($param['logo'])){
             $data['logo'] = htmlspecialchars($param['logo']);
@@ -423,7 +446,8 @@ class Mcategory extends MY_Model
             $sql = "SELECT
                         p.`name`,
                         c.`name` AS child_name,
-                        c.id 
+                        c.id ,
+                        c.level 
                     FROM
                           d_category c
                     INNER JOIN d_category AS p ON c.parent = p.id
@@ -432,7 +456,8 @@ class Mcategory extends MY_Model
         } else {
             $sql = "SELECT
                         c.`name`,
-                        c.id 
+                        c.id ,
+                        c.level
                     FROM
                        d_category c
                        where c.type = ? and c.del_flg = 0   
