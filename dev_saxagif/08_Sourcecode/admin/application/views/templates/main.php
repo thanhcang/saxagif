@@ -95,7 +95,7 @@
                                 </li>
                                 <li><a class="ajax-link" href="<?php echo base_url('news') ?>"><i
                                             class="glyphicon glyphicon-edit"></i><span> Tin tức</span></a></li>
-                                <li><a class="ajax-link" href="customer_opinion.html"><i class="glyphicon glyphicon-comment"></i><span> Ý kiến khách hàng</span></a>
+                                            <li><a class="ajax-link" href="<?php echo base_url('commentCustomer'); ?>"><i class="glyphicon glyphicon-comment"></i><span> Ý kiến khách hàng</span></a>
                                 </li>
                                 <li><a class="ajax-link" href="manager_banner"><i class="glyphicon glyphicon-book"></i><span> Banner</span></a>
                                 </li>

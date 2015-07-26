@@ -104,6 +104,7 @@ class Mcategory extends MY_Model
             'bg_color'      => !empty($params['bg_color']) ? $params['bg_color'] : '' ,
             'language_type' => (int)$params['language_type'],
             'parent'        => $parent,
+            'note'          => !empty($params['note']) ? $params['note'] : '' ,
             'create_user'   => $this->_login_user,
             'create_date'   => date('Y-m-d H:i:s'),
             'level'         =>  $params['parent_level'] +1,
@@ -424,6 +425,7 @@ class Mcategory extends MY_Model
             'bg_color' => htmlspecialchars($param['bg_color']),
             'keyword_seo' => htmlspecialchars($param['keyword_seo']),
             'des_seo' => htmlspecialchars($param['des_seo']),
+            'note' => htmlspecialchars($param['note']),
             'is_home' => !empty($param['is_home']) ? $param['is_home'] : 0,
 //            'parent' => $param['parent'],
         );

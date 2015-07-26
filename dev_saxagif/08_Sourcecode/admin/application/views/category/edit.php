@@ -38,6 +38,10 @@
                         <label for="slug"><?php echo $this->lang->line('SLUG') ?></label>
                         <input type="text" name="slug" id="slug" class="form-control" class="" value="<?php  if(!empty($params['slug'])) echo htmlspecialchars($params['slug']) ; else echo ''; ?>" maxlength="255" placeholder="slug( URL Seo )" />
                     </div>
+                    <div class="form-group">
+                        <label>Mô tả ngắn</label>
+                        <textarea placeholder="Nhập nội dung mô tả ngắn" class="form-control" name="note"><?php  if(!empty($params['note'])) echo htmlspecialchars($params['note']) ; else echo ''; ?></textarea>
+                    </div>
                     <div class="control-group bg_color">
                         <label for="bg_color"><?php echo $this->lang->line('CAT_BACKGROUND_COLOR') ?></label>
                         <input type="text" name="bg_color" id="bg_color" readonly="readonly" class="form-control noEnter" value="<?php  echo !empty($params['bg_color']) ? htmlspecialchars($params['bg_color']) :''   ?>" maxlength="7" />

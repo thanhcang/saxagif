@@ -39,6 +39,10 @@
                         <label><?php echo $this->lang->line('SLUG') ?><span class="text-danger">*</span></label>
                         <input type="text" name="slug" class="form-control input-sm noEnter" id="slug" value="<?php if(!empty($params['slug'])) echo html_escape($params['slug']) ?>" maxlength="255" />
                     </div>
+                    <div class="form-group">
+                        <label>Mô tả ngắn</label>
+                        <textarea placeholder="Nhập nội dung mô tả ngắn" class="form-control" name="note"></textarea>
+                    </div>
                     <div class="form-group bg_color">
                         <label><?php echo $this->lang->line('CAT_BACKGROUND_COLOR') ?></label>
                         <input type="text" name="bg_color" readonly="readonly" class="form-control input-sm noEnter" id="bg_color" value="<?php if(!empty($params['bg_color'])) echo html_escape($params['bg_color']) ?>" maxlength="7" />
