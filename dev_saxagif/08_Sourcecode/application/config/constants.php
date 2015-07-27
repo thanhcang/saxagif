@@ -84,9 +84,15 @@ define('COMPANY_NAME', 'SAXA GROUP co., ltd');
 define('PROMOTION', 1);
 define('CATEGORY_PARENT', 1);
 define('CATEGORY_CHILD', 2);
-define('URL_PRODUCT_IMAGE', 'common/multidata/product_img/');
+define('URL_PRODUCT_IMAGE', 'admin/common/multidata/product_img/');
+define('URL_PRODUCT_THUMB_IMAGE', 'admin/common/multidata/product_img/thumb/');
+define('URL_CATEGORY_IMAGE', 'admin/common/multidata/cat_logo/');
 define('URL_IMAGES', 'common/images/');
 define('URL_SLIDESHOW_IMAGE', 'common/multidata/slideshow/');
+define('GIFT_LUXURIOUS', 1);
+define('GIFT_IMPRESSIVE', 2);
+define('GIFT_EFFECTIVE', 3);
+define('GIFT_EASY', 4);
 // No change
 define('SALT', 'saxagifts!$23');
 

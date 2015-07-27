@@ -53,7 +53,7 @@
     <ul id="scroller" class="scroller">
         <?php if(!empty($list_gift)): ?>
         <?php foreach ($list_gift as $gift): ?>
-        <li><a href="<?php echo base_url($gift['slug']) ?>"><img src="<?php echo url_img('admin/common/multidata/product_img/thumb/', $gift['image_name']) ?>" /></a></li>
+        <li><a href="<?php echo base_url($gift['slug']) ?>"><img src="<?php echo url_img(URL_CATEGORY_IMAGE, $gift['image_name']) ?>" /></a></li>
         <?php endforeach; ?>
         <?php endif ?>
     </ul>

@@ -114,7 +114,7 @@
         <script type="text/javascript" src="<?php echo base_url ('common/js/jquery.popup.js') ?>"></script>
         <script type="text/javascript">
             $(function() {
-                $(".js__p_start, .js__p_another_start").simplePopup();
+                //$(".js__p_start, .js__p_another_start").simplePopup();
             });
         </script>
         <!--=============simplyscroll=============-->

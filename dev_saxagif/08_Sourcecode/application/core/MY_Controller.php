@@ -4,12 +4,17 @@ class MY_Controller extends CI_Controller
 {
     protected $data = array();
     protected $langs = array();
+    private $_ajax = false;
     var $_className = array();
             
     function __construct()
     {
         parent::__construct();
         
+        //check ajax request?
+        if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+            $this->_ajax = true;
+        }
         // Set language:
         if ($this->session->userdata('ses_language')) {
             $this->langs = $this->session->userdata('ses_language');
@@ -28,7 +33,7 @@ class MY_Controller extends CI_Controller
         $this->data['cat_product'] = $this->category_model->getCategoryProduct();
         // Get news category show position page:
         $this->data['news_cat_position'] = $this->category_news_model->getCatNewsShowPage($lang = LANG_VN);
-        // Show setting footet
+        // Show setting footer
         $this->data['setting_footer'] = $this->home_model->getSettingFooter($lang = LANG_VN);
         // Get gift saxa:
         $this->data['list_gift'] = $this->home_model->getGift();
@@ -40,7 +45,7 @@ class MY_Controller extends CI_Controller
         $this->data['method'] = $this->router->method;
         
         // get controller : class name
-        if ($this->router->class != 'home'){
+        if ($this->router->class != 'home' || !$this->input->is_ajax_request()){
             $this->_className = $this->checkSlug();
         }
         
