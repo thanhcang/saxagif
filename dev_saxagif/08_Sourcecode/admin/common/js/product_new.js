@@ -419,6 +419,7 @@ $(document).ready(function(){
         var iProduct_code = $('input[name=product_code]');
         var iName = $('input[name=name]');
         var iType = $('select[name=type]');
+        
         var iSubmit = true;
         var errorMessage = '';
         

@@ -66,6 +66,8 @@ $(document).ready(function(){
     
     // noComma
     initNoAcceptcommaKeyCommon();
+    // background color
+    setBgColor();
 });
 
 /**
@@ -172,4 +174,17 @@ function initNoAcceptcommaKeyCommon() {
             return false;
         }
     });
+}
+
+/**
+ * color back ground
+ * @returns {undefined}
+ */
+function setBgColor() {
+    var bg_color = $('#bg_color');
+    if(bg_color.length) {
+        $('#bg_color').colorpicker({
+            hideButton: true
+        });
+    }
 }

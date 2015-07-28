@@ -20,6 +20,10 @@ $lang['mess_thank_customer'] = 'Cảm ơn bạn đã chia sẻ với SAXA<br/>
 $lang['products_saxa'] = 'Sản phẩm của saxa';
 $lang['view_more'] = 'Xem thêm';
 
+$lang['CUSTOMER_STORY'] = 'Câu chuyện khách hàng';
+$lang['SHARE_CONNECT'] = 'Chia sẻ và kết nối';
+$lang['SHARE_FUNNY'] = 'Truyền cảm hứng';
+
 // Detail product
 $lang['pro_price'] = 'Giá';
 $lang['material'] = 'Chất liệu';

@@ -111,22 +111,19 @@ class News extends MY_Controller
             $this->_validate($params, $error);
             if(empty($error)){
                 
-                $checkUpload = $this->uploadPhoto($_FILES['avatar'], 'avatar', TEMP_PATH, TRUE, $maxWidth = 1366, $maxHeight = 768, $maxSize = 200000 );
+                $checkUpload = $this->uploadPhoto($_FILES['avatar'], 'avatar', IMAGE_NEWS_PATH, TRUE, $maxWidth = 1366, $maxHeight = 768, $maxSize = 200000 );
                 if ($checkUpload) {
                     // Get logo name:
                     $params['avatar'] = $checkUpload;
-                    if ($this->resizePhoto($checkUpload, $width = IMAGE_WIDTH_300, $height = IMAGE_HEIGHT_300, TEMP_PATH, IMAGE_NEWS_PATH)) {
-                        // Remove tmp file:
-                        $tmpFile = TEMP_PATH . $checkUpload;
-                        if (file_exists($tmpFile)) {
-                            $fh = fopen($tmpFile, "rb");
-                            $imgData = fread($fh, filesize($tmpFile));
-                            fclose($fh);
-                            unlink($tmpFile);
-                        }
+                    
+                    $is_resize = $this->resizePhoto($checkUpload, IMAGE_WIDTH_300, IMAGE_HEIGHT_300, IMAGE_NEWS_PATH);
+                    if ($is_resize != TRUE) { // not resize
+                        $error[] = 'Không xử lý được file ảnh <br/> vui lòng kiểm tra lại';
                     }    
+                } else {
+                    $error[] = 'File ảnh chưa được up <br/> vui lòng kiểm tra lại';
                 }
-                
+
                 // check slug common
                 if (empty($error)) {
                     if (!empty($params['txtSlug'])){
@@ -384,7 +381,7 @@ class News extends MY_Controller
         $this->load->library('form_validation');
 
         // Set rules:
-        $this->form_validation->set_rules("txtTitle", $this->lang->line('NEWS_MISSING_TITLE_EMPTY'),"required|trim|max_length[255]|callback__checkExistTitle");
+        $this->form_validation->set_rules("txtTitle","Nhập tiêu đề","required|trim|max_length[255]|callback__checkExistTitle");
         $this->form_validation->set_rules("description", 'Nhập mô tả', "required|trim|max_length[3000]");
         $this->form_validation->set_rules("content", 'Nhập nội dung ', "trim|required");
         $this->form_validation->set_rules("catNews", $this->lang->line('NEWS_CAT'),  "trim|integer|max_length[11]");
@@ -410,7 +407,7 @@ class News extends MY_Controller
     {
         if (empty($_POST['partners_id'])) {
             if ($this->mnews->checkExistTitle($_POST['txtTitle'])) {
-                $this->form_validation->set_message('_checkExistTitle', $this->lang->line('PAR_MISSING_EXIST_NAME'));
+                $this->form_validation->set_message('_checkExistTitle', 'Tiêu đề đã tồn tại');
                 return FALSE;
             } else {
                 return TRUE;
@@ -420,4 +417,3 @@ class News extends MY_Controller
         }
     }
 }
-

@@ -5,7 +5,7 @@
                 <h2><i class="glyphicon glyphicon-list-alt"></i> <?php echo $this->lang->line('CAT_TITLE_EDIT') ?></h2>
             </div>
             <div class="box-content">
-                <form name="frmCategory" id="frmCategory" method="POST" action="<?php echo base_url('category_news/edit/' . $detailCatNews['id']) ?>">
+                <form name="frmCategory" id="frmCategory" method="POST" action="<?php echo base_url('category_news/edit/' . $detailCatNews['id']) ?>" enctype="multipart/form-data">
                     <?php if(!empty($cat_news_errors)): ?>
                     <div class="error">
                         <ul>
@@ -36,9 +36,10 @@
                         <label for="slug"><?php echo $this->lang->line('SLUG') ?><span class="text-danger">*</span></label>
                         <input type="text" name="slug" id="slug" class="form-control" class="" value="<?php  if(!empty($detailCatNews['slug']) && empty($params['slug'])) echo htmlspecialchars($detailCatNews['slug']) ;elseif(!empty($params['slug'])) echo htmlspecialchars($params['slug']) ?>" maxlength="255" placeholder="slug( URL Seo )" />
                     </div>
+                    
                     <div class="form-group">
                         <label><?php echo $this->lang->line('CAT_NEWS_POSITION') ?></label>
-                        <select name="position" class="form-control">
+                        <select name="position" class="form-control" disabled="disabled">
                             <option value="">&nbsp;</option>
                             <?php if(!empty($position)): ?>
                             <?php foreach ($position as $key=>$value): ?>
@@ -46,6 +47,34 @@
                             <?php endforeach; ?>
                             <?php endif ?>
                         </select>
+                    </div>
+                    <?php if($detailCatNews['position'] == 1): ?>
+                    <div class="form-group imageSlide">
+                        <label>Hình slideshow</label>
+                        <input type="file" name="avatar">
+                    </div>
+                    <?php if(!empty($detailCatNews['avatar'])): ?>
+                    <div class="form-group imageSlide">
+                        <img src="<?php echo base_url('common/multidata/slideshow'.'/'.$detailCatNews['avatar']); ?>" style="width: 50%" />
+                    </div>
+                    <?php endif ?>
+                    
+                    <?php endif ?>
+                    <?php if(in_array($detailCatNews['position'],array(2,3,4))): ?>
+                    <div class="form-group imageSlide">
+                        <label>Ảnh  đại diện</label>
+                        <input type="file" name="avatar">
+                    </div>
+                    <?php if(!empty($detailCatNews['avatar'])): ?>
+                    <div class="form-group imageSlide">
+                        <img src="<?php echo base_url('common/multidata/cat_news'.'/'.$detailCatNews['avatar']); ?>" style="width: 50%" />
+                    </div>
+                    <?php endif ?>
+                    <?php endif ?>
+                    
+                    <div class="form-group desSlide">
+                        <label>Mô tả ngắn</label>
+                        <textarea placeholder="Nhập nội dung mô tả ngắn" class="form-control noEnter" name="title"><?php echo ( !empty($params['title'])) ? $params['title'] : (!empty($detailCatNews['title']) ? $detailCatNews['title'] : '' ) ?></textarea>
                     </div>
                     <div class="form-group">
                         <label for="keyword_seo"><?php echo $this->lang->line('KEYWORD_SEO') ?></label>

@@ -42,6 +42,37 @@ class Category_news extends MY_Controller
             // Set rules:
             $this->_validate($params, $error);
             if (empty($error)) {
+                
+                // upload avatar
+                if ($params['position'] == 1) {
+                    if (!empty($_FILES['avatar']['name'])) {
+                        $checkUpload = $this->uploadPhoto($_FILES['avatar'], 'avatar', URL_IMAGE_SLIDE_CATEGORY, TRUE, $maxWidth = 1366, $maxHeight = 768, $maxSize = 200000);
+                        if ($checkUpload) {
+                            $params['avatar'] = $checkUpload; // Get logo name:
+                            $is_resize = $this->resizePhoto($checkUpload, 923, 376, URL_IMAGE_SLIDE_CATEGORY);
+                            if ($is_resize != TRUE) { // not resize
+                                $error[] = 'Không xử lý được file ảnh <br/> vui lòng kiểm tra lại';
+                            }
+                        } else {
+                            $error[] = 'File ảnh chưa được up <br/> vui lòng kiểm tra lại';
+                        }
+                    }
+                } else {
+                    if (!empty($_FILES['avatar']['name'])) {
+                        $checkUpload = $this->uploadPhoto($_FILES['avatar'], 'avatar', IMAGE_CAT_NEWS_PATH, TRUE, $maxWidth = 1366, $maxHeight = 768, $maxSize = 200000);
+                        if ($checkUpload) {
+                            $params['avatar'] = $checkUpload; // Get logo name:
+                            $is_resize = $this->resizePhoto($checkUpload, 198, 97, IMAGE_CAT_NEWS_PATH);
+                            if ($is_resize != TRUE) { // not resize
+                                $error[] = 'Không xử lý được file ảnh <br/> vui lòng kiểm tra lại';
+                            }
+                        } else {
+                            $error[] = 'File ảnh chưa được up <br/> vui lòng kiểm tra lại';
+                        }
+                    }
+                } 
+                
+                
                 // check slug common
                 if (empty($error)) {
                     if (!empty($param['slug'])){
@@ -149,13 +180,49 @@ class Category_news extends MY_Controller
                     'javascript:;' => 'Cập nhật',
                     '#' => $detailCatNews['name']),
             );
+            $position = $detailCatNews['position'];
+            $avatar = $detailCatNews['avatar'];
             $old_slug = $detailCatNews['slug'];
             
             if ($this->input->post()) {
                 $params = $this->input->post();
-                $this->_validate($params, $error);
+                $this->_validate($params, $error, TRUE);
                 
                 if (empty($error)) {
+                    
+                    // upload avatar
+                    if ($position == 1) {
+                        if (!empty($_FILES['avatar']['name'])) {
+                            $checkUpload = $this->uploadPhoto($_FILES['avatar'], 'avatar', URL_IMAGE_SLIDE_CATEGORY, TRUE, $maxWidth = 1366, $maxHeight = 768, $maxSize = 200000);
+                            if ($checkUpload) {
+                                $params['avatar'] = $checkUpload; // Get logo name:
+                                $is_resize = $this->resizePhoto($checkUpload, 923, 376, URL_IMAGE_SLIDE_CATEGORY);
+                                if ($is_resize != TRUE) { // not resize
+                                    $error[] = 'Không xử lý được file ảnh <br/> vui lòng kiểm tra lại';
+                                } else {
+                                    unlink(URL_IMAGE_SLIDE_CATEGORY.$avatar);
+                                }
+                            } else {
+                                $error[] = 'File ảnh chưa được up <br/> vui lòng kiểm tra lại';
+                            }
+                        }
+                    } else {
+                        if (!empty($_FILES['avatar']['name'])) {
+                            $checkUpload = $this->uploadPhoto($_FILES['avatar'], 'avatar', IMAGE_CAT_NEWS_PATH, TRUE, $maxWidth = 1366, $maxHeight = 768, $maxSize = 200000);
+                            if ($checkUpload) {
+                                $params['avatar'] = $checkUpload; // Get logo name:
+                                $is_resize = $this->resizePhoto($checkUpload, 198,97, IMAGE_CAT_NEWS_PATH);
+                                if ($is_resize != TRUE) { // not resize
+                                    $error[] = 'Không xử lý được file ảnh <br/> vui lòng kiểm tra lại';
+                                } else {
+                                    unlink(IMAGE_CAT_NEWS_PATH.$avatar);
+                                }
+                            } else {
+                                $error[] = 'File ảnh chưa được up <br/> vui lòng kiểm tra lại';
+                            }
+                        }
+                    }
+
                     // check slug common    
                     if (empty($error)) {
                         if ($old_slug != $params['slug']) {
@@ -310,7 +377,9 @@ class Category_news extends MY_Controller
         $this->form_validation->set_rules("language_type", $this->lang->line('PRO_MISSING_PRICE_INVALID'), "required|trim|integer|max_length[1]");
         $this->form_validation->set_rules("keyword_seo", $this->lang->line('PRO_DESCRIPTION'),  "trim|max_length[255]");
         $this->form_validation->set_rules("des_seo", $this->lang->line('PRO_CONTENT'),"trim|max_length[255]");
-        $this->form_validation->set_rules("position", $this->lang->line('CAT_NEWS_MISSING_POSITION_EMPTY'),  "trim|max_length[2]|integer|required");
+        if (!empty($action)){
+            $this->form_validation->set_rules("position", $this->lang->line('CAT_NEWS_MISSING_POSITION_EMPTY'),  "trim|max_length[2]|integer|required");
+        }
         // Set Message:
         $this->form_validation->set_message('required', '%s');
         //Validate

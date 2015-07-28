@@ -29,7 +29,7 @@ function getSendMail() {
         } else {
             _txtCustomer = _customerName.val();
         }
-        if(_rel) {
+        if(_rel == true) {
             $.ajax({
                 url: URL_SEND_MAIL_CUSTOMER,
                 type: 'POST',
@@ -40,11 +40,12 @@ function getSendMail() {
                 async: false,
             })
             .done(function(e){
-                if(e.length != null )
-                //$(".js__p_start, .js__p_another_start").simplePopup();
-                $('.js__p_start').trigger('click');
+                if(e.length != null ){
+                    _mail.val('');
+                    _customerName.val('');
+                    $(".js__p_start, .js__p_another_start").simplePopup();
+                }
             });
-            //$(".js__p_start, .js__p_another_start").simplePopup();
         }
         
     });

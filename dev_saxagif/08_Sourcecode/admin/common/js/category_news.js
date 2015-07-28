@@ -1,6 +1,5 @@
 $(document).ready(function(){
     
-    
     $(".delCatNews").on('click', function(){
         var trActive = $(this).parent().parent(); 
         var cat_id = $(this).attr('cat_attr');
@@ -17,6 +16,34 @@ $(document).ready(function(){
         var _catNewsId = $(this).attr('attrCatNews');
         showDetailCatNews(_catNewsId);
     });
+    
+    // cangtv add code start 20150728
+    var position = $('select[name=position]');
+    position.on('change', function(){
+        $('.imageSlide').remove();
+        
+        var valuePosition = $(this).find('option:selected').val();
+        
+        if (valuePosition.trim() && valuePosition != 'undefined' && valuePosition == 1){
+            
+            var image_html = '<div class="form-group imageSlide">';
+            image_html += '<label>Hình slideshow</label>';
+            image_html += '<input type="file" name="avatar">';
+            image_html += '</div>';
+            
+            $(this).parent().after(image_html);
+        } else if (valuePosition.trim() && valuePosition != 'undefined' && (valuePosition == 2 || valuePosition == 3 || valuePosition == 4)) {
+                var image_html = '<div class="form-group imageSlide">';
+                image_html += '<label>Ảnh đại diện</label>';
+                image_html += '<input type="file" name="avatar">';
+                image_html += '</div>';
+
+                $(this).parent().after(image_html);
+        }
+        
+    });
+    // cangtv add code start 20150728
+    
 });
 
 function showDetailCatNews(catNewsId) {

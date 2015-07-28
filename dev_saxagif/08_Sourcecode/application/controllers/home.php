@@ -21,9 +21,41 @@ class Home extends MY_Controller
         
         // Get news position right:
         $this->data['news_home'] = $this->home_model->getNewsByHome($this->langs);
-        // Get customer slide home:
-        $this->data['customers'] = $this->home_model->getCustomer($this->langs);
-        //echo '<pre>';        print_r($this->data['news_cat_position']);exit;
+        // get category news by footer
+        $categoryFooter = $this->home_model->getNewsCategroyFooter(5,$this->langs);
+        $categoryFooter2 = $this->home_model->getNewsCategroyFooter(7,$this->langs);
+        $categoryFooter3= $this->home_model->getNewsCategroyFooter(8,$this->langs);
+        
+        // get article by footer
+        if (!empty($categoryFooter)){
+            $articleFooter = $this->home_model->getArticleFooter($categoryFooter['id'], $this->langs);
+            $this->data['articleFooter'] = $articleFooter ;
+        }
+        
+        if (!empty($categoryFooter2)){
+            $articleFooter = $this->home_model->getArticleFooter($categoryFooter2['id'], $this->langs);
+            $this->data['articleFooter2'] = $articleFooter ;
+        }
+        
+        if (!empty($categoryFooter3)){
+            $articleFooter = $this->home_model->getArticleFooter($categoryFooter3['id'], $this->langs);
+            $this->data['articleFooter3'] = $articleFooter ;
+        }
+        
+        $this->data['categoryFooter'] = $categoryFooter;
+        $this->data['categoryFooter2'] = $categoryFooter2;
+        $this->data['categoryFooter3'] = $categoryFooter3;
+         
+        // menu left 1
+        $this->data['menu_left_1'] = $this->home_model->getMenuPosition(2,1,$this->langs);
+        // menu left 2
+        $this->data['menu_left_2'] = $this->home_model->getMenuPosition(4,3,$this->langs);
+        
+        // menu right
+        
+        //
+        
+        // render html
         $this->render('home/index_view');
     }
     

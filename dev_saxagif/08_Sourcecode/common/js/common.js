@@ -85,7 +85,7 @@ jQuery(function($) {
     });
 
     window.prettyPrint && prettyPrint();
-    $('.wrapper').scrollbar();
+//    $('.wrapper').scrollbar();
 });
 function showMask(id) {
     document.getElementById(id).style.display = 'block';

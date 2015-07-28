@@ -42,15 +42,31 @@ class Category extends MY_Controller {
             $this->_validate($param, $error);
             if (empty($error)) { // new category
                 if (!empty($_FILES['event_img']['name'])) {
-                    $checkUpload = $this->uploadPhoto($_FILES['event_img'], 'event_img', URL_IMAGE_SLIDE_CATEGORY, TRUE, 1366, 768, $maxSize = 200000);
-                    if ($checkUpload) {
-                        $param['event_img'] = $checkUpload; // Get logo name:
-                        $is_resize = $this->resizePhoto($checkUpload,  923,  376, URL_IMAGE_SLIDE_CATEGORY);
-                        if ($is_resize != TRUE) { // not resize
-                            $error[] = 'Không xử lý được file ảnh <br/> vui lòng kiểm tra lại';
+                    if ($param['type'] == 2){
+                        $checkUpload = $this->uploadPhoto($_FILES['event_img'], 'event_img', URL_IMAGE_SLIDE_CATEGORY, TRUE, 1366, 768, $maxSize = 200000);
+                        if ($checkUpload) {
+                            $param['event_img'] = $checkUpload; // Get logo name:
+                            $is_resize = $this->resizePhoto($checkUpload, 923, 376, URL_IMAGE_SLIDE_CATEGORY);
+                            if ($is_resize != TRUE) { // not resize
+                                $error[] = 'Không xử lý được file ảnh <br/> vui lòng kiểm tra lại';
+                            }
+                        } else {
+                            $error[] = 'File ảnh chưa được up <br/> vui lòng kiểm tra lại';
                         }
                     } else {
-                        $error[] = 'File ảnh chưa được up <br/> vui lòng kiểm tra lại';
+                        $checkUpload = $this->uploadPhoto($_FILES['event_img'], 'event_img', IMAGE_CATEGORY_PATH, TRUE, 1366, 768, $maxSize = 200000);
+                        if ($checkUpload) {
+                            
+                            $param['event_img'] = $checkUpload; // Get logo name:
+                            $param['logo'] = $checkUpload; // Get logo name:
+                            
+                            $is_resize = $this->resizePhoto($checkUpload, 357, 237 , IMAGE_CATEGORY_PATH);
+                            if ($is_resize != TRUE) { // not resize
+                                $error[] = 'Không xử lý được file ảnh <br/> vui lòng kiểm tra lại';
+                            }
+                        } else {
+                            $error[] = 'File ảnh chưa được up <br/> vui lòng kiểm tra lại';
+                        }
                     }
                 }
                 
@@ -76,7 +92,7 @@ class Category extends MY_Controller {
                     $this->db->trans_begin();
                     $this->mcategory->addParentCategory($param);
                     //insert slug common
-                    $slug_insert  =  !empty($params['slug']) ? slug_convert($params['slug']) : slug_convert($params['name']);
+                    $slug_insert  =  !empty($param['slug']) ? slug_convert($param['slug']) : slug_convert($param['name']);
                     $this->mcommon->createSlug($slug_insert,'d_category', 'category');
                     
                     if ($this->db->trans_status() === FALSE) {
@@ -190,6 +206,7 @@ class Category extends MY_Controller {
             'typeCategory' => $this->config->item('typeCategory'),
             'language_type' => $this->config->item('language_type'),
         );
+        $type = $param['type'];
         $event_img = $param['event_img'];
         $old_slug = $param['slug'];
         
@@ -205,21 +222,44 @@ class Category extends MY_Controller {
             $error = array();
             $this->_validateUpdateCategory($param, $error);
             if (empty($error)){
-                if (!empty($_FILES['event_img']['name'])) {
-                    $checkUpload = $this->uploadPhoto($_FILES['event_img'], 'event_img', URL_IMAGE_SLIDE_CATEGORY, TRUE, 1366, 768, $maxSize = 200000);
-                    if ($checkUpload) {
-                        $param['event_img'] = $checkUpload; // Get logo name:
-                        $is_resize = $this->resizePhoto($checkUpload,  923,  376, URL_IMAGE_SLIDE_CATEGORY);
-                        if ($is_resize != TRUE) { // not resize
-                            $error[] = 'Không xử lý được file ảnh <br/> vui lòng kiểm tra lại';
+                
+                // upload image
+                if ($type == 2) {
+                    if (!empty($_FILES['event_img']['name'])) {
+                        $checkUpload = $this->uploadPhoto($_FILES['event_img'], 'event_img', URL_IMAGE_SLIDE_CATEGORY, TRUE, 1366, 768, $maxSize = 200000);
+                        if ($checkUpload) {
+                            $param['event_img'] = $checkUpload; // Get logo name:
+                            $is_resize = $this->resizePhoto($checkUpload, 923, 376, URL_IMAGE_SLIDE_CATEGORY);
+                            if ($is_resize != TRUE) { // not resize
+                                $error[] = 'Không xử lý được file ảnh <br/> vui lòng kiểm tra lại';
+                            } else {
+                                unlink(IMAGE_CATEGORY_PATH . $event_img);
+                            }
                         } else {
-                            unlink(URL_IMAGE_SLIDE_CATEGORY.$event_img);
+                            $error[] = 'File ảnh chưa được up <br/> vui lòng kiểm tra lại';
                         }
-                    } else {
-                        $error[] = 'File ảnh chưa được up <br/> vui lòng kiểm tra lại';
+                    }
+                } else {
+                    if (!empty($_FILES['event_img']['name'])) {
+                        $checkUpload = $this->uploadPhoto($_FILES['event_img'], 'event_img', IMAGE_CATEGORY_PATH, TRUE, 1366, 768, $maxSize = 200000);
+
+                        if ($checkUpload) {
+
+                            $param['event_img'] = $checkUpload; // Get logo name:
+                            $param['logo'] = $checkUpload; // Get logo name:
+
+                            $is_resize = $this->resizePhoto($checkUpload, 357, 237, IMAGE_CATEGORY_PATH);
+                            if ($is_resize != TRUE) { // not resize
+                                $error[] = 'Không xử lý được file ảnh <br/> vui lòng kiểm tra lại';
+                            } else {
+                                unlink(IMAGE_CATEGORY_PATH . $event_img);
+                            }
+                        } else {
+                            $error[] = 'File ảnh chưa được up <br/> vui lòng kiểm tra lại';
+                        }
                     }
                 }
-                
+
                 // check slug common    
                 if (empty($error)) {
                     if ($old_slug != $param['slug']) {

@@ -1,3 +1,5 @@
+<link rel="stylesheet" type="text/css" href="<?php echo base_url('common/css/evol.colorpicker.min.css') ?>" />
+<script type="text/javascript" src="<?php echo base_url('common/js/evol.colorpicker.min.js') ?>"></script>
 <div class="row">    
     <div class="box col-md-8">
         <div class="box-inner">
@@ -42,23 +44,46 @@
                     </div>
                     <?php if (!empty($param['type']) && $param['type'] == 3 ): ?>
                     <div class="form-group">
+                        <label>Ảnh đại diện</label>
+                        <input type="file" name="event_img" />
+                    </div>
+                    <?php if (!empty($event_img)) : ?>
+                    <div class="form-group">                        
+                        <div>
+                            <img style="width: 50%" src="<?php echo base_url('common/multidata/cat_logo'.'/'.$event_img)?>" />
+                        </div>
+                    </div>
+                    
+                    <div class="form-group bg_color">
+                        <label><?php echo $this->lang->line('CAT_BACKGROUND_COLOR') ?></label>
+                        <input type="text" name="bg_color" readonly="readonly" class="form-control input-sm noEnter" id="bg_color" value="<?php echo !empty($param['bg_color']) ? $param['bg_color'] : ''  ?>" maxlength="7" />
+                    </div>
+                    
+                    <?php endif ?>
+                    <div class="form-group">
                         <label>Hiển thị trang chủ</label>
                         <input value="1" name="is_home" type="checkbox" <?php echo !empty($param['is_home']) ? 'checked' : ''; ?> />
                     </div>
                     <?php endif ?>
+                    
                     <?php if (!empty($param['type']) && $param['type'] == 2  ) : ?>
                     <div class="form-group">
                         <label>Hình slideshow</label>
                         <input type="file" name="event_img" />
                     </div>
-                    <?php endif ?>
-                    <?php if (!empty($event_img) && !empty($param['type']) && $param['type'] == 2) : ?>
+                    <?php if (!empty($event_img)) : ?>
                     <div class="form-group">                        
                         <div>
-                            <img src="<?php echo base_url('common/multidata/slide'.'/'.$event_img)?>" />
+                            <img style="width: 50%" src="<?php echo base_url('common/multidata/slideshow'.'/'.$event_img)?>" />
                         </div>
                     </div>
                     <?php endif ?>
+                    <div class="form-group">
+                        <label>Hiển thị trang chủ</label>
+                        <input value="1" name="is_home" type="checkbox" <?php echo !empty($param['is_home']) ? 'checked' : ''; ?> />
+                    </div>
+                    <?php endif ?>
+                    
                     <div class="form-group">
                         <label>Mô tả ngắn</label>
                         <textarea name="note" class="form-control" placeholder="Nhập mô tả ngắn"><?php echo !empty($param['note']) ? htmlspecialchars($param['note']) : '' ; ?></textarea>

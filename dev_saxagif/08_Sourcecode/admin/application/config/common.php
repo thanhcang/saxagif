@@ -44,11 +44,14 @@ $config['page'] = array(
 );
 
 $config['position'] = array(
+    6 => 'Header',
     1 => 'Slide show',
     2 => 'Left menu 1',
     3 => 'Left menu 2',
     4 => 'Right menu 1',
-    5 => 'Footer'
+    5 => 'Footer 1',
+    7 => 'Footer 2',
+    8 => 'Footer 3',
  );
 $config['typeCategory'] = array(
     1=>'danh mục sản phẩm',

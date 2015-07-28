@@ -8,7 +8,7 @@
                 <h2><i class="glyphicon glyphicon-list-alt"></i><?php echo $this->lang->line('NEW_ADD') ?></h2>
             </div>
             <div class="box-content">
-                <form name="frmCategoryNews" id="frmCategoryNews" method="POST" action="<?php echo base_url('category_news') ?>">
+                <form name="frmCategoryNews" id="frmCategoryNews" method="POST" action="<?php echo base_url('category_news') ?>" enctype="multipart/form-data">
                     <?php if(!empty($cat_news_errors)): ?>
                     <div class="error">
                         <ul>
@@ -43,10 +43,14 @@
                             <option value="">&nbsp;</option>
                             <?php if(!empty($position)): ?>
                             <?php foreach ($position as $key=>$value): ?>
-                            <option value="<?php echo $k ?>" <?php if(!empty($params['position']) && $params['position'] == $key ) echo 'selected' ?>><?php echo $value ?></option>
+                            <option value="<?php echo $key ?>" <?php if(!empty($params['position']) && $params['position'] == $key ) echo 'selected' ?>><?php echo $value ?></option>
                             <?php endforeach; ?>
                             <?php endif ?>
                         </select>
+                    </div>
+                    <div class="form-group desSlide">
+                        <label>Mô tả ngắn</label>
+                        <textarea name="title" class="form-control noEnter" placeholder="Nhập nội dung mô tả ngắn"><?php echo !empty($params['title']) ? $params['title'] : '' ?></textarea>
                     </div>
                     <div class="form-group">
                         <label><?php echo $this->lang->line('KEYWORD_SEO') ?></label>

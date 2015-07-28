@@ -362,9 +362,11 @@ class Mcategory extends MY_Model
             'create_user' => $this->_login_user,
             'create_date' => date('Y-m-d H:i:s'),
             'event_img' => !empty($param['event_img']) ? $param['event_img'] : '' ,
+            'logo' => !empty($param['logo']) ? $param['logo'] : '' ,
             'note' => !empty($param['note']) ? $param['note'] : '' ,
             'price' => !empty($param['price']) ? $param['price'] : '' ,
             'level' => 1,
+            'bg_color' => !empty($param['bg_color']) ? $param['bg_color'] : '' ,
         );
         $this->db->insert($this->_tbl_category, $data);
     }
@@ -385,9 +387,19 @@ class Mcategory extends MY_Model
           'slug' => !empty($param['name']) ? slug_convert($param['slug']) : slug_convert($param['name']),  
           'note' => !empty($param['note']) ? htmlspecialchars($param['note']) : '',  
         );
+        
         if (!empty($param['event_img'])){
             $data['event_img'] = $param['event_img'];
         }
+        
+        if (!empty($param['logo'])){
+            $data['logo'] = $param['logo'];
+        }
+        
+        if (!empty($param['bg_color'])){
+            $data['bg_color'] = $param['bg_color'];
+        }
+        
         $this->db->where($where);
         $this->db->update($this->_tbl_category, $data);
     }
