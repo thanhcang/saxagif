@@ -9,7 +9,9 @@
         <link rel="stylesheet" href="<?php echo base_url('common/css/jquery.scrollbar.css') ?>" />
         <link rel="stylesheet" href="<?php echo base_url('common/css/jquery.simplyscroll.css') ?>" type="text/css">
         
+        
         <script src="<?php echo base_url('common/js/jquery-1.8.1.min.js') ?>"></script>
+        <script src="<?php echo base_url('common/js/jquery-ui.min.js') ?>"></script>
         <script src="<?php echo base_url('contants') ?>"></script>
         <script type="text/javascript" src="<?php echo base_url('common/js/jssor.js') ?>"></script>
         <script type="text/javascript" src="<?php echo base_url('common/js/jssor.slider.js') ?>"></script>

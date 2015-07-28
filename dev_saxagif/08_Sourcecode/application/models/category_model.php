@@ -72,11 +72,11 @@ class Category_model extends MY_Model
      * @date 2015/07/25
      * Get product by category
      */
-    public function getProductByCategory($slug, &$rank)
+    public function getProductByCategory($slug, &$rank, $language = LANG_VN)
     {
         //Get category parent:
         $result_cate = array();
-        $sql = "SELECT c.id,c.level FROM d_category AS c WHERE c.slug = ? AND del_flg = 0 LIMIT 1";
+        $sql = "SELECT c.id,c.level, c.type FROM d_category AS c WHERE c.slug = ? AND del_flg = 0 LIMIT 1";
         $query = $this->db->query($sql, array($slug));
         if ($query->num_rows() == 0) {
             return FALSE;
@@ -84,7 +84,8 @@ class Category_model extends MY_Model
             $result_cate = $query->row_array();
             $cat_id = $result_cate['id'];
             $level = $result_cate['level'];
-            if ($level == 3) {
+            $type = $result_cate['type'];
+            if ($level == 3 && $type == IS_CATEGORY) {
                 // Set rank = 2: category last child
                 $rank = CATEGORY_CHILD;
                 
@@ -102,15 +103,15 @@ class Category_model extends MY_Model
                         LEFT JOIN d_product AS p ON c.id = p.cat_id
                         LEFT JOIN d_product_image AS pi ON p.id = pi.product_id
                         WHERE
-                                c.id = ?
+                                c.id = ? AND c.language_type = ?
                         GROUP BY
                                 p.id
                         ORDER BY
                                 p.update_date,
                                 pi.create_date";
-                $query = $this->db->query($sql, array($cat_id));
+                $query = $this->db->query($sql, array($cat_id, $language));
                 
-            } else {
+            } elseif($level != 3 && $type == IS_CATEGORY ) {
                 // Set rank = 1: Category parent:
                 $rank = CATEGORY_PARENT;
                         
@@ -122,13 +123,26 @@ class Category_model extends MY_Model
                         FROM  d_category as c 
                         INNER JOIN  d_product as s ON c.id  = s.cat_id AND s.del_flg = 0
                         INNER JOIN d_product_image AS pi ON s.id = pi.product_id
-                        WHERE c.del_flg =0 AND c.parent = ?
+                        WHERE c.del_flg =0 AND c.parent = ? AND c.language_type = ?
                         GROUP BY s.id
                         ORDER BY c.update_date
 
                         ) as t_child ON t_child.parent = p.id
                         ORDER BY child_name ';
-                $query = $this->db->query($sql, array($cat_id));
+                $query = $this->db->query($sql, array($cat_id, $language));
+            }elseif($type == IS_GIFT) {
+                $rank = IS_GIFT;
+                $sql = "SELECT
+                                p.*, c.id AS category_id, c.type, c.name AS category_name
+                        FROM
+                                d_product AS p
+                        INNER JOIN d_category AS c ON c.id = p.cat_id
+                        AND c.type = ?
+                        AND c.del_flg = 0
+                        WHERE
+                                p.del_flg = 0 AND c.language_type = ?
+                        ORDER BY c.id ASC";
+                $query = $this->db->query($sql, array($type, $language));
             }
         }
         if ($query->num_rows() == 0) {

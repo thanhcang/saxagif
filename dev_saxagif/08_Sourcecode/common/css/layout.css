@@ -2298,3 +2298,5 @@ a{
     background-image: url('../images/icon_fb_.png');
     background-color:#fff;
 }
+.product_detail .detail_l > img { width:260px; height:195px; }
+.img_detail ul li img  { width:104px; height:69px; }
