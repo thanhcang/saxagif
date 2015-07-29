@@ -16,22 +16,49 @@
         <script>
             jssor_slider1_starter = function(containerId) {
                 var options = {
-                    $DragOrientation: 3, //[Optional] Orientation to drag slide, 0 no drag, 1 horizental, 2 vertical, 3 either, default value is 1 (Note that the $DragOrientation should be the same as $PlayOrientation when $DisplayPieces is greater than 1, or parking position is not 0)
-                    $ArrowNavigatorOptions: {//[Optional] Options to specify and enable arrow navigator or not
-                        $Class: $JssorArrowNavigator$, //[Requried] Class to create arrow navigator instance
-                        $ChanceToShow: 2, //[Required] 0 Never, 1 Mouse Over, 2 Always
-                        $AutoCenter: 0, //[Optional] Auto center arrows in parent container, 0 No, 1 Horizontal, 2 Vertical, 3 Both, default value is 0
-                        $Steps: 1                                       //[Optional] Steps to go for each navigation request, default value is 1
-                    }
+                    $AutoPlay: true, //[Optional] Whether to auto play, to enable slideshow, this option must be set to true, default value is false
+                    $AutoPlaySteps: 1, //[Optional] Steps to go for each navigation request (this options applys only when slideshow disabled), the default value is 1
+                    $AutoPlayInterval: 0, //[Optional] Interval (in milliseconds) to go for next slide since the previous stopped if the slider is auto playing, default value is 3000
+                    $PauseOnHover: 4, //[Optional] Whether to pause when mouse over if a slider is auto playing, 0 no pause, 1 pause for desktop, 2 pause for touch device, 3 pause for desktop and touch device, 4 freeze for desktop, 8 freeze for touch device, 12 freeze for desktop and touch device, default value is 1
+
+                    $ArrowKeyNavigation: true, //[Optional] Allows keyboard (arrow key) navigation or not, default value is false
+                    $SlideEasing: $JssorEasing$.$EaseLinear, //[Optional] Specifies easing for right to left animation, default value is $JssorEasing$.$EaseOutQuad
+                    $SlideDuration: 1600, //[Optional] Specifies default duration (swipe) for slide in milliseconds, default value is 500
+                    $MinDragOffsetToSlide: 20, //[Optional] Minimum drag offset to trigger slide , default value is 20
+                    $SlideWidth: 200, //[Optional] Width of every slide in pixels, default value is width of 'slides' container
+                    //$SlideHeight: 100,                                //[Optional] Height of every slide in pixels, default value is height of 'slides' container
+                    $SlideSpacing: 0, //[Optional] Space between each slide in pixels, default value is 0
+                    $DisplayPieces: 7, //[Optional] Number of pieces to display (the slideshow would be disabled if the value is set to greater than 1), the default value is 1
+                    $ParkingPosition: 0, //[Optional] The offset position to park slide (this options applys only when slideshow disabled), default value is 0.
+                    $UISearchMode: 1, //[Optional] The way (0 parellel, 1 recursive, default value is 1) to search UI components (slides container, loading screen, navigator container, arrow navigator container, thumbnail navigator container etc).
+                    $PlayOrientation: 1, //[Optional] Orientation to play slide (for auto play, navigation), 1 horizental, 2 vertical, 5 horizental reverse, 6 vertical reverse, default value is 1
+                    $DragOrientation: 1                                //[Optional] Orientation to drag slide, 0 no drag, 1 horizental, 2 vertical, 3 either, default value is 1 (Note that the $DragOrientation should be the same as $PlayOrientation when $DisplayPieces is greater than 1, or parking position is not 0)
                 };
 
                 var jssor_slider1 = new $JssorSlider$(containerId, options);
+
+                //responsive code begin
+                //you can remove responsive code if you don't want the slider scales while window resizes
+                function ScaleSlider() {
+                    var parentWidth = jssor_slider1.$Elmt.parentNode.clientWidth;
+                    if (parentWidth)
+                        jssor_slider1.$ScaleWidth(Math.min(parentWidth, 980));
+                    else
+                        $Jssor$.$Delay(ScaleSlider, 30);
+                }
+
+                ScaleSlider();
+                $Jssor$.$AddEvent(window, "load", ScaleSlider);
+
+                $Jssor$.$AddEvent(window, "resize", $Jssor$.$WindowResizeFilter(window, ScaleSlider));
+                $Jssor$.$AddEvent(window, "orientationchange", ScaleSlider);
+                //responsive code end
             };
         </script>
     </head>
     <body>
         <div class="container">
-            <div class="w_header">
+            <div class="w_header_p">
                 <header class="main">
                     <a href="#menu" class="menu-trigger ss-icon"><img src="images/icon_menu.png"/></a>
                     <nav>
@@ -75,130 +102,95 @@
                 </header>
                 <div class="language">
                     <a href="" style="border-right:1px solid #fff;   padding-right: 6px;">Eng</a>
-                    <!--<span><img src="images/line-lang.png"/></span>-->
                     <a href="">Vn</a>
                 </div>
                 <div class="hotline_top">Hotline: 0906 605 405</div>
-                <div class="slogan_top">
-                    <img src="images/CAU-THONG-DIEP.gif"/>
-                </div>
-                <div class="icon_share">
-                    <a href="#"><img src="images/icon_google_plus.png"/></a>
-                    <a href="#"><img src="images/icon_skype.png"/></a>
-                    <a href="#"><img src="images/icon_face.png" class="last"/></a>
-                </div>
             </div>
             <div class="w_main">
                 <div class="w_content">
-                    <div class="banner_t"><img src="images/banner.png"/></div>
                     <div class="content_main">
-                        <div class="menu_hot">
-                            <label class="title">Thông tin hot</label>
-                            <ul>
-                                <li><a href="12-saxaeveryday.html">Saxa everyday</a></li>
-                                <li><a href="15-san-pham.html">Sản phẩm hot</a></li>
-                                <li><a href="10-11-13.html">Đơn hàng mới</a></li>
-                                <li><a href="#">Báo chí</a></li>
-                                <li><a href="10-11-13.html">Thông điệp</a></li>
-                                <li><a href="#">Hình ảnh</a></li>
-                            </ul>
-                        </div>
-                        <div class="choose_gift">
-                            <label class="title">Chọn quà giúp bạn</label>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla proident, sunt in culpa qui officia deserunt mollit anim id est labo
-                            </p>
-                            <div class="category_product">
-                                <a href="16-chon-qua-giup-ban.html">
-                                    <div class="img_product_t"><img src="images/img_product.png"/></div>
-                                    <div class="topic_product">
-                                        <strong>sang trọng</strong><br/>
-                                        <small>>200.000</small>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </a>
-                            </div>
-                            <div class="category_product">
-                                <a href="16-chon-qua-giup-ban.html">
-                                    <div class="img_product_t"><img src="images/img_product.png"/></div>
-                                    <div class="topic_product">
-                                        <strong>ấn tượng</strong><br/>
-                                        <small>100.000 - 200.000</small>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </a>
-                            </div>
-                            <div class="category_product">
-                                <a href="16-chon-qua-giup-ban.html">
-                                    <div class="img_product_t"><img src="images/img_product.png"/></div>
-                                    <div class="topic_product">
-                                        <strong>hiệu quả</strong><br/>
-                                        <small>100.000 - 200.000</small>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </a>
-                            </div>
-                            <div class="category_product">
-                                <a href="16-chon-qua-giup-ban.html">
-                                    <div class="img_product_t"><img src="images/img_product.png"/></div>
-                                    <div class="topic_product">
-                                        <strong>dễ dàng</strong><br/>
-                                        <small>100.000 - 200.000</small>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="story_staff">
-                            <div class="header_story">Chúng tôi đã làm được gì</div>
-                            <div class="see_more"><a href="19-chung-toi-da-lam-duoc-gi.html">Xem thêm</a></div>
-                            <div class="clearfix"></div>
-                            <!--<div id="slider1_story" style="position: relative; top: 0px; left: 0px; width: 100%; height: 209px; "> -->
-
-                            <!-- Slides Container -->
-                            <!--<div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width:100%; height: 209px; overflow: hidden;">-->
-                            <div>
-                                <div class="pic_staff"><img src="images/our_work.png"/></div>
-                                <div class="staff_say">
-                                    <label>Chị Nguyễn Gì Gì Đó - Marketing</label>
-                                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inven</p>
+                        <div class="banner_t"><img src="images/logo_p.png"/></div>
+                        <div class="content_boder">
+                            <div class="label">Liên lạc với saxa</div>
+                            <p class="content_post">
+                                <img src="images/pic_contact.png"/>
+                            </p> 
+							<div class="frm_contact">
+                        <label>Hướng dẫn điền thông tin để nhận quà</label>
+                        <p class="text_news">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                        </p>
+                        <form>
+                            <div class="frm_cont">
+                                <div class="control_group">
+                                    <input type="text" class="inbox_contact" value="Tên khách hàng"/>
+                                    <span class="red">*</span>
                                 </div>
-                                <div class="clearfix"></div>
+                                <div class="control_group">
+                                    <input type="text" class="inbox_contact" value="Email"/>
+                                    <span class="red">*</span>
+                                </div>
+                                <div class="control_group">
+                                    <input type="text" class="inbox_contact" value="Điện thoại"/>
+                                </div>
+                                <div class="control_group">
+                                    <input type="text" class="inbox_contact" value="Công ty"/>
+                                </div>
+                                <div class="control_group">
+                                    <textarea class="textarea_contact">Phản hồi của bạn</textarea>
+                                </div>
+                                <button type="button" class="send_frm">gửi</button>
                             </div>
-                            <!--</div>-->
+                        </form>
+                        <div class="info_contact">
+                            <label>SAXA GROUP co., ltd</label>
+                            <p>
+                                <b>Tell:</b> (08) 38 120 440<br/>
+                                <b>Fax: </b>(08) 38 120 441<br/>
+                                <b>Email:</b>  info@saxagifts.com<br/>
+                                <b> Add:</b> 56 Nguyễn Văn Săng, Tân Phú, HCM<br/>
+                                <b> HOTLINE:</b><span class="tell_contact"> 0906 605 405</span>
+                            </p>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                            
+                        </div>
 
-                            <!--</div>-->
-                        </div>
-                        <div class="news_top">
-                            <div class="header_story">Truyền cảm hứng</div>
-                            <div class="see_more"><a href="18-truyen-cam-hung.html">Xem thêm</a></div>
-                            <div class="clearfix"></div>
-                            <div class="pic_news"><img src="images/news.png"/></div>
-                            <div class="news_cont">
-                                <label>Tin tức 1</label>
-                                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inven</p>
-                            </div>
-                            <div class="clearfix"></div>    
-                        </div>
-                        <div class="news_top">
-                            <div class="header_story">Câu chuyện khách hàng</div>
-                            <div class="see_more"><a href="17-cau-chuyen-khach-hang.html">Xem thêm</a></div>
-                            <div class="clearfix"></div>
-                            <div class="pic_news"><img src="images/news.png"/></div>
-                            <div class="news_cont">
-                                <label>Tin tức 1</label>
-                                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inven</p>
-                            </div>
-                            <div class="clearfix"></div>    
-                        </div>
+                        <div class="content_noboder gift">
+                            <div class="label">Quà tặng dặc  biệt từ SAXA</div>
+							<div id="slider1_container" style="position: relative; top: 0px; left: 0px; width: 980px; height: 150px; overflow: hidden; "><!-- Slides Container -->
+								<div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 980px; height: 150px; overflow: hidden;">
+									<div class="img_gift"><img u="image" alt="amazon" src="images/img_product.png" /></div>
+									<div class="img_gift"><img u="image" alt="android" src="images/img_product.png" /></div>
+									<div class="img_gift"><img u="image" alt="bitly" src="images/img_product.png" /></div>
+									<div class="img_gift"><img u="image" alt="blogger" src="images/img_product.png" /></div>
+									<div class="img_gift"><img u="image" alt="dnn" src="images/img_product.png" /></div>
+									<div class="img_gift"><img u="image" alt="drupal" src="images/img_product.png" /></div>
+									<div class="img_gift"><img u="image" alt="ebay" src="images/img_product.png" /></div>
+									<div class="img_gift"><img u="image" alt="facebook" src="images/img_product.png" /></div>
+									<div class="img_gift"><img u="image" alt="google" src="images/img_product.png" /></div>
+									<div class="img_gift"><img u="image" alt="ibm" src="images/img_product.png" /></div>
+									<div class="img_gift"><img u="image" alt="ios" src="images/img_product.png" /></div>
+									<div class="img_gift"><img u="image" alt="joomla" src="images/img_product.png" /></div>
+									<div class="img_gift"><img u="image" alt="linkedin" src="images/img_product.png" /></div>
+									<div class="img_gift"><img u="image" alt="mac" src="images/img_product.png" /></div>
+									<div class="img_gift"><img u="image" alt="magento" src="images/img_product.png"/></div>
+								</div>
+							</div>
+                            <script>
+                                jssor_slider1_starter('slider1_container');
+                            </script>
+						</div>
+                        
                         <div class="category_foot">
                             <label>Danh mục sản phẩm</label>
                             <div class="category">
                                 <ul>
                                     <li class="header_cate">Quà tặng công nghệ</li>
-                                    <li><a href="15-san=pham.html">USB</a></li>
-                                    <li><a href="15-san=pham.html">Tấm lót chuột</a></li>
-                                    <li><a href="15-san=pham.html">Miếng lau màn hình công nghệ</a></li>
+                                    <li><a href="15-san-pham.html"> USB </a></li>
+                                    <li><a href="15-san-pham.html">Tấm lót chuột</a></li>
+                                    <li><a href="15-san-pham.html">Miếng lau màn hình công nghệ</a></li>
                                 </ul>
                             </div>
                             <div class="category">
