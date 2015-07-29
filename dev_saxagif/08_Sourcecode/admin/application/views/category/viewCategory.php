@@ -28,12 +28,30 @@
                         <td><?php echo  !empty($catDetail['is_home']) ? 'hiển thị' : 'không hiển thị'; ?></td>
                     </tr>
                     <?php endif;?>
-                    <?php if (!empty($catDetail['event_img'])) : ?>
+                    <?php if ($catDetail['type'] == 2): ?>
                     <tr>
                         <td><b>Hình slideshow</b></td>
-                        <td><img src="<?php echo base_url('common/multidata/slide'.'/'.$catDetail['event_img'])?>" /></td>
+                        <td>
+                            <?php if (!empty($catDetail['event_img'])) : ?>
+                            <img src="<?php echo base_url('common/multidata/slideshow'.'/'.$catDetail['event_img'])?>" style=" width:50%" />
+                            <?php endif;?>
+                        </td>
+                        
                     </tr>
                     <?php endif;?>
+                    
+                     <?php if ($catDetail['type'] == 3): ?>
+                    <tr>
+                        <td><b> Ảnh đại diện</b></td>
+                        <td>
+                            <?php if (!empty($catDetail['event_img'])) : ?>
+                            <img src="<?php echo base_url('common/multidata/cat_logo'.'/'.$catDetail['event_img'])?>" style=" width:50%" />
+                            <?php endif;?>
+                        </td>
+                        
+                    </tr>
+                    <?php endif;?>
+                    
                     <tr>
                         <td><b>Mô tả ngắn</b></td>
                         <td><?php echo nl2br($catDetail['note'])  ?></td>

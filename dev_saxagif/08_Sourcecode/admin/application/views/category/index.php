@@ -39,6 +39,10 @@
                         <label><?php echo $this->lang->line('SLUG') ?><span class="text-danger">*</span></label>
                         <input type="text" name="slug" class="form-control input-sm noEnter" id="slug" value="<?php if(!empty($params['slug'])) echo html_escape($params['slug']) ?>" maxlength="255" />
                     </div>
+                    <div class="form-group">
+                        <label>Mô tả ngắn</label>
+                        <textarea placeholder="Nhập nội dung mô tả ngắn" class="form-control" name="note"></textarea>
+                    </div>
                     <div class="form-group bg_color">
                         <label><?php echo $this->lang->line('CAT_BACKGROUND_COLOR') ?></label>
                         <input type="text" name="bg_color" readonly="readonly" class="form-control input-sm noEnter" id="bg_color" value="<?php if(!empty($params['bg_color'])) echo html_escape($params['bg_color']) ?>" maxlength="7" />
@@ -93,8 +97,8 @@
                         <col width="15%"/>
                         <col width="5%"/>
                         <col width="35%"/>
-                        <col width="15%"/>
-                        <col width="30%"/>
+                        <col width="10%"/>
+                        <col width="35%"/>
                     </colgroup>
                     <thead>
                         <tr>
@@ -110,7 +114,7 @@
                         <?php foreach ($list_data as $key => $row): ?>
                         <tr class="cat_<?php echo $row['id'] ?>">
                              <?php if ( $key == 0): ?>
-                            <td rowspan="<?php echo $colspan; ?>"  style=" text-align: center; vertical-align: middle"><a href="<?php echo base_url('category/detail/' . $row['id']) ?>"><?php echo htmlspecialchars($parent['name']) ?></a></td>
+                            <td rowspan="<?php echo $colspan; ?>"  style=" text-align: center; vertical-align: middle"><a attr-category="<?php echo $row['parent'] ?>" class="viewChildCategory" href="javascript:;"><?php echo htmlspecialchars($parent['name']) ?></a></td>
                             <?php endif ?>
                             <td><?php echo $key+1+$offset ?></td>
                             <td>
@@ -127,6 +131,9 @@
                                 <a href="javascript:;" class="btn btn-success viewChildCategory" attr-category="<?php echo $row['id']; ?>"><i class="glyphicon glyphicon-zoom-in icon-white"></i><?php echo $this->lang->line('VIEW') ?></a>
                                 <a href="<?php echo base_url('category/edit/' . $row['id']) ?>" class="editCat1 btn btn-info"><i class="glyphicon glyphicon-edit icon-white"></i><?php echo $this->lang->line('EDIT') ?></a>
                                 <a href="javascript:;" class="delCat btn btn-danger" cat_name="<?php echo htmlspecialchars($row['name']) ?>" cat_attr="<?php echo $row['id'] ?>" ><i class="glyphicon glyphicon-trash icon-white"></i><?php echo $this->lang->line('DELETE') ?></a>
+                                <?php if( !empty($isAddCategory)) : ?>
+                                    <a title="thêm danh mục con" class="btn btn-success" href="<?php echo base_url('category/childrenCategory'.'/'.$row['id']); ?>"><i class="glyphicon glyphicon-plus icon-white"></i>Thêm</a>
+                                <?php endif ?>
                             </td>
                         </tr>
                         <?php endforeach; ?>

@@ -29,8 +29,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html"> <img alt="Charisma Logo" src="<?php  echo base_url('common/img/logo20.png') ?>" class="hidden-xs"/>
-                    <span>Charisma</span></a>
+                <a class="navbar-brand" href="<?php echo base_url(); ?>"> <img alt="Charisma Logo" src="<?php  echo base_url('common/img/logo20.png') ?>" class="hidden-xs"/>
+                    <span>Saxagif</span></a>
                 <!-- user dropdown starts -->
                 <div class="btn-group pull-right">
                     <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -46,7 +46,7 @@
                 <!-- user dropdown ends -->
                 <ul class="collapse navbar-collapse nav navbar-nav top-menu">
                     <li><a href="#"><i class="glyphicon glyphicon-globe"></i> Visit Site</a></li>
-                    <li class="dropdown">
+<!--                    <li class="dropdown">
                         <a href="#" data-toggle="dropdown"><i class="glyphicon glyphicon-star"></i> Dropdown <span
                                 class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
@@ -58,12 +58,12 @@
                             <li class="divider"></li>
                             <li><a href="#">One more separated link</a></li>
                         </ul>
-                    </li>
-                    <li>
+                    </li>-->
+<!--                    <li>
                         <form class="navbar-search pull-left">
                             <input placeholder="Search" class="search-query form-control col-md-10" name="query" type="text">
                         </form>
-                    </li>
+                    </li>-->
                 </ul>
 
             </div>
@@ -95,7 +95,7 @@
                                 </li>
                                 <li><a class="ajax-link" href="<?php echo base_url('news') ?>"><i
                                             class="glyphicon glyphicon-edit"></i><span> Tin tức</span></a></li>
-                                <li><a class="ajax-link" href="customer_opinion.html"><i class="glyphicon glyphicon-comment"></i><span> Ý kiến khách hàng</span></a>
+                                            <li><a class="ajax-link" href="<?php echo base_url('commentCustomer'); ?>"><i class="glyphicon glyphicon-comment"></i><span> Ý kiến khách hàng</span></a>
                                 </li>
                                 <li><a class="ajax-link" href="manager_banner"><i class="glyphicon glyphicon-book"></i><span> Banner</span></a>
                                 </li>

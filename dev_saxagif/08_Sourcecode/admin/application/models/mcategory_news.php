@@ -71,7 +71,6 @@ class Mcategory_news extends MY_Model
         $data = array(
             'name'          => $params['name'],
             'language_type' => (int)$params['language_type'],
-            'position'      => $params['position'],
         );
         
         if(!empty($params['slug'])) {
@@ -83,9 +82,21 @@ class Mcategory_news extends MY_Model
         if(!empty($params['keyword_seo'])) {
             $data['keyword_seo'] = $params['keyword_seo'];
         }
+            
+        if(!empty($params['position'])) {
+            $data['position'] = $params['position'];
+        }
         
         if(!empty($params['des_seo'])) {
             $data['des_seo'] = $params['des_seo'];
+        }
+        
+        if(!empty($params['avatar'])) {
+            $data['avatar'] = $params['avatar'];
+        }
+        
+        if(!empty($params['title'])) {
+            $data['title'] = $params['title'];
         }
         
         if (!empty($params['cat_news_id'])) {
@@ -97,6 +108,7 @@ class Mcategory_news extends MY_Model
         } else {
             $data['create_user'] = $this->session->userdata('user_id');
             $data['create_date'] = date('Y-m-d H:i:s');
+            $data['update_date'] = date('Y-m-d H:i:s');
             
             return $this->db->insert($this->_tbl_category_news, $data);
         }
@@ -130,7 +142,8 @@ class Mcategory_news extends MY_Model
     public function checkExistName($name)
     {
         $this->db->select('id')
-                ->where('name', $name);
+                ->where('name', $name)
+                ->where('del_flg', 0);
         $query = $this->db->get($this->_tbl_category_news);
         if ($query->num_rows() > 0) {
             return TRUE;
@@ -147,7 +160,8 @@ class Mcategory_news extends MY_Model
     public function checkExistSlug($slug)
     {
         $this->db->select('id')
-                ->where('slug', $slug);
+                ->where('slug', $slug)
+                ->where('del_flg', 0);
         $query = $this->db->get($this->_tbl_category_news);
         if ($query->num_rows() > 0) {
             return TRUE;

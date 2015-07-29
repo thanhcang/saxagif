@@ -145,3 +145,27 @@ if ((!function_exists("slug_convert"))) {
     }
 
 }
+
+
+if ((!function_exists("trimArray"))) {
+
+    /**
+     * trim string
+     * @param type $data
+     */
+    function trimArray($data) {
+        if (!empty($data) && is_string($data)) {
+            $data = trim($data);
+        } else if (!empty($data) && is_array($data)) {
+            foreach ($data as $k => $item) {
+                if (is_string($item)) {
+                    $data[$k] = trim($item);
+                }
+            }
+        } else {
+            // nothing
+        }
+        return $data;
+    }
+
+}

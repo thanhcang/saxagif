@@ -38,10 +38,34 @@ class Mproduct extends MY_Model
                     c.name AS category_name
                 FROM " . $this->_tbl_product . " AS p
                 INNER JOIN " . $this->_tbl_category . " AS c ON p.cat_id = c.id
-                WHERE p.del_flg = 0
-                ORDER BY p.id DESC";
+                WHERE p.del_flg = 0";
         
-        $total = MY_Model::get_total_result($sql);
+        if (!empty($params['s_product_code'])){
+            $sql .= " AND product_code like ? ";
+            $arrWhere[] = '%'.$params['s_product_code'].'%';
+        }
+        
+        if (!empty($params['s_name'])){
+            $sql .= " AND p.name like ? ";
+            $arrWhere[] = '%'.$params['s_name'].'%';
+        }
+        
+        if (!empty($params['sType'])){
+            $sql .= " AND c.type = ? ";
+            $arrWhere[] = $params['sType'];
+        }
+        
+        if (!empty($params['sPromotion'])){
+            $sql .= " AND promotion = 1 ";
+        }
+        
+        if (!empty($params['sType'])){
+            
+        }
+        
+        $sql .= " ORDER BY p.id DESC ";
+        
+        $total = MY_Model::get_total_result($sql, $arrWhere);
         
         if ($limit > 0) {
             $sql .= " LIMIT " . $offset . ',' . $limit;
@@ -128,6 +152,21 @@ class Mproduct extends MY_Model
             }
         }
         
+        // insert product customer
+        if (!empty($proId)) {
+            if (!empty($params['pro_Partner'])) {
+                foreach ($params['pro_Partner'] as $value) {
+                    $data = array(
+                        'product_id' => $proId,
+                        'customer_id' => $value,
+                        'create_user' => $this->session->userdata('ses_user_id'),
+                        'create_date' => date('Y-m-d H:i:s'),
+                    );
+                    $this->db->insert('d_product_customer', $data);
+                }
+            }
+        }
+
         if ($this->db->trans_status() === FALSE) {
             $this->db->trans_rollback();
             return FALSE;
@@ -220,10 +259,14 @@ class Mproduct extends MY_Model
         return $data;        
     }
     
+    /**
+     * delete pro
+     * @param type $proId
+     */
     public function delPro($proId)
     {
         $this->db->where('id', $proId);
-        return $this->db->update($this->_tbl_product, array('del_flg' => 1));
+        $this->db->delete($this->_tbl_product);
     }
     
     /**
@@ -309,6 +352,7 @@ class Mproduct extends MY_Model
      * @return boolean
      */
     public function getProductByName($name='') {
+        $this->db->select('name, product_code, id');
         $this->db->where('del_flg', 0);
         if (!empty($name)){
             $this->db->like('product_code', $name, 'after');
@@ -318,6 +362,36 @@ class Mproduct extends MY_Model
         if ($query->num_rows() > 0){
             return $query->result_array();
         }
+        return FALSE;
+    }
+    
+    /**
+     * check product
+     * @param array $param
+     * @return boolean
+     */
+    public function checkProduct($param) {
+        if (empty($param)){
+            return FALSE;
+        } 
+        
+        $param = trimArray($param);
+        
+        if (!empty($param['name'])){
+            $this->db->where('name', $param['name']);
+        } elseif (!empty ($param['product_code'])){
+            $this->db->where('product_code', $param['product_code']);
+        } elseif (!empty($param['id'])){
+            $this->db->where('id', $param['id']);
+        } else {
+            // nothing
+        }
+        $this->db->where('del_flg', 0);
+        $query = $this->db->get($this->_tbl_product);
+        
+        if ($query->num_rows() > 0){
+            return $query->row_array();
+        } 
         return FALSE;
     }
     

@@ -70,6 +70,27 @@
                         <label for="inputName">Câu trích dẫn</label>
                         <textarea name="slogan" placeholder="nhập câu trích dẫn cho công ty" class="re_opinion form-control"><?php echo !empty($list['slogan']) ? $list['slogan'] : $deault_setting['slogan'];  ?></textarea>
                     </div>
+                    
+                    <div class="form-group">
+                        <label for="inputName">Mô tả ngắn giúp bạn chọn quà</label>
+                        <textarea name="note_chose_present" placeholder="nhập mô tả ngắn giúp bạn chọn quà" class="re_opinion form-control"><?php echo !empty($list['note_chose_present']) ? $list['note_chose_present'] :'';  ?></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="inputName">Mô tả ngắn câu chuyện khách hàng</label>
+                        <textarea name="note_story" placeholder="Mô tả ngắn câu chuyện khách hàng" class="re_opinion form-control"><?php echo !empty($list['note_story']) ? $list['note_story'] :'';  ?></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="inputName">Mô tả ngắn chia sẻ khách hàng</label>
+                        <textarea name="note_share" placeholder="Mô tả ngắn chia sẻ khách hàng" class="re_opinion form-control"><?php echo !empty($list['note_share']) ? $list['note_share'] :'';  ?></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="inputName">Mô tả ngắn truyền cảm hứng</label>
+                        <textarea name="note_funny" placeholder="Mô tả ngắn truyền cảm hứng" class="re_opinion form-control"><?php echo !empty($list['note_funny']) ? $list['note_funny'] :'';  ?></textarea>
+                    </div>
+                    
                     <button type="submit" class="button">Save</button>
                     <input name="language_type" type="hidden" value="<?php echo $list['language_type']; ?>" />
                 </form>

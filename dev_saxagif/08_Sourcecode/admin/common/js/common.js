@@ -57,7 +57,17 @@ $(document).ready(function(){
         var user_id = $(this).attr('attUser') 
         ajaxProfile(user_id);
     });
+    
+    // no enter
     initNoAcceptEnterKey();
+    
+    // no space
+    initNoAcceptSpaceKeyCommon();
+    
+    // noComma
+    initNoAcceptcommaKeyCommon();
+    // background color
+    setBgColor();
 });
 
 /**
@@ -134,4 +144,47 @@ function initNoAcceptEnterKey() {
             return false;
         }
     });
+}
+
+/**
+ * not accpet space key 
+ * @param {type} element
+ * @returns {undefined}
+ */
+function initNoAcceptSpaceKeyCommon() {
+    $('.noSpace').keypress(function (event) {
+        var keycode = event.charCode || event.keyCode;
+        if (keycode == 32) {
+            event.preventDefault();
+            return false;
+        }
+    });
+}
+
+/**
+ * not accpet comma key 
+ * @param {type} element
+ * @returns {undefined}
+ */
+function initNoAcceptcommaKeyCommon() {
+    $('.noComma').keypress(function (event) {
+        var keycode = event.charCode || event.keyCode;
+        if (keycode == 188) {
+            event.preventDefault();
+            return false;
+        }
+    });
+}
+
+/**
+ * color back ground
+ * @returns {undefined}
+ */
+function setBgColor() {
+    var bg_color = $('#bg_color');
+    if(bg_color.length) {
+        $('#bg_color').colorpicker({
+            hideButton: true
+        });
+    }
 }

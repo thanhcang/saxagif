@@ -9,7 +9,7 @@
             <ul class="sub_category">
             <?php foreach ($cat_menu as $cat_child): ?>
                 <?php if($cat_child['parent'] == $cat['id']): ?>
-                <li><a href="#"><?php echo htmlspecialchars($cat_child['name']) ?></a></li>
+                <li><a href="<?php echo base_url($cat['slug'].'/'.$cat_child['slug']) ?>"><?php echo htmlspecialchars($cat_child['name']) ?></a></li>
                 <?php endif; ?>
             <?php endforeach; ?>
             </ul>
@@ -17,24 +17,10 @@
         <?php endif ?>
         <?php endforeach ?>
         <?php endif ?>
-        <!--
-        <?php if(!empty($cat_product)): ?>
-        <?php foreach($cat_product as $cat): ?>
-        <li>
-            <div class="header"><?php echo htmlspecialchars($cat['name']) ?></div>
-            <ul class="sub_category">
-                <?php if($cat_child['parent'] == $cat['id']): ?>
-                <li><a href="#"><?php echo htmlspecialchars($cat_child['name']) ?></a></li>
-                <?php endif; ?>
-            </ul>
-        </li>
-        <?php endforeach ?>
-        <?php endif ?>
-        -->
     </ul>
 </div>
 <div class="footer">
-        <div class="logo_foot"><img src="<?php echo base_url('common/images/logo_footer.png') ?>"/></div>
+        <div class="logo_foot"><img src="<?php echo url_img(URL_IMAGES,'logo_footer.png') ?>"/></div>
         <div class="slogan_foot">
             <?php if($setting_footer['slogan']) echo strtoupper($setting_footer['slogan']) ?>
         </div>
@@ -56,12 +42,11 @@
             <!--=============Popup=============-->
             <script type="text/javascript" src="<?php echo base_url('common/js/jquery.popup.js') ?>"></script>
             <!--Layout Popup-->
-            <div class="p_body js__p_body js__fadeout"></div>
+            <div class="js__sendmail p_body js__p_body js__fadeout"></div>
             <div class="popup js__popup js__slide_top"> <a href="#" class="p_close js__p_close" title="Close"></a>
                 <div class="p_content">
                     <p class="note_mail">
-                        Cảm ơn bạn đã chia sẻ với SAXA<br/>
-                        những chia sẻ của bạn rất có giá trị với chúng tôi
+                        <?php echo $this->lang->line('mess_thank_customer') ?>
                     </p>
                 </div>
             </div>

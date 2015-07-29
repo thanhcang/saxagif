@@ -1,6 +1,7 @@
 <link rel="stylesheet" type="text/css" href="<?php echo base_url('common/css/popModal.css') ?>" />
 <link rel="stylesheet" type="text/css" href="<?php echo base_url('common/css/category.css') ?>" />
 <link rel="stylesheet" type="text/css" href="<?php echo base_url('common/css/evol.colorpicker.min.css') ?>" />
+<script type="text/javascript" src="<?php echo base_url('common/js/evol.colorpicker.min.js') ?>"></script>
 <div class="clearfix"></div>
 <div class="row">    
     <div class="box col-md-4">
@@ -34,6 +35,12 @@
                         <label><?php echo $this->lang->line('CAT_NAME') ?><span class="text-danger">*</span></label>
                         <input type="text" name="name" class="form-control input-sm" id="name" value="<?php if(!empty($param['name'])) echo html_escape($param['name']) ?>" maxlength="255" />
                     </div>
+                    
+                    <div class="form-group bg_color">
+                        <label><?php echo $this->lang->line('CAT_BACKGROUND_COLOR') ?></label>
+                        <input type="text" name="bg_color" readonly="readonly" class="form-control input-sm noEnter" id="bg_color" value="" maxlength="7" />
+                    </div>
+                    
                     <div class="form-group">
                         <label>Loại danh mục</label>
                         <select name="type" class="form-control">
@@ -44,6 +51,7 @@
                             <?php endif; ?>
                         </select>
                     </div>
+                    
                     <div class="form-group">
                         <label>Mô tả ngắn</label>
                         <textarea name="note" class="form-control" placeholder="Nhập nội dung mô tả ngắn"><?php echo (!empty($param['note'])) ?  $param['note'] : ''  ?></textarea>
@@ -165,6 +173,10 @@
 </div>
 
 <div class="pricePresent hide">
+    <div class="form-group pageHome">
+        <label>Hình slideshow</label>
+        <input type="file" name="event_img" />
+    </div>
     <div class="form-group pricePresent">
         <label>Giá</label>
         <input type="text" name="price" value="<?php echo (!empty($param['price'])) ? $param['price'] : ''  ?>" class="form-control" placeholder="Nhập giá" />
@@ -175,7 +187,6 @@
         <input type="checkbox" name="is_home" value="1" <?php echo (!empty($param['price'])) ? 'checked' : ''  ?> />
     </div>
 </div>
-
 <?php require_once(VIEW_PATH.'templates/popup/_confirmDelete.php') ;?>
 <?php require_once(VIEW_PATH.'templates/popup/_messageDialog.php') ;?>
 <script src="<?php echo base_url('common/js/category.js'); ?>"></script>

@@ -15,13 +15,15 @@ class Product extends MY_Controller
         $this->load->model(array('mcategory', 'mproduct'));
     }
     
+    /**
+     * index
+     */
     public function index()
     {
-        $params = array();
-        $error = array();
+        $params = $this->input->get();
         
-        if (!empty($_GET['page']) && filter_var($_GET['page'], FILTER_VALIDATE_INT, array('min_range' => 1))) {
-            $page = $_GET['page'];
+        if (!empty($params['page']) && filter_var($params['page'], FILTER_VALIDATE_INT, array('min_range' => 1))) {
+            $page = $params['page'];
         } else {
             $page = 1;
         }
@@ -70,44 +72,9 @@ class Product extends MY_Controller
             $data["pagination"] = $this->pagination->create_links();
         }
         
-        // Add and edit product
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $params = $this->input->post();
-            
-            //echo '<pre>';            print_r($params);exit;
-            $this->_validate($params, $error);
-            //echo '<pre>';            print_r($error);exit;
-            if (empty($error)) {
-                
-                // we retrieve the number of files that were uploaded
-                $numberOfFiles = sizeof($_FILES['image']['tmp_name']);
-                $files = $_FILES['image'];
-                for($i = 0; $i < $numberOfFiles; $i++) {
-                    if($_FILES['image']['error'][$i] != 0) {
-                        $error[] = 'Could\'t upload the file(s)';
-                    }
-                    $_FILES['image']['name'] = $files['name'][$i];
-                    $_FILES['image']['type'] = $files['type'][$i];
-                    $_FILES['image']['tmp_name'] = $files['tmp_name'][$i];
-                    $_FILES['image']['error'] = $files['error'][$i];
-                    $_FILES['image']['size'] = $files['size'][$i];
-                    $checkUpload = $this->uploadPhoto($_FILES['image'], 'image', IMAGE_PRODUCT_PATH, TRUE, $maxWidth = 1366, $maxHeight = 768, $maxSize = 200000 );
-                    if($checkUpload) {
-                        // Create thumbnail image product:
-                        $this->resizePhoto($checkUpload, $width = IMAGE_WIDTH_300, $height = IMAGE_HEIGHT_300, IMAGE_PRODUCT_PATH, IMAGE_THUMB_PRODUCT_PATH);
-                        $params['name_image'][] = $checkUpload;
-                    }
-                }
-                
-                if ($this->mproduct->create($params)) {
-                    $this->session->set_flashdata('msg-success', $this->lang->line('PRO_CREATE_SUCCESS'));
-                    redirect(base_url('product'));
-                }
-            }
-            
-            $data['params'] = $params;
-            $data['pro_errors'] = $error;
-        }
+        // get category type
+        $data['type_category'] = $this->config->item('typeCategory');
+        $data['params'] = $params;
         
         $tpl["main_content"] = $this->load->view('product/index', $data, TRUE);
         $this->load->view(TEMPLATE, $tpl);
@@ -170,7 +137,7 @@ class Product extends MY_Controller
         if ($this->isPostMethod()){
             $params = $this->input->post();
             
-            $this->_validate($params, $error);
+            //$this->_validate($params, $error);
             if (empty($error)) {
                 // we retrieve the number of files that were uploaded
                 $numberOfFiles = sizeof($_FILES['image']['tmp_name']);
@@ -191,10 +158,30 @@ class Product extends MY_Controller
                         $params['name_image'][] = $checkUpload;
                     }
                 }
+                // check slug common
+                if (empty($error)) {
+                    if (!empty($param['slug'])){
+                        $slug = slug_convert($param['slug']);
+                    } else if (!empty($param['name'])) {
+                        $slug = slug_convert($param['name']);
+                    } else if (!empty($param['title'])) {
+                        $slug = slug_convert($param['title']);
+                    } else {
+                        $slug = '';
+                    }
+                    
+                    $is_check = $this->mcommon->checkSlug($slug);
+                    
+                    if ($is_check == TRUE) {
+                        $error[] = 'Slugs đã tồn tại, trong hệ thống, <br /> Hãy kiểm tra lại name hoặc slug';
+                    }
+                }
                 
                 // create product
-                if ($this->mproduct->create($params)) {
-                    redirect(base_url('product'));
+                if (empty($error)) {
+                    if ($this->mproduct->create($params)) {
+                        redirect(base_url('product'));
+                    }
                 }
             }
             

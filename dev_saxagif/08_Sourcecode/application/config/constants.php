@@ -63,11 +63,12 @@ define('OFFSET_LISTTENNING', 60);
  */
 $root_path = dirname(BASEPATH);
 
-define('COMMON_PATH', $root_path . '/common/');
+define('COMMON_PATH', FCPATH.'/common/');
 define('TEMP_PATH', COMMON_PATH . 'temp/');
 define('IMAGE_PATH', COMMON_PATH . 'images/');
 define('IMG_PRODUCT_PATH', COMMON_PATH . '/multidata/product_img/');
 define('IMG_SLIDESHOW', COMMON_PATH . '/multidata/slideshow/');
+define('IMAGE_CUSTOMER_PATH', COMMON_PATH . '/multidata/news/');
 define('LANG_VN', 1);
 define('LANG_EN', 2);
 define('IS_HOME', 1);
@@ -75,12 +76,23 @@ define('IS_GIFT', 3);
 define('IS_CATEGORY', 1);
 define('HEADER_POSITION', 6);
 define('LEFT_POSITION', 2);
+define('LEFT_POSITION_2', 3);
 define('RIGHT_POSITION', 4);
 define('FOOTER_POSITION', 5);
 define('HOTLINE', '0906 605 405');
 define('COMPANY_NAME', 'SAXA GROUP co., ltd');
 define('PROMOTION', 1);
-
+define('CATEGORY_PARENT', 1);
+define('CATEGORY_CHILD', 2);
+define('URL_PRODUCT_IMAGE', 'admin/common/multidata/product_img/');
+define('URL_PRODUCT_THUMB_IMAGE', 'admin/common/multidata/product_img/thumb/');
+define('URL_CATEGORY_IMAGE', 'admin/common/multidata/cat_logo/');
+define('URL_IMAGES', 'common/images/');
+define('URL_SLIDESHOW_IMAGE', 'common/multidata/slideshow/');
+define('GIFT_LUXURIOUS', 1);
+define('GIFT_IMPRESSIVE', 2);
+define('GIFT_EFFECTIVE', 3);
+define('GIFT_EASY', 4);
 // No change
 define('SALT', 'saxagifts!$23');
 

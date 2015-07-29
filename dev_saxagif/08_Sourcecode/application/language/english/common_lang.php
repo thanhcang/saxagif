@@ -13,3 +13,19 @@ $lang['phanhoi'] = 'Your feedback';
 $lang['giftfromsaxa'] = 'Gift from SAXA';
 $lang['view_more'] = 'View more';
 $lang['customer_name'] = 'Customer name';
+$lang['customers_saxa'] = 'SAXA customers';
+$lang['saxa_program'] = 'SAXA program';
+$lang['products_saxa'] = 'Products Saxa';
+$lang['view_more'] = 'View more';
+
+// Detail product
+$lang['pro_price'] = 'Giá';
+$lang['material'] = 'Chất liệu';
+$lang['pro_designs'] = 'Kiểu dáng';
+$lang['pro_made'] = 'Xuất xứ';
+$lang['pro_code'] = 'Mã sản phẩm';
+$lang['pro_distribution'] = 'Sản phẩm phối giftset';
+$lang['pro_customer_select'] = 'Những khách hàng đã chọn';
+$lang['pro_description'] = 'Mô tả sản phẩm';
+$lang['close'] = 'Close';
+$lang['pro_post'] = 'Posts';

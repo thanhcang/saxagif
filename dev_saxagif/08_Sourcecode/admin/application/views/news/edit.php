@@ -37,6 +37,12 @@
                     <label><?php echo $this->lang->line('AVATAR') ?></label>
                     <input type="file" name="avatar"  accept="image/*" class="" id="logo" />
                 </div>
+                <?php if (!empty($detailNews['avatar'])) : ?>
+                <div class="form-group">
+                    <img src="<?php echo base_url('common/multidata/news'.'/'.$detailNews['avatar']); ?>" />
+                </div>
+                <?php endif ?>
+                
                 <div class="form-group">
                     <label for="position"><?php echo $this->lang->line('POSITION') ?></label>
                     <div class="controls">

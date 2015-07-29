@@ -104,8 +104,10 @@ class Mcategory extends MY_Model
             'bg_color'      => !empty($params['bg_color']) ? $params['bg_color'] : '' ,
             'language_type' => (int)$params['language_type'],
             'parent'        => $parent,
+            'note'          => !empty($params['note']) ? $params['note'] : '' ,
             'create_user'   => $this->_login_user,
             'create_date'   => date('Y-m-d H:i:s'),
+            'level'         =>  $params['parent_level'] +1,
         );
         if(!empty($params['logo'])) {
             $data['logo'] = $params['logo'];
@@ -172,8 +174,29 @@ class Mcategory extends MY_Model
      */
     public function delCat($cat_id)
     {
-        $this->db->where('id', $cat_id);
-        return $this->db->update($this->_tbl_category,array('del_flg' => 1));
+        if (empty($cat_id)){
+            return FALSE;
+        }
+        
+        $where = array($cat_id, $cat_id);
+
+        $sql = "UPDATE
+                    d_category
+                SET del_flg = 1
+                WHERE
+                   parent = ?
+                OR id = ?";
+        $this->db->query($sql, $where);
+        $this->db->trans_off();
+        $this->db->trans_begin();
+
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+            return FALSE;
+        } else {
+            $this->db->trans_commit();
+            return TRUE;
+        }
     }
     
     /**
@@ -339,8 +362,11 @@ class Mcategory extends MY_Model
             'create_user' => $this->_login_user,
             'create_date' => date('Y-m-d H:i:s'),
             'event_img' => !empty($param['event_img']) ? $param['event_img'] : '' ,
+            'logo' => !empty($param['logo']) ? $param['logo'] : '' ,
             'note' => !empty($param['note']) ? $param['note'] : '' ,
             'price' => !empty($param['price']) ? $param['price'] : '' ,
+            'level' => 1,
+            'bg_color' => !empty($param['bg_color']) ? $param['bg_color'] : '' ,
         );
         $this->db->insert($this->_tbl_category, $data);
     }
@@ -361,9 +387,19 @@ class Mcategory extends MY_Model
           'slug' => !empty($param['name']) ? slug_convert($param['slug']) : slug_convert($param['name']),  
           'note' => !empty($param['note']) ? htmlspecialchars($param['note']) : '',  
         );
+        
         if (!empty($param['event_img'])){
             $data['event_img'] = $param['event_img'];
         }
+        
+        if (!empty($param['logo'])){
+            $data['logo'] = $param['logo'];
+        }
+        
+        if (!empty($param['bg_color'])){
+            $data['bg_color'] = $param['bg_color'];
+        }
+        
         $this->db->where($where);
         $this->db->update($this->_tbl_category, $data);
     }
@@ -397,12 +433,13 @@ class Mcategory extends MY_Model
         
         $data = array(
             'name' => htmlspecialchars($param['name']),
-            'slug' => htmlspecialchars($param['slug']),
+            'slug' => !empty($param['slug']) ? slug_convert($param['slug']) : slug_convert($param['name']),
             'bg_color' => htmlspecialchars($param['bg_color']),
             'keyword_seo' => htmlspecialchars($param['keyword_seo']),
             'des_seo' => htmlspecialchars($param['des_seo']),
+            'note' => htmlspecialchars($param['note']),
             'is_home' => !empty($param['is_home']) ? $param['is_home'] : 0,
-            'parent' => $param['parent'],
+//            'parent' => $param['parent'],
         );
         if (!empty($param['logo'])){
             $data['logo'] = htmlspecialchars($param['logo']);
@@ -423,7 +460,8 @@ class Mcategory extends MY_Model
             $sql = "SELECT
                         p.`name`,
                         c.`name` AS child_name,
-                        c.id 
+                        c.id ,
+                        c.level 
                     FROM
                           d_category c
                     INNER JOIN d_category AS p ON c.parent = p.id
@@ -432,7 +470,8 @@ class Mcategory extends MY_Model
         } else {
             $sql = "SELECT
                         c.`name`,
-                        c.id 
+                        c.id ,
+                        c.level
                     FROM
                        d_category c
                        where c.type = ? and c.del_flg = 0   

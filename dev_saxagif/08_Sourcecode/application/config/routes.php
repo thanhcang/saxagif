@@ -46,6 +46,13 @@ $route['who-we-are.html'] = 'about/who_we_are';
 $route['we-do-for-you.html'] = 'about/we_do_for_you';
 $route['we-expect-from-you.html'] = 'about/we_expect_from_you';
 $route['default_controller'] = "home";
+
+$default_controller = 'home';
+$route['((?!home|ajax|contants|contact)(:any))'] = 'common';
+//$route['(:any)'] = 'common';
+$route['((?!home|ajax|contants|contact)(:any))/(:any)'] = 'common';
+$route['404'] = 'My404';
+
 $route['404_override'] = '';
 
 

@@ -38,24 +38,63 @@ class Category extends MY_Controller {
         if ($this->isPostMethod()){
             $param = $this->input->post();
             $error = array();
+            
             $this->_validate($param, $error);
             if (empty($error)) { // new category
                 if (!empty($_FILES['event_img']['name'])) {
-                    $checkUpload = $this->uploadPhoto($_FILES['event_img'], 'event_img', URL_IMAGE_SLIDE_CATEGORY, TRUE, 1366, 768, $maxSize = 200000);
-                    if ($checkUpload) {
-                        $param['event_img'] = $checkUpload; // Get logo name:
-                        $is_resize = $this->resizePhoto($checkUpload,  923,  376, URL_IMAGE_SLIDE_CATEGORY);
-                        if ($is_resize != TRUE) { // not resize
-                            $error[] = 'Không xử lý được file ảnh <br/> vui lòng kiểm tra lại';
+                    if ($param['type'] == 2){
+                        $checkUpload = $this->uploadPhoto($_FILES['event_img'], 'event_img', URL_IMAGE_SLIDE_CATEGORY, TRUE, 1366, 768, $maxSize = 200000);
+                        if ($checkUpload) {
+                            $param['event_img'] = $checkUpload; // Get logo name:
+                            $is_resize = $this->resizePhoto($checkUpload, 923, 376, URL_IMAGE_SLIDE_CATEGORY);
+                            if ($is_resize != TRUE) { // not resize
+                                $error[] = 'Không xử lý được file ảnh <br/> vui lòng kiểm tra lại';
+                            }
+                        } else {
+                            $error[] = 'File ảnh chưa được up <br/> vui lòng kiểm tra lại';
                         }
                     } else {
-                        $error[] = 'File ảnh chưa được up <br/> vui lòng kiểm tra lại';
+                        $checkUpload = $this->uploadPhoto($_FILES['event_img'], 'event_img', IMAGE_CATEGORY_PATH, TRUE, 1366, 768, $maxSize = 200000);
+                        if ($checkUpload) {
+                            
+                            $param['event_img'] = $checkUpload; // Get logo name:
+                            $param['logo'] = $checkUpload; // Get logo name:
+                            
+                            $is_resize = $this->resizePhoto($checkUpload, 357, 237 , IMAGE_CATEGORY_PATH);
+                            if ($is_resize != TRUE) { // not resize
+                                $error[] = 'Không xử lý được file ảnh <br/> vui lòng kiểm tra lại';
+                            }
+                        } else {
+                            $error[] = 'File ảnh chưa được up <br/> vui lòng kiểm tra lại';
+                        }
                     }
                 }
+                
+                // check slug exist
+                if (empty($error)) {
+                    if (!empty($param['slug'])){
+                        $slug = slug_convert($param['slug']);
+                    } else if (!empty($param['name'])) {
+                        $slug = slug_convert($param['name']);
+                    } else if (!empty($param['title'])) {
+                        $slug = slug_convert($param['title']);
+                    }
+                    
+                    $is_check = $this->mcommon->checkSlug($slug);
+                    
+                    if ($is_check == TRUE) {
+                        $error[] = 'Slugs đã tồn tại, trong hệ thống, <br /> Hãy kiểm tra lại name hoặc slug';
+                    }
+                }
+
                 if (empty($error)) {
                     $this->db->trans_off();
                     $this->db->trans_begin();
                     $this->mcategory->addParentCategory($param);
+                    //insert slug common
+                    $slug_insert  =  !empty($param['slug']) ? slug_convert($param['slug']) : slug_convert($param['name']);
+                    $this->mcommon->createSlug($slug_insert,'d_category', 'category');
+                    
                     if ($this->db->trans_status() === FALSE) {
                         $this->db->trans_rollback();
                         $error[] = 'Hệ thống chưa thêm được danh mục<br/> Vui lòng thử lại';
@@ -167,7 +206,10 @@ class Category extends MY_Controller {
             'typeCategory' => $this->config->item('typeCategory'),
             'language_type' => $this->config->item('language_type'),
         );
+        $type = $param['type'];
         $event_img = $param['event_img'];
+        $old_slug = $param['slug'];
+        
         $tpl = array(
             'breadcrumb' => array(
                 base_url() => 'Home',
@@ -180,31 +222,82 @@ class Category extends MY_Controller {
             $error = array();
             $this->_validateUpdateCategory($param, $error);
             if (empty($error)){
-                if (!empty($_FILES['event_img']['name'])) {
-                    $checkUpload = $this->uploadPhoto($_FILES['event_img'], 'event_img', URL_IMAGE_SLIDE_CATEGORY, TRUE, 1366, 768, $maxSize = 200000);
-                    if ($checkUpload) {
-                        $param['event_img'] = $checkUpload; // Get logo name:
-                        $is_resize = $this->resizePhoto($checkUpload,  923,  376, URL_IMAGE_SLIDE_CATEGORY);
-                        if ($is_resize != TRUE) { // not resize
-                            $error[] = 'Không xử lý được file ảnh <br/> vui lòng kiểm tra lại';
+                
+                // upload image
+                if ($type == 2) {
+                    if (!empty($_FILES['event_img']['name'])) {
+                        $checkUpload = $this->uploadPhoto($_FILES['event_img'], 'event_img', URL_IMAGE_SLIDE_CATEGORY, TRUE, 1366, 768, $maxSize = 200000);
+                        if ($checkUpload) {
+                            $param['event_img'] = $checkUpload; // Get logo name:
+                            $is_resize = $this->resizePhoto($checkUpload, 923, 376, URL_IMAGE_SLIDE_CATEGORY);
+                            if ($is_resize != TRUE) { // not resize
+                                $error[] = 'Không xử lý được file ảnh <br/> vui lòng kiểm tra lại';
+                            } else {
+                                unlink(IMAGE_CATEGORY_PATH . $event_img);
+                            }
                         } else {
-                            unlink(URL_IMAGE_SLIDE_CATEGORY.$event_img);
+                            $error[] = 'File ảnh chưa được up <br/> vui lòng kiểm tra lại';
                         }
-                    } else {
-                        $error[] = 'File ảnh chưa được up <br/> vui lòng kiểm tra lại';
+                    }
+                } else {
+                    if (!empty($_FILES['event_img']['name'])) {
+                        $checkUpload = $this->uploadPhoto($_FILES['event_img'], 'event_img', IMAGE_CATEGORY_PATH, TRUE, 1366, 768, $maxSize = 200000);
+
+                        if ($checkUpload) {
+
+                            $param['event_img'] = $checkUpload; // Get logo name:
+                            $param['logo'] = $checkUpload; // Get logo name:
+
+                            $is_resize = $this->resizePhoto($checkUpload, 357, 237, IMAGE_CATEGORY_PATH);
+                            if ($is_resize != TRUE) { // not resize
+                                $error[] = 'Không xử lý được file ảnh <br/> vui lòng kiểm tra lại';
+                            } else {
+                                unlink(IMAGE_CATEGORY_PATH . $event_img);
+                            }
+                        } else {
+                            $error[] = 'File ảnh chưa được up <br/> vui lòng kiểm tra lại';
+                        }
                     }
                 }
-                
+
+                // check slug common    
+                if (empty($error)) {
+                    if ($old_slug != $param['slug']) {
+                        
+                        if (!empty($param['slug'])) {
+                            $slug = slug_convert($param['slug']);
+                        } else if (!empty($param['name'])) {
+                            $slug = slug_convert($param['name']);
+                        } else if (!empty($param['title'])) {
+                            $slug = slug_convert($param['title']);
+                        } else {
+                            $slug = '';
+                        }
+
+                        $is_check = $this->mcommon->checkSlug($slug);
+
+                        if ($is_check == TRUE) {
+                            $error[] = 'Slugs đã tồn tại, trong hệ thống, <br /> Hãy kiểm tra lại name hoặc slug';
+                        }
+                    }
+                }
+
                 if (empty($error)) {
                     $this->db->trans_off();
                     $this->db->trans_begin();
                     $this->mcategory->updateCategory($param);
+                    
+                    if ($old_slug != $param['slug']) {
+                        $this->mcommon->delete($old_slug);
+                        $slug_insert = !empty($param['slug']) ? slug_convert($param['slug']) : slug_convert($param['name']);
+                        $this->mcommon->createSlug($slug_insert, 'd_category', 'category');
+                    }
                     if ($this->db->trans_status() === FALSE) {
                         $this->db->trans_rollback();
                         $error[] = 'Hệ thống chưa cập nhật <br/> Vui lòng thử lại';
                     } else {
                         $this->db->trans_commit();
-                        redirect(base_url('category/viewCategory' . '/' . $param['id']));
+                        redirect(base_url('category'));
                         return;
                     }
                 }
@@ -239,8 +332,7 @@ class Category extends MY_Controller {
             'breadcrumb' => array(
                 base_url() => 'home',
                 base_url('category') => 'Danh mục',
-                base_url('category/viewCategory' . '/' . $parent['id']) => $parent['name'],
-                'javascript:;' => 'Danh mục con',
+                base_url('category/childrenCategory' . '/' . $parent['id']) => $parent['name'],
             ),
         );
         $items = $this->input->get();
@@ -258,6 +350,7 @@ class Category extends MY_Controller {
         if ($this->isPostMethod()) {
             $error = array();
             $params = $this->input->post();
+            $params['parent_level'] = $parent['level'];
             $this->_validateChildren($params, $error); // Check validation input
             if (empty($error)) {
                 if (!empty($_FILES['logo']['name'])) {
@@ -272,10 +365,35 @@ class Category extends MY_Controller {
                         $error[] = 'File ảnh chưa được up <br/> vui lòng kiểm tra lại';
                     }
                 }
+                
+                // check slug common
+                if (empty($error)) {
+                    if (!empty($param['slug'])){
+                        $slug = slug_convert($param['slug']);
+                    } else if (!empty($param['name'])) {
+                        $slug = slug_convert($param['name']);
+                    } else if (!empty($param['title'])) {
+                        $slug = slug_convert($param['title']);
+                    } else {
+                        $slug = '';
+                    }
+                    
+                    $is_check = $this->mcommon->checkSlug($slug);
+                    
+                    if ($is_check == TRUE) {
+                        $error[] = 'Slugs đã tồn tại, trong hệ thống, <br /> Hãy kiểm tra lại name hoặc slug';
+                    }
+                }
+                
                 if (empty($error)) {
                     $this->db->trans_off();
                     $this->db->trans_begin();
                     $this->mcategory->addChildCategory($params,$parent['id']); // new children category
+                    
+                    //insert slug common
+                    $slug_insert  =  !empty($params['slug']) ? slug_convert($params['slug']) : slug_convert($params['name']);
+                    $this->mcommon->createSlug($slug_insert,'d_category', 'category');
+                    
                     if ($this->db->trans_status() === FALSE) {
                         $this->db->trans_rollback();
                         $error[] = 'Hệ thống chưa cập nhật được dữ liệu <br/> vui lòng kiểm tra lại';
@@ -328,6 +446,10 @@ class Category extends MY_Controller {
         $data['offset'] = $offset;
         $data['items'] = $items;
         $data['parent'] = $parent;
+        
+        if ($parent['level'] < 2){
+            $data['isAddCategory'] = TRUE;
+        }
         $tpl["main_content"] = $this->load->view('category/index', $data, TRUE);
         $this->load->view(TEMPLATE, $tpl);
     }
@@ -410,7 +532,8 @@ class Category extends MY_Controller {
             'parent' => $this->mcategory->listParent(),
         );
         $logo = $params['logo'];
-        $parent = $this->mcategory->listParent();
+        $parent = $params['parent'];
+        $old_slug = $params['slug'];
         
         if ($this->isPostMethod()) {
             $error = array();
@@ -435,17 +558,49 @@ class Category extends MY_Controller {
                 }
             }
             
+            
+            // check slug common    
+            if (empty($error)) {
+                if ($old_slug != $params['slug']) {
+
+                    if (!empty($params['slug'])) {
+                        $slug = slug_convert($params['slug']);
+                    } else if (!empty($params['name'])) {
+                        $slug = slug_convert($params['name']);
+                    } else if (!empty($param['title'])) {
+                        $slug = slug_convert($params['title']);
+                    } else {
+                        $slug = '';
+                    }
+
+                    $is_check = $this->mcommon->checkSlug($slug);
+
+                    if ($is_check == TRUE) {
+                        $error[] = 'Slugs đã tồn tại, trong hệ thống, <br /> Hãy kiểm tra lại name hoặc slug';
+                    }
+                }
+            }
+
             // update child category
             if (empty($error)) {
                 $this->db->trans_off();
                 $this->db->trans_begin();
                 $this->mcategory->updateChildCategory($params);
+                if ($old_slug != $params['slug']) {
+                    $this->mcommon->delete($old_slug);
+                    $slug_insert = !empty($params['slug']) ? slug_convert($params['slug']) : slug_convert($params['name']);
+                    $this->mcommon->createSlug($slug_insert, 'd_category', 'category');
+                }
                 if ($this->db->trans_status() === FALSE) {
                     $this->db->trans_rollback();
                     $error[] = 'Hệ thống chưa cập nhật <br/> Vui lòng thử lại';
                 } else {
                     $this->db->trans_commit();
-                    redirect(base_url('category/childrenCategory').'/'.$params['parent']);
+                    if (!empty($parent)){
+                        redirect(base_url('category/childrenCategory').'/'.$parent);
+                    } else {
+                        redirect(base_url('category'));
+                    }
                 }
             }
             $data['cat_errors'] = $error;
@@ -466,19 +621,32 @@ class Category extends MY_Controller {
     public function delete() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['id'])) {
             $cat_id = (int) $_POST['id'];
-            if ($this->mcategory->delCat($cat_id)) {
+            $is_delete = $this->mcategory->delCat($cat_id);
+            if ($is_delete == TRUE) {
                 $json_result = array(
                     'result' => 1,
-                    'code' => 202,
+                    'code' => 200,
                     'data' => 'success',
                 );
                 echo json_encode($json_result);
                 return;
             } else {
-                echo '';
+                $json_result = array(
+                    'result' => 1,
+                    'code' => 304,
+                    'data' => 'fail',
+                );
+                echo json_encode($json_result);
+                return;
             }
         } else {
-            echo '';
+            $json_result = array(
+                    'result' => 1,
+                    'code' => 404,
+                    'data' => 'fail',
+                );
+                echo json_encode($json_result);
+                return;
         }
     }
 

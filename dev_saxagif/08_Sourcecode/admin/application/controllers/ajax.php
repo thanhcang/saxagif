@@ -237,9 +237,9 @@ class Ajax extends MY_Controller {
                     $temp = '';
                     foreach ($category as $key){
                         if ($temp == $key['name']){
-                            array_push($result[$key['name']], array('child_name' => $key['child_name'] ,  'id' => $key['id']));                            
+                            array_push($result[$key['name']], array('child_name' => $key['child_name'] ,  'id' => $key['id'] , 'level'=>$key['level']));                            
                         } else {
-                            $result[$key['name']][] = array('child_name' => $key['child_name'] ,  'id' => $key['id']);  
+                            $result[$key['name']][] = array('child_name' => $key['child_name'] ,  'id' => $key['id'] , 'level'=>$key['level']);  
                         }
                         $temp = $key['name'];
                     }
@@ -258,6 +258,12 @@ class Ajax extends MY_Controller {
                     echo json_encode($json_result, JSON_UNESCAPED_UNICODE);
                 }
                 return;
+            } else {
+                $json_result = array(
+                    'result' => 0,
+                    'code' => 404,
+                );
+                echo json_encode($json_result, JSON_UNESCAPED_UNICODE);
             }
         }
     }
@@ -274,6 +280,33 @@ class Ajax extends MY_Controller {
                 $json_result = array(
                     'result' => 1,
                     'code' => 202,
+                    'data' => $product,
+                );
+                echo json_encode($json_result, JSON_UNESCAPED_UNICODE);
+                return;
+            } else {
+                $json_result = array(
+                    'result' => 0,
+                    'code' => 404,
+                );
+                echo json_encode($json_result, JSON_UNESCAPED_UNICODE);
+                return;
+            }
+        }
+    }
+    
+    /**
+     * get all customer by name 
+     * @param type $param
+     */
+    public function getpartnerByName() {
+        $input = $this->input->post();
+        if ($this->isPostMethod() && !empty($input) && !empty($input['is_ajax']) && ($input['is_ajax'] == 'ajax')) {
+            $product = $this->mpartners->getpartnerByName($input['name']);
+            if (!empty($product)) {
+                $json_result = array(
+                    'result' => 1,
+                    'code' => 200,
                     'data' => $product,
                 );
                 echo json_encode($json_result, JSON_UNESCAPED_UNICODE);
@@ -308,7 +341,7 @@ class Ajax extends MY_Controller {
                 }
                 $json_result = array(
                     'result' => 1,
-                    'code' => 202,
+                    'code' => 200,
                     'data' => $result,
                 );
                 echo json_encode($json_result, JSON_UNESCAPED_UNICODE);
@@ -320,6 +353,102 @@ class Ajax extends MY_Controller {
                 );
                 echo json_encode($json_result, JSON_UNESCAPED_UNICODE);
                 return;
+            }
+        }
+    }
+    
+   /**
+    * procee choose product
+    * @return type
+    */
+   public function processChoosePartner() {
+        
+        if ($this->isPostMethod()) {
+            $input = $this->input->post();
+            
+            if (!empty($input)) {                
+                foreach ($input['sidpartner'] as $key => $value) {
+                    list($id,$name) = explode(',', $value);
+                    $result[] = array(
+                    'id' => $id,
+                    'name' => $name,
+                    );
+                }
+                $json_result = array(
+                    'result' => 1,
+                    'code' => 200,
+                    'data' => $result,
+                );
+                echo json_encode($json_result, JSON_UNESCAPED_UNICODE);
+                return;
+            } else {
+                $json_result = array(
+                    'result' => 0,
+                    'code' => 404,
+                );
+                echo json_encode($json_result, JSON_UNESCAPED_UNICODE);
+                return;
+            }
+        }
+    }
+    
+   /**
+    * check product
+    * @return type
+    */
+   public function checkProduct() {
+        
+        if ($this->isPostMethod()) {
+            $input = $this->input->post();
+            $product = $this->mproduct->checkProduct($input);
+            
+            if (!empty($product)) {
+                $json_result = array(
+                    'result' => 1,
+                    'code' => 200,
+                );
+                echo json_encode($json_result, JSON_UNESCAPED_UNICODE);
+            } else {
+                $json_result = array(
+                    'result' => 0,
+                    'code' => 404,
+                );
+                echo json_encode($json_result, JSON_UNESCAPED_UNICODE);
+                return;
+            }
+        }
+    }
+    
+   /**
+    * delete product
+    * @return type
+    */
+   public function deleteProduct() {
+        
+        if ($this->isPostMethod()) {
+            $input = $this->input->post();
+            
+            $this->db->trans_off();
+            $this->db->trans_begin();
+
+            $this->mproduct->delPro($input['id']);
+            
+            if ($this->db->trans_status() === FALSE) {
+                $this->db->trans_rollback();
+                $json_result = array(
+                    'result' => 0,
+                    'code' => 404,
+                    'error'=> 'Product chưa được xóa</br> Vui lòng thử lại'
+                );
+                echo json_encode($json_result, JSON_UNESCAPED_UNICODE);
+                return;
+            } else {
+                $this->db->trans_commit();
+                $json_result = array(
+                    'result' => 1,
+                    'code' => 200,
+                );
+                echo json_encode($json_result, JSON_UNESCAPED_UNICODE);
             }
         }
     }

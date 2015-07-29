@@ -8,15 +8,16 @@
             </div>
             <div class="box-content">
                 <form name="frmProduct" id="frmProduct" action="<?php echo base_url('product/add') ?>" method="POST" enctype="multipart/form-data">
-                    <?php if(!empty($pro_errors)): ?>
-                    <div class="error">
+                    <div class="error hide">
+                        <?php if(!empty($pro_errors)): ?>
                         <ul>
                             <?php foreach ($pro_errors as $err): ?>
                             <li><?php echo $err; ?></li>
                             <?php endforeach ?>
                         </ul>
+                        <?php endif ?>
                     </div>
-                    <?php endif ?>
+                    
                     <div class="form-group">
                         <label><?php echo $this->lang->line('CHOOSE_LANGUAGE') ?></label>
                         <select name="language_type" class="form-control input-sm">
@@ -29,11 +30,11 @@
                     </div>
                     <div class="form-group">
                         <label><?php echo $this->lang->line('PRO_CODE') ?><span class="text-danger">(*)</span></label>
-                        <input type="text" name="product_code" class="form-control noEnter" value="<?php if(!empty($params['product_code'])) echo htmlspecialchars($params['product_code']) ?>" maxlength="255" />
+                        <input type="text" name="product_code" class="form-control noEnter noSpace noComma" value="<?php if(!empty($params['product_code'])) echo htmlspecialchars($params['product_code']) ?>" maxlength="255" placeholder="Nhập mã sản phẩm" />
                     </div>
                     <div class="form-group">
                         <label><?php echo $this->lang->line('PRO_NAME') ?><span class="text-danger">(*)</span></label>
-                        <input type="text" name="name" class="form-control noEnter" value="<?php if(!empty($params['name'])) echo htmlspecialchars($params['name']) ?>" maxlength="255" />
+                        <input type="text" name="name" class="form-control noEnter" value="<?php if(!empty($params['name'])) echo htmlspecialchars($params['name']) ?>" maxlength="255" placeholder="Nhập tên sản phẩm" />
                     </div>
                     <div class="form-group">
                         <label><?php echo $this->lang->line('SLUG') ?></label>
@@ -68,9 +69,16 @@
                     </div>
                     <div class="form-group cont-giftset">
                         <label>
-                            <?php echo $this->lang->line('PRO_DISTRIBUTION') ?>
+                            <span style="width: 150px; display: inline-block"><?php echo $this->lang->line('PRO_DISTRIBUTION') ?></span>
                             <input type="text" name="searchProduct" value="" placeholder="Nhập mã code ..." class="form-inline noEnter" style="font-weight: initial; " />
                             <button type="button" id="add-giftset"><i class="glyphicon glyphicon-search"></i></button>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <span style="width: 150px; display: inline-block">Khách hàng đã chọn</span>
+                            <input type="text" name="searchCustomer" value="" placeholder="Nhập mã khách hàng ..." class="form-inline noEnter" style="font-weight: initial; " />
+                            <button type="button" id="add-customer"><i class="glyphicon glyphicon-search"></i></button>
                         </label>
                     </div>
                     <div class="form-group">
@@ -97,7 +105,7 @@
                     </div>
                     <div class="form-group">
                         <input type="hidden" name="product_id" value="<?php if (!empty($params['product_id'])) echo $params['product_id'] ?>" />
-                        <button type="submit" class="button"><?php echo $this->lang->line('SAVE') ?></button>
+                        <button type="button" class="button submitForm"><?php echo $this->lang->line('SAVE') ?></button>
                         <button type="reset" class="button" ><?php echo $this->lang->line('RESET') ?></button>
                     </div>
                 </form>
@@ -116,6 +124,8 @@
 <?php require_once(VIEW_PATH.'templates/popup/_messageDialog.php') ;?>
 <?php require_once(VIEW_PATH.'templates/popup/_productdistribution.php') ;?>
 <?php require_once(VIEW_PATH.'templates/popup/_tableSearchChoseProduct.php') ;?>
+<?php require_once(VIEW_PATH.'templates/popup/_tableSearchChosePartner.php') ;?>
+<?php require_once(VIEW_PATH.'templates/popup/_tableChosePartner.php') ;?>
 <script type="text/javascript" src="<?php echo base_url('common/js/ckfinder/ckfinder.js') ?>"></script>
 <script type="text/javascript" src="<?php echo base_url('common/js/ckeditor/ckeditor.js') ?>"></script>
 <script type="text/javascript">

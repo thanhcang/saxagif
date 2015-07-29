@@ -51,3 +51,4 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+/dev_saxagif/08_Sourcecode/nbproject/private/
