@@ -63,7 +63,7 @@ define('OFFSET_LISTTENNING', 60);
  */
 $root_path = dirname(BASEPATH);
 
-define('COMMON_PATH', FCPATH.'/common/');
+define('COMMON_PATH', FCPATH.'admin/common/');
 define('TEMP_PATH', COMMON_PATH . 'temp/');
 define('IMAGE_PATH', COMMON_PATH . 'images/');
 define('IMG_PRODUCT_PATH', COMMON_PATH . '/multidata/product_img/');

@@ -97,7 +97,7 @@
                                             class="glyphicon glyphicon-edit"></i><span> Tin tức</span></a></li>
                                             <li><a class="ajax-link" href="<?php echo base_url('commentCustomer'); ?>"><i class="glyphicon glyphicon-comment"></i><span> Ý kiến khách hàng</span></a>
                                 </li>
-                                <li><a class="ajax-link" href="manager_banner"><i class="glyphicon glyphicon-book"></i><span> Banner</span></a>
+                                <li><a class="ajax-link" href="<?php echo base_url('joinSaxa'); ?>"><i class="glyphicon glyphicon-book"></i><span> JoinSaxa</span></a>
                                 </li>
                                 <li><a class="ajax-link" href="<?php echo base_url('partners') ?>"><i class="glyphicon glyphicon-user"></i><span> Đối tác</span></a>
                                 </li>

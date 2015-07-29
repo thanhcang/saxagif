@@ -19,8 +19,8 @@
                         <?php foreach ($cat_child as $key=>$pro): ?>
                         <?php //if($key < 4): ?>
                         <li>
-                            <a href="<?php echo base_url(htmlspecialchars($pro['product_slug'])) ?>">
-                                <img src="<?php echo base_url('common/multidata/product_img/' . $pro['product_img']) ?>"/>
+                            <a href="<?php echo base_url(htmlspecialchars($pro['cat_slug']).'/'.htmlspecialchars($pro['product_slug'])) ?>">
+                                <img src="<?php echo base_url('admin/common/multidata/product_img/thumb/' . $pro['product_img']) ?>"/>
                                 <p class="name_product"><?php if(!empty($pro['product_name'])) echo htmlspecialchars($pro['product_name']) ?></p>
                             </a>
                         </li>
@@ -47,20 +47,6 @@
                 </div>
             </div>
         </div>
-        <!--<div class="sort_view">
-            <div class="sort_month">
-                <ul>
-                    <li class="active"><</li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">...</a></li>
-                    <li><a href="#">7</a></li>
-                    <li><a href="#">></a></li>
-                </ul>
-            </div>
-            <div class="clearfix"></div>
-        </div>-->
     </div>
     <div class="clearfix"></div>
 <div class="border-dashed marT60"></div>

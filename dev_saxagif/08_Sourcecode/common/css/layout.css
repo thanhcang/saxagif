@@ -1063,6 +1063,7 @@ a{
     height: 530px;
     overflow: auto;
     width: 732px;
+    /*overflow-x: hidden !important;*/
 }
 
 /******************* EXTERNAL SCROLLBAR *******************/
@@ -1484,7 +1485,8 @@ a{
     font-size:36px;
     text-transform: uppercase;
     padding:30px 25px 13px;
-    margin-bottom: 10px;
+    margin-bottom: 32px;
+    margin-top: -20px;
 }
 .bg_tit_A{
     margin-bottom: 30px;
@@ -1498,6 +1500,8 @@ a{
     padding-left:40px;
     line-height: 20px;
     text-align: justify;
+    cursor: pointer;
+    /*min-height: 30px;*/
 }
 .answer{
     border-bottom:1px solid #ccc;

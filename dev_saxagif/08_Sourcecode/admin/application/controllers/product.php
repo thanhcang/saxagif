@@ -160,12 +160,12 @@ class Product extends MY_Controller
                 }
                 // check slug common
                 if (empty($error)) {
-                    if (!empty($param['slug'])){
-                        $slug = slug_convert($param['slug']);
-                    } else if (!empty($param['name'])) {
-                        $slug = slug_convert($param['name']);
-                    } else if (!empty($param['title'])) {
-                        $slug = slug_convert($param['title']);
+                    if (!empty($params['slug'])){
+                        $slug = slug_convert($params['slug']);
+                    } else if (!empty($params['name'])) {
+                        $slug = slug_convert($params['name']);
+                    } else if (!empty($params['title'])) {
+                        $slug = slug_convert($params['title']);
                     } else {
                         $slug = '';
                     }
@@ -180,6 +180,9 @@ class Product extends MY_Controller
                 // create product
                 if (empty($error)) {
                     if ($this->mproduct->create($params)) {
+                        //insert slug common
+                        $slug_insert  =  !empty($params['slug']) ? slug_convert($params['slug']) : slug_convert($params['name']);
+                        $this->mcommon->createSlug($slug_insert,'d_product', 'category');
                         redirect(base_url('product'));
                     }
                 }

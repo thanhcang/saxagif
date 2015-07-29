@@ -44,7 +44,8 @@ class MY_Controller extends CI_Controller
         $this->data['class'] = $this->router->class;
         $this->data['method'] = $this->router->method;
         // get controller : class name
-        if ($this->router->class != 'home' && !$this->input->is_ajax_request() && $this->router->class != 'contact'  ){
+        $array_ex = array('home', 'contact' , 'contants' ,'question_answer' ,'co_operate');
+        if (!in_array($this->router->class , $array_ex) && !$this->input->is_ajax_request()){
             $this->_className = $this->checkSlug();
         }
         

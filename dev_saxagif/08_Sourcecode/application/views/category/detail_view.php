@@ -13,7 +13,7 @@
                         <?php foreach ($listCategory as $pro): ?>
                         <li>
                             <a href="javascript:;" attr_pro="<?php echo $pro['pro_id'] ?>" class="showDetailProduct">
-                                <img src="<?php if(!empty($pro['pro_img']) && file_exists(IMG_PRODUCT_PATH . $pro['pro_img']) ) echo url_img(URL_PRODUCT_IMAGE, $pro['pro_img']);else echo url_img(URL_IMAGES, 'no-img.png') ?>"/>
+                                <img src="<?php if(!empty($pro['pro_img']) && file_exists(IMG_PRODUCT_PATH . $pro['pro_img']) ) echo url_img(URL_PRODUCT_THUMB_IMAGE, $pro['pro_img']);else echo url_img(URL_IMAGES, 'no-img.png') ?>"/>
                                 <p class="name_product"><?php if(!empty($pro['pro_name'])) echo htmlspecialchars($pro['pro_name']) ?></p>
                             </a>
                         </li>
