@@ -3,6 +3,7 @@
 @media all and (min-width: 320px) {
     .container{
         margin: auto;
+        background: #fefeeb;
     }
     .w_header{
         background: url(../images/bg_top.png) #7eb235;
@@ -1031,6 +1032,9 @@
     .sort_month{margin-top:5%;}
     .block_comment .box_comment .frm_comment{
         width: 80%;
+    }
+    #tabs ul.tab_menu li, #tabs_video ul li, #tabs_news ul li{
+        font-size: 3em;
     }
 }
 /* Dành cho máy tính bảng chiều dọc */
