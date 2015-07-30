@@ -102,7 +102,7 @@ class CommentCustomer extends MY_Controller {
                     $checkUpload = $this->uploadPhoto($_FILES['logo'], 'logo', IMAGE_COMMENT_PATH, TRUE, $maxWidth = 1366, $maxHeight = 768, $maxSize = 200000);
                     if ($checkUpload) {
                         $params['logo'] = $checkUpload; // Get logo name:
-                        $is_resize = $this->resizePhoto($checkUpload, IMAGE_WIDTH_250, IMAGE_WIDTH_250, IMAGE_COMMENT_PATH);
+                        $is_resize = $this->resizePhoto($checkUpload, 112, 112 , IMAGE_COMMENT_PATH);
                         if ($is_resize != TRUE) { // not resize
                             $error[] = 'Không xử lý được file ảnh <br/> vui lòng kiểm tra lại';
                         }

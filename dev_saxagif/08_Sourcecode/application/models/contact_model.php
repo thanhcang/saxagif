@@ -15,9 +15,9 @@ class Contact_model extends MY_Model
         $data = array(
             'name' => $params['cus_name'],
             'email_address' => $params['cus_email'],
-            'phone_number'  => (!empty($params['cus_phone'])) ? $params['cus_phone'] : '',
-            'company_name'  => (!empty($params['cus_company'])) ? $params['cus_company'] : '',
-            'feeback'       => (!empty($params['cus_feeback'])) ? $params['cus_feeback'] : '',
+            'phone_number'  => (!empty($params['cus_phone'])) ? htmlspecialchars($params['cus_phone']) : '',
+            'company_name'  => (!empty($params['cus_company'])) ? htmlspecialchars($params['cus_company'])  : '',
+            'feeback'       => (!empty($params['cus_feeback'])) ? htmlspecialchars($params['cus_feeback'])  : '',
             'create_date'   => date('Y-m-d H:i:s'),
         );
         

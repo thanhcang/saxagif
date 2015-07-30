@@ -17,7 +17,7 @@ class Mcomment extends MY_Model
             'customer_name' => htmlspecialchars($param['customer_name']),
             'question' => htmlspecialchars($param['question']),
             'answer' => !empty($param['answer'] ) ? htmlspecialchars($param['answer']) : '',
-            'language_type' => !empty($param['answer'] ) ? $param['answer'] : 1 ,
+            'language_type' => !empty($param['language_type'] ) ? $param['language_type'] : 1 ,
             'logo'  =>  $param['logo'],
             'create_user'   => $this->_login_user,
             'create_date'   => date('Y-m-d H:i:s'),

@@ -54,6 +54,7 @@ class Msetting extends MY_Model {
         $data['note_story'] = !empty($param['note_story']) ? $param['note_story'] : '';
         $data['note_share'] = !empty($param['note_share']) ? $param['note_share'] : '';
         $data['note_funny'] = !empty($param['note_funny']) ? $param['note_funny'] : '';
+        $data['note_contact'] = !empty($param['note_contact']) ? $param['note_contact'] : '';
         $this->db->trans_begin();
         if ($param['language_type'] == 1){
             $this->db->where('id', 1);

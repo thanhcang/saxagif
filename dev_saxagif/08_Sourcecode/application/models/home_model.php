@@ -93,10 +93,12 @@ class Home_model extends MY_Model
                         p.id,
                         p.name AS product_name,
                         p.slug,
-                        pi.name AS image_name
+                        pi.name AS image_name,
+                        c.slug as c_slug
                 FROM
                         d_product AS p
-                INNER JOIN d_product_image AS pi ON p.id = pi.product_id
+                INNER JOIN d_category as c on p.cat_id = c.id
+                INNER JOIN d_product_image AS pi ON p.id = pi.product_id 
                 WHERE
                         p.promotion = 1
                     AND p.language_type = ?

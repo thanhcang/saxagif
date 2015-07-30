@@ -24,6 +24,14 @@ $lang['CUSTOMER_STORY'] = 'Câu chuyện khách hàng';
 $lang['SHARE_CONNECT'] = 'Chia sẻ và kết nối';
 $lang['SHARE_FUNNY'] = 'Truyền cảm hứng';
 
+$lang['TITLE_QUESTION'] = 'Thắc mắc của bạn';
+$lang['CUSTOMER_QUESTION'] = 'Ý kiến khách hàng';
+$lang['YOU_QUESTION'] = 'Bạn hỏi';
+$lang['SAXA_ANWERS'] = 'Saxa trả lời';
+$lang['SEND_QUESTION_SAXA'] = 'Gửi câu hỏi của bạn cho SAXA';
+$lang['CUSTOMER_QUESTION_'] = 'Thắc mắc của khách hàng';
+$lang['CONNECT'] = 'hợp tác';
+
 // Detail product
 $lang['pro_price'] = 'Giá';
 $lang['material'] = 'Chất liệu';
