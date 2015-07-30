@@ -245,7 +245,7 @@
     }
     .menu_hot ul li{
         display: inline-block;
-        width: 42%;
+        width: 41%;
         border-top: 1px solid #7eb235;
         font-size: 3em;
         color: #7eb235;
@@ -1016,6 +1016,93 @@
     }
     .partner li img{
         border: 1px solid #7eb235;
+    }
+    .product_detail{
+        margin-top: 10px;
+    }
+    .detail_l{
+        width:48%;
+        float: left;
+        margin-right: 20px;
+    }
+    .detail_l img.product_large{
+        width:100%;
+    }
+    .img_detail{
+        border-top: 1px solid #acaaaa;
+        padding-top: 7px;
+        margin-top: 7px;
+        width: 100%;
+    }
+    .img_detail ul li{
+        display: inline-block;
+        width: 31%; 
+        margin-right:.5%;
+        padding-right: .8%;
+        border-right: 1px solid #acaaaa;
+    }
+    .img_detail ul li:last-child{
+        margin-right:0;
+        padding-right: 0;
+        border-right: 0;
+    }
+    .img_detail ul li img{
+        width: 100%;
+    }
+    .detail_r{
+        float: left;
+        width: 45%;
+        position: relative;
+        height:315px;
+    }
+    .tit_product_detail{
+        color: #7eb235;
+        font-size:4em;
+        font-weight: normal;
+        font-family: 'UTM Bebas';
+        border-bottom: 1px solid #acaaaa;
+        padding-bottom: 7px;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+    }
+    .p_title{
+        color: #7eb235;
+        font-size:3em;
+        font-weight: normal;
+        font-family: 'UTM Bebas';
+    }
+    .info_product_detail{
+        color: #5f5f5f;
+        font-size:2em;
+        font-weight: normal;
+    }
+    .info_product_detail p{
+        margin: 5px 0;
+    }
+    .share_product{
+/*        position: absolute;
+        bottom: 0;
+        left: 0;*/
+    }
+    .giftset{
+        margin: 15px 0 0;
+    }
+    .giftset li{
+        display: inline-block;
+        width: 20%;
+        /*height: 92px;*/
+        margin-right: 10px;
+    }
+    .giftset li:last-child{
+        margin-right: 0;
+    }
+    .giftset li img{
+        width: 100%;
+        /*height: 92px;*/
+        box-shadow: 0 0 10px rgba(0,0,0,.5)
+    }
+    .cont_post_product{
+        font-size: 2em;
     }
 }
 /* Dành cho điện thoại ngang */
