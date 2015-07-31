@@ -18,6 +18,13 @@ class Category_model extends MY_Model
         return $query->result_array();
     }
     
+    /**
+     * get category by type
+     * @param type $type
+     * @param type $gift
+     * @param type $language
+     * @return boolean
+     */
     public function getCategoryByType($type, $gift = FALSE, $language = LANG_VN)
     {
         $sql_str = "SELECT
@@ -33,13 +40,18 @@ class Category_model extends MY_Model
                     WHERE
                             c.del_flg = 0
                     AND c.type = ?";
+        
         if($gift) {
             $sql_str .= " AND c.is_home = 1";
+            $sql_str .= " AND c.language_type = ? ORDER BY c.update_date DESC";
         } else {
             $sql_str .= " AND c.is_home = 0";
+            $sql_str .= " AND c.language_type = ? ORDER BY c.id ASC";
         }
-        $sql_str .= " AND c.language_type = ? ";
-        $sql_str .= " ORDER BY id DESC LIMIT 4 ";
+        
+        if($gift) {
+            $sql_str .= " LIMIT 4 ";
+        }
         $query = $this->db->query($sql_str, array($type, $language));
         if ($query->num_rows() == 0 ) {
             return FALSE;
@@ -134,14 +146,16 @@ class Category_model extends MY_Model
             }elseif($type == IS_GIFT) {
                 $rank = IS_GIFT;
                 $sql = "SELECT
-                                p.*, c.id AS category_id, c.type, c.name AS category_name
+                                p.*, c.id AS category_id, c.type, c.name AS category_name,pi.name AS product_img
                         FROM
                                 d_product AS p
+                        LEFT JOIN d_product_image AS pi ON p.id = pi.product_id
                         INNER JOIN d_category AS c ON c.id = p.cat_id
                         AND c.type = ?
                         AND c.del_flg = 0
                         WHERE
                                 p.del_flg = 0 AND c.language_type = ?
+                        GROUP BY p.id
                         ORDER BY c.id ASC";
                 $query = $this->db->query($sql, array($type, $language));
             }

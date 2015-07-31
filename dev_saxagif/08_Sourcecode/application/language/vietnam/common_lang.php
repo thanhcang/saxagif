@@ -43,3 +43,4 @@ $lang['pro_customer_select'] = 'Những khách hàng đã chọn';
 $lang['pro_description'] = 'Mô tả sản phẩm';
 $lang['close'] = 'Đóng';
 $lang['pro_post'] = 'Bài viết';
+$lang['DETAIL'] = 'Chi tiết';

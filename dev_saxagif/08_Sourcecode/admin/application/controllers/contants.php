@@ -44,5 +44,10 @@ class Contants extends MY_Controller {
         // News URL_DEL_NEWS
         echo "var URL_DEL_NEWS = '" . base_url('news/delete') . "';" . PHP_EOL;
         echo "var URL_REVIEW_NEWS = '" . base_url('news/review') . "';" . PHP_EOL;
+        
+        // join saxa
+        echo "var URL_DEL_JOINXA = '" . base_url('ajax/deleteJoinSaxa') . "';" . PHP_EOL;
+        echo "var URL_ON_JOINXA = '" . base_url('ajax/onJoinSaxa') . "';" . PHP_EOL;
+        echo "var URL_OFF_JOINXA = '" . base_url('ajax/offJoinSaxa') . "';" . PHP_EOL;
     }
 }

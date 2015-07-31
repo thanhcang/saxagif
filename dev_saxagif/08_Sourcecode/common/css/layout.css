@@ -2304,3 +2304,8 @@ a{
 }
 .product_detail .detail_l > img { width:260px; height:195px; }
 .img_detail ul li img  { width:104px; height:69px; }
+
+
+/*div::-webkit-scrollbar {
+width: 12px;
+}*/

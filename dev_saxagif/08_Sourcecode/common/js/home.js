@@ -40,14 +40,25 @@ function getSendMail() {
                 async: false,
             })
             .done(function(e){
-                if(e.length != null ){
+                if(e == '202' ){
                     _mail.val('');
                     _customerName.val('');
-                    $(".js__p_start, .js__p_another_start").simplePopup();
+                    $('.sendmail').dialogModal({
+                        topOffset: 0
+                    });
                 }
             });
         }
         
+    });
+    
+    // onclick youtube
+    $('.youtubeVideos').on('click', function () {
+        var iframeYoutube = '<iframe width="420" height="315" src="https://www.youtube.com/embed/AeubCtYhiic?autoplay=1" frameborder="0"></iframe>';
+        $('.p_content').html(iframeYoutube);
+        $('.sendmail').dialogModal({
+            topOffset: 0,
+        });
     });
 }
 

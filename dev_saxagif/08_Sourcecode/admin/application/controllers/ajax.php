@@ -19,7 +19,7 @@ class Ajax extends MY_Controller {
         if ($this->is_logged_in() == FALSE) {
             $this->_return_session_timeout();
         }
-        $this->load->model(array('muser','mpartners','mcategory','mproduct'));
+        $this->load->model(array('muser','mpartners','mcategory','mproduct', 'mjoinsaxa'));
     }
 
     /**
@@ -432,6 +432,108 @@ class Ajax extends MY_Controller {
             $this->db->trans_begin();
 
             $this->mproduct->delPro($input['id']);
+            
+            if ($this->db->trans_status() === FALSE) {
+                $this->db->trans_rollback();
+                $json_result = array(
+                    'result' => 0,
+                    'code' => 404,
+                    'error'=> 'Product chưa được xóa</br> Vui lòng thử lại'
+                );
+                echo json_encode($json_result, JSON_UNESCAPED_UNICODE);
+                return;
+            } else {
+                $this->db->trans_commit();
+                $json_result = array(
+                    'result' => 1,
+                    'code' => 200,
+                );
+                echo json_encode($json_result, JSON_UNESCAPED_UNICODE);
+            }
+        }
+    }
+    
+   /**
+    * delete join saxa
+    * @return type
+    */
+   public function deleteJoinSaxa() {
+        
+        if ($this->isPostMethod()) {
+            $input = $this->input->post();
+            
+            $this->db->trans_off();
+            $this->db->trans_begin();
+
+            $this->mjoinsaxa->deleteJoinSaxa($input['id']);
+            
+            if ($this->db->trans_status() === FALSE) {
+                $this->db->trans_rollback();
+                $json_result = array(
+                    'result' => 0,
+                    'code' => 404,
+                    'error'=> 'Product chưa được xóa</br> Vui lòng thử lại'
+                );
+                echo json_encode($json_result, JSON_UNESCAPED_UNICODE);
+                return;
+            } else {
+                $this->db->trans_commit();
+                $json_result = array(
+                    'result' => 1,
+                    'code' => 200,
+                );
+                echo json_encode($json_result, JSON_UNESCAPED_UNICODE);
+            }
+        }
+    }
+    
+   /**
+    * delete join saxa
+    * @return type
+    */
+   public function onJoinSaxa() {
+        
+        if ($this->isPostMethod()) {
+            $input = $this->input->post();
+            
+            $this->db->trans_off();
+            $this->db->trans_begin();
+
+            $this->mjoinsaxa->onJoinSaxa($input['id']);
+            
+            if ($this->db->trans_status() === FALSE) {
+                $this->db->trans_rollback();
+                $json_result = array(
+                    'result' => 0,
+                    'code' => 404,
+                    'error'=> 'Product chưa được xóa</br> Vui lòng thử lại'
+                );
+                echo json_encode($json_result, JSON_UNESCAPED_UNICODE);
+                return;
+            } else {
+                $this->db->trans_commit();
+                $json_result = array(
+                    'result' => 1,
+                    'code' => 200,
+                );
+                echo json_encode($json_result, JSON_UNESCAPED_UNICODE);
+            }
+        }
+    }
+    
+   /**
+    * delete join saxa
+    * @return type
+    */
+   public function offJoinSaxa() {
+        
+        if ($this->isPostMethod()) {
+            $input = $this->input->post();
+            
+            $this->db->trans_off();
+            $this->db->trans_begin();
+
+            $this->mjoinsaxa->offJoinSaxa($input['id']);
             
             if ($this->db->trans_status() === FALSE) {
                 $this->db->trans_rollback();

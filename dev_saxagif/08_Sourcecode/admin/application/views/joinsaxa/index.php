@@ -17,7 +17,8 @@
                     <colgroup>
                         <col width="3%"/>
                         <col width="10%"/>
-                        <col width="70%">
+                        <col width="3%"/>
+                        <col width="67%">
                         <col width="27%"/>
                     </colgroup>
                     <thead>
@@ -33,6 +34,7 @@
                         <?php if (!empty($list_data)): foreach ($list_data as $key => $news): ?>
                         <tr class="news_<?php echo $news['id'] ?>">
                             <td class="text-center"><?php echo $key+1+$offset ?></td>
+                            <td class="text-center"><?php echo !empty($news['name']) ? $news['name'] : ''  ?></td>
                             <td class="text-center"><?php echo !empty($news['number']) ? $news['number'] : ''  ?></td>
                             <td class=""><?php echo !empty($news['content']) ? _substr($news['content'],200) : '' ?></td>
                             <td class="text-center">
@@ -44,10 +46,19 @@
                                     <i class="glyphicon glyphicon-edit icon-white"></i>
                                     <?php echo $this->lang->line('EDIT') ?>
                                 </a>
-                                <a class="btn btn-danger delNews" href="javascript:;" news_attr="<?php echo $news['id'] ?>">
+                                <a class="btn btn-danger delNews" href="javascript:;" cat_attr="<?php echo $news['id'] ?>">
                                     <i class="glyphicon glyphicon-trash icon-white"></i>
                                     <?php echo $this->lang->line('DELETE') ?>
                                 </a>
+                                <?php if ($news['status'] == 1) : ?>
+                                <a class="btn btn-success onNews" href="javascript:;" cat_attr="<?php echo $news['id'] ?>">
+                                    <i class="glyphicon glyphicon-eye-open icon-white"> ON</i>
+                                </a>
+                                <?php else : ?>
+                                <a class="btn btn-danger offNews" href="javascript:;" cat_attr="<?php echo $news['id'] ?>">
+                                    <i class="glyphicon glyphicon-eye-close icon-white"> OFF</i>
+                                </a>
+                                <?php endif ?>
                             </td>
                         </tr>
                         <?php endforeach; ;endif; ?>
@@ -63,3 +74,6 @@
     </div>
 
 </div><!--/row-->
+<?php require_once(VIEW_PATH.'templates/popup/_confirmDelete.php') ;?>
+<?php require_once(VIEW_PATH.'templates/popup/_messageDialog.php') ;?>
+<script type="text/javascript" src="<?php echo base_url('common/js/join_saxa.js') ?>"></script>

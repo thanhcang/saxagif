@@ -48,6 +48,7 @@ $route['we-expect-from-you.html'] = 'about/we_expect_from_you';
 $route['default_controller'] = "home";
 
 $default_controller = 'home';
+$route['gia-nhap-cung-saxa/(:any)'] = 'join_saxa/detail';
 $route['((?!home|ajax|contants)(:any))'] = 'common';
 //$route['(:any)'] = 'common';
 $route['((?!home|ajax|contants)(:any))/(:any)'] = 'common';
@@ -56,6 +57,8 @@ $route['contants'] = 'contants';
 $route['contact'] = 'contact';
 $route['thac-mac-va-huong-dan'] = 'question_answer';
 $route['hop-tac'] = 'co_operate';
+$route['gia-nhap-cung-saxa'] = 'join_saxa';
+
 $route['thac-mac-va-huong-dan/sendQuestion'] = 'question_answer/sendQuestion';
 $route['404_override'] = '';
 

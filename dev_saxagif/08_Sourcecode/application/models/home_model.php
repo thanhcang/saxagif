@@ -218,4 +218,23 @@ class Home_model extends MY_Model
         } 
         return FALSE ;
     }
+    
+    /**
+     * join saxa
+     * @param type $param
+     * @return boolean
+     */
+    public function join_saxa($language = LANG_VN) {
+        $this->db->where('status', 1);
+        $this->db->where('language_type', $language);
+        $this->db->select('*');
+        $this->db->order_by('update_date','DESC');
+        
+        $query = $this->db->get('d_joinsaxa');
+        
+        if($query->num_rows() > 0) {
+            return $query->result_array();
+        } 
+        return FALSE ;
+    }
 }

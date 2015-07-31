@@ -39,18 +39,6 @@
             <script src="<?php echo base_url('common/js/common.js') ?>"></script>
             <script src="<?php echo base_url('common/js/home.js') ?>"></script>
             
-            <!--=============Popup=============-->
-            <script type="text/javascript" src="<?php echo base_url('common/js/jquery.popup.js') ?>"></script>
-            <!--Layout Popup-->
-            <div class="js__sendmail p_body js__p_body js__fadeout"></div>
-            <div class="popup js__popup js__slide_top"> <a href="#" class="p_close js__p_close" title="Close"></a>
-                <div class="p_content">
-                    <p class="note_mail">
-                        <?php echo $this->lang->line('mess_thank_customer') ?>
-                    </p>
-                </div>
-            </div>
-
             <script>
                 function showMask(id) {
                     document.getElementById(id).style.display = 'block';

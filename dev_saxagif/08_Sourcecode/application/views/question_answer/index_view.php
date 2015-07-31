@@ -5,7 +5,7 @@
             <div class="box_head_QA"><?php echo $this->lang->line('CUSTOMER_QUESTION'); ?></div>
             <div class="box_main_QA">
                 <div class="scrollbar-external_wrapper" style="height:643px !important; width:333px !important;">
-                    <div class="scrollbar-external scrollbar-external-idea height_643 width_310">
+                    <div style=" height: 100%; overflow: auto">
                         <?php if (!empty($question)): ?>
                         <?php foreach ($question as $key): ?>
                         <div class="idea">
@@ -20,21 +20,6 @@
                         </div>
                         <?php endforeach;?>
                         <?php endif; ?>
-                    </div>
-                    <div class="external-scroll_x">
-                        <div class="scroll-element_outer">
-                            <div class="scroll-element_size"></div>
-                            <div class="scroll-element_track"></div>
-                            <div class="scroll-bar"></div>
-                        </div>
-                    </div>
-
-                    <div class="external-scroll_m height_643">
-                        <div class="scroll-element_outer">
-                            <div class="scroll-element_size"></div>
-                            <div class="scroll-element_track"></div>
-                            <div class="scroll-bar" style="height: 100px;"></div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -103,20 +88,21 @@
         $("#accordion").accordion();
     });
 </script>
-<script src="<?php echo base_url('common/js/jquery.scrollbar.js'); ?>"></script>
+<script src="<?php //  echo base_url('common/js/jquery.scrollbar.js'); ?>"></script>
 <script>
             jQuery(document).ready(function() {
                 
-                jQuery('.scrollbar-external-idea').scrollbar({
-//                    "autoScrollSize": false,
-                    "scrolly": $('.external-scroll_m'),
-//                    "disableBodyScroll" : true
-                });
-                jQuery('.scrollbar-external-QA').scrollbar({
-//                    "autoScrollSize": false,
-                    "scrolly": $('.external-scroll_y')
-                    
-                });
+//                jQuery('.scrollbar-external-idea').scrollbar({
+////                    "autoScrollSize": false,
+//                    "scrolly": $('.external-scroll_m'),
+////                    "disableBodyScroll" : true
+//                });
+//                jQuery('.scrollbar-external-QA').scrollbar({
+////                    "autoScrollSize": false,
+//                    "scrolly": $('.external-scroll_y')
+//                    
+//                });
+//                jQuery('.scrollbar-external-idea').scrollbar();
                 
                 $('.send_frm_QA').on('click', function(){
                     var formObj = $(document.getElementById('sendQa'));
@@ -142,7 +128,7 @@
 </script>
 
 <style>
-    .scroll-wrapper > .scroll-content{
+/*    .scroll-wrapper > .scroll-content{
         overflow-x: hidden  !important;
-    }
+    }*/
 </style>
