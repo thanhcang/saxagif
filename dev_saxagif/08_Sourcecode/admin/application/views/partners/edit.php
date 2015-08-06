@@ -34,7 +34,7 @@
                         <label for="inputFile"><?php echo $this->lang->line('LOGO') ?></label>
                         <div>
                             <?php if(!empty($detailPar['logo']) && file_exists( IMAGE_PARTNERS_PATH . $detailPar['logo'])): ?>
-                                <span class="eidt_img_ca"><img src="<?php echo base_url('common/img/partners'.'/' . $detailPar['logo'] ) ?>" /></span>
+                                <span class="eidt_img_ca"><img src="<?php echo base_url('common/multidata/partners'.'/' . $detailPar['logo'] ) ?>" /></span>
                             <?php else: ?>
                                 <span class="eidt_img_ca"><img src="<?php echo base_url('common/img/partners'.'/' . 'no-img.png' ) ?>" /></span>
                             <?php endif ?>

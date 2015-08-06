@@ -101,8 +101,8 @@
                                 </li>
                                 <li><a class="ajax-link" href="<?php echo base_url('partners') ?>"><i class="glyphicon glyphicon-user"></i><span> Đối tác</span></a>
                                 </li>
-                                <li><a class="ajax-link" href="<?php echo base_url('customer') ?>"><i class="glyphicon glyphicon-book"></i><span> khách hàng</span></a>
-                                </li>
+                                <li><a class="ajax-link" href="<?php echo base_url('customer') ?>"><i class="glyphicon glyphicon-book"></i><span> khách hàng</span></a></li>
+                                <li><a class="ajax-link" href="<?php echo base_url('listenThemSay') ?>"><i class="glyphicon glyphicon-flash"></i><span> Nghe họ nói</span></a></li>
                                 <li><a class="ajax-link" href="<?php echo base_url('user'); ?>"><i class="glyphicon glyphicon-user"></i><span>user</span></a>
                                 </li>
                                 <li><a class="ajax-link" href="<?php echo base_url('cai-dat-chung'); ?>"><i class="glyphicon glyphicon-cog"></i><span> Cài đặt chung</span></a>

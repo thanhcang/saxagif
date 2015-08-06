@@ -11,9 +11,9 @@
                 <div class="line"></div>
                 <div class="cont_news">
                     <?php if(!empty($detailNews['avatar']) && file_exists(IMAGE_NEWS_PATH . $detailNews['avatar'])): ?>
-                    <div class="avatar-news">
-                        <img src="<?php echo base_url('common/temp/' . $detailNews['avatar']) ?>" />
-                    </div>
+<!--                    <div class="avatar-news">
+                        <img src="<?php //echo base_url('common/multidata/news/' . $detailNews['avatar']) ?>" />
+                    </div>-->
                     <?php endif ?>
                     <p>
                         <?php if(!empty($detailNews['content'])) echo $detailNews['content'] ?>

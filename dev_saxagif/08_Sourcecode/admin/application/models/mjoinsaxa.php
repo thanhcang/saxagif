@@ -101,6 +101,23 @@ class Mjoinsaxa extends MY_Model
      * @param int id
      */
     public function offJoinSaxa($id) {
-        $this->db->where('id' , $id);
-        $this->db->update('d_joinsaxa', array('status' => '0'));    }
+        $this->db->where('id', $id);
+        $this->db->update('d_joinsaxa', array('status' => '0'));
+    }
+    
+    /**
+     * check name is exists
+     * @param string $name
+     * @return boolean
+     */
+    public function checkExistsName($name) {
+        $this->db->where('name', $name);
+        $query = $this->db->get('d_joinsaxa');
+        
+        if ($query->num_rows() == 0) {
+            return FALSE;
+        }
+        return TRUE;
+    }
+
 }

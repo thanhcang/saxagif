@@ -58,8 +58,14 @@ $config['typeCategory'] = array(
     2=>'sự kiện',
     3=>'giúp bạn chọn quà',
 );
+
 $config['position_news'] = array(
     1 => 'Trang chủ',
     2 => 'Giới thiệu',
     3 => 'Liên hệ',
+);
+
+$config['type_listen'] = array(
+    1 => 'cá nhân',
+    2 => 'group',
 ); 

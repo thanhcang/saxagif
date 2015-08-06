@@ -73,7 +73,7 @@ define('COMMON_PATH', FCPATH.'/common/');
 define('VIEW_PATH', APPPATH.'/views/');
 define('TEMP_PATH', COMMON_PATH . 'temp/');
 define('IMAGE_PATH', COMMON_PATH . 'img/');
-define('IMAGE_PARTNERS_PATH', COMMON_PATH . 'img/partners/');
+define('IMAGE_PARTNERS_PATH', COMMON_PATH . '/multidata/partners/');
 define('IMG_PRODUCT_PATH', COMMON_PATH . '/multidata/product_img/');
 define('IMAGE_CATEGORY_PATH', COMMON_PATH . '/multidata/cat_logo/');
 define('IMAGE_NEWS_PATH', COMMON_PATH . '/multidata/news/');
@@ -83,6 +83,8 @@ define('URL_IMAGE_JOINSAXA_CATEGORY',COMMON_PATH .'multidata/joinsaxa/');
 define('IMAGE_PRODUCT_PATH',COMMON_PATH .'multidata/product_img/');
 define('IMAGE_THUMB_PRODUCT_PATH',COMMON_PATH .'multidata/product_img/thumb/');
 define('IMAGE_COMMENT_PATH',COMMON_PATH .'multidata/comment/');
+define('URL_IMAGE_YOUR_SAY',COMMON_PATH .'multidata/listen_to_them_say/');
+define('URL_IMAGE_YOUR_SAY_THUMB',COMMON_PATH .'multidata/listen_to_them_say/thumb/');
 // No change
 define('SALT', 'saxagifts!$23');
 

@@ -18,7 +18,9 @@ class joinSaxa extends MY_Controller {
         $this->load->model('mjoinSaxa');
     }
     
-    
+    /**
+     * show index
+     */
     public function index() {
         $data = array(
             'page_title' => 'SAXA Gifts - Quản lý danh mục',
@@ -81,6 +83,10 @@ class joinSaxa extends MY_Controller {
         $this->load->view(TEMPLATE, $tpl);
     }
     
+    /**
+     * add join in saxa
+     * @return type
+     */
     public function add() {
         $data = array(
             'page_title' => 'SAXA Gifts - Quản lý danh mục',
@@ -95,15 +101,20 @@ class joinSaxa extends MY_Controller {
         
         if ($this->isPostMethod()){
             $input = $this->input->post();
-            $checkUpload = $this->uploadPhoto($_FILES['logo'], 'logo', URL_IMAGE_JOINSAXA_CATEGORY, TRUE, 1366, 768, $maxSize = 200000);
-            if ($checkUpload) {
-                $input['logo'] = $checkUpload; // Get logo name:
-                $is_resize = $this->resizePhoto($checkUpload, 832, 319, URL_IMAGE_JOINSAXA_CATEGORY);
-                if ($is_resize != TRUE) { // not resize
-                    $error[] = 'Không xử lý được file ảnh <br/> vui lòng kiểm tra lại';
+            $error = array();
+            
+            $this->_validateForm($input, $error);
+            if (empty($error)) {
+                $checkUpload = $this->uploadPhoto($_FILES['logo'], 'logo', URL_IMAGE_JOINSAXA_CATEGORY, TRUE, 1366, 768, $maxSize = 200000);
+                if ($checkUpload) {
+                    $input['logo'] = $checkUpload; // Get logo name:
+                    $is_resize = $this->resizePhoto($checkUpload, 832, 319, URL_IMAGE_JOINSAXA_CATEGORY);
+                    if ($is_resize != TRUE) { // not resize
+                        $error[] = 'Không xử lý được file ảnh <br/> vui lòng kiểm tra lại';
+                    }
+                } else {
+                    $error[] = 'File ảnh chưa được up <br/> vui lòng kiểm tra lại';
                 }
-            } else {
-                $error[] = 'File ảnh chưa được up <br/> vui lòng kiểm tra lại';
             }
 
             if (empty($error)){
@@ -113,10 +124,11 @@ class joinSaxa extends MY_Controller {
                     redirect(base_url('joinSaxa'));
                     return;
                 } else {
-                    
+                    // nothing
                 }
             }
-            
+            $data['params'] = $input;
+            $data['error'] = $error;
         }
         
         $tpl["main_content"] = $this->load->view('joinsaxa/add', $data, TRUE);
@@ -129,6 +141,39 @@ class joinSaxa extends MY_Controller {
     }
     
     public function delete($param) {
+        
+    }
+    
+    private function _validateForm(&$param , &$error) {
+        // trim and htmlspecialchars array
+        foreach ($param as $key => $value){
+            $param[$key] = htmlspecialchars(trim($value));
+        }
+        
+        //Load
+        $this->load->library('form_validation');
+        // Set rules:
+        $this->form_validation->set_rules("name",'Nhập vị trí tuyển dụng', "required|trim|xss_clean");
+        $this->form_validation->set_rules("number",'Nhập số lượng', "required|trim|");
+        $this->form_validation->set_rules("des", 'Nhập mô tả ngắn', "required|trim");
+        $this->form_validation->set_rules("work", 'Nhập công việc', "required|trim");
+        $this->form_validation->set_rules("content",'Nhập nội dung',"required|trim");
+        $this->form_validation->set_rules("right",'Nhập quyền lợi', "required|trim");
+        // Set Message:
+        $this->form_validation->set_message('required', '%s');
+        //Validate
+        if ($this->form_validation->run() == FALSE) {
+            $error = $this->form_validation->error_array();
+        }
+        
+        // check name duplicate
+        if (empty($error)){
+            $is_exists = $this->mjoinSaxa->checkExistsName($param['name']);
+            
+            if ($is_exists == TRUE){
+                $error[] = 'Vị trí tuyển dụng đã tồn tại.';
+            }
+        }
         
     }
 
