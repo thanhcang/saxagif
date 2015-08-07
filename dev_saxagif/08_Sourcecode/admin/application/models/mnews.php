@@ -71,13 +71,18 @@ class Mnews extends MY_Model
             'language_type' => (!empty($params['language_type'])) ? $params['language_type'] : '',
             'keyword_seo' => (!empty($params['txtKeySeo'])) ? $params['txtKeySeo'] : '',
             'des_seo' => (!empty($params['txtDesSeo'])) ? $params['txtDesSeo'] : '',
-            'avatar' => (!empty($params['avatar'])) ? $params['avatar'] : '',
         );
+        
         if(!empty($params['slug'])) {
             $data['slug'] = slug_convert($params['slug']);      
         }else {
             $data['slug'] = slug_convert($params['txtTitle']);
         }
+        
+        if (!empty($params['avatar'])){
+           $data['avatar'] = $params['avatar'] ;
+        }
+        
         if (!empty($params['news_id'])) {
             $this->db->where('id', $params['news_id']);
             $data['update_user'] = $this->session->userdata('ses_user_id');

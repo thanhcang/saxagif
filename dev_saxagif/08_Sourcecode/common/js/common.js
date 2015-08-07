@@ -101,4 +101,8 @@ function widthTopbanner() {
     $('.content_bannerT').css('left', (left_right / 2));
 }
 
+$(document).on('click' , '.close', function(){
+//    $('body').removeClass('dialogModalOpen');
+});
+
 

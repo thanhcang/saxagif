@@ -30,6 +30,8 @@ class Mjoinsaxa extends MY_Model
             'status'  => 1,
             'number'  => htmlspecialchars($param['number']),
             'logo'  => $param['logo'],
+            'slug'  => slug_convert($param['name']),
+            'update_date'  => date('Y-m-d H:i:s'),
         );
         
         $this->db->insert('d_joinsaxa', $data);
@@ -75,4 +77,47 @@ class Mjoinsaxa extends MY_Model
         return  $query->result_array();
         
     }
+    
+    /**
+     * delete join saxa
+     * @param int id
+     */
+    public function deleteJoinSaxa($id) {
+        $this->db->where('id' , $id);
+        $this->db->delete('d_joinsaxa');
+    }
+    
+    /**
+     * delete join saxa
+     * @param int id
+     */
+    public function onJoinSaxa($id) {
+        $this->db->where('id' , $id);
+        $this->db->update('d_joinsaxa', array('status' => '1'));
+    }
+    
+    /**
+     * delete join saxa
+     * @param int id
+     */
+    public function offJoinSaxa($id) {
+        $this->db->where('id', $id);
+        $this->db->update('d_joinsaxa', array('status' => '0'));
+    }
+    
+    /**
+     * check name is exists
+     * @param string $name
+     * @return boolean
+     */
+    public function checkExistsName($name) {
+        $this->db->where('name', $name);
+        $query = $this->db->get('d_joinsaxa');
+        
+        if ($query->num_rows() == 0) {
+            return FALSE;
+        }
+        return TRUE;
+    }
+
 }

@@ -111,12 +111,12 @@
         </script>
 
         <!--=============Popup=============-->
-        <script type="text/javascript" src="<?php echo base_url ('common/js/jquery.popup.js') ?>"></script>
+<!--        <script type="text/javascript" src="<?php //echo base_url ('common/js/jquery.popup.js') ?>"></script>
         <script type="text/javascript">
             $(function() {
                 //$(".js__p_start, .js__p_another_start").simplePopup();
             });
-        </script>
+        </script>-->
         <!--=============simplyscroll=============-->
         <script type="text/javascript" src="<?php echo base_url ('common/js/jquery.simplyscroll.js') ?>"></script>
         <script type="text/javascript">

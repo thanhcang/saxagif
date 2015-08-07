@@ -172,6 +172,8 @@ class News extends MY_Controller
                 redirect(base_url('news'));
             }
             
+            // init param
+            $old_avatar = $detailNews['avatar']; 
             $tpl = array(
                 'breadcrumb' => array(
                     base_url() => 'home',
@@ -196,33 +198,21 @@ class News extends MY_Controller
                 $params['news_id'] = $newsId;
                 if(empty($error)) {
                     
-                    $checkUpload = $this->uploadPhoto($_FILES['avatar'], 'avatar', TEMP_PATH, TRUE, $maxWidth = 1366, $maxHeight = 768, $maxSize = 200000 );
-                    if ($checkUpload) {
-                        // Get logo name:
-                        $params['avatar'] = $checkUpload;
-                        if ($this->resizePhoto($checkUpload, $width = IMAGE_WIDTH_300, $height = IMAGE_HEIGHT_300, TEMP_PATH, IMAGE_NEWS_PATH)) {
-                            // Remove tmp file:
-                            $tmpFile = TEMP_PATH . $checkUpload;
-                            if (file_exists($tmpFile)) {
-                                $fh = fopen($tmpFile, "rb");
-                                $imgData = fread($fh, filesize($tmpFile));
-                                fclose($fh);
-                                unlink($tmpFile);
-                            }
-                        }
+                    // upload avatar
+                    if (!empty($_FILES['avatar']['name'])) {
+                        $checkUpload = $this->uploadPhoto($_FILES['avatar'], 'avatar', IMAGE_NEWS_PATH, TRUE, 1366, 768, $maxSize = 200000);
                         
-                        // Remove file:
-                        $detailNews = $this->mnews->detail($newsId);
-                        if ($detailNews) {
-                            if(!empty($detailCat['avatar'])) {
-                                $imgFile = IMAGE_NEWS_PATH . $detailCat['avatar'];
-                                if (file_exists($imgFile)) {
-                                    $fh = fopen($imgFile, "rb");
-                                    $imgData = fread($fh, filesize($imgFile));
-                                    fclose($fh);
-                                    unlink($imgFile);
-                                }
+                        if ($checkUpload) {
+                            $params['avatar'] = $checkUpload; // Get logo name:
+                            
+                            $is_resize = $this->resizePhoto($checkUpload, 300, 300 , IMAGE_NEWS_PATH);
+                            if ($is_resize != TRUE) { // not resize
+                                $error[] = 'Không xử lý được file ảnh <br/> vui lòng kiểm tra lại';
+                            } else {
+                                unlink(IMAGE_NEWS_PATH.'/'.$old_avatar);
                             }
+                        } else {
+                            $error[] = 'File ảnh chưa được up <br/> vui lòng kiểm tra lại';
                         }
 
                     }

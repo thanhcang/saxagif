@@ -96,7 +96,7 @@
                         <tr>
                             <td><?php echo $num ?></td>
                             <td><?php echo htmlspecialchars($partners['name']) ?></td>
-                            <td><?php if(!empty($partners['logo']) && is_file(IMAGE_PARTNERS_PATH.$partners['logo'])) echo '<img src='. base_url('common/img/partners'.'/'.$partners['logo']).'>'; ?></td>
+                            <td><?php if(!empty($partners['logo']) && is_file(IMAGE_PARTNERS_PATH.$partners['logo'])) echo '<img src='. base_url('common/multidata/partners'.'/'.$partners['logo']).'>'; ?></td>
                             <td><?php if (!empty($partners['note'])) echo htmlspecialchars($partners['note']) ?></td>
                             <td>
                                 <span class="action-partners">

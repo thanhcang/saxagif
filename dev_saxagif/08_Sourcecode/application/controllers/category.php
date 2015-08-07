@@ -31,6 +31,12 @@ class Category extends MY_Controller
             $this->data['listCategory'] = $listCategory;
             $this->data['page_title'] = 'Category detail';
             $this->render('category/detail_view');
+        }elseif($rank == IS_GIFT) {
+            $this->data['listGift'] = $listCategory;
+            $this->data['giftName'] = $this->getNameGift($listCategory);
+            //echo '<pre>';            print_r($listCategory);exit;
+             $this->data['page_title'] = 'Choose gifts';
+            $this->render('category/gift_view');
         }else {
             redirect();
         }
@@ -81,6 +87,45 @@ class Category extends MY_Controller
             }
 
             $temp = $key['child_name'];
+        }
+        
+        return $temp_data;
+    }
+    
+    /**
+     * Get name gift category
+     */
+    public function getNameGift($list_category)
+    {
+        // check emtpy list category
+        if (empty($list_category)){
+            return FALSE;
+        }
+        
+        $temp = '';
+        $temp_data = array();
+        $count = 0;
+        foreach ($list_category as $key) {
+            // add element into array
+            if ($key['category_name'] == $temp) {
+                $count++;
+                if ($count < 2) {
+                    array_push($temp_data[$key['category_name']], array(
+                        'category_name' => $key['category_name'],
+                        'category_id' => $key['category_id'],
+
+                    ));
+                }
+            } else {
+                // create array
+               $temp_data[$key['category_name']] = array(
+                    'category_name' => $key['category_name'],
+                    'category_id' => $key['category_id'],
+                );
+                $count = 1;
+            }
+
+            $temp = $key['category_name'];
         }
         
         return $temp_data;

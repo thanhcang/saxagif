@@ -68,7 +68,7 @@ class Home extends MY_Controller
             $email = $this->input->post('email');
             $name = $this->input->post('name');
             if ($this->home_model->setSendMail($email, $name)) {
-                echo '1';
+                echo '202';
             } else {
                 echo '';
             }

@@ -20,6 +20,7 @@ EOF;
     endforeach;
 }
 ?>
+<link rel="stylesheet" href="<?php echo base_url('common/css/popModal.css') ?>" type="text/css">
 <div class="content">
     <div class="content_left">
         <div class="box_l">
@@ -83,7 +84,7 @@ EOF;
             <div class="box_main">
                 <p class="height_45"><?php echo !empty($setting_footer['note_funny']) ?   $setting_footer['note_funny'] : ''; ?></p>
                 <p class="pic_news">
-                    <a class="js__p_start">
+                    <a class="js__p_start youtubeVideo">
                         <img src="<?php echo base_url('common/images/video.png'); ?>">
                     </a>
                 </p>
@@ -200,3 +201,5 @@ EOF;
 <script type="text/javascript">
     var URL_SEND_MAIL_CUSTOMER = '<?php echo base_url('home/sendMailCustomer') ?>';
 </script>
+<?php require_once( APPPATH.'views/templates/_parts/master_popup_sendmail.php'); ?>
+<script src="<?php echo base_url('common/js/popModal.js') ?>"></script>
