@@ -107,8 +107,10 @@ class MY_Controller extends CI_Controller
     }
     
     public function is_mobile() {
+        $this->session->set_userdata('ses_mobile','');
         if ($this->agent->is_mobile()) {
             $this->subfix_layout = '_sm';
+            $this->session->set_userdata('ses_mobile','_sm');
         }
     }
     

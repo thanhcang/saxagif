@@ -45,6 +45,7 @@ $route['gia-nhap-cung-saxa/(:any)'] = 'join_saxa/detail';
 $route['hop-tac/detail'] = 'co_operate/detail';
 $route['thac-mac-va-huong-dan/sendQuestion'] = 'question_answer/sendQuestion';
 $route['thac-mac-va-huong-dan'] = 'question_answer';
+$route['chung-toi-mong-doi-gi-o-ban'] = 'about/we_expect_from_you';
 
 $route['((?!home|ajax|contants)(:any))'] = 'common';
 $route['((?!home|ajax|contants)(:any))/(:any)'] = 'common';

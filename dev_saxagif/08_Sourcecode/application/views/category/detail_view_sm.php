@@ -10,7 +10,7 @@
                 <?php if(!empty($listCategory)): ?>
                     <?php foreach ($listCategory as $pro): ?>
                         <li>
-                            <a href="javascript:;" attr_pro="<?php echo $pro['pro_id'] ?>" class="showDetailProduct">
+                            <a href="<?php echo base_url($pro['slug_cat'].'/'.$pro['slug_pro']) ?>" attr_pro="<?php echo $pro['pro_id'] ?>" class="showDetailProduct">
                                 <img src="<?php if(!empty($pro['pro_img']) && file_exists(IMG_PRODUCT_PATH . $pro['pro_img']) ) echo url_img(URL_PRODUCT_THUMB_IMAGE, $pro['pro_img']);else echo url_img(URL_IMAGES, 'no-img.png') ?>"/>
                             </a>
                         </li>

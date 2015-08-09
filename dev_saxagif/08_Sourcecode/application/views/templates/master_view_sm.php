@@ -53,7 +53,7 @@
                             </li>
                             <li class="slogan_mn">
                                 <a>
-                                    <?php if($setting_footer['slogan']) echo strtoupper($setting_footer['slogan']) ?>
+                                    <?php //if($setting_footer['slogan']) echo strtoupper($setting_footer['slogan']) ?>
                                     sứ mệnh của một công ty là gì?
                                     nếu không phải là đem lại hạnh phúc 
                                     cho khách hàng của mình

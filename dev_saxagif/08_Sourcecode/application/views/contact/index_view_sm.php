@@ -45,13 +45,13 @@
     </div>
 </div>
 <div class="content_noboder gift">
-    <div class="label">Quà tặng dặc  biệt từ SAXA</div>
+    <div class="label"><?php echo $this->lang->line('special_gifts_from_saxa') ?></div>
     <div id="slider1_container" style="position: relative; top: 0px; left: 0px; width: 980px; height: 150px; overflow: hidden; "><!-- Slides Container -->
         <div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 980px; height: 150px; overflow: hidden;">
             <?php if(!empty($list_gift)): ?>
             <?php foreach ($list_gift as $gift): ?>
             <div class="img_gift">
-                <a href="<?php echo base_url($gift['c_slug'].'/'.$gift['slug']) ?>">
+                <a href="<?php echo base_url($gift['slug']) ?>">
                     <img u="image" alt="<?php //echo htmlspecialchars($gift['product_name']) ?>" src="<?php echo url_img(URL_PRODUCT_THUMB_IMAGE, $gift['image_name']) ?>" />
                 </a>
             </div>

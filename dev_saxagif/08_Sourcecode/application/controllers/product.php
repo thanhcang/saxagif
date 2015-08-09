@@ -18,14 +18,17 @@ class Product extends MY_Controller
        
         $data = array();
         $slug = end($this->uri->segment_array());
-        $listCategory = $this->product_model->getProductByCategory($slug);
-        $this->data['listCategory'] = $this->processCategoryList($listCategory);
+        $detailProduct = $this->product_model->getDetail('', $slug);
+        $product_id = $detailProduct['id'];
+        $detailImage = $this->product_model->getImageProduct($product_id);
+        $customerChoosePro = $this->product_model->getCustomerChooseProduct($product_id);
+        $product_coordinator = $this->product_model->getProductCoordinator($product_id);
         $this->data['page_title'] = 'Product';
-        $this->render('product/index_view');
-    }
-    
-    public function test() {
-        echo 'chuyen nho';
+        $this->data['detailProduct'] = $detailProduct;
+        $this->data['detailImage'] = $detailImage;
+        $this->data['customerChoosePro'] = $customerChoosePro;
+        $this->data['productCoordinator'] = $product_coordinator;
+        $this->render('product/index_view'.$this->subfix_layout);
     }
     
     /**
@@ -70,6 +73,16 @@ class Product extends MY_Controller
         }
         
         return $temp_data;
+    }
+    
+    /**
+     * @author HoaHN<hoahn@vccvn.com>
+     * @date 2015/08/09
+     * Get detail product
+     */
+    public function detail()
+    {
+        
     }
 
 }

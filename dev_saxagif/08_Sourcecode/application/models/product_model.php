@@ -14,18 +14,25 @@ class Product_model extends MY_Model
      * @author hnguyen0110@gmail.com
      * @date 2015/07/25
      */
-    public function getDetail($product_id)
+    public function getDetail($product_id = '', $slug = '')
     {
+        $arr_where = array();
         $sql = "
                 SELECT
-                        name, price, description, content , book_limit , delivery_days
+                        id,name, price, description, content , book_limit , delivery_days
                 FROM
                         d_product AS p
-                WHERE
-                        p.id = ?
-                AND p.del_flg = 0
+                WHERE p.del_flg = 0
                 ";
-        $query = $this->db->query($sql, array($product_id, $product_id));
+        if (!empty($product_id)) {
+            $sql .= " AND p.id = ? ";
+            $arr_where[] = $product_id;
+        }
+        if (!empty($slug)) {
+            $sql .= " AND p.slug = ? ";
+            $arr_where[] = $slug;
+        }
+        $query = $this->db->query($sql, $arr_where);
         if ($query->num_rows() == 0) {
             return FALSE;
         }
@@ -38,7 +45,7 @@ class Product_model extends MY_Model
     public function getCustomerChooseProduct($product_id)
     {
         $sql ="SELECT
-                    c.logo
+                    c.logo, c.url
             FROM
                     d_partners AS c
             INNER JOIN d_product_customer AS pc ON pc.customer_id = c.id
@@ -58,11 +65,11 @@ class Product_model extends MY_Model
     public function getProductCoordinator($product_id)
     {
         $sql ="SELECT
-                        i.`name`, c.id
+                        i.`name`, c.id,c.slug
                 FROM
                         (
                                 SELECT
-                                        p.id
+                                        p.id, p.slug
                                 FROM
                                         d_product_coordinator AS c
                                 INNER JOIN d_product AS p ON c.product_code = p.product_code
