@@ -127,7 +127,7 @@
                                                 <li class="header"><?php echo htmlspecialchars($cat['name']) ?></li>
                                                 <?php foreach ($cat_menu as $key1 => $cat_child): ?>
                                                     <?php if($cat_child['parent'] == $cat['id']): ?>
-                                                <li class="submn" onclick="hideMask('submn_product')"><a href="<?php echo base_url($cat_child['slug']) ?>"><?php echo htmlspecialchars($cat_child['name']) ?></a></li>
+                                                <li class="submn" onclick="hideMask('submn_product')"><a href="<?php echo base_url($cat['slug'].'/'.$cat_child['slug']) ?>"><?php echo htmlspecialchars($cat_child['name']) ?></a></li>
                                                     <?php endif; ?>
                                                 <?php endforeach; ?>
                                             <?php endif ?>
@@ -144,7 +144,7 @@
                                                 <li class="header"><?php echo htmlspecialchars($cat['name']) ?></li>
                                                 <?php foreach ($cat_menu as $key1 => $cat_child): ?>
                                                     <?php if($cat_child['parent'] == $cat['id']): ?>
-                                                        <li class="submn" onclick="hideMask('submn_product')"><a href="<?php echo base_url($cat_child['slug']) ?>"><?php echo htmlspecialchars($cat_child['name']) ?></a></li>
+                                                        <li class="submn" onclick="hideMask('submn_product')"><a href="<?php echo base_url($cat['slug'].'/'.$cat_child['slug']) ?>"><?php echo htmlspecialchars($cat_child['name']) ?></a></li>
                                                     <?php endif; ?>
                                                 <?php endforeach; ?>
                                             <?php endif ?>
@@ -185,7 +185,7 @@
                                                 <li class="header"><?php echo htmlspecialchars($cat['name']) ?></li>
                                                 <?php foreach ($cat_menu as $key1 => $cat_child): ?>
                                                     <?php if($cat_child['parent'] == $cat['id']): ?>
-                                                <li class="submn" onclick="hideMask('submn_product')"><a href="<?php echo base_url($cat_child['slug']) ?>"><?php echo htmlspecialchars($cat_child['name']) ?></a></li>
+                                                <li class="submn" onclick="hideMask('submn_product')"><a href="<?php echo base_url($cat['slug'].'/'.$cat_child['slug']) ?>"><?php echo htmlspecialchars($cat_child['name']) ?></a></li>
                                                     <?php endif; ?>
                                                 <?php endforeach; ?>
                                             <?php endif ?>
@@ -202,7 +202,7 @@
                                                 <li class="header"><?php echo htmlspecialchars($cat['name']) ?></li>
                                                 <?php foreach ($cat_menu as $key1 => $cat_child): ?>
                                                     <?php if($cat_child['parent'] == $cat['id']): ?>
-                                                        <li class="submn" onclick="hideMask('submn_product')"><a href="<?php echo base_url($cat_child['slug']) ?>"><?php echo htmlspecialchars($cat_child['name']) ?></a></li>
+                                                        <li class="submn" onclick="hideMask('submn_product')"><a href="<?php echo base_url($cat['slug'].'/'.$cat_child['slug']) ?>"><?php echo htmlspecialchars($cat_child['name']) ?></a></li>
                                                     <?php endif; ?>
                                                 <?php endforeach; ?>
                                             <?php endif ?>

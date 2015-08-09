@@ -36,7 +36,7 @@ class Category_model extends MY_Model
                             c.bg_color,
                             c.price
                     FROM
-                            d_category AS c
+                            d_category AS c        
                     WHERE
                             c.del_flg = 0
                     AND c.type = ?";
