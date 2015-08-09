@@ -16,6 +16,6 @@ class Mission extends MY_Controller
     public function index()
     {
         $this->data['page_title'] = 'Mission';
-        $this->render('mission/index_view');
+        $this->render('mission/index_view'.$this->subfix_layout);
     }
 }

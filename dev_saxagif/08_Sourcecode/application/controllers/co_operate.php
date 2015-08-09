@@ -20,7 +20,7 @@ class Co_operate extends MY_Controller
     public function index()
     {
         $this->data['listData'] = $this->mquestion->getCoOperate();
-        $this->render('co_operate/index_view');
+        $this->render('co_operate/index_view'.$this->subfix_layout);
     }
     
     /**

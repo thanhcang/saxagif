@@ -22,7 +22,7 @@ class Story_saxa extends MY_Controller
         $this->data['yourSayPer'] = $this->mnews->listYourSay(1,$this->langs);
         $this->data['yourSayGroup'] = $this->mnews->listYourSay(2,$this->langs);
         
-        $this->render('story_saxa/index_view');
+        $this->render('story_saxa/index_view'.$this->subfix_layout);
     }
     
     /**

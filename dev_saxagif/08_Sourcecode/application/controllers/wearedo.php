@@ -23,7 +23,7 @@ class Wearedo extends MY_Controller {
         $this->data['listData'] = $this->mnews->listWeareDo($this->langs);
         $this->data['detailMaster'] = $this->mnews->detailMasterWeareDo($this->langs);
 
-        $this->render('wearedo/index_view');
+        $this->render('wearedo/index_view'.$this->subfix_layout);
     }
 
     /**

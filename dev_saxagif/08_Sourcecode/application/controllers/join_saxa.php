@@ -19,7 +19,7 @@ class Join_saxa extends MY_Controller
     public function index()
     {
         $this->data['listData'] = $this->home_model->join_saxa($this->langs);
-        $this->render('join_saxa/index_view');
+        $this->render('join_saxa/index_view'.$this->subfix_layout);
     }
     
     /**
@@ -31,7 +31,7 @@ class Join_saxa extends MY_Controller
         $detail = $this->uri->segment(2); 
        
         $this->data['listData'] = $this->home_model->detailJoinSaxa($detail,$this->langs);
-        $this->render('join_saxa/detail');
+        $this->render('join_saxa/detail'.$this->subfix_layout);
     }
     
 }

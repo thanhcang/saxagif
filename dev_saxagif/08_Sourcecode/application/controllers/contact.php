@@ -15,7 +15,7 @@ class Contact extends MY_Controller
     
     public function index()
     {
-        $this->render('contact/index_view');
+        $this->render('contact/index_view'.$this->subfix_layout);
     }
     
     

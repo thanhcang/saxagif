@@ -35,17 +35,17 @@ class Category extends MY_Controller
             $this->data['list_category'] = $listCategory[0];
             $this->data['listCategory'] = $this->processCategoryList($listCategory);
             $this->data['page_title'] = 'Product';
-            $this->render('category/index_view');
+            $this->render('category/index_view'.$this->subfix_layout);
         } elseif($rank == CATEGORY_CHILD) {
             $this->data['listCategory'] = $listCategory;
             $this->data['page_title'] = 'Category detail';
-            $this->render('category/detail_view');
+            $this->render('category/detail_view'.$this->subfix_layout);
         }elseif($rank == IS_GIFT) {
             $this->data['listGift'] = $listCategory;
             $this->data['giftName'] = $this->getNameGift($listCategory);
             //echo '<pre>';            print_r($listCategory);exit;
              $this->data['page_title'] = 'Choose gifts';
-            $this->render('category/gift_view');
+            $this->render('category/gift_view'.$this->subfix_layout);
         }else {
             redirect();
         }
@@ -120,6 +120,7 @@ class Category extends MY_Controller
                     array_push($temp_data[$key['category_name']], array(
                         'category_name' => $key['category_name'],
                         'category_id' => $key['category_id'],
+                        'category_slug' => $key['category_slug'],
 
                     ));
                 }
@@ -128,6 +129,7 @@ class Category extends MY_Controller
                $temp_data[$key['category_name']] = array(
                     'category_name' => $key['category_name'],
                     'category_id' => $key['category_id'],
+                   'category_slug' => $key['category_slug'],
                 );
                 $count = 1;
             }

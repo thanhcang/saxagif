@@ -1,7 +1,7 @@
 <?php
 $lang['product_category'] = 'Category product';
-$lang['mission'] = 'SÃº má»‡nh';
-$lang['choose_gift'] = 'GiÃºp báº¡n chá»n quÃ ';
+$lang['mission'] = 'Sú m?nh';
+$lang['choose_gift'] = 'Giúp b?n ch?n quà';
 $lang['page_home'] = 'Home page';
 $lang['page_cat_product'] = 'Category product';
 $lang['page_question_answer'] = 'Question and answer';
@@ -19,13 +19,21 @@ $lang['products_saxa'] = 'Products Saxa';
 $lang['view_more'] = 'View more';
 
 // Detail product
-$lang['pro_price'] = 'GiÃ¡';
-$lang['material'] = 'Cháº¥t liá»‡u';
-$lang['pro_designs'] = 'Kiá»ƒu dÃ¡ng';
-$lang['pro_made'] = 'Xuáº¥t xá»©';
-$lang['pro_code'] = 'MÃ£ sáº£n pháº©m';
-$lang['pro_distribution'] = 'Sáº£n pháº©m phá»‘i giftset';
-$lang['pro_customer_select'] = 'Nhá»¯ng khÃ¡ch hÃ ng Ä‘Ã£ chá»n';
-$lang['pro_description'] = 'MÃ´ táº£ sáº£n pháº©m';
+$lang['pro_price'] = 'Giá';
+$lang['material'] = 'Ch?t li?u';
+$lang['pro_designs'] = 'Ki?u dáng';
+$lang['pro_made'] = 'Xu?t x?';
+$lang['pro_code'] = 'Mã s?n ph?m';
+$lang['pro_distribution'] = 'S?n ph?m ph?i giftset';
+$lang['pro_customer_select'] = 'Nh?ng khách hàng ?ã ch?n';
+$lang['pro_description'] = 'Mô t? s?n ph?m';
 $lang['close'] = 'Close';
 $lang['pro_post'] = 'Posts';
+
+$lang['info_hot'] = 'Thông tin hot';
+$lang['choose_gift_sm'] = 'Ch?n quà giúp b?n';
+$lang['tutorial_choose_gift'] = 'H??ng d?n ?i?n thông tin ?? nh?n quà';
+$lang['phone'] = 'Phone number';
+$lang['company'] = 'Company';
+$lang['email'] = 'Email address';
+$lang['who_we_are'] = 'Chúng tôi là ai';

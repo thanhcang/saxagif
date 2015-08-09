@@ -6,11 +6,12 @@ class MY_Controller extends CI_Controller
     protected $langs = array();
     private $_ajax = false;
     var $_className = array();
+    public $subfix_layout = '';
             
     function __construct()
     {
         parent::__construct();
-        
+        $this->load->library('user_agent');
         //check ajax request?
         if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
             $this->_ajax = true;
@@ -21,7 +22,7 @@ class MY_Controller extends CI_Controller
         } else {
             $this->langs = LANG_VN;
         }
-        $this->langs = LANG_VN;
+        //$this->langs = LANG_VN;
         $language = $this->langs;
         $this->data['language'] = $language;
         $this->settingLanguage($language);
@@ -50,7 +51,7 @@ class MY_Controller extends CI_Controller
         if (!in_array($this->router->class , $array_ex) && !$this->input->is_ajax_request()){
             $this->_className = $this->checkSlug();
         }
-        
+        $this->is_mobile();
     }
  
     protected function render($the_view = NULL, $template = 'master')
@@ -67,7 +68,7 @@ class MY_Controller extends CI_Controller
         else
         {
           $this->data['the_view_content'] = (is_null($the_view)) ? '' : $this->load->view($the_view,$this->data, TRUE);;
-          $this->load->view('templates/'.$template.'_view', $this->data);
+          $this->load->view('templates/'.$template.'_view'.$this->subfix_layout, $this->data);
         }
     }
     
@@ -105,6 +106,10 @@ class MY_Controller extends CI_Controller
         }
     }
     
-    
+    public function is_mobile() {
+        if ($this->agent->is_mobile()) {
+            $this->subfix_layout = '_sm';
+        }
+    }
     
 }

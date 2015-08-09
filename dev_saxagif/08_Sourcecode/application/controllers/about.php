@@ -16,28 +16,28 @@ class About extends MY_Controller
     public function index()
     {
         $this->data['page_title'] = 'Mission';
-        $this->render('about/index_view');
+        $this->render('about/index_view'.$this->subfix_layout);
     }
     
     //Who we are page
     public function who_we_are()
     {
         $this->data['page_title'] = 'Mission';
-        $this->render('about/who_we_are_view');
+        $this->render('about/who_we_are_view'.$this->subfix_layout);
     }
     
     // We do for you page
     public function we_do_for_you()
     {
         $this->data['page_title'] = 'We do for you';
-        $this->render('about/we_do_for_you');
+        $this->render('about/we_do_for_you'.$this->subfix_layout);
     }
     
     // we_expect_from_you page
     public function we_expect_from_you()
     {
         $this->data['page_title'] = 'We do for you';
-        $this->render('about/we_expect_from_you');
+        $this->render('about/we_expect_from_you'.$this->subfix_layout);
     }
     
 }

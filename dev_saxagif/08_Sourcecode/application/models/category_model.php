@@ -146,7 +146,7 @@ class Category_model extends MY_Model
             }elseif($type == IS_GIFT) {
                 $rank = IS_GIFT;
                 $sql = "SELECT
-                                p.*, c.id AS category_id, c.type, c.name AS category_name,pi.name AS product_img
+                                p.*, c.id AS category_id, c.type, c.name AS category_name, c.slug as category_slug, pi.name AS product_img
                         FROM
                                 d_product AS p
                         LEFT JOIN d_product_image AS pi ON p.id = pi.product_id
