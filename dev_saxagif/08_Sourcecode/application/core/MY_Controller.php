@@ -46,7 +46,7 @@ class MY_Controller extends CI_Controller
         
         //echo $this->router->class; die;
         // get controller : class name
-        $array_ex = array('home', 'contact' , 'contants' ,'question_answer' ,'co_operate','join_saxa','story_saxa','wearedo');
+        $array_ex = array('home', 'contact' , 'contants' ,'question_answer' ,'co_operate','join_saxa','story_saxa','wearedo','weexpectfromyou');
         if (!in_array($this->router->class , $array_ex) && !$this->input->is_ajax_request()){
             $this->_className = $this->checkSlug();
         }
