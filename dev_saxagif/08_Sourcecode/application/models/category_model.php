@@ -1,14 +1,14 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
- 
-class Category_model extends MY_Model
-{
-    function __construct()
-    {
+<?php
+
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class Category_model extends MY_Model {
+
+    function __construct() {
         parent::__construct();
     }
-    
-    public function listAll()
-    {
+
+    public function listAll() {
         $this->db->select('id, name, parent')
                 ->where('del_flg', 0);
         $query = $this->db->get($this->_tbl_category);
@@ -17,7 +17,7 @@ class Category_model extends MY_Model
         }
         return $query->result_array();
     }
-    
+
     /**
      * get category by type
      * @param type $type
@@ -25,8 +25,7 @@ class Category_model extends MY_Model
      * @param type $language
      * @return boolean
      */
-    public function getCategoryByType($type, $gift = FALSE, $language = LANG_VN)
-    {
+    public function getCategoryByType($type, $gift = FALSE, $language = LANG_VN) {
         $sql_str = "SELECT
                             c.id,
                             c.`name`,
@@ -40,28 +39,27 @@ class Category_model extends MY_Model
                     WHERE
                             c.del_flg = 0
                     AND c.type = ?";
-        
-        if($gift) {
+
+        if ($gift) {
             $sql_str .= " AND c.is_home = 1";
             $sql_str .= " AND c.language_type = ? ORDER BY c.update_date DESC";
         } else {
             $sql_str .= " AND c.is_home = 0";
             $sql_str .= " AND c.language_type = ? ORDER BY c.id ASC";
         }
-        
-        if($gift) {
+
+        if ($gift) {
             $sql_str .= " LIMIT 4 ";
         }
         $query = $this->db->query($sql_str, array($type, $language));
-        if ($query->num_rows() == 0 ) {
+        if ($query->num_rows() == 0) {
             return FALSE;
         }
         //echo $this->db->last_query();die;
         return $query->result_array();
     }
-    
-    public function getCategoryProduct($type = IS_CATEGORY)
-    {
+
+    public function getCategoryProduct($type = IS_CATEGORY) {
         $sql = "SELECT
                         p. NAME AS parent_name,
                         p.id AS id_parent,
@@ -79,14 +77,13 @@ class Category_model extends MY_Model
         }
         return $query->result_array();
     }
-    
+
     /**
      * @author hnguyen0110@gmail.com
      * @date 2015/07/25
      * Get product by category
      */
-    public function getProductByCategory($slug, &$rank, $language = LANG_VN)
-    {
+    public function getProductByCategory($slug, &$rank, $language = LANG_VN) {
         //Get category parent:
         $result_cate = array();
         $sql = "SELECT c.id,c.level, c.type FROM d_category AS c WHERE c.slug = ? AND del_flg = 0 LIMIT 1";
@@ -101,7 +98,7 @@ class Category_model extends MY_Model
             if ($level == 3 && $type == IS_CATEGORY) {
                 // Set rank = 2: category last child
                 $rank = CATEGORY_CHILD;
-                
+
                 $sql = "SELECT
                                 c.id AS cat_id,
                                 c.name AS cat_name,
@@ -123,11 +120,10 @@ class Category_model extends MY_Model
                                 p.update_date,
                                 pi.create_date";
                 $query = $this->db->query($sql, array($cat_id, $language));
-                
-            } elseif($level != 3 && $type == IS_CATEGORY ) {
+            } elseif ($level != 3 && $type == IS_CATEGORY) {
                 // Set rank = 1: Category parent:
                 $rank = CATEGORY_PARENT;
-                        
+
                 $sql = 'SELECT p.name as parent_name,t_child.*, p.note
                         FROM d_category as p
                         INNER JOIN 
@@ -143,21 +139,22 @@ class Category_model extends MY_Model
                         ) as t_child ON t_child.parent = p.id
                         ORDER BY child_name ';
                 $query = $this->db->query($sql, array($cat_id, $language));
-            }elseif($type == IS_GIFT) {
+            } elseif ($type == IS_GIFT) {
                 $rank = IS_GIFT;
                 $sql = "SELECT
                                 p.*, c.id AS category_id, c.type, c.name AS category_name, c.slug as category_slug, pi.name AS product_img
                         FROM
                                 d_product AS p
-                        LEFT JOIN d_product_image AS pi ON p.id = pi.product_id
+                        INNER JOIN d_product_image AS pi ON p.id = pi.product_id
                         INNER JOIN d_category AS c ON c.id = p.cat_id
                         AND c.type = ?
                         AND c.del_flg = 0
+                        AND c.slug = ?
                         WHERE
-                                p.del_flg = 0 AND c.language_type = ?
+                            p.del_flg = 0 AND c.language_type = ?
                         GROUP BY p.id
                         ORDER BY c.id ASC";
-                $query = $this->db->query($sql, array($type, $language));
+                $query = $this->db->query($sql, array($type, $slug, $language));
             }
         }
         if ($query->num_rows() == 0) {
@@ -165,7 +162,7 @@ class Category_model extends MY_Model
         }
         return $query->result_array();
     }
-    
+
     /**
      * get position category
      * @param type $slug
@@ -180,14 +177,33 @@ class Category_model extends MY_Model
                 ) as z
                 WHERE
                 z.slug = ?";
-        
+
         $query = $this->db->query($sql, array($slug));
-            
+
         if ($query->num_rows() == 0) {
             return FALSE;
         }
-        
+
         return $query->row_array();
     }
-    
+
+    /**
+     * get detail present
+     * @param type $slug
+     * @param type $language
+     * @return boolean
+     */
+    public function getDetailPresent($slug, $language = LANG_VN) {
+        $this->db->select('note, des_seo, keyword_seo');
+        $query = $this->db->where('slug', $slug);
+        $query = $this->db->where('language_type', $language);
+        $query = $this->db->get('d_category');
+
+        if ($query->num_rows() == 0) {
+            return FALSE;
+        }
+
+        return $query->row_array();
+    }
+
 }

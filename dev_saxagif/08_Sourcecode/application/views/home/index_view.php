@@ -60,7 +60,7 @@ EOF;
             <?php if(!empty($cat_gift)): ?>
             <?php foreach ($cat_gift as $key=>$gift): $mask = $key+1; ?>
             <li class="<?php if($key == 1) echo 'last' ?>">
-                <a href="<?php echo base_url($gift['slug']) ?>">
+                <a href="<?php echo base_url('giup-ban-chon-qua'.'/'.$gift['slug']) ?>">
                 <div onmouseover="showMask('<?php echo 'mask'.$mask; ?>')">
                     <img src="<?php echo base_url('admin/common/multidata/cat_logo/' . $gift['logo']) ?>" />
                     <div class="title_product">

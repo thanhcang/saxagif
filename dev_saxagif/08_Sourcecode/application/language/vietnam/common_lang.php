@@ -66,4 +66,3 @@ $lang['tutorial_choose_gift'] = 'Hướng dẫn điền thông tin nhận quà';
 $lang['phone'] = 'điện thoại';
 $lang['company'] = 'Công ty';
 $lang['email'] = 'Email';
-
