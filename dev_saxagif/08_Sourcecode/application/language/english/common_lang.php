@@ -40,3 +40,4 @@ $lang['who_we_are'] = 'Chúng tôi là ai';
 $lang['we_expect_from_you'] = 'Chúng tôi mong ??i gì ? b?n';
 $lang['special_gifts_from_saxa'] = 'Quà t?ng ??c bi?t t? SAXA';
 $lang['sale_you_will_serve_you'] = 'Các b?n SALE s? ph?c v? b?n';
+$lang['choose_gift_url'] = 'help-you-choose-gifts';

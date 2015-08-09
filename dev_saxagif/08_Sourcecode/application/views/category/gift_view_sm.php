@@ -3,17 +3,16 @@
     <div class="label"><?php echo $this->lang->line('choose_gift') ?></div>
     <div id="tabs">
         <ul  class="tab_menu">
-            <?php if(!empty($giftName)): $i = 1;$giftIndex = 0; ?>
-                <?php foreach ($giftName as $key=>$gift): ?>
-                <?php
-                $giftType = $this->uri->segment(1);
-                if ($giftType == $giftName[$key]['category_slug']) {
-                    $giftIndex = $i-1;
-                }
-                ?>
-                <li><a href="#tabs-<?php echo $i ?>"><?php echo $key ?></a></li>
-                <?php $i++; endforeach; ?>
-            <?php endif; ?>
+            <?php if(!empty($listPresent)): ?>
+            <?php $giftUrl = $this->lang->line('choose_gift_url') ?>
+            <?php foreach ($listPresent as $key => $gift): ?>
+                <li class="<?php echo ($gift['slug'] == $this->uri->segment(2)) ? 'ui-tabs-active' : '' ?>">
+                    <a href="<?php echo base_url($giftUrl.'/'.$gift['slug']) ?>">
+                        <?php echo $gift['name'] ?>
+                    </a>
+                </li>
+            <?php endforeach; ?>
+            <?php endif; ?>   
         </ul>
         <br />
         <div class="tab-content">
@@ -30,7 +29,7 @@
                                 <?php foreach ($listGift as $gift): ?>
                                 <?php if($gift['category_id'] == $gift_p['category_id']): ?>
                                 <li>
-                                    <a href="javascript:;" attr_pro="<?php echo $gift['id'] ?>" class="showDetailProduct">
+                                    <a href="<?php echo base_url($gift['slug']) ?>" attr_pro="<?php echo $gift['id'] ?>" class="showDetailProduct">
                                         <img src="<?php echo url_img(URL_PRODUCT_IMAGE, $gift['product_img']) ?>"/>
                                     </a>
                                 </li>
@@ -63,6 +62,6 @@
 </div>
 <?php $this->load->view('templates/_parts/category_footer_view_sm'); ?>
 <script>
-    var _giftIndex = '<?php echo $giftIndex; ?>';
-    $("#tabs").tabs({active: _giftIndex});
+    //var _giftIndex = '<?php //echo $giftIndex; ?>';
+    //$("#tabs").tabs({active: _giftIndex});
 </script>
