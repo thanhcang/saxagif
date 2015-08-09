@@ -27,6 +27,7 @@
 </div>
 <div class="clearfix"></div>
 <a href="<?php echo base_url('hop-tac'); ?>"><img src="<?php echo base_url('common/images/link-to-contact.png'); ?>"></a>
+<div class="border-dashed marT60"></div>
 <div id="main_loader" class="c_hide"></div>
 <link rel="stylesheet" href="<?php echo base_url('common/css/popModal.css') ?>" type="text/css">    
 <?php require_once( APPPATH.'views/templates/_parts/master_popup_detaiwearedo.php'); ?>

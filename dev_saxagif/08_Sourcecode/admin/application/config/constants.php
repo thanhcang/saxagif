@@ -85,6 +85,7 @@ define('IMAGE_THUMB_PRODUCT_PATH',COMMON_PATH .'multidata/product_img/thumb/');
 define('IMAGE_COMMENT_PATH',COMMON_PATH .'multidata/comment/');
 define('URL_IMAGE_YOUR_SAY',COMMON_PATH .'multidata/listen_to_them_say/');
 define('URL_IMAGE_YOUR_SAY_THUMB',COMMON_PATH .'multidata/listen_to_them_say/thumb/');
+define('URL_IMAGE_SALSE',COMMON_PATH .'multidata/salse');
 // No change
 define('SALT', 'saxagifts!$23');
 

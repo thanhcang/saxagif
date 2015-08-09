@@ -211,5 +211,49 @@ class Mnews extends MY_Model {
         }
         return FALSE;
     }
+    
+    /**
+     * list we expect from you
+     * @param int $language
+     * @return boolean
+     */
+    public function listWeaExpect($language = LANG_VN) {
+        $sql = "SELECT
+                    n.id,
+                    n.title , 
+                    n.content
+                FROM
+                    d_news AS n
+                INNER JOIN d_news_category AS c ON n.id_news_cat = c.id
+                AND c.del_flg = 0
+                AND c.slug LIKE '%chung-toi-mong-doi-gi-o-ban'
+                AND c.language_type = ? 
+                WHERE
+                    n.del_flg = 0
+                ORDER BY n.update_date DESC
+                LIMIT 1    
+                ";
+
+        $query = $this->db->query($sql, array($language));
+
+        if ($query->num_rows() > 0) {
+            return $query->row_array();
+        }
+        return FALSE;
+    }
+    
+    /**
+     * get all list salse
+     * @param type $param
+     * @return boolean
+     */
+    public function listSalse() {
+        $query = $this->db->get('d_sale_service');
+        
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        }
+        return FALSE;
+    }
 
 }
