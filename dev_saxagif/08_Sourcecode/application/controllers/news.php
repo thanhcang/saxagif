@@ -4,13 +4,12 @@
  * @date 2015/07/19
  * Management contact
  */
-class Category extends MY_Controller
+class News extends MY_Controller
 {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model(array('category_model', 'product_model'));
-        //$this->lang->load('contact');
+        $this->load->model(array('mnews'));
     }
     // Mission page
     public function index()
@@ -41,8 +40,6 @@ class Category extends MY_Controller
             $this->data['page_title'] = 'Category detail';
             $this->render('category/detail_view'.$this->subfix_layout);
         }elseif($rank == IS_GIFT) {
-            $this->data['listPresent'] = $this->category_model->getCategoryByType($type = IS_GIFT,TRUE, $this->langs);
-            $this->data['detailPresent'] = $this->category_model->getDetailPresent($this->uri->segment(2),$this->langs);
             $this->data['listGift'] = $listCategory;
             $this->data['giftName'] = $this->getNameGift($listCategory);
             //echo '<pre>';            print_r($listCategory);exit;

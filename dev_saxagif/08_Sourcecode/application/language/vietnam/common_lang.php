@@ -59,11 +59,13 @@ $lang['INTERESTIN_YOURS_SAY'] = 'Theo dõi câu chuyện của họ tại';
 $lang['WE_ARE_DO'] = 'Chúng tôi làm được gì cho bạn';
 $lang['WE_EXPECT_YOU'] = 'Chúng tôi mong đợi gì ở bạn';
 $lang['SALSE_SERVICE'] = 'Các bạn sale sẽ phục vụ bạn';
+
 $lang['info_hot'] = 'Thônng tin hot';
 $lang['choose_gift_sm'] = 'Chọn quà giúp bạn';
 $lang['tutorial_choose_gift'] = 'Hướng dẫn điền thông tin nhận quà';
 $lang['phone'] = 'điện thoại';
 $lang['company'] = 'Công ty';
+
 $lang['email'] = 'Email';
 $lang['who_we_are'] = 'Chúng tôi là ai';
 $lang['we_expect_from_you'] = 'Chúng tôi mong đợi gì ở bạn';
