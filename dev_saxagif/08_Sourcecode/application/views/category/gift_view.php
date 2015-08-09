@@ -16,7 +16,7 @@
     <?php foreach ($giftName as $key=>$gift_p): ?>
     <div id="tabs-1">
         <div class="srollbarProduct" style="width: 1220px !important;">
-                <div class="product" style="width: 1176px !important;">
+                <div class="product" style="width: 1200px !important;">
                     <ul>
                         <?php if(!empty($listGift)): ?>
                         <?php foreach ($listGift as $gift): ?>

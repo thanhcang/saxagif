@@ -81,7 +81,7 @@ function showCustomerSlide()
         var _position = 1;
         
         var _position = parseInt($(this).attr('attr_num'));
-        console.log(_position);
+        
         if(_position.length > 0 && !isNaN(_position)) {
             
         }
