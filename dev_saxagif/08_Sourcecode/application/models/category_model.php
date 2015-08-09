@@ -132,7 +132,7 @@ class Category_model extends MY_Model
                         FROM d_category as p
                         INNER JOIN 
                         (
-                        SELECT c.name as child_name, c.slug as child_slug, s.slug as product_slug , c.logo, c.parent,c.id AS child_id,pi.name AS product_img, s.name AS product_name
+                        SELECT c.name as child_name, c.slug as child_slug, s.slug as product_slug ,s.id as pro_id , c.logo, c.parent,c.id AS child_id,pi.name AS product_img, s.name AS product_name
                         FROM  d_category as c 
                         INNER JOIN  d_product as s ON c.id  = s.cat_id AND s.del_flg = 0
                         INNER JOIN d_product_image AS pi ON s.id = pi.product_id
@@ -164,6 +164,30 @@ class Category_model extends MY_Model
             return FALSE;
         }
         return $query->result_array();
+    }
+    
+    /**
+     * get position category
+     * @param type $slug
+     * @return boolean
+     */
+    public function getPositionCategory($slug) {
+        $sql = "SELECT z.rank FROM (
+                    SELECT c.slug , @rownum := @rownum + 1 AS rank
+                    FROM d_category AS c, (SELECT @rownum := 0) r
+                                WHERE c.parent = 0 AND c.type = 1
+                    ORDER BY c.id
+                ) as z
+                WHERE
+                z.slug = ?";
+        
+        $query = $this->db->query($sql, array($slug));
+            
+        if ($query->num_rows() == 0) {
+            return FALSE;
+        }
+        
+        return $query->row_array();
     }
     
 }

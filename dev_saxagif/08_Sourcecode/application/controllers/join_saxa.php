@@ -28,7 +28,9 @@ class Join_saxa extends MY_Controller
      */
     public function detail()
     {
-        $this->data['listData'] = $this->home_model->join_saxa($this->langs);
+        $detail = $this->uri->segment(2); 
+       
+        $this->data['listData'] = $this->home_model->detailJoinSaxa($detail,$this->langs);
         $this->render('join_saxa/detail');
     }
     

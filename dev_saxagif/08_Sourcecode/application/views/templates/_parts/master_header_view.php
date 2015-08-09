@@ -64,7 +64,7 @@
     </head>
     <body>
         <div class="w_container">
-            <div class="w_footer">
+            <div class="w_main_foot">
                 <?php if(isset($class) && $class == 'home'): ?>
                 <div class="w_header">
                     <div class="w_content">
@@ -115,7 +115,7 @@
                                         <li class="category_product_mn" id="category_product_mn" onclick="showMask('submn_product')"><?php echo $this->lang->line('page_cat_product') ?></li>
                                         <li class="<?php if(isset($class) && $class=='question_answer') echo 'active' ?>"><a href="<?php echo base_url('thac-mac-va-huong-dan'); ?>"><?php echo $this->lang->line('page_question_answer') ?></a></li>
                                         <li class="<?php if(isset($class) && $class=='co_operate') echo 'active' ?>"><a href="<?php echo base_url('hop-tac'); ?>"><?php echo $this->lang->line('page_operate') ?></a></li>
-                                        <li class="<?php if(isset($class) && $class=='join_saxa') echo 'active' ?>"><a href="gia-nhap-cung-saxa"><?php echo $this->lang->line('page_join_saxa') ?></a></li>
+                                        <li class="<?php if(isset($class) && $class=='join_saxa') echo 'active' ?>"><a href="<?php echo base_url('gia-nhap-cung-saxa'); ?>"><?php echo $this->lang->line('page_join_saxa') ?></a></li>
                                         <li class="<?php if(isset($class) && $class=='contact') echo 'active' ?>"><a href="<?php echo base_url('contact'); ?>"><?php echo $this->lang->line('page_contact') ?></a></li>
                                     </ul>
                                     <ul class="submn_product" id="submn_product">
@@ -171,9 +171,9 @@
                                     <ul>
                                         <li class="<?php if(isset($class) && $class =='home') echo 'active' ?>"><a href="<?php echo base_url() ?>"><?php echo $this->lang->line('page_home') ?></a></li>
                                         <li class="category_product_mn" id="category_product_mn" onclick="showMask('submn_product')"><?php echo $this->lang->line('page_cat_product') ?></li>
-                                        <li class="<?php if(isset($class) && $class =='question_answer') echo 'active' ?>"><a href="<?php echo base_url('thac-mac-huong-dan'); ?>"><?php echo $this->lang->line('page_question_answer') ?></a></li>
+                                        <li class="<?php if(isset($class) && $class =='question_answer') echo 'active' ?>"><a href="<?php echo base_url('thac-mac-va-huong-dan'); ?>"><?php echo $this->lang->line('page_question_answer') ?></a></li>
                                         <li class="<?php if(isset($class) && $class=='co_operate') echo 'active' ?>"><a href="<?php echo base_url('hop-tac'); ?>"><?php echo $this->lang->line('page_operate') ?></a></li>
-                                        <li class="<?php if(isset($class) && $class=='join_saxa') echo 'active' ?>"><a href="gia-nhap-cung-saxa"><?php echo $this->lang->line('page_join_saxa') ?></a></li>
+                                        <li class="<?php if(isset($class) && $class=='join_saxa') echo 'active' ?>"><a href="<?php echo base_url('gia-nhap-cung-saxa'); ?>"><?php echo $this->lang->line('page_join_saxa') ?></a></li>
                                         <li class="<?php if(isset($class) && $class=='contact') echo 'active' ?>"><a href="<?php echo base_url('contact'); ?>"><?php echo $this->lang->line('page_contact') ?></a></li>
                                     </ul>
                                     <ul class="submn_product" id="submn_product">

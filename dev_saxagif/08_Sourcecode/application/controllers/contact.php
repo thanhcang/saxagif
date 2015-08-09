@@ -15,20 +15,6 @@ class Contact extends MY_Controller
     
     public function index()
     {
-        $params = array();
-        $err = array();
-        if($this->input->post()) {
-            $params = $this->input->post();
-            
-            $this->_validate($params, $err);
-            if(empty($err)) {
-                if ($this->contact_model->save($params)) {
-                    $params = array();
-                }
-            }
-            $this->data['ct_err'] = $err;
-            $this->data['params'] = $params;
-        }
         $this->render('contact/index_view');
     }
     
@@ -75,6 +61,20 @@ class Contact extends MY_Controller
             return FALSE;
         } else {
             return TRUE;
+        }
+    }
+    
+    /**
+     * add customer
+     * @param type $param
+     */
+    public function addCustomer() {
+        if ($this->input->post()) {
+            $params = $this->input->post();
+            
+            $this->contact_model->save($params);
+            
+            echo 'okie';
         }
     }
 

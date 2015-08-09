@@ -5,7 +5,7 @@
     <p>
         <?php echo !empty($setting_footer['note_contact']) ? $setting_footer['note_contact'] : ''  ?>
     </p>
-    <form name="frmContact" id="frmContact" method="POST" action="">
+    <form name="frmContact" id="frmContact" method="POST" action="<?php echo base_url('contact/addCustomer'); ?>">
         <div class="frm_cont">
             <div class="control_group">
                 <input type="text" name="cus_name" class="inbox_contact" value="<?php if(!empty($params['cus_name'])) echo htmlspecialchars($params['cus_name']) ?>" placeholder="<?php echo $this->lang->line('ct_name') ?>"/>
@@ -56,22 +56,10 @@
     </ul>
 </div>
  <div class="border-dashed marT60"></div>
+ <div id="main_loader" class="c_hide"></div>
+ <link rel="stylesheet" href="<?php echo base_url('common/css/popModal.css') ?>" type="text/css">
+<script src="<?php echo base_url('common/js/popModal.js') ?>"></script>
+ <?php require_once( APPPATH.'views/templates/_parts/master_popup_sendmail.php'); ?>
 <script src="<?php echo base_url('common/js/jquery.scrollbar.js') ?>"></script>
 <script type="text/javascript" src="<?php echo base_url('common/js/jquery.simplyscroll.js') ?>"></script>
-<script type="text/javascript">
-    $(".scroller").simplyScroll();
-</script>
-<script>
-    $(document).ready(function(){
-        $('.send_frm').on('click', function(){
-            var cus_name =  $('input[name=cus_name]');
-            var cus_email =  $('input[name=cus_email]');
-            
-            if (cus_name.val() == '' &&  cus_email.val() ==""){
-                alert("Hãy nhập nội dung có dấu *");
-            } else {
-                $('#frmContact').submit();
-            }
-        });
-    });
-</script>
+<script type="text/javascript" src="<?php echo base_url('common/js/contact.js') ?>"></script>

@@ -162,7 +162,8 @@ Github: https://github.com/vadimsva/popModal
 						popModalClose();
 						$(this).off('click');
 					});
-					
+                                        
+                                        
 					elemObj.find('[data-popmodal-but="close"]').on('click', function() {
 						popModalClose();
 						$(this).off('click');

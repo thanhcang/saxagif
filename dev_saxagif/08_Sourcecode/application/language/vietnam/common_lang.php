@@ -43,4 +43,17 @@ $lang['pro_customer_select'] = 'Những khách hàng đã chọn';
 $lang['pro_description'] = 'Mô tả sản phẩm';
 $lang['close'] = 'Đóng';
 $lang['pro_post'] = 'Bài viết';
+$lang['pro_post_involve'] = 'Bài viết liên quan';
 $lang['DETAIL'] = 'Chi tiết';
+
+$lang['NUMBER_JOINXASA'] = 'Số lượng';
+$lang['COCNTENT_JOINXASA'] = 'Nội dung';
+$lang['ISSUE_JOINXASA'] = 'Yêu cầu';
+$lang['RIGHT_JOINXASA'] = 'Quyền lợi';
+$lang['WORK_JOINXASA'] = 'Công việc';
+$lang['story_saxa'] = 'Chúng tôi là ai, câu chuyện về saxa';
+$lang['ARE_YOU_CHOOSE_ME'] = 'Bạn có lựa chọn là khách hàng  của một công ty hạnh phúc?';
+$lang['LISTEN_YOUR_SAY'] = 'Nghe họ nói';
+$lang['ANOTHER_SAY'] = 'Cùng nghe những người khác nói';
+$lang['INTERESTIN_YOURS_SAY'] = 'Theo dõi câu chuyện của họ tại';
+$lang['WE_ARE_DO'] = 'Chúng tôi làm được gì cho bạn';

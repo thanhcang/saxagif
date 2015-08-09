@@ -1128,6 +1128,7 @@ a{
     position: relative;
     margin-right:7px;
     margin-bottom: 10px;
+    cursor: pointer;
 }
 .staff_talk li.team{
     width: 393px;
@@ -1135,6 +1136,21 @@ a{
 .staff_talk li.last{
     margin-right:0;
 }
+
+.staff_talk li:last-child{
+    margin-right:0;
+}
+
+.staff_talk li img{
+    height: 516px;
+    width: 295px;
+}
+
+.staff_talk li.team img{
+    height: 516px;
+    width: 393px;
+}
+
 .staff_talk li .name{
     position: absolute;
     bottom: 0;

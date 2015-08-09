@@ -198,6 +198,7 @@ EOF;
     </div>
     <div class="clearfix"></div>
 </div>
+<div id="main_loader" class="c_hide"></div>
 <script type="text/javascript">
     var URL_SEND_MAIL_CUSTOMER = '<?php echo base_url('home/sendMailCustomer') ?>';
 </script>

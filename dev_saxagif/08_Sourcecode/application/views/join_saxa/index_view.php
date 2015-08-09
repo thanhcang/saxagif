@@ -1,4 +1,4 @@
-<h3 class="topic">Gia nhập cùng SAXA</h3>
+<h3 class="topic"><?php echo $this->lang->line('page_join_saxa'); ?></h3>
 
 <div class="content_join">
     <div class="people_join">
@@ -30,7 +30,7 @@
         </ul>
     </div>
     <div class="scrollbar-external_wrapper pull-left" style="height:796px !important; width:875px !important; margin-top:0">
-        <div class="scrollbar-external width_875 height_796">
+        <div class="recruitment">
             <div class="join_us">
                 <?php if (!empty($listData)) : ?>
                 <?php foreach ($listData as $key =>$value) : ?>
@@ -41,7 +41,7 @@
                         <div class="clearfix"></div>
                     </header>
                     <div class="join">
-                        <?php echo $value['des'] ?>
+                        <?php echo htmlspecialchars_decode($value['des']) ?>
                     </div>
                 </div>
                 <?php endforeach; ?>
@@ -52,3 +52,13 @@
     </div>
     <div class="clearfix"></div>
 </div>
+<script src="<?php   echo base_url('common/js/jquery.slimscroll.min.js'); ?>"></script>
+<script>
+     $('.recruitment').slimScroll({
+        color: '#7eb235',
+        size: '10px',
+        height: '796px',
+        alwaysVisible: true
+    });
+    
+</script>

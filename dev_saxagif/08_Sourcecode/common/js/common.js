@@ -101,8 +101,20 @@ function widthTopbanner() {
     $('.content_bannerT').css('left', (left_right / 2));
 }
 
-$(document).on('click' , '.close', function(){
-//    $('body').removeClass('dialogModalOpen');
+// onclick close popup
+$(document).on('click', '.p_close', function () {
+
+    setTimeout(function () {
+        $(".dialogModal").fadeOut("slow", function () {
+            $('.dialogModal ').css('display', 'none');
+        });
+    }, 200);
+    
+    setTimeout(function () {
+        $('body').removeClass('dialogModalOpen');
+        $('body').removeAttr('style');
+    }, 1000);
+    
 });
 
 

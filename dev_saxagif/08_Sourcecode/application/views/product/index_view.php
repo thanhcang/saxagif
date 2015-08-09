@@ -96,7 +96,9 @@
         <!--<script src="js/vertical.news.slider.js"></script>-->
         <script>
             $(function() {
-                $("#accordion").accordion();
+                $("#accordion").accordion({
+                    heightStyle: "content"
+                });
             });
         </script>
         <script>

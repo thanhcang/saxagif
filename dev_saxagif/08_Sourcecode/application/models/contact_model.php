@@ -12,16 +12,26 @@ class Contact_model extends MY_Model
     
     public function save($params)
     {
+        $this->db->select('id');
+        $this->db->where('name', htmlspecialchars($params['cus_name']));
+        $query = $this->db->get($this->_tbl_customer);
+        
+        if ($query->num_rows() > 0){
+            return TRUE;
+        } 
+        
         $data = array(
-            'name' => $params['cus_name'],
-            'email_address' => $params['cus_email'],
+            'name' => htmlspecialchars($params['cus_name']),
+            'email_address' => htmlspecialchars($params['cus_email']),
             'phone_number'  => (!empty($params['cus_phone'])) ? htmlspecialchars($params['cus_phone']) : '',
             'company_name'  => (!empty($params['cus_company'])) ? htmlspecialchars($params['cus_company'])  : '',
             'feeback'       => (!empty($params['cus_feeback'])) ? htmlspecialchars($params['cus_feeback'])  : '',
             'create_date'   => date('Y-m-d H:i:s'),
         );
         
-        return $this->db->insert($this->_tbl_customer, $data);
+        $this->db->insert($this->_tbl_customer, $data);
+        
+        return TRUE;
     }
     
     /**

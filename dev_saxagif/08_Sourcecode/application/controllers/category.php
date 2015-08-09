@@ -20,8 +20,17 @@ class Category extends MY_Controller
         // Set page parent or child:
         $rank = 0;
         $slug = end($this->uri->segment_array());
+        $this->data['parent_category'] = $this->uri->segment(1);
+        
         $listCategory = $this->category_model->getProductByCategory($slug, $rank);
-        //echo $rank;exit;
+        $positionCategory = $this->category_model->getPositionCategory($this->uri->segment(1));
+        
+        if (!empty($positionCategory)){
+            $this->data['positionCategory'] = intval($positionCategory['rank'] ) - 1;
+        } else {
+            $this->data['positionCategory'] = 0;
+        }
+        
         if($rank == CATEGORY_PARENT) {
             $this->data['list_category'] = $listCategory[0];
             $this->data['listCategory'] = $this->processCategoryList($listCategory);
@@ -40,10 +49,6 @@ class Category extends MY_Controller
         }else {
             redirect();
         }
-    }
-    
-    public function test() {
-        echo 'chuyen nho';
     }
     
     /**
@@ -71,7 +76,8 @@ class Category extends MY_Controller
                         'product_slug' => $key['product_slug'],
                         'logo' => $key['logo'],
                         'product_img' => $key['product_img'],
-                        'product_name' => $key['product_name']
+                        'product_name' => $key['product_name'],
+                        'pro_id' => $key['pro_id'],
                     ));
                 }
             } else {
@@ -81,7 +87,8 @@ class Category extends MY_Controller
                     'product_slug' => $key['product_slug'],
                     'logo' => $key['logo'],
                     'product_img' => $key['product_img'],
-                    'product_name' => $key['product_name']
+                    'product_name' => $key['product_name'],
+                    'pro_id' => $key['pro_id'],
                 );
                 $count = 1;
             }

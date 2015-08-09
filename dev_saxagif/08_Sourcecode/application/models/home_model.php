@@ -237,4 +237,27 @@ class Home_model extends MY_Model
         } 
         return FALSE ;
     }
+    
+    /**
+     * detail join in saxa
+     * @param string $slug
+     * @param int $language
+     * @return boolean
+     */
+    public function detailJoinSaxa($slug, $language = LANG_VN) {
+        if (empty($slug)){
+            return FALSE;
+        }
+        $this->db->where('status', 1);
+        $this->db->where('language_type', $language);
+        $this->db->where('slug', $slug);
+        $this->db->select('*');
+        
+        $query = $this->db->get('d_joinsaxa');
+        
+        if($query->num_rows() > 0) {
+            return $query->row_array();
+        } 
+        return FALSE ;
+    }
 }

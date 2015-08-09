@@ -73,6 +73,7 @@ class Mquestion extends MY_Model
             return TRUE;
         }
     }
+    
     /**
      * get CoOperate
      * @param type $language
@@ -80,7 +81,7 @@ class Mquestion extends MY_Model
      */
     public function getCoOperate($language = LANG_VN) {
         $sql = "SELECT
-                        n.title , n.avatar , n.slug , n.description
+                        n.id, n.title , n.avatar , n.slug , n.description
                 FROM
                         d_news AS n
                 INNER JOIN d_news_category AS c ON c.id = n.id_news_cat
@@ -95,4 +96,59 @@ class Mquestion extends MY_Model
         }
         return FALSE;
     }
+    
+    /**
+     * get detail co operate
+     * @param int $id
+     * @param int $language
+     * @return boolean
+     */
+    public function getDetailCoOperate( $id, $language = LANG_VN) {
+        $sql = "SELECT
+                    n.title, n.content
+                FROM
+                        d_news AS n
+                WHERE id = ?
+                AND n.language_type = ? AND n.del_flg = 0
+                ";
+        
+        $query = $this->db->query($sql, array($id , $language));
+        
+        if ($query->num_rows() > 0){
+            return $query->row_array();
+        }
+        return FALSE;
+    }
+    
+    /**
+     * get post relationship
+     * @param int $id
+     * @param int $language
+     * @return boolean
+     */
+    public function postRelationship($id, $language = LANG_VN) {
+        $where = array(
+           $id , $language 
+        );
+        
+        $sql = "SELECT
+                        n.id,
+                        n.title
+                FROM
+                        d_news AS n
+                INNER JOIN d_news_category AS c ON c.id = n.id_news_cat
+                AND c.slug = 'hop-tac'
+                WHERE n.id <> ?
+                AND n.language_type = ?
+                AND n.del_flg = 0
+                ORDER BY RAND()
+                LIMIT 3";
+        $query = $this->db->query($sql, $where);
+        
+        if ($query->num_rows() > 0){
+            return $query->result_array();
+        }
+        return FALSE;
+    }
+    
 }
