@@ -114,7 +114,7 @@ class ListenThemSay extends MY_Controller {
                         
                         // resize image
                         if ($param['type'] == 1){
-                            $is_resize_image = $this->resizePhoto($checkUpload, 295, 516,URL_IMAGE_YOUR_SAY);
+                            $is_resize_image = $this->resizePhoto($checkUpload, 295, 513,URL_IMAGE_YOUR_SAY);
                         } else {
                             $is_resize_image = $this->resizePhoto($checkUpload, 393, 513,URL_IMAGE_YOUR_SAY);
                         }

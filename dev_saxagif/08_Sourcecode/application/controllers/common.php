@@ -7,6 +7,7 @@ class Common extends MY_Controller {
     {
         parent::__construct();
         $common = $this->_className;
+        
         require_once(APPPATH.'controllers/'.$common['controller'].'.php');
         $this->_privateClasName = new $common['controller'];
     }

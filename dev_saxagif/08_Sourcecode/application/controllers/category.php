@@ -20,30 +20,37 @@ class Category extends MY_Controller
         // Set page parent or child:
         $rank = 0;
         $slug = end($this->uri->segment_array());
+        $this->data['parent_category'] = $this->uri->segment(1);
+        
         $listCategory = $this->category_model->getProductByCategory($slug, $rank);
-        //echo $rank;exit;
+        $positionCategory = $this->category_model->getPositionCategory($this->uri->segment(1));
+        
+        if (!empty($positionCategory)){
+            $this->data['positionCategory'] = intval($positionCategory['rank'] ) - 1;
+        } else {
+            $this->data['positionCategory'] = 0;
+        }
+        
         if($rank == CATEGORY_PARENT) {
             $this->data['list_category'] = $listCategory[0];
             $this->data['listCategory'] = $this->processCategoryList($listCategory);
             $this->data['page_title'] = 'Product';
-            $this->render('category/index_view');
+            $this->render('category/index_view'.$this->subfix_layout);
         } elseif($rank == CATEGORY_CHILD) {
             $this->data['listCategory'] = $listCategory;
             $this->data['page_title'] = 'Category detail';
-            $this->render('category/detail_view');
+            $this->render('category/detail_view'.$this->subfix_layout);
         }elseif($rank == IS_GIFT) {
+            $this->data['listPresent'] = $this->category_model->getCategoryByType($type = IS_GIFT,TRUE, $this->langs);
+            $this->data['detailPresent'] = $this->category_model->getDetailPresent($this->uri->segment(2),$this->langs);
             $this->data['listGift'] = $listCategory;
             $this->data['giftName'] = $this->getNameGift($listCategory);
             //echo '<pre>';            print_r($listCategory);exit;
              $this->data['page_title'] = 'Choose gifts';
-            $this->render('category/gift_view');
+            $this->render('category/gift_view'.$this->subfix_layout);
         }else {
             redirect();
         }
-    }
-    
-    public function test() {
-        echo 'chuyen nho';
     }
     
     /**
@@ -71,7 +78,8 @@ class Category extends MY_Controller
                         'product_slug' => $key['product_slug'],
                         'logo' => $key['logo'],
                         'product_img' => $key['product_img'],
-                        'product_name' => $key['product_name']
+                        'product_name' => $key['product_name'],
+                        'pro_id' => $key['pro_id'],
                     ));
                 }
             } else {
@@ -81,7 +89,8 @@ class Category extends MY_Controller
                     'product_slug' => $key['product_slug'],
                     'logo' => $key['logo'],
                     'product_img' => $key['product_img'],
-                    'product_name' => $key['product_name']
+                    'product_name' => $key['product_name'],
+                    'pro_id' => $key['pro_id'],
                 );
                 $count = 1;
             }
@@ -113,6 +122,7 @@ class Category extends MY_Controller
                     array_push($temp_data[$key['category_name']], array(
                         'category_name' => $key['category_name'],
                         'category_id' => $key['category_id'],
+                        'category_slug' => $key['category_slug'],
 
                     ));
                 }
@@ -121,6 +131,7 @@ class Category extends MY_Controller
                $temp_data[$key['category_name']] = array(
                     'category_name' => $key['category_name'],
                     'category_id' => $key['category_id'],
+                   'category_slug' => $key['category_slug'],
                 );
                 $count = 1;
             }

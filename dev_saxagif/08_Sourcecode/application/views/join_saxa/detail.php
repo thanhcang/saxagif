@@ -1,6 +1,6 @@
 <div class="w_content">
 
-    <h3 class="topic">Gia nhập cùng SAXA</h3>
+    <h3 class="topic"><?php echo $this->lang->line('page_join_saxa'); ?></h3>
 
     <div class="content_join">
         <div class="people_join">
@@ -32,38 +32,34 @@
             </ul>
         </div>
         <div style="height:800px !important; width:875px !important; margin-top:0" class="pull-left">
-            <div  style="height: 100%; overflow: auto">
+            <div class="recruitment">
                 <div class="join_us">
                     <div class="cont_join">
                         <header>
-                            <div class="pull-left">1. Marketing</div>
+                            <div class="pull-left"><?php echo $listData['name'] ?></div>
                             <div class="clearfix"></div>
                         </header>
                         <div class="join">
-                            <img src="images/pic_info.png">
+                            <img src="<?php echo base_url('admin/common/multidata/joinsaxa/'.$listData['logo']); ?>">
                             <div class="control_group">
-                                <label>Số lượng </label>
-                                10
+                                <label><?php echo $this->lang->line('NUMBER_JOINXASA')?> </label>
+                                <?php echo htmlspecialchars_decode($listData['number']); ?>
                             </div>
                             <div class="control_group">
-                                <label>Công việc </label>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+                                <label><?php echo $this->lang->line('WORK_JOINXASA'); ?> </label>
+                                <?php echo htmlspecialchars_decode($listData['work']); ?>
                             </div>
                             <div class="control_group">
-                                <label>Nội dung </label>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+                                <label><?php echo $this->lang->line('COCNTENT_JOINXASA'); ?> </label>
+                                <?php echo htmlspecialchars_decode($listData['content']); ?>
                             </div>
                             <div class="control_group">
-                                <label>Yêu cầu</label>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+                                <label><?php echo $this->lang->line('ISSUE_JOINXASA') ?></label>
+                                <?php echo htmlspecialchars_decode($listData['issue']); ?>
                             </div>
                             <div class="control_group">
-                                <label>Quyền lợi</label>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+                                <label><?php echo $this->lang->line('RIGHT_JOINXASA'); ?></label>
+                                <?php echo htmlspecialchars_decode($listData['right']); ?>
                             </div>
                         </div>
                     </div>
@@ -78,3 +74,14 @@
 
         <div class="clearfix"></div>
     </div>
+</div>
+<script src="<?php   echo base_url('common/js/jquery.slimscroll.min.js'); ?>"></script>
+<script>
+     $('.recruitment').slimScroll({
+        color: '#7eb235',
+        size: '10px',
+        height: '800px',
+        alwaysVisible: true
+    });
+    
+</script>

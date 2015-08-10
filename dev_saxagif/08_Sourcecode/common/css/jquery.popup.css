@@ -132,3 +132,40 @@
     padding:84px 40px 84px 60px; 
     font-family: 'UTM Neo Sans Intel'; 
 }
+
+.dialogModal_header{
+    display: none !important ;
+}
+
+.p_close {
+    background: rgba(0, 0, 0, 0) url("../images/popup_close.png") repeat scroll 0 0 !important;
+    float: right;
+    height: 14px;
+    margin: 11px 10px 0 0;
+    width: 15px;
+}
+
+.c_hide{
+   display: none; 
+}
+
+
+#main_loader{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: transparent url(../images/ajax_loader.gif) center center no-repeat;
+    z-index: 888889;
+}
+
+.detailProductPopup{
+    height: 83px;
+    overflow: hidden;
+    text-align: justify;
+}
+
+ul.popImageThumb li{
+  cursor: pointer;  
+}

@@ -39,7 +39,7 @@ class CommentCustomer extends MY_Controller {
         $queryString = preg_replace('/(\&|)page=[0-9]$/is', '', $queryString);
         $queryString = preg_replace('/(\&|)page=$/is', '', $queryString);
         $page_config = array(
-            'base_url' => base_url('category/?' . $queryString),
+            'base_url' => base_url('commentCustomer/?' . $queryString),
             'per_page' => NUMBER_PAGE,
             'use_page_numbers' => TRUE,
             'page_query_string' => TRUE,

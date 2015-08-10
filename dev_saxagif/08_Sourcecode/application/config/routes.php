@@ -37,29 +37,30 @@
 | in the URL cannot be matched to a valid route.
 |
 */
-$route['contact.html'] = 'contact';
-$route['join-saxa.html'] = 'join_saxa';
-$route['co-operate.html'] = 'co_operate';
-$route['QA.html'] = 'question_answer';
-$route['mission.html'] = 'about/index';
-$route['who-we-are.html'] = 'about/who_we_are';
-$route['we-do-for-you.html'] = 'about/we_do_for_you';
-$route['we-expect-from-you.html'] = 'about/we_expect_from_you';
+
 $route['default_controller'] = "home";
 
 $default_controller = 'home';
 $route['gia-nhap-cung-saxa/(:any)'] = 'join_saxa/detail';
+$route['hop-tac/detail'] = 'co_operate/detail';
+$route['thac-mac-va-huong-dan/sendQuestion'] = 'question_answer/sendQuestion';
+$route['thac-mac-va-huong-dan'] = 'question_answer';
+$route['chung-toi-mong-doi-gi-o-ban'] = 'about/we_expect_from_you';
+
 $route['((?!home|ajax|contants)(:any))'] = 'common';
-//$route['(:any)'] = 'common';
 $route['((?!home|ajax|contants)(:any))/(:any)'] = 'common';
 $route['404'] = 'My404';
 $route['contants'] = 'contants';
 $route['contact'] = 'contact';
-$route['thac-mac-va-huong-dan'] = 'question_answer';
+$route['contact/addCustomer'] = 'contact/addCustomer';
 $route['hop-tac'] = 'co_operate';
 $route['gia-nhap-cung-saxa'] = 'join_saxa';
+$route['chung-toi-la-ai-cau-chuyen-ve-saxa'] = 'story_saxa';
+$route['chung-toi-la-ai-cau-chuyen-ve-saxa/detail'] = 'story_saxa/detail';
+$route['chung-toi-lam-duoc-gi-cho-ban'] = 'wearedo';
+$route['chung-toi-lam-duoc-gi-cho-ban/detail'] = 'wearedo/detail';
+$route['chung-toi-mong-doi-gi-o-ban'] = 'weexpectfromyou';
 
-$route['thac-mac-va-huong-dan/sendQuestion'] = 'question_answer/sendQuestion';
 $route['404_override'] = '';
 
 

@@ -2,7 +2,7 @@
  * @author hnguyen0110@gmail.com
  * @date 2015/07/19
  */
-$(document).ready(function(){
+$(document).ready(function () {
     setLanguage();
     widthTopbanner();
 //    jQuery('.scrollbar-external').scrollbar({
@@ -13,7 +13,7 @@ $(document).ready(function(){
 });
 
 function setLanguage() {
-    $('.lang_type').on('click', function(){
+    $('.lang_type').on('click', function () {
         var _languageType = '';
         _languageType = $(this).attr('attr_val');
         if (_languageType != '') {
@@ -25,14 +25,14 @@ function setLanguage() {
                 },
                 //async: false,
             })
-            .done(function(e){
-                if(e) {
-                    _urlCurrent = document.location.href;
-                    window.location = _urlCurrent;
-                }
-            });
+                    .done(function (e) {
+                        if (e) {
+                            _urlCurrent = document.location.href;
+                            window.location = _urlCurrent;
+                        }
+                    });
         }
-    });  
+    });
 }
 
 function widthTopbanner() {
@@ -42,7 +42,7 @@ function widthTopbanner() {
     $('.content_bannerT').css('left', (left_right / 2));
 }
 widthTopbanner();
-jQuery(function($) {
+jQuery(function ($) {
 
     function getAlignedText(text) {
         text = text.split('\n');
@@ -59,7 +59,7 @@ jQuery(function($) {
         return text.join('\n');
     }
 
-    $('.container').each(function() {
+    $('.container').each(function () {
 
         var content = $(this).find('.content');
         var controls = $(this).find('.controls');
@@ -68,18 +68,18 @@ jQuery(function($) {
         $('<pre></pre>').addClass('prettyprint linenums lang-css').text(getAlignedText($('#css-common').html()) + "\n" + getAlignedText(content.find('style').html())).appendTo(content.find('.css'));
         $('<pre></pre>').addClass('prettyprint linenums lang-js').text(getAlignedText(content.find('script').html())).appendTo(content.find('.js'));
 
-        controls.on('click', 'span', function() {
+        controls.on('click', 'span', function () {
             content.find('.' + $(this).removeClass('active').attr('class')).show().siblings('div').hide();
             $(this).addClass('active').siblings('span').removeClass('active');
         });
         controls.find('.demo').click();
     });
 
-    $('.container').on('click', '.add-content', function() {
+    $('.container').on('click', '.add-content', function () {
         $('#lorem-ipsum').clone().removeAttr('id').appendTo($(this).closest('.container').find('.scroll-content'));
         return false;
     });
-    $('.container').on('click', '.remove-content', function() {
+    $('.container').on('click', '.remove-content', function () {
         $(this).closest('.container').find('.scroll-content').find('p').not('.permanent').last().remove();
         return false;
     });
@@ -101,8 +101,20 @@ function widthTopbanner() {
     $('.content_bannerT').css('left', (left_right / 2));
 }
 
-$(document).on('click' , '.close', function(){
-//    $('body').removeClass('dialogModalOpen');
+// onclick close popup
+$(document).on('click', '.p_close', function () {
+
+    setTimeout(function () {
+        $(".dialogModal").fadeOut("slow", function () {
+            $('.dialogModal ').css('display', 'none');
+        });
+    }, 200);
+
+    setTimeout(function () {
+        $('body').removeClass('dialogModalOpen');
+        $('body').removeAttr('style');
+    }, 1000);
+
 });
 
 

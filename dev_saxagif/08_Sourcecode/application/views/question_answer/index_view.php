@@ -5,7 +5,7 @@
             <div class="box_head_QA"><?php echo $this->lang->line('CUSTOMER_QUESTION'); ?></div>
             <div class="box_main_QA">
                 <div class="scrollbar-external_wrapper" style="height:643px !important; width:333px !important;">
-                    <div style=" height: 100%; overflow: auto">
+                    <div class="questionCustomer">
                         <?php if (!empty($question)): ?>
                         <?php foreach ($question as $key): ?>
                         <div class="idea">
@@ -46,15 +46,6 @@
                     <?php endif ?>
                 </div>
             </div>
-            
-
-            <div class="external-scroll_y height_643">
-                <div class="scroll-element_outer">
-                    <div class="scroll-element_size"></div>
-                    <div class="scroll-element_track"></div>
-                    <div class="scroll-bar" style="height: 100px;"></div>
-                </div>
-            </div>
         </div>
 
     </div>
@@ -82,53 +73,16 @@
 </div>
 
 <div class="border-dashed marT60"></div>
-
+<div id="main_loader" class="c_hide"></div>
 <script>
     $(function() {
-        $("#accordion").accordion();
+        $("#accordion").accordion({
+                    heightStyle: "content"
+                });
     });
 </script>
-<script src="<?php //  echo base_url('common/js/jquery.scrollbar.js'); ?>"></script>
-<script>
-            jQuery(document).ready(function() {
-                
-//                jQuery('.scrollbar-external-idea').scrollbar({
-////                    "autoScrollSize": false,
-//                    "scrolly": $('.external-scroll_m'),
-////                    "disableBodyScroll" : true
-//                });
-//                jQuery('.scrollbar-external-QA').scrollbar({
-////                    "autoScrollSize": false,
-//                    "scrolly": $('.external-scroll_y')
-//                    
-//                });
-//                jQuery('.scrollbar-external-idea').scrollbar();
-                
-                $('.send_frm_QA').on('click', function(){
-                    var formObj = $(document.getElementById('sendQa'));
-                    var formURL = formObj.attr("action");
-                    var formData = new FormData(document.getElementById('sendQa'));
-                    $.ajax({
-                        dataType: "json",
-                        url: formURL,
-                        type: 'POST',
-                        data: formData,
-                        mimeType: "multipart/form-data",
-                        contentType: false,
-                        cache: false,
-                        processData: false,
-                        async: false,
-                    })
-                    .done(function(){
-                        // show pop up
-                    })
-                });
-            });
-
-</script>
-
-<style>
-/*    .scroll-wrapper > .scroll-content{
-        overflow-x: hidden  !important;
-    }*/
-</style>
+<link rel="stylesheet" href="<?php echo base_url('common/css/popModal.css') ?>" type="text/css">
+<?php require_once( APPPATH.'views/templates/_parts/master_popup_sendmail.php'); ?>
+<script src="<?php echo base_url('common/js/popModal.js') ?>"></script>
+<script src="<?php   echo base_url('common/js/jquery.slimscroll.min.js'); ?>"></script>
+<script src="<?php   echo base_url('common/js/question.js'); ?>"></script>

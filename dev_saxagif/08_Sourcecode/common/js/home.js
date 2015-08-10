@@ -38,15 +38,22 @@ function getSendMail() {
                     'name': _txtCustomer,
                 },
                 async: false,
+                beforeSend: function () {
+                    $('#main_loader').removeClass('c_hide');
+                }
             })
             .done(function(e){
                 if(e == '202' ){
                     _mail.val('');
                     _customerName.val('');
+                    var bodyWidth = $('body').outerWidth();
+                    
+                    $('body').css('width',bodyWidth+'px');
                     $('.sendmail').dialogModal({
                         topOffset: 0
                     });
                 }
+                $('#main_loader').addClass('c_hide');
             });
         }
         
@@ -74,7 +81,7 @@ function showCustomerSlide()
         var _position = 1;
         
         var _position = parseInt($(this).attr('attr_num'));
-        console.log(_position);
+        
         if(_position.length > 0 && !isNaN(_position)) {
             
         }

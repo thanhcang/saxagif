@@ -56,7 +56,7 @@ class Home extends MY_Controller
         //
         
         // render html
-        $this->render('home/index_view');
+        $this->render('home/index_view'.$this->subfix_layout);
     }
     
     /**

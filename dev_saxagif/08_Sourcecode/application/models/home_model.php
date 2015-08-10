@@ -180,7 +180,7 @@ class Home_model extends MY_Model
     public function getArticleFooter($cat_id,$language = LANG_VN) {
         $where = array($cat_id , $language, $language);
         $sql = "SELECT
-                        n.avatar, n.description , n.slug as slug , c.slug as category_slug
+                        n.avatar, n.description , n.slug as slug , c.slug as category_slug, n.title
                 FROM
                         d_news AS n
                 INNER JOIN d_news_category AS c ON c.del_flg = 0
@@ -234,6 +234,29 @@ class Home_model extends MY_Model
         
         if($query->num_rows() > 0) {
             return $query->result_array();
+        } 
+        return FALSE ;
+    }
+    
+    /**
+     * detail join in saxa
+     * @param string $slug
+     * @param int $language
+     * @return boolean
+     */
+    public function detailJoinSaxa($slug, $language = LANG_VN) {
+        if (empty($slug)){
+            return FALSE;
+        }
+        $this->db->where('status', 1);
+        $this->db->where('language_type', $language);
+        $this->db->where('slug', $slug);
+        $this->db->select('*');
+        
+        $query = $this->db->get('d_joinsaxa');
+        
+        if($query->num_rows() > 0) {
+            return $query->row_array();
         } 
         return FALSE ;
     }

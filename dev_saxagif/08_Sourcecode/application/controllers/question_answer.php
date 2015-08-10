@@ -20,7 +20,7 @@ class Question_answer extends MY_Controller
     {
         $this->data['question'] = $this->mquestion->listQa($this->langs);
         $this->data['answer'] = $this->mquestion->listQaHaveAnwser($this->langs);
-        $this->render('question_answer/index_view');
+        $this->render('question_answer/index_view'.$this->subfix_layout);
     }
     
     /**

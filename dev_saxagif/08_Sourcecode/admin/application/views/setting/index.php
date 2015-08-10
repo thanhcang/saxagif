@@ -95,7 +95,7 @@
                         <label for="inputName">Mô tả ngắn truyền cảm hứng</label>
                         <textarea name="note_contact" placeholder="Mô tả ngắn thông tin nhận quà" class="re_opinion form-control"><?php echo !empty($list['note_contact']) ? $list['note_contact'] :'';  ?></textarea>
                     </div>
-                    
+                     
                     <button type="submit" class="button">Save</button>
                     <input name="language_type" type="hidden" value="<?php echo $list['language_type']; ?>" />
                 </form>

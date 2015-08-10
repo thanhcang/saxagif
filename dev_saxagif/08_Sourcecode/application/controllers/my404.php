@@ -13,8 +13,7 @@ class My404 extends CI_Controller
     
     public function index()
     {
-        echo '404';
+        $this->load->view('404_view'.$this->session->userdata('ses_mobile'));
     }
 
 }
-    

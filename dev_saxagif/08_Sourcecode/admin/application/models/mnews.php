@@ -137,6 +137,11 @@ class Mnews extends MY_Model
         return $this->db->update($this->_tbl_news, array('del_flg' => 1));
     }
     
+    /**
+     * check titel exists
+     * @param type $title
+     * @return boolean
+     */
     public function checkExistTitle($title)
     {
         $this->db->select('id')

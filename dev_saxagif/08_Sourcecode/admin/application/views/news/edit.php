@@ -63,7 +63,7 @@
                             <option value="">&nbsp;</option>
                             <?php if(!empty($listAllCatNews)): ?>
                             <?php foreach($listAllCatNews as $cat): ?>
-                            <option value="<?php echo $cat['id'] ?>" <?php if(empty($params['catNews']) && !empty($detailNews['id_news_cat']) && $detailNews['id_news_cat']) echo 'selected' ;elseif(!empty($params['catNews']) && $params['catNews'] == $cat['id']) echo 'selected' ?>><?php echo htmlspecialchars($cat['name']) ?></option>
+                            <option value="<?php echo $cat['id'] ?>" <?php echo (!empty($params['catNews']) && $cat['id'] == $params['catNews']) || ($detailNews['id_news_cat'] == $cat['id'] ) ? 'selected = selected' : '';  ?> > <?php echo htmlspecialchars($cat['name']) ?></option>
                             <?php endforeach; ?>
                             <?php endif ?>
                         </select>

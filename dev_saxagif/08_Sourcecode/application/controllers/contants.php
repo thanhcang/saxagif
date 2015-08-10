@@ -25,5 +25,12 @@ class Contants extends MY_Controller {
         echo "var URL_DETAIL_PRODUCT = '" . base_url('ajax/detailProduct') . "';" . PHP_EOL;
         echo "var URL_PRODUCT_IMAGE = '" . URL_PRODUCT_IMAGE . "';" . PHP_EOL;
         echo "var URL_IMAGES = '" . URL_IMAGES . "';" . PHP_EOL;
+        echo "var URL_PRODUCT_THUMB_IMAGE = '" . URL_PRODUCT_THUMB_IMAGE . "';" . PHP_EOL;
+        
+        // co-opetart
+        echo "var URL_SHOW_COOPERATE = '" . base_url('hop-tac/detail') . "';" . PHP_EOL;
+        echo "var URL_DETAIL_YOUR_SAY = '" . base_url('chung-toi-la-ai-cau-chuyen-ve-saxa/detail') . "';" . PHP_EOL;
+        echo "var URL_DETAIL_WE_ARE_DO = '" . base_url('chung-toi-lam-duoc-gi-cho-ban/detail') . "';" . PHP_EOL;
+        
     }
 }

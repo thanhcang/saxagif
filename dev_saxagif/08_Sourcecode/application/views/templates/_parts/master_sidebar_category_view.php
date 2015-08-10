@@ -1,4 +1,4 @@
-<h3 class="topic"><?php echo $this->lang->line('products_saxa') ?></h3>
+<h3 class="topic"><?php echo $this->lang->line('products_saxa');?></h3>
 <div class="content">
     <div class="content_left_QA">
         <div class="box_l">
@@ -25,10 +25,13 @@
         </div>
     </div>
     <script src="<?php echo base_url ('common/js/jquery-ui.min.js') ?>"></script>
-        <!--<script src="js/vertical.news.slider.js"></script>-->
         <script>
             $(function() {
-                $("#accordion").accordion();
+                var position = '<?php echo $positionCategory ?>';
+                $("#accordion").accordion({
+                    heightStyle: "content",
+                    active: parseInt(position),  
+                });
             });
         </script>
         <script>
