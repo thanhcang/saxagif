@@ -46,8 +46,8 @@ $route['thac-mac-va-huong-dan/sendQuestion'] = 'question_answer/sendQuestion';
 $route['thac-mac-va-huong-dan'] = 'question_answer';
 $route['chung-toi-mong-doi-gi-o-ban'] = 'about/we_expect_from_you';
 
-$route['((?!home|ajax|contants)(:any))'] = 'common';
-$route['((?!home|ajax|contants)(:any))/(:any)'] = 'common';
+$route['((?!home|ajax|contants|search)(:any))'] = 'common';
+$route['((?!home|ajax|contants|search)(:any))/(:any)'] = 'common';
 $route['404'] = 'My404';
 $route['contants'] = 'contants';
 $route['contact'] = 'contact';

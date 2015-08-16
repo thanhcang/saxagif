@@ -60,7 +60,8 @@ class MY_Controller extends CI_Controller
             'story_saxa',
             'wearedo',
             'weexpectfromyou',
-            'wearedone');
+            'wearedone',
+            'search');
         
         if (!in_array($this->router->class , $array_ex) && !$this->input->is_ajax_request()){            
             $this->_className = $this->checkSlug();

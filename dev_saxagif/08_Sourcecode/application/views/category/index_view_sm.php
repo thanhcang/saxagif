@@ -1,4 +1,4 @@
-<div class="banner_t"><img src="images/logo_p.png"/></div>
+<div class="banner_t"><a href="<?php echo base_url() ?>"><img src="<?php echo base_url('common/images/logo_p.png') ?>"/></a></div>
 <div class="content_boder">
     <div class="label"><?php echo $this->lang->line('products_saxa') ?></div>
     <div class="content_product">
@@ -17,7 +17,7 @@
                     <ul>
                         <?php foreach ($cat_child as $key=>$pro): ?>
                         <li>
-                            <a href="javascript:;">
+                            <a href="<?php echo base_url($pro['cat_slug'] .'/' . $pro['product_slug']) ?>">
                                 <img src="<?php echo base_url('admin/common/multidata/product_img/thumb/' . $pro['product_img']) ?>"/>
                             </a>
                         </li>

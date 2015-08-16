@@ -2,7 +2,7 @@
     .img_detail img { max-width: 120px;border: 1px solid #CCC; padding: 1px;margin-right: 2px; }
 </style>
 <div class="banner_t">
-    <img src="<?php echo base_url('common/images/logo_p.png') ?>"/>
+    <a href="<?php echo base_url() ?>"><img src="<?php echo base_url('common/images/logo_p.png') ?>"/></a>
 </div>
 <div class="product_detail">
     <div class="detail_l">

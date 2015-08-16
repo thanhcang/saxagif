@@ -23,7 +23,7 @@
                 <div class="img_product_t"><img src="<?php echo base_url('admin/common/multidata/cat_logo/' . $gift['logo']) ?>" /></div>
                 <div class="topic_product">
                     <strong><?php echo ucwords($gift['name']) ?></strong><br/>
-                    <small>><?php if(!empty($gift['price'])) echo ($gift['price']) ?></small>
+                    <small><?php if(!empty($gift['price'])) echo ($gift['price']) ?></small>
                 </div>
                 <div class="clearfix"></div>
             </a>
@@ -36,7 +36,7 @@
          <?php if(!empty($articleFooter)): ?>
             <?php foreach ($articleFooter as $key=>$value): ?>
                 <div class="header_story"><?php echo $categoryFooter['name']  ?></div>
-                <div class="see_more"><a href="<?php echo base_url($value['category_slug'].'/'. $value['slug']) ?>"><?php echo $this->lang->line('view_more') ?></a></div>
+                <div class="see_more"><a href="<?php echo base_url($value['category_slug']) ?>"><?php echo $this->lang->line('view_more') ?></a></div>
                 <div class="clearfix"></div>
                 <div>
                     <div class="pic_staff"><img src="<?php echo url_img('admin/common/multidata/news/', $value['avatar']) ?>"/></div>
@@ -53,11 +53,11 @@
          <?php if(!empty($articleFooter2)): ?>
             <?php foreach ($articleFooter2 as $key=>$value): ?>
                 <div class="header_story"><?php echo !empty($categoryFooter2['name']) ? $categoryFooter2['name'] : $this->lang->line('customers_saxa') ?></div>
-                <div class="see_more"><a href="<?php echo base_url($value['category_slug'].'/'. $value['slug']) ?>"><?php echo $this->lang->line('view_more') ?></a></div>
+                <div class="see_more"><a href="<?php if(!empty($value['url'])) echo base_url($value['url']) ?>"><?php echo $this->lang->line('view_more') ?></a></div>
                 <div class="clearfix"></div>
                 <div class="pic_news"><img src="<?php echo base_url('common/images/news.png') ?>"/></div>
                 <div class="news_cont">
-                    <label><?php echo htmlspecialchars($value['title']) ?></label>
+                    <label><?php echo htmlspecialchars($value['name']) ?></label>
                     <p><?php if(!empty($value['description'])) echo _substr(htmlspecialchars_decode($value['description']),200) ?></p>
                 </div>
                 <div class="clearfix"></div>

@@ -283,7 +283,8 @@ class Mnews extends MY_Model {
                         n.avatar,
                         n.keyword_seo,
                         n.des_seo,
-                        n.title
+                        n.title,
+                        n.slug
                 FROM
                         d_news AS n
                 INNER JOIN d_news_category AS c ON c.id = n.id_news_cat
