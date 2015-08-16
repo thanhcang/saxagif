@@ -114,7 +114,7 @@ EOF;
         <?php if (!empty($categoryFooter)): ?>
         <div class="header_other_services">
             <div class="tit_our_work"><?php echo $categoryFooter['name']  ?></div>
-            <div class="see_more"><a href="19-what-worked-we.html"><?php echo $this->lang->line('view_more'); ?></a></div>
+            <div class="see_more"><a href="<?php echo base_url('chung-toi-da-lam-duoc-gi') ?>"><?php echo $this->lang->line('view_more'); ?></a></div>
             <div class="clearfix"></div>
         </div>
         <?php endif ?>
@@ -154,7 +154,7 @@ EOF;
                     <?php if(!empty($articleFooter2)): ?>
                     <?php foreach ($articleFooter2 as $key=>$value): ?>
                         <div>
-                            <a href="<?php echo base_url($value['category_slug'].'/'. $value['slug']) ?>"><img u="image" src="<?php echo url_img('admin/common/multidata/news/', $value['avatar'])  ?>" /></a>
+                            <a href="<?php echo base_url('chung-toi-da-lam-duoc-gi') ?>"><img u="image" src="<?php echo url_img('admin/common/multidata/partners/', $value['logo'])  ?>" /></a>
                         </div>
                     <?php endforeach; ?>
                     <?php endif ?>
@@ -182,7 +182,7 @@ EOF;
                     <?php if(!empty($articleFooter3)): ?>
                     <?php foreach ($articleFooter3 as $key=>$value): ?>
                         <div>
-                            <a href="<?php echo base_url($value['category_slug'].'/'. $value['slug']) ?>"><img u="image" src="<?php echo url_img('admin/common/multidata/news/', $value['avatar'])  ?>" /></a>
+                            <a href="<?php echo base_url('chung-toi-da-lam-duoc-gi') ?>"><img u="image" src="<?php echo url_img('admin/common/multidata/news/', $value['avatar'])  ?>" /></a>
                         </div>
                     <?php endforeach; ?>
                     <?php endif ?>
