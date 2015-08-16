@@ -1,4 +1,7 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+
+if (!defined('BASEPATH'))
+    exit('No direct script access allowed');
 
 // Set language type
 $config['language_type'] = array(
@@ -29,12 +32,12 @@ $config['js_path'] = array(
 );
 
 $config['permission'] = array(
-    1=>'Quản Lý',
-    2=>'Biên tập',
+    1 => 'Quản Lý',
+    2 => 'Biên tập',
 );
 $config['typeCategory'] = array(
-    1=>'danh mục',
-    2=>'sự kiện',
+    1 => 'danh mục',
+    2 => 'sự kiện',
 );
 $config['page'] = array(
     '1' => 'Trang chủ',
@@ -52,11 +55,18 @@ $config['position'] = array(
     5 => 'Footer 1',
     7 => 'Footer 2',
     8 => 'Footer 3',
- );
+);
+
+$config['position_saxa_everyday'] = array(
+    1 => 'Slide show',
+    2 => 'Left menu',
+    4 => 'Right menu',
+);
+
 $config['typeCategory'] = array(
-    1=>'danh mục sản phẩm',
-    2=>'sự kiện',
-    3=>'giúp bạn chọn quà',
+    1 => 'danh mục sản phẩm',
+    2 => 'sự kiện',
+    3 => 'giúp bạn chọn quà',
 );
 
 $config['position_news'] = array(
@@ -68,4 +78,4 @@ $config['position_news'] = array(
 $config['type_listen'] = array(
     1 => 'cá nhân',
     2 => 'group',
-); 
+);

@@ -66,18 +66,17 @@
                                     <i class="glyphicon glyphicon-book"></i><span> menu quản lý </span>
                                 </li>
                                 <li>
-                                    <a class="ajax-link" href="<?php echo base_url('category') ?>"><i class="glyphicon glyphicon-plus"></i><span> Danh mục</span></a>
+                                    <a class="ajax-link" href="<?php echo base_url('category') ?>"> <i class="glyphicon glyphicon-plus"></i><span> Danh mục</span></a>
                                 </li>
-                                <li><a class="ajax-link" href="<?php echo base_url('product') ?>"><i class="glyphicon glyphicon-tags"></i><span> Sản phẩm</span></a>
+                                <li><a class="ajax-link" href="<?php echo base_url('product') ?>"> <i class="glyphicon glyphicon-tags"></i><span> Sản phẩm</span></a>
                                 </li>
                                 <li>
                                     <a class="ajax-link" href="<?php echo base_url('category_news') ?>">
-                                        <i class="glyphicon glyphicon-align-justify"></i><span> Danh mục tin tức</span>
+                                        <i class="glyphicon glyphicon-align-justify"></i><span> Danh mục page</span>
                                     </a>
                                 </li>
-                                <li><a class="ajax-link" href="<?php echo base_url('news') ?>"><i
-                                            class="glyphicon glyphicon-edit"></i><span> Tin tức</span></a></li>
-                                <!--khách hàng hỏi saxa trả lời-->
+                                <li><a class="ajax-link" href="<?php echo base_url('news') ?>"><i class="glyphicon glyphicon-edit"></i><span> Nội dung của page</span></a></li>
+                                <li><a class="ajax-link" href="<?php echo base_url('saxa_everyday') ?>"><i class="glyphicon glyphicon-book"></i><span> Danh mục tin tức </span></a></li>
                                 <li><a class="ajax-link" href="<?php echo base_url('commentCustomer'); ?>"><i class="glyphicon glyphicon-question-sign"></i><span> câu hỏi khách hàng</span></a></li>
                                 <!--ý kiên khách hàng-->
                                 <li><a class="ajax-link" href="<?php echo base_url('ideaCustomer'); ?>"><i class="glyphicon glyphicon-comment"></i><span> Ý kiến khách hàng</span></a></li>

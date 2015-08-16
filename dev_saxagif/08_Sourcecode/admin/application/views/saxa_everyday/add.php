@@ -1,7 +1,7 @@
 <div class="box col-md-12">
     <div class="box-inner">
         <div class="box-header well">
-            <h2><i class="glyphicon glyphicon-list-alt"></i> Cập nhật</h2>
+            <h2><i class="glyphicon glyphicon-list-alt"></i> <?php echo $this->lang->line('NEW_ADD') ?></h2>
         </div>
         <div class="box-content">
             <form name="frmCategoryNews" id="frmCategoryNews" method="POST" action="" enctype="multipart/form-data">
@@ -40,7 +40,7 @@
 
                 <div class="form-group">
                     <label>Hiển thị trang chủ</label>
-                    <input style="margin-left: 20px" type="checkbox" name="is_home" value="1" <?php echo !empty($params['is_home']) ? 'checked="checked"' : '' ?> />
+                    <input style="margin-left: 20px" type="checkbox" name="is_home" value="1" <?php echo  !empty($params['is_home']) ? 'checked' : '' ?> />
                 </div>
 
                 <div class="form-group position">
@@ -67,10 +67,9 @@
                     <textarea id="des_seo" name="des_seo" class="form-control noEnter" placeholder="Nhập nội dung mô tả ngắn"><?php echo!empty($params['des_seo']) ? $params['des_seo'] : '' ?></textarea>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="button button-blue">Cập nhật</button>
+                    <button type="submit" class="button button-blue"><?php echo $this->lang->line('CREATE') ?></button>
                     <input type="hidden" name="parent" value="<?php echo !empty($parent) ?  $parent : '' ?>" >
                     <input type="hidden" name="level" value="<?php echo !empty($parent) ?  2 : 1 ?>" >
-                    <input type="hidden" name="id" value="<?php echo $params['id']; ?>" >
                 </div>
             </form>
         </div>
