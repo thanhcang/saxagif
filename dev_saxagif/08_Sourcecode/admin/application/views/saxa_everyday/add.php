@@ -34,7 +34,7 @@
                     <input type="text" name="slug" class="form-control noEnter" id="slug" value="<?php if (!empty($params['slug'])) echo html_escape($params['slug']) ?>" maxlength="255" />
                 </div>
                 <div class="form-group">
-                    <label>Ảnh đại diện</label>
+                    <label>Ảnh đại diện</label> <span class="text-danger">*</span>
                     <input  type="file" name="avatar"  class="" accept="image/*"/>
                 </div>
 
@@ -55,7 +55,7 @@
                     </select>
                 </div>
                 <div class="form-group desSlide">
-                    <label>Mô tả ngắn</label><span class="text-danger">*</span>
+                    <label>Mô tả ngắn</label> <span class="text-danger">*</span>
                     <textarea id="des" name="title" class="form-control noEnter" placeholder="Nhập nội dung mô tả ngắn"><?php echo!empty($params['title']) ? $params['title'] : '' ?></textarea>
                 </div>
                 <div class="form-group">

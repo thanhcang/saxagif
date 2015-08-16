@@ -55,10 +55,13 @@ class Home_model extends MY_Model
                         nc.avatar,
                         nc.title
                 FROM
-                        d_news_category AS nc
+                        d_saxa_everyday AS nc
                 WHERE
                         nc.del_flg = 0
-                AND nc.position = 1 AND nc.language_type = ?) ORDER BY name";
+                AND nc.position = 1 
+                AND nc.level = 2 
+                AND nc.language_type = ?) 
+                ORDER BY name";
         
         $query = $this->db->query($sql, array($language, $language));
         if ($query->num_rows() == 0) {
@@ -257,6 +260,35 @@ class Home_model extends MY_Model
         
         if($query->num_rows() > 0) {
             return $query->row_array();
+        } 
+        return FALSE ;
+    }
+    
+    /**
+     * get right home
+     * @param type $language
+     * @param type $position
+     * @return boolean
+     */
+    public function getPositionHome($language = LANG_VN , $position, $limit = '') {
+        $this->db->select('name , avatar , slug, title');
+        
+        $this->db->where('language_type', $language);
+        $this->db->where('del_flg', 0);
+        $this->db->where('level', 2);
+        $this->db->where('position', $position );
+        
+        if (!empty($limit)){
+            $this->db->limit($limit);
+        }
+        
+        $this->db->order_by('update_date', 'DESC');
+        $query = $this->db->get('d_saxa_everyday');
+        
+        if ($query->num_rows() > 0 &&  $limit == 1 ) {
+            return $query->row_array();
+        } else if ($query->num_rows() > 0 ) {
+            return $query->result_array();
         } 
         return FALSE ;
     }

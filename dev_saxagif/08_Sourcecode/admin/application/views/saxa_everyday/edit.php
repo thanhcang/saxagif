@@ -34,6 +34,9 @@
                     <input type="text" name="slug" class="form-control noEnter" id="slug" value="<?php if (!empty($params['slug'])) echo html_escape($params['slug']) ?>" maxlength="255" />
                 </div>
                 <div class="form-group">
+                    <img src="<?php echo base_url('common/multidata/cat_news'.'/'.$avatar)  ;?>">
+                </div>
+                <div class="form-group">
                     <label>Ảnh đại diện</label>
                     <input  type="file" name="avatar"  class="" accept="image/*"/>
                 </div>
@@ -68,9 +71,7 @@
                 </div>
                 <div class="form-group">
                     <button type="submit" class="button button-blue">Cập nhật</button>
-                    <input type="hidden" name="parent" value="<?php echo !empty($parent) ?  $parent : '' ?>" >
-                    <input type="hidden" name="level" value="<?php echo !empty($parent) ?  2 : 1 ?>" >
-                    <input type="hidden" name="id" value="<?php echo $params['id']; ?>" >
+                    <input type="hidden" name="id" value="<?php echo $params['id']; ?>  " >
                 </div>
             </form>
         </div>

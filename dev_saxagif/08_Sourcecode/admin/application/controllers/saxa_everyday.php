@@ -35,7 +35,7 @@ class Saxa_everyday extends MY_Controller {
             'page_title' => $this->lang->line(),
             'language_type' => $this->_language,
             'listAll' => $this->msaxa_everyday->listAll(),
-            'position' => $this->config->item('position'),
+            'position' => $this->config->item('position_saxa_everyday'),
         );
 
         if ($this->input->post()) {
@@ -249,7 +249,7 @@ class Saxa_everyday extends MY_Controller {
                             if ($old_slug != $params['slug']) {
                                 $this->mcommon->delete($old_slug);
                                 $slug_insert = !empty($params['slug']) ? slug_convert($params['slug']) : slug_convert($params['name']);
-                                $this->mcommon->createSlug($slug_insert, 'd_news_category', 'news');
+                                $this->mcommon->createSlug($slug_insert, 'd_saxa_everyday', 'saxaeveryday');
                             }
                             redirect(base_url('saxa_everyday'));
                         }
@@ -259,6 +259,7 @@ class Saxa_everyday extends MY_Controller {
             }
 
             $data['params'] = $params;
+            $data['avatar'] = $params['avatar'];
             $tpl["main_content"] = $this->load->view('saxa_everyday/edit', $data, TRUE);
             $this->load->view(TEMPLATE, $tpl);
         } else {
@@ -305,7 +306,15 @@ class Saxa_everyday extends MY_Controller {
             $is_detailCat = $this->msaxa_everyday->getDetail($input['catNewsId']);
             if ($is_detailCat) {
                 $positions = $this->config->item('position');
-                $is_detailCat['position_name'] = $positions[$is_detailCat['position']];
+                $is_detailCat['position_name'] = '';
+                if (!empty($is_detailCat['position'])){
+                    $is_detailCat['position_name'] = $positions[$is_detailCat['position']];   
+                }
+                
+                if (!empty($is_detailCat['des_seo'])){
+                    $is_detailCat['des_seo'] = htmlspecialchars_decode($is_detailCat['des_seo']);   
+                }
+                
                 $json_result = array(
                     'result' => 1,
                     'code' => 202,
@@ -368,6 +377,7 @@ class Saxa_everyday extends MY_Controller {
 
         // Set rules:
         $this->form_validation->set_rules("name", $this->lang->line('CAT_NEWS_MISSING_NAME_EMPTY'), "required|trim|xss_clean|max_length[255]|callback__checkExistName");
+        $this->form_validation->set_rules("title", 'Nhập mô tả ngắn', "required|trim|xss_clean|");
         $this->form_validation->set_rules("slug", $this->lang->line('MISSING_EMPTY_SLUG'), "trim|max_length[255]|callback__checkExistSlug");
         $this->form_validation->set_rules("language_type", $this->lang->line('PRO_MISSING_PRICE_INVALID'), "required|trim|integer|max_length[1]");
         $this->form_validation->set_rules("keyword_seo", $this->lang->line('PRO_DESCRIPTION'), "trim");
@@ -445,7 +455,7 @@ class Saxa_everyday extends MY_Controller {
             // Set rules:
             $this->_validate($params, $error);
             if (empty($error)) {
-
+                
                 // upload avatar
                 if ($params['position'] == 1) {
                     if (!empty($_FILES['avatar']['name'])) {
@@ -459,6 +469,8 @@ class Saxa_everyday extends MY_Controller {
                         } else {
                             $error[] = 'File ảnh chưa được up <br/> vui lòng kiểm tra lại';
                         }
+                    } else {
+                        $error[] = 'File ảnh chưa được up <br/> vui lòng kiểm tra lại';
                     }
                 } else {
                     if (!empty($_FILES['avatar']['name'])) {
@@ -472,10 +484,11 @@ class Saxa_everyday extends MY_Controller {
                         } else {
                             $error[] = 'File ảnh chưa được up <br/> vui lòng kiểm tra lại';
                         }
+                    } else {
+                        $error[] = 'File ảnh chưa được up <br/> vui lòng kiểm tra lại';
                     }
                 }
-
-
+                
                 // check slug common
                 if (empty($error)) {
                     if (!empty($param['slug'])) {

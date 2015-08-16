@@ -1591,6 +1591,7 @@ a{
     padding-right:5px;
 }
 #tabs ul li.ui-tabs-active,
+#tabs ul li.active,
 #tabs_video ul li.ui-tabs-active,
 #tabs_news ul li.ui-tabs-active{
     background: #fff;
@@ -1599,6 +1600,7 @@ a{
     box-shadow: -1px 1px 5px rgba(0,0,0, 0.5);
 }
 #tabs ul li.ui-tabs-active a,
+#tabs ul li.active a,
 #tabs_video ul li.ui-tabs-active a,
 #tabs_news ul li.ui-tabs-active a{
     color: #7eb235;

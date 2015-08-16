@@ -48,9 +48,9 @@ class Home extends MY_Controller
         $this->data['categoryFooter3'] = $categoryFooter3;
          
         // menu left 1
-        $this->data['menu_left_1'] = $this->home_model->getMenuPosition(2,1,$this->langs);
+        $this->data['menu_left_1'] = $this->home_model->getPositionHome($this->langs,2,1);
         // menu left 2
-        $this->data['menu_left_2'] = $this->home_model->getMenuPosition(4,3,$this->langs);
+        $this->data['menu_left_2'] = $this->home_model->getPositionHome($this->langs, 4 , 3);
         
         // menu right
         

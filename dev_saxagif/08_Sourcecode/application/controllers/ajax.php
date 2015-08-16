@@ -12,7 +12,7 @@ class Ajax extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->model(array('category_model', 'product_model'));
+        $this->load->model(array('category_model', 'product_model' , 'msaxa_everyday'));
         //$this->lang->load('contact');
     }
 
@@ -69,6 +69,29 @@ class Ajax extends CI_Controller {
             echo json_encode($detailProduct);
             return;
         }
+    }
+    
+    /**
+     * get detail saxa every day
+     * @param type $param
+     * @return type
+     */
+    public function detailSaxaEveryday() {
+        $param = $this->input->post();
+        $detailEvent = $this->msaxa_everyday->detailSaxaEveryday($param['id']);
+        $anotherPost = $this->msaxa_everyday->anotherSaxaEveryday($param['id']);
+
+        if (!empty($detailEvent)) {
+            $detailEvent['content'] = htmlspecialchars_decode($detailEvent['content']);
+            $json_result = array(
+                'code' => 202,
+                'detail' => $detailEvent,
+                'more' => $anotherPost
+            );
+            echo json_encode($json_result, TRUE);
+            return;
+        }
+        return;
     }
 
 }

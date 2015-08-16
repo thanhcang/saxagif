@@ -76,3 +76,6 @@ $lang['question'] = 'Thắc mắc của bạn';
 $lang['you_ask'] = 'Bạn hỏi';
 $lang['saxa_reply'] = 'SAXA trả lời';
 $lang['email_customer'] = 'Email khách hàng';
+$lang['MOST_POST'] = 'Bài hay theo năm';
+$lang['MONTH_POST'] = 'Bài hay theo tháng';
+$lang['WE_ARE_DONE'] = 'Chúng tôi làm được những gì ?';

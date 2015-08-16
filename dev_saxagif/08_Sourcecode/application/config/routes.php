@@ -40,7 +40,6 @@
 
 $route['default_controller'] = "home";
 
-$default_controller = 'home';
 $route['gia-nhap-cung-saxa/(:any)'] = 'join_saxa/detail';
 $route['hop-tac/detail'] = 'co_operate/detail';
 $route['thac-mac-va-huong-dan/sendQuestion'] = 'question_answer/sendQuestion';

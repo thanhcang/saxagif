@@ -39,7 +39,9 @@ class Contants extends MY_Controller {
         
         //Category news
          echo "var URL_DEL_CAT_NEWS = '" . base_url('category_news/delete') . "';" . PHP_EOL;
+         echo "var URL_DEL_CAT_NEWS_ = '" . base_url('saxa_everyday/delete') . "';" . PHP_EOL;
          echo "var URL_DETAIL_CAT_NEWS = '" . base_url('category_news/detailCatNews') . "';" . PHP_EOL;
+         echo "var URL_DETAIL_CAT_NEWS_ = '" . base_url('saxa_everyday/detailCatNews') . "';" . PHP_EOL;
         
         // News URL_DEL_NEWS
         echo "var URL_DEL_NEWS = '" . base_url('news/delete') . "';" . PHP_EOL;

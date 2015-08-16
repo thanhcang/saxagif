@@ -60,7 +60,7 @@
                             <td><?php if(!empty($row['position']) && !empty($position[$row['position']]) && $row['level'] > 1) echo $position[$row['position']] ?></td>
                             <td>
                                 <?php if ($row['level'] == 1) : ?>
-                                <a href="<?php echo base_url('saxa_everyday/add'.'/'.$row['id']) ?>" title="Thêm danh mục con" class="btn btn-success btnShowDetail" attrCatNews="<?php echo $row['id'] ?>"><i class="glyphicon glyphicon-plus-sign icon-white"></i>Thêm</a>
+                                <a href="<?php echo base_url('saxa_everyday/add'.'/'.$row['id']) ?>" title="Thêm danh mục con" class="btn btn-success" attrCatNews="<?php echo $row['id'] ?>"><i class="glyphicon glyphicon-plus-sign icon-white"></i>Thêm</a>
                                 <?php endif ?>
                                 <?php if ($row['level'] >  1 && !empty($row['is_home']) ) : ?>
                                 <a href="javascript:;" title="hiển thi trang chủ" class="btn btn-success btnShowDetail"><i class="glyphicon glyphicon-home icon-white"></i></a>
@@ -88,5 +88,5 @@
 </script>
 <?php require_once(VIEW_PATH.'templates/popup/_confirmDelete.php') ;?>
 <?php require_once(VIEW_PATH.'templates/popup/_messageDialog.php') ;?>
-<script type="text/javascript" src="<?php echo base_url('common/js/category_news.js') ?>"></script>
+<script type="text/javascript" src="<?php echo base_url('common/js/saxa_everyday.js') ?>"></script>
 

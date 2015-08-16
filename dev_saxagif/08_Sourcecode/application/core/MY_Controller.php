@@ -61,7 +61,8 @@ class MY_Controller extends CI_Controller
             'wearedo',
             'weexpectfromyou',
             'wearedone');
-        if (!in_array($this->router->class , $array_ex) && !$this->input->is_ajax_request()){
+        
+        if (!in_array($this->router->class , $array_ex) && !$this->input->is_ajax_request()){            
             $this->_className = $this->checkSlug();
         }
         $this->is_mobile();

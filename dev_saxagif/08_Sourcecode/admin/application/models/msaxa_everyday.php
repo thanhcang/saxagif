@@ -62,7 +62,8 @@ class Msaxa_everyday extends MY_Model {
 
     public function listAll() {
         $this->db->select('id, name')
-                ->where('del_flg', 0);
+                ->where('del_flg', 0)
+                ->where('level', 2);
         $query = $this->db->get($this->_tbl_saxa_everyday);
         if ($query->num_rows() == 0) {
             return FALSE;
@@ -74,6 +75,8 @@ class Msaxa_everyday extends MY_Model {
         $data = array(
             'name' => $params['name'],
             'language_type' => (int) $params['language_type'],
+            'update_date' => date('Y-m-d H:i:s'),
+            
         );
 
         if (!empty($params['slug'])) {
@@ -150,8 +153,22 @@ class Msaxa_everyday extends MY_Model {
     }
 
     public function del($cat_news_id) {
+        
+        $this->db->trans_off();
+        $this->db->trans_begin();
+        
         $this->db->where('id', $cat_news_id);
-        return $this->db->update($this->_tbl_saxa_everyday, array('del_flg' => 1));
+        $this->db->update($this->_tbl_saxa_everyday, array('del_flg' => 1));
+        $this->db->where('parent', $cat_news_id);
+        $this->db->update($this->_tbl_saxa_everyday, array('del_flg' => 1));
+        
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+            return FALSE;
+        } else {
+            $this->db->trans_commit();
+            return TRUE;
+        }
     }
 
     /**
@@ -197,6 +214,7 @@ class Msaxa_everyday extends MY_Model {
         $data = array(
             'name' => $params['name'],
             'language_type' => (int) $params['language_type'],
+            'update_date' => date('Y-m-d H:i:s')
         );
 
         if (!empty($params['slug'])) {

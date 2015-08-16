@@ -32,6 +32,7 @@ class Contants extends MY_Controller {
         echo "var URL_DETAIL_YOUR_SAY = '" . base_url('chung-toi-la-ai-cau-chuyen-ve-saxa/detail') . "';" . PHP_EOL;
         echo "var URL_DETAIL_WE_ARE_DO = '" . base_url('chung-toi-lam-duoc-gi-cho-ban/detail') . "';" . PHP_EOL;
         echo "var URL_DETAIL_WE_ARE_DONE = '" . base_url('chung-toi-da-lam-duoc-gi/detailEvent') . "';" . PHP_EOL;
+        echo "var URL_DETAIL_SAXA_EVERYDAY = '" . base_url('ajax/detailSaxaEveryday') . "';" . PHP_EOL;
         
     }
 }
