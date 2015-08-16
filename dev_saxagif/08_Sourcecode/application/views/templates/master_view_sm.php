@@ -4,8 +4,9 @@
         <title></title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-        <link rel="stylesheet" href="<?php echo base_url('common/css/menu_sm.css') ?>">
+        <meta name="description" content="<?php echo $description_title ?>" />
+        <meta name="keywords" content="<?php echo $keywords_title ?>" />
+        <link rel="stylesheet" href="<?php echo base_url('common/css/menu_sm.css') ?>" />
         <link type="text/css" rel="stylesheet" href="<?php echo base_url('common/css/layout_sm.css') ?>"/>
         <script src="<?php echo base_url('common/js/jquery.js') ?>"></script>
         <script src="<?php echo base_url('common/js/jquery-ui.js') ?>"></script>
@@ -34,7 +35,7 @@
                         <?php endforeach ?>
                         <?php endif ?>
                             <li><a href="<?php echo base_url() ?>"><?php echo $this->lang->line('page_home') ?></a></li>
-                            <li><a href="<?php echo base_url('thac-mac-huong-dan'); ?>"><?php echo $this->lang->line('page_question_answer') ?></a></li>
+                            <li><a href="<?php echo base_url('thac-mac-va-huong-dan'); ?>"><?php echo $this->lang->line('page_question_answer') ?></a></li>
                             <li><a href="<?php echo base_url('hop-tac'); ?>"><?php echo $this->lang->line('page_operate') ?></a></li>
                             <li><a href="<?php echo base_url('gia-nhap-cung-saxa') ?>"><?php echo $this->lang->line('page_join_saxa') ?></a></li>
                             <li><a href="<?php echo base_url('contact'); ?>"><?php echo $this->lang->line('page_contact') ?></a></li>

@@ -27,7 +27,10 @@ class MY_Controller extends CI_Controller
         $this->data['language'] = $language;
         $this->settingLanguage($language);
         
+        // Set page title, description, keyword
         $this->data['page_title'] = 'Saxagifts';
+        $this->data['description_title'] = KEYWORDS;
+        $this->data['keywords_title'] = KEYWORDS;
         
         $this->data['cat_menu'] = $this->category_model->getCategoryByType($type = IS_CATEGORY);
         //Get Category Product:

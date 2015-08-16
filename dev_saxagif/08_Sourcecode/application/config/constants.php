@@ -96,5 +96,7 @@ define('GIFT_EASY', 4);
 // No change
 define('SALT', 'saxagifts!$23');
 
+define('KEYWORDS','quà, gifts, SAXA, công ty quà tặng, sản xuất quà tặng, quà tặng quảng cáo, quà tặng khách hàng, quà tặng in logo, quà tặng VIP, công ty quà tặng SAXA');
+
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

@@ -2,7 +2,9 @@
 <html>
     <head>
         <title><?php $page_title ?></title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="description" content="<?php echo $description_title ?>" />
+        <meta name="keywords" content="<?php echo $keywords_title ?>" />
         <link href="<?php echo base_url('common/css/layout.css') ?>" type="text/css" rel="stylesheet" media="all"/>
         <link rel="stylesheet" href="<?php echo base_url('common/css/vertical.news.slider.css?v=1.0') ?>">
         <link rel="stylesheet" href="<?php echo base_url('common/css/jquery.popup.css') ?>" type="text/css">
