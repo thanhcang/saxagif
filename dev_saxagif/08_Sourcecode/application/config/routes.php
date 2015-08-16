@@ -60,6 +60,8 @@ $route['chung-toi-la-ai-cau-chuyen-ve-saxa/detail'] = 'story_saxa/detail';
 $route['chung-toi-lam-duoc-gi-cho-ban'] = 'wearedo';
 $route['chung-toi-lam-duoc-gi-cho-ban/detail'] = 'wearedo/detail';
 $route['chung-toi-mong-doi-gi-o-ban'] = 'weexpectfromyou';
+$route['chung-toi-da-lam-duoc-gi'] = 'wearedone';
+$route['chung-toi-da-lam-duoc-gi/detailEvent'] = 'wearedone/detailEvent';
 
 $route['404_override'] = '';
 

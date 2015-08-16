@@ -255,5 +255,105 @@ class Mnews extends MY_Model {
         }
         return FALSE;
     }
+    
+    /**
+     * show list idea customer
+     * @param type $language
+     */
+    public function listIdeaCustomer($language = LANG_VN) {
+        $this->db->where('language_type' , $language);
+        $query = $this->db->get('d_idea_customer');
+        
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        }
+        return FALSE;
+        
+    }
+    
+    /**
+     * get event saxa
+     * @param type $language
+     */
+    public function listEventSaxa($language = LANG_VN) {
+        $sql = 'SELECT
+                        n.id,
+                        n.description,
+                        n.content,
+                        n.avatar,
+                        n.keyword_seo,
+                        n.des_seo,
+                        n.title
+                FROM
+                        d_news AS n
+                INNER JOIN d_news_category AS c ON c.id = n.id_news_cat
+                AND c.slug = "chuong-trinh-cua-saxa" AND c.del_flg = 0
+                WHERE n.del_flg = 0
+                AND n.language_type = ?
+                ORDER BY
+                        n.update_date DESC
+                ';
+        
+        $query = $this->db->query($sql, $language);
+        
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        }
+        return FALSE;
+    }
 
+    /**
+     * get partner saxa
+     * @param int $language
+     * @param int $limit
+     * @param int $total
+     * @return boolean
+     */
+    public function listPartnerSaxa($language = LANG_VN, $limit = true, &$total) {
+        $this->db->where('language_type' , $language);
+        $this->db->where('del_flg' , 0);
+        
+        if ($limit == TRUE){
+            $this->db->limit(21 , 0);
+        }
+        
+        $query = $this->db->get('d_partners');
+        $total = $this->db->count_all_results();
+
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        }
+        return FALSE;
+    }
+    
+    /**
+     * another event saxa
+     * @param int $language
+     * @return boolean
+     */
+    public function anotherEventSaxa($id , $language = LANG_VN) {
+        $sql = "
+                SELECT
+                    n.id,
+                    n.title                    
+                FROM
+                    d_news AS n
+                INNER JOIN d_news_category AS c ON n.id_news_cat = c.id
+                AND c.del_flg = 0
+                AND c.slug LIKE '%chuong-trinh-cua-saxa'
+                AND c.language_type = ? 
+                WHERE
+                    n.del_flg = 0
+                    AND n.id <> ?
+                ORDER BY rand()
+                LIMIT 10
+                ";
+
+        $query = $this->db->query($sql, array( $language,$id ));
+
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        }
+        return FALSE;
+    }
 }

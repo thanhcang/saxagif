@@ -36,7 +36,7 @@ class Wearedo extends MY_Controller {
         $anotherPost = $this->mnews->anotherWearedo($param['id'], $this->langs);
 
         if (!empty($detailWearedo)) {
-            $detailYourSay['content'] = htmlspecialchars_decode($detailWearedo['content']);
+            $detailWearedo['content'] = htmlspecialchars_decode($detailWearedo['content']);
             $json_result = array(
                 'code' => 202,
                 'detail' => $detailWearedo,
