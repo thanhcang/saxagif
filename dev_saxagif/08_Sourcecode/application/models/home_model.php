@@ -55,10 +55,13 @@ class Home_model extends MY_Model
                         nc.avatar,
                         nc.title
                 FROM
-                        d_news_category AS nc
+                        d_saxa_everyday AS nc
                 WHERE
                         nc.del_flg = 0
-                AND nc.position = 1 AND nc.language_type = ?) ORDER BY name";
+                AND nc.position = 1 
+                AND nc.level = 2 
+                AND nc.language_type = ?) 
+                ORDER BY name";
         
         $query = $this->db->query($sql, array($language, $language));
         if ($query->num_rows() == 0) {
@@ -260,4 +263,57 @@ class Home_model extends MY_Model
         } 
         return FALSE ;
     }
+    
+    /**
+     * get right home
+     * @param type $language
+     * @param type $position
+     * @return boolean
+     */
+    public function getPositionHome($language = LANG_VN , $position, $limit = '') {
+        $this->db->select('name , avatar , slug, title');
+        
+        $this->db->where('language_type', $language);
+        $this->db->where('del_flg', 0);
+        $this->db->where('level', 2);
+        $this->db->where('position', $position );
+        
+        if (!empty($limit)){
+            $this->db->limit($limit);
+        }
+        
+        $this->db->order_by('update_date', 'DESC');
+        $query = $this->db->get('d_saxa_everyday');
+        
+        if ($query->num_rows() > 0 &&  $limit == 1 ) {
+            return $query->row_array();
+        } else if ($query->num_rows() > 0 ) {
+            return $query->result_array();
+        } 
+        return FALSE ;
+    }
+    
+    /**
+     * Search 
+     **/
+     public function search($keyword, $type = TYPE_PRODUCT)
+     {
+        $arr_where = array();
+        if(empty($keyword)) {
+            return false;
+        }
+        // Search product
+        if ($type == TYPE_PRODUCT) {
+            $sql = "SELECT p.*, pi.name AS pro_img FROM d_product AS p LEFT JOIN d_product_image AS pi ON p.id = pi.product_id WHERE p.del_flg = 0 AND p.name LIKE ? GROUP BY p.id ORDER BY p.name ASC";
+        } elseif($type == TYPE_ARTICLE) {
+            $sql = "SELECT * FROM d_news AS n WHERE n.del_flg = 0 AND n.title LIKE ?";
+        }
+        $arr_where[] = '%' . $keyword . '%';
+        $query = $this->db->query($sql, $arr_where);
+        //echo $this->db->last_query();die;
+        if ($query->num_rows() == 0) {
+            return false;
+        }
+        return $query->result_array();
+     }
 }

@@ -93,8 +93,12 @@ define('GIFT_LUXURIOUS', 1);
 define('GIFT_IMPRESSIVE', 2);
 define('GIFT_EFFECTIVE', 3);
 define('GIFT_EASY', 4);
+define('TYPE_ARTICLE','article');
+define('TYPE_PRODUCT', 'product');
 // No change
 define('SALT', 'saxagifts!$23');
+
+define('KEYWORDS','quà, gifts, SAXA, công ty quà tặng, sản xuất quà tặng, quà tặng quảng cáo, quà tặng khách hàng, quà tặng in logo, quà tặng VIP, công ty quà tặng SAXA');
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

@@ -27,7 +27,10 @@ class MY_Controller extends CI_Controller
         $this->data['language'] = $language;
         $this->settingLanguage($language);
         
+        // Set page title, description, keyword
         $this->data['page_title'] = 'Saxagifts';
+        $this->data['description_title'] = KEYWORDS;
+        $this->data['keywords_title'] = KEYWORDS;
         
         $this->data['cat_menu'] = $this->category_model->getCategoryByType($type = IS_CATEGORY);
         //Get Category Product:
@@ -47,8 +50,20 @@ class MY_Controller extends CI_Controller
         
         //echo $this->router->class; die;
         // get controller : class name
-        $array_ex = array('home', 'contact' , 'contants' ,'question_answer' ,'co_operate','join_saxa','story_saxa','wearedo','weexpectfromyou');
-        if (!in_array($this->router->class , $array_ex) && !$this->input->is_ajax_request()){
+        $array_ex = array(
+            'home',
+            'contact' , 
+            'contants' ,
+            'question_answer' ,
+            'co_operate',
+            'join_saxa',
+            'story_saxa',
+            'wearedo',
+            'weexpectfromyou',
+            'wearedone',
+            'search');
+        
+        if (!in_array($this->router->class , $array_ex) && !$this->input->is_ajax_request()){            
             $this->_className = $this->checkSlug();
         }
         $this->is_mobile();

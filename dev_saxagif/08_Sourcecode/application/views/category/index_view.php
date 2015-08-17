@@ -25,7 +25,7 @@ $this->load->view('templates/_parts/master_sidebar_category_view',$data);
                     <li>
                         <a href="javascript:;" class="showDetailProduct" attr_pro="<?php echo $pro['pro_id'] ?>">
                             <img src="<?php echo base_url('admin/common/multidata/product_img/thumb/' . $pro['product_img']) ?>"/>
-                            <p class="name_product"><?php if(!empty($pro['product_name'])) echo htmlspecialchars($pro['product_name']) ?></p>
+                            <p class="name_product"><?php if(!empty($pro['product_sname'])) echo htmlspecialchars($pro['product_name']) ?></p>
                         </a>
                     </li>
                     <?php //endif; ?>

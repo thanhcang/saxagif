@@ -40,15 +40,14 @@
 
 $route['default_controller'] = "home";
 
-$default_controller = 'home';
 $route['gia-nhap-cung-saxa/(:any)'] = 'join_saxa/detail';
 $route['hop-tac/detail'] = 'co_operate/detail';
 $route['thac-mac-va-huong-dan/sendQuestion'] = 'question_answer/sendQuestion';
 $route['thac-mac-va-huong-dan'] = 'question_answer';
 $route['chung-toi-mong-doi-gi-o-ban'] = 'about/we_expect_from_you';
 
-$route['((?!home|ajax|contants)(:any))'] = 'common';
-$route['((?!home|ajax|contants)(:any))/(:any)'] = 'common';
+$route['((?!home|ajax|contants|search)(:any))'] = 'common';
+$route['((?!home|ajax|contants|search)(:any))/(:any)'] = 'common';
 $route['404'] = 'My404';
 $route['contants'] = 'contants';
 $route['contact'] = 'contact';
@@ -60,6 +59,8 @@ $route['chung-toi-la-ai-cau-chuyen-ve-saxa/detail'] = 'story_saxa/detail';
 $route['chung-toi-lam-duoc-gi-cho-ban'] = 'wearedo';
 $route['chung-toi-lam-duoc-gi-cho-ban/detail'] = 'wearedo/detail';
 $route['chung-toi-mong-doi-gi-o-ban'] = 'weexpectfromyou';
+$route['chung-toi-da-lam-duoc-gi'] = 'wearedone';
+$route['chung-toi-da-lam-duoc-gi/detailEvent'] = 'wearedone/detailEvent';
 
 $route['404_override'] = '';
 

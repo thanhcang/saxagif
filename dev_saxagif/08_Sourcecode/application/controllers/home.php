@@ -9,7 +9,7 @@ class Home extends MY_Controller
     public function __construct()
     {
         parent::__construct();
-        //$this->load->model(array('home_model', 'category_news_model'));
+        $this->load->model(array('mnews'));
     }
     
     public function index()
@@ -23,7 +23,7 @@ class Home extends MY_Controller
         $this->data['news_home'] = $this->home_model->getNewsByHome($this->langs);
         // get category news by footer
         $categoryFooter = $this->home_model->getNewsCategroyFooter(5,$this->langs);
-        $categoryFooter2 = $this->home_model->getNewsCategroyFooter(7,$this->langs);
+        $categoryFooter2 = $this->mnews->listPartnerSaxa($this->langs,false, $total = 0);
         $categoryFooter3= $this->home_model->getNewsCategroyFooter(8,$this->langs);
         
         // get article by footer
@@ -32,10 +32,11 @@ class Home extends MY_Controller
             $this->data['articleFooter'] = $articleFooter ;
         }
         
-        if (!empty($categoryFooter2)){
-            $articleFooter = $this->home_model->getArticleFooter($categoryFooter2['id'], $this->langs);
-            $this->data['articleFooter2'] = $articleFooter ;
-        }
+//        if (!empty($categoryFooter2)){
+//            $articleFooter = $this->home_model->getArticleFooter($categoryFooter2['id'], $this->langs);
+//            $this->data['articleFooter2'] = $articleFooter ;
+//        }
+        $this->data['articleFooter2'] = $this->mnews->listPartnerSaxa($this->langs,false, $total = 0);
         
         if (!empty($categoryFooter3)){
             $articleFooter = $this->home_model->getArticleFooter($categoryFooter3['id'], $this->langs);
@@ -47,9 +48,9 @@ class Home extends MY_Controller
         $this->data['categoryFooter3'] = $categoryFooter3;
          
         // menu left 1
-        $this->data['menu_left_1'] = $this->home_model->getMenuPosition(2,1,$this->langs);
+        $this->data['menu_left_1'] = $this->home_model->getPositionHome($this->langs,2,1);
         // menu left 2
-        $this->data['menu_left_2'] = $this->home_model->getMenuPosition(4,3,$this->langs);
+        $this->data['menu_left_2'] = $this->home_model->getPositionHome($this->langs, 4 , 3);
         
         // menu right
         

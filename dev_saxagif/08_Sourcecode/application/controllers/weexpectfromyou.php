@@ -23,7 +23,7 @@ class Weexpectfromyou extends MY_Controller {
         $this->data['listData'] = $this->mnews->listWeaExpect($this->langs);
         $this->data['salse'] = $this->mnews->listSalse();
         
-        $this->render('weexpectfromyou/index_view');
+        $this->render('weexpectfromyou/index_view'.$this->subfix_layout);
     }
 
     /**

@@ -4,18 +4,23 @@
         <title></title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-        <link rel="stylesheet" href="<?php echo base_url('common/css/menu_sm.css') ?>">
+        <meta name="description" content="<?php echo $description_title ?>" />
+        <meta name="keywords" content="<?php echo $keywords_title ?>" />
+        <link rel="stylesheet" href="<?php echo base_url('common/css/menu_sm.css') ?>" />
         <link type="text/css" rel="stylesheet" href="<?php echo base_url('common/css/layout_sm.css') ?>"/>
-        <script src="<?php echo base_url('common/js/jquery.js') ?>"></script>
-        <script src="<?php echo base_url('common/js/jquery-ui.js') ?>"></script>
-        
         <!--[if lt IE 9]>-1.8.1.min
             <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
         <![endif]-->
         <script type="text/javascript" src="<?php echo base_url('contants') ?>"></script>
         <script type="text/javascript" src="<?php echo base_url('common/js/jssor.js') ?>"></script>
         <script type="text/javascript" src="<?php echo base_url('common/js/jssor.slider.js') ?>"></script>
+        
+        
+        <script src="<?php echo base_url('common/js/jquery.js') ?>"></script>
+        <script src="<?php echo base_url('common/js/jquery-ui.js') ?>"></script>
+        <script src="<?php echo base_url('common/js/menu.min.js') ?>"></script>
+        <script src="<?php echo base_url('common/js/common_sm.js') ?>"></script>
+        
     </head>
     <body>
         <div class="container">
@@ -34,14 +39,17 @@
                         <?php endforeach ?>
                         <?php endif ?>
                             <li><a href="<?php echo base_url() ?>"><?php echo $this->lang->line('page_home') ?></a></li>
-                            <li><a href="<?php echo base_url('thac-mac-huong-dan'); ?>"><?php echo $this->lang->line('page_question_answer') ?></a></li>
+                            <li><a href="<?php echo base_url('thac-mac-va-huong-dan'); ?>"><?php echo $this->lang->line('page_question_answer') ?></a></li>
                             <li><a href="<?php echo base_url('hop-tac'); ?>"><?php echo $this->lang->line('page_operate') ?></a></li>
                             <li><a href="<?php echo base_url('gia-nhap-cung-saxa') ?>"><?php echo $this->lang->line('page_join_saxa') ?></a></li>
                             <li><a href="<?php echo base_url('contact'); ?>"><?php echo $this->lang->line('page_contact') ?></a></li>
                             <li class="search">
                                 <a>
-                                    <input type="text"/>
-                                    <button type="button" class="btn_search"><img src="<?php echo base_url('common/images/btn_search.png') ?>"/></button>
+                                <form method="GET" action="<?php echo base_url('search') ?>">
+                                    <input type="text" name="keyword" value=""/>
+                                    <input type="hidden" name="type" value="<?php echo TYPE_PRODUCT ?>" />
+                                    <button type="submit" class="btn_search"><img src="<?php echo base_url('common/images/btn_search.png') ?>"/></button>
+                                    </form>
                                 </a>
                             </li>
                             <li>
@@ -88,7 +96,5 @@
             </div>
             <?php $this->load->view('templates/_parts/master_footer_view_sm'); ?>
         </div>
-        <script src="<?php echo base_url('common/js/common_sm.js') ?>"></script>
-        <script src="<?php echo base_url('common/js/menu.min.js') ?>"></script>
     </body>
 </html>

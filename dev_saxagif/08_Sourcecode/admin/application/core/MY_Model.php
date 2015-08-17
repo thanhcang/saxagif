@@ -9,6 +9,8 @@ class MY_Model extends CI_Model {
     protected $_tbl_customer = 'd_customer';
     protected $_tbl_category_news = 'd_news_category';
     protected $_tbl_news = 'd_news';
+    protected $_tbl_saxa_everyday = 'd_saxa_everyday';
+    protected $_tbl_news_saxa_everyday = 'd_news_saxa_everyday';
     
     function __construct()
     {

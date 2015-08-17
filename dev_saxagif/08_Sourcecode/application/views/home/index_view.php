@@ -29,9 +29,9 @@ EOF;
                 <p style="height:100px"><?php echo !empty($setting_footer['note_story']) ?  $setting_footer['note_story'].'...' : ''?></p>
                 <hr>
                 <?php if(!empty($menu_left_1)) : ?>
-                <div class="header"><a href=""><?php echo !empty($menu_left_1['name']) ? $menu_left_1['name'] : '' ;?></a></div>
-                <p class="pic_news"><a href=""><img src="<?php echo !empty($menu_left_1['avatar']) ? base_url('admin/common/multidata/cat_news'.'/'.$menu_left_1['avatar']) : base_url('common/images/images/pic_1.png') ;?>"></a></p>
-                <p style="height:57px"><?php echo !empty($menu_left_1['title']) ? $menu_left_1['title'] : '' ;?></p>
+                <div class="header"><a href="<?php echo base_url($menu_left_1['slug']); ?>"><?php echo !empty($menu_left_1['name']) ? $menu_left_1['name'] : '' ;?></a></div>
+                <p class="pic_news"><a href="<?php echo base_url($menu_left_1['slug']); ?>"><img  style="width:198px; height: 97px"src="<?php echo base_url('admin/common/multidata/cat_news'.'/'.$menu_left_1['avatar'])  ;?>"></a></p>
+                <p style="height:57px"><?php echo !empty($menu_left_1['title']) ? strip_tags($menu_left_1['title']) : '' ;?></p>
                 <?php endif ?>
             </div>
             <div class="box_foot"></div>
@@ -94,7 +94,7 @@ EOF;
                 <div class="header"><?php echo $key['name']; ?></div>
                 <div class="news_r">
                     <img src="<?php echo base_url('admin/common/multidata/cat_news'.'/'.$key['avatar']); ?>">
-                    <p><?php echo !empty($key['title']) ? $key['title'].'...' : ''  ?></p>
+                    <?php echo !empty($key['title']) ? _substr(htmlspecialchars_decode($key['title']), 200) .'...' : ''  ?>
                 </div>
                 <div class="clearfix"></div>
                 <?php endforeach; ?>
@@ -114,7 +114,7 @@ EOF;
         <?php if (!empty($categoryFooter)): ?>
         <div class="header_other_services">
             <div class="tit_our_work"><?php echo $categoryFooter['name']  ?></div>
-            <div class="see_more"><a href="19-what-worked-we.html"><?php echo $this->lang->line('view_more'); ?></a></div>
+            <div class="see_more"><a href="<?php echo base_url('chung-toi-da-lam-duoc-gi') ?>"><?php echo $this->lang->line('view_more'); ?></a></div>
             <div class="clearfix"></div>
         </div>
         <?php endif ?>
@@ -154,7 +154,7 @@ EOF;
                     <?php if(!empty($articleFooter2)): ?>
                     <?php foreach ($articleFooter2 as $key=>$value): ?>
                         <div>
-                            <a href="<?php echo base_url($value['category_slug'].'/'. $value['slug']) ?>"><img u="image" src="<?php echo url_img('admin/common/multidata/news/', $value['avatar'])  ?>" /></a>
+                            <a href="<?php echo base_url('chung-toi-da-lam-duoc-gi') ?>"><img u="image" src="<?php echo url_img('admin/common/multidata/partners/', $value['logo'])  ?>" /></a>
                         </div>
                     <?php endforeach; ?>
                     <?php endif ?>
@@ -182,7 +182,7 @@ EOF;
                     <?php if(!empty($articleFooter3)): ?>
                     <?php foreach ($articleFooter3 as $key=>$value): ?>
                         <div>
-                            <a href="<?php echo base_url($value['category_slug'].'/'. $value['slug']) ?>"><img u="image" src="<?php echo url_img('admin/common/multidata/news/', $value['avatar'])  ?>" /></a>
+                            <a href="<?php echo base_url('chung-toi-da-lam-duoc-gi') ?>"><img u="image" src="<?php echo url_img('admin/common/multidata/news/', $value['avatar'])  ?>" /></a>
                         </div>
                     <?php endforeach; ?>
                     <?php endif ?>

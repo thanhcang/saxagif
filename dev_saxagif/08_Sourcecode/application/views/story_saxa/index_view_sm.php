@@ -1,3 +1,6 @@
+<style>
+.content_boder p { font-size: 13px!important; }
+</style>
 <div class="banner_t"><img src="<?php echo base_url('common/images/logo_p.png') ?>"/></div>
 <div class="content_boder">
     <div class="label"><?php echo substr($this->lang->line('story_saxa'), 0,15) ?></div>

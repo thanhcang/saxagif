@@ -9,7 +9,7 @@
                     <div class="title_slide">
                         <div class="topic_slide"><?php if(!empty($slide['name'])) echo htmlspecialchars($slide['name']) ?></div>
                         <div class="cont_slide">
-                            <?php if(!empty($slide['title'])) echo _substr(htmlspecialchars($slide['title']), 200) ?>
+                            <?php if(!empty($slide['title'])) echo _substr(htmlspecialchars_decode($slide['title']), 200) ?>
                         </div>
                         <div class="clearfix"></div>
                     </div>
