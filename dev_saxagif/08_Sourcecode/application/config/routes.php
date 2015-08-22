@@ -61,6 +61,7 @@ $route['chung-toi-lam-duoc-gi-cho-ban/detail'] = 'wearedo/detail';
 $route['chung-toi-mong-doi-gi-o-ban'] = 'weexpectfromyou';
 $route['chung-toi-da-lam-duoc-gi'] = 'wearedone';
 $route['chung-toi-da-lam-duoc-gi/detailEvent'] = 'wearedone/detailEvent';
+$route['truyen-cam-hung'] = 'inspirational';
 
 $route['404_override'] = '';
 

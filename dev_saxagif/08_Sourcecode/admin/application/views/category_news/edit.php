@@ -74,16 +74,22 @@
                     
                     <div class="form-group desSlide">
                         <label>Mô tả ngắn</label>
-                        <textarea placeholder="Nhập nội dung mô tả ngắn" class="form-control noEnter" name="title"><?php echo ( !empty($params['title'])) ? $params['title'] : (!empty($detailCatNews['title']) ? $detailCatNews['title'] : '' ) ?></textarea>
+                        <textarea placeholder="Nhập nội dung mô tả ngắn" class="form-control noEnter" name="title"><?php echo ( !empty($detailCatNews['title'])) ? $detailCatNews['title'] : (!empty($detailCatNews['title']) ? $detailCatNews['title'] : '' ) ?></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Tiêu đề page</label>
+                        <input type="text" name="page_title" class="form-control"  value="<?php if(!empty($detailCatNews['page_title'])) echo html_escape($detailCatNews['page_title']) ?>"/>
                     </div>
                     <div class="form-group">
-                        <label for="keyword_seo"><?php echo $this->lang->line('KEYWORD_SEO') ?></label>
-                        <input type="text" name="keyword_seo" id="keyword_seo" class="form-control" value="<?php if(!empty($detailCatNews['keyword_seo']) && empty($params['keyword_seo'])) echo htmlspecialchars($detailCatNews['keyword_seo']) ;elseif(!empty($params['keyword_seo'])) echo html_escape($params['keyword_seo']) ?>" maxlength="255" />
+                        <label><?php echo $this->lang->line('KEYWORD_SEO') ?></label>
+                        <textarea id="keyword_seo" name="keyword_seo"><?php if(!empty($detailCatNews['keyword_seo'])) echo html_escape($detailCatNews['keyword_seo']) ?></textarea> 
                     </div>
                     <div class="form-group">
-                        <label for="des_seo"><?php echo $this->lang->line('DESCRIPTION_SEO') ?></label>
-                        <input type="text" name="des_seo" id="des_seo" class="form-control" value="<?php if(!empty($detailCatNews['des_seo']) && empty($params['des_seo'])) echo htmlspecialchars($detailCatNews['keyword_seo']) ;elseif(!empty($params['des_seo'])) echo html_escape($params['des_seo']) ?>" maxlength="255" />
+                        <label><?php echo $this->lang->line('DESCRIPTION_SEO') ?></label>
+                        <textarea id="des_seo" name="des_seo"><?php if(!empty($params['des_seo'])) echo html_escape($params['des_seo']) ?></textarea> 
                     </div>
+                    
                     <input type="hidden" value="<?php echo $detailCatNews['id'] ?>" name="category_news_id" />
                     <button type="submit" class="button martopten pull-right"><?php echo $this->lang->line('EDIT') ?></button>
                     <div class="clearfix"></div>
@@ -92,4 +98,10 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="<?php echo base_url('common/js/category_news.js') ?>"></script>
+<script type="text/javascript" src="<?php echo base_url('common/js/ckeditor/ckeditor.js') ?>"></script>
+<script type="text/javascript">
+    CKEDITOR.replace('keyword_seo', {customConfig: '../ckeditor/config_short_seo.js'});
+    CKEDITOR.replace('des_seo', {customConfig: '../ckeditor/config_short_seo.js'});
+</script>
 

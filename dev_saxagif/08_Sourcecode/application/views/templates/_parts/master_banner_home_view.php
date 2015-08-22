@@ -28,5 +28,5 @@
              <?php endforeach; ?>
             <?php endif ?>
         </ul>
-    </div><!-- .news-holder -->
+    </div>
 </div>
