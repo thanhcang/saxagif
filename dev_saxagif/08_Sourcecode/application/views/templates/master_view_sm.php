@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <meta name="description" content="<?php echo $description_title ?>" />
         <meta name="keywords" content="<?php echo $keywords_title ?>" />
+        <link rel="stylesheet" href="<?php echo base_url('common/css/vertical.news.slider.css?v=1.0') ?>">
         <link rel="stylesheet" href="<?php echo base_url('common/css/menu_sm.css') ?>" />
         <link type="text/css" rel="stylesheet" href="<?php echo base_url('common/css/layout_sm.css') ?>"/>
         <!--[if lt IE 9]>-1.8.1.min
@@ -20,6 +21,9 @@
         <script src="<?php echo base_url('common/js/jquery-ui.js') ?>"></script>
         <script src="<?php echo base_url('common/js/menu.min.js') ?>"></script>
         <script src="<?php echo base_url('common/js/common_sm.js') ?>"></script>
+        
+        <script type="text/javascript" src="<?php echo base_url('common/js/jssor.js') ?>"></script>
+        <script type="text/javascript" src="<?php echo base_url('common/js/jssor.slider.js') ?>"></script>
         
     </head>
     <body>

@@ -4,11 +4,11 @@
     <div class="label"><?php echo $this->lang->line('search') ?></div>
     <h5 class="tit_search"><?php echo $this->lang->line('category_search') ?></h5>
     <label class="lbl_search"><?php echo $this->lang->line('input_keyword_search') ?></label>
-    <input type="text" name="keyword" value="" class="input_search"/>
+    <input type="text" name="keyword" value="<?php if(!empty($keyword)) echo htmlspecialchars($keyword) ?>" class="input_search"/>
     <label class="lbl_search"><?php echo $this->lang->line('select_category_search') ?></label>
     <div class="option_search">
-        <input type="radio" name="type" checked="" value="<?php echo TYPE_ARTICLE ?>"/><?php echo $this->lang->line('search_article') ?>
-        <input type="radio" name="type" value="<?php echo TYPE_PRODUCT ?>"/><?php echo $this->lang->line('search_product') ?>
+        <input type="radio" name="type" <?php if(!empty($type) && $type == TYPE_ARTICLE) echo 'checked' ?> value="<?php echo TYPE_ARTICLE ?>"/><?php echo $this->lang->line('search_article') ?>
+        <input type="radio" name="type" <?php if(!empty($type) && $type == TYPE_PRODUCT) echo 'checked' ?> value="<?php echo TYPE_PRODUCT ?>"/><?php echo $this->lang->line('search_product') ?>
         <input type="submit" value="<?php echo $this->lang->line('send') ?>" class="btn_search"/>
         <div class="clearfix"></div>
     </div>
@@ -40,7 +40,7 @@
     <?php foreach($search_result as $row): ?>
         <div class="cont_tab">
             <div class="img_tab">
-                <a href="<?php echo $row['slug'] ?>">
+                <a href="<?php echo base_url($row['slug']) ?>">
                 <?php if(!empty($row['pro_img'])): ?>
                     <img src="<?php echo base_url('admin/common/multidata/product_img/' . $row['pro_img']) ?>"/>
                 <?php else: ?>

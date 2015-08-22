@@ -34,6 +34,7 @@ class Category extends MY_Controller
         if($rank == CATEGORY_PARENT) {
             $this->data['list_category'] = $listCategory[0];
             $this->data['listCategory'] = $this->processCategoryList($listCategory);
+            //echo '<pre>';print_r($this->data['listCategory']);die;
             $this->data['page_title'] = 'Product';
             $this->render('category/index_view'.$this->subfix_layout);
         } elseif($rank == CATEGORY_CHILD) {

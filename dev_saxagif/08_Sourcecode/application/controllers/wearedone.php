@@ -54,5 +54,10 @@ class Wearedone extends MY_Controller {
         }
         return;
     }
+    
+    public function detail()
+    {
+       $this->render('wearedone/index_view'.$this->subfix_layout);
+    }
 
 }
