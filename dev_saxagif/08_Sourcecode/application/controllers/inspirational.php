@@ -24,7 +24,8 @@ class Inspirational extends MY_Controller {
         $parent = $this->minspirational->listParent($this->langs);
         $t_parent = 0;
         $result = array();
-        foreach ($parent as $key) {
+        if (!empty($parent)){
+            foreach ($parent as $key) {
             if ($key['parent_id'] == $t_parent) {
                 $t_child_array = array(
                     'id' => $key['id'],
@@ -40,6 +41,7 @@ class Inspirational extends MY_Controller {
                 );
                 $t_parent = $key['parent_id'];
             }
+        }
         }
         
         $this->data['parent'] = $result;
