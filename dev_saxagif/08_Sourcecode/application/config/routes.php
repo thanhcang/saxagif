@@ -62,6 +62,7 @@ $route['chung-toi-mong-doi-gi-o-ban'] = 'weexpectfromyou';
 $route['chung-toi-da-lam-duoc-gi'] = 'wearedone';
 $route['chung-toi-da-lam-duoc-gi/detailEvent'] = 'wearedone/detailEvent';
 $route['truyen-cam-hung'] = 'inspirational';
+$route['ly-do-saxa-co-mat'] = 'story_saxa/reason';
 
 $route['404_override'] = '';
 

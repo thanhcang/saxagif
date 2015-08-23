@@ -90,3 +90,6 @@ $lang['select_category_search'] = 'Chọn danh mục tìm kiếm';
 $lang['search_article'] = 'Tìm kiếm theo bài viết';
 $lang['search_product'] = 'Tìm kiếm theo sản phẩm';
 $lang['search_result'] = 'Kết quả tìm kiếm';
+$lang['reason_saxa'] = 'Lý do saxa có mặt';
+$lang['subscribe_to_story'] = 'Theo dõi tiếp câu chuyện';
+$lang['customer_comment'] = 'Cảm nhận của khách hàng';

@@ -45,9 +45,16 @@ class Story_saxa extends MY_Controller
             echo json_encode($json_result, TRUE);
             return;
         }
-        return;
-        
+        return;   
     }
+    
+    // Page ly do saxa co mat
+    // hnguyen0110@gmail.com 2015/08/23
+    public function reason()
+    {
+        $this->render('story_saxa/reason_view'.$this->subfix_layout);
+    }
+    
     
 }
     
