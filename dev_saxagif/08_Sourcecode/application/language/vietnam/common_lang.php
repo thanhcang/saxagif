@@ -93,3 +93,4 @@ $lang['search_result'] = 'Kết quả tìm kiếm';
 $lang['reason_saxa'] = 'Lý do saxa có mặt';
 $lang['subscribe_to_story'] = 'Theo dõi tiếp câu chuyện';
 $lang['customer_comment'] = 'Cảm nhận của khách hàng';
+$lang['comment'] = 'Bình luận';

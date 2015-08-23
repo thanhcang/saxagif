@@ -24,9 +24,18 @@
         
         <script type="text/javascript" src="<?php echo base_url('common/js/jssor.js') ?>"></script>
         <script type="text/javascript" src="<?php echo base_url('common/js/jssor.slider.js') ?>"></script>
-        
+        <script type='text/javascript'> //<![CDATA[ var purl= location.href; var fb_href = purl.substring(0,purl.indexOf(".html")+5); var fbcm ='<div class="fb-comments" data-href="'+fb_href+'" data-num-posts="10" data-width="700"></div>'; //]]> </script>
     </head>
     <body>
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+        </script>
         <div class="container">
             <div class="<?php if(isset($class) && $class =='home') echo 'w_header';elseif(isset ($class) && $class !='home') echo 'w_header_p' ?>">
                 <header class="main">

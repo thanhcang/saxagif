@@ -12,7 +12,7 @@
         <a href="#"><img src="<?php echo base_url('common/images/like_fb.png') ?>"/></a>
     </p>
     <div class="block_comment">
-        <h6 class="tit_comment">Bình luận</h6>
+        <h6 class="tit_comment"><?php echo $this->lang->line('comment') ?></h6>
          <div class='post-footer-line post-footer-line-2'>
             <b:if cond='data:blog.pageType == &quot;item&quot;'>
                 <div class="fb-comments" data-href="http://namkna.blogspot.com/" data-width="470" data-num-posts="10"></div>

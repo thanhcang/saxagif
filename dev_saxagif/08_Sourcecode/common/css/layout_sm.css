@@ -73,7 +73,7 @@
         border-bottom: 1px solid #000;
     }
     .choose_gift p{
-        font-size: 3.5em;
+        font-size: 3em;
         color: #1c1c1c;
         text-align: justify;
     }
@@ -320,7 +320,7 @@
         border-bottom: 0;
     }
     .content_noboder p.content_post label,.content_boder p.content_post label{
-        font-size: 1.5em;
+        font-size: 1em;
         color: #7eb235;
     }
     .content_boder p.sign{
@@ -761,7 +761,7 @@
         text-align: justify;
         color:#1c1c1c;
         margin-top:5px;
-        font-size:2em;
+        font-size:3em;
         text-align: justify;
         height:70px;
         overflow:hidden;
