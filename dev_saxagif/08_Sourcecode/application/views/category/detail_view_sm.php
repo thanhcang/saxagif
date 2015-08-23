@@ -21,7 +21,7 @@
     </div>
     <div class="sort_view pull-right">
         <div class="sort_month">
-            <ul>
+            <!--<ul>
                 <li class="active"><</li>
                 <li><a href="#">1</a></li>
                 <li><a href="#">2</a></li>
@@ -29,7 +29,7 @@
                 <li><a href="#">...</a></li>
                 <li><a href="#">7</a></li>
                 <li><a href="#">></a></li>
-            </ul>
+            </ul>-->
         </div>
         <div class="clearfix"></div>
     </div>

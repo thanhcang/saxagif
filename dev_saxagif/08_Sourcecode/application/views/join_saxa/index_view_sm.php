@@ -1,4 +1,4 @@
-<div class="banner_t"><img src="<?php echo base_url('common/images/logo_p.png') ?>"/></div>
+<div class="banner_t"><a href="<?php echo base_url() ?>"><img src="<?php echo base_url('common/images/logo_p.png') ?>"/></a></div>
 <div class="content_boder">
     <div class="label"><?php echo $this->lang->line('page_join_saxa') ?></div>
     <div class="people_join">

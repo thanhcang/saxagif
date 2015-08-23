@@ -1,3 +1,4 @@
+<style>.content_boder .frm_contact p { font-size: 3em; }</style>
 <div class="banner_t"><a href="<?php echo base_url() ?>"><img src="<?php echo base_url('common/images/logo_p.png') ?>"/></a></div>
 <div class="content_boder">
     <div class="label"><?php echo $this->lang->line('page_contact') ?></div>

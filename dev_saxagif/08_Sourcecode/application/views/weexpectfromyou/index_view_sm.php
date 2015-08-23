@@ -1,5 +1,5 @@
 <style>
-.content_boder { font-size: 13px; }
+.content_boder p { font-size: 3em; }
 </style>
 <div class="banner_t"><a href="<?php echo base_url() ?>"><img src="<?php echo base_url('common/images/logo_p.png') ?>"/></a></div>
 <div class="content_boder">

@@ -67,7 +67,7 @@
     </div>
     <div class="news_top">
         <?php if(!empty($articleFooter3)): ?>
-        <?php echo !empty($categoryFooter3['name']) ? $categoryFooter3['name'] : $this->lang->line('saxa_program') ?>
+        <div class="header_story"><?php echo !empty($categoryFooter3['name']) ? $categoryFooter3['name'] : $this->lang->line('saxa_program') ?></div>
         <?php foreach ($articleFooter3 as $key=>$value): ?>
             <div class="see_more"><a href="<?php echo base_url($value['category_slug'].'/'. $value['slug']) ?>"><?php echo $this->lang->line('view_more') ?></a></div>
             <div class="clearfix"></div>

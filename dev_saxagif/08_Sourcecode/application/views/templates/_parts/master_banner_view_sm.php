@@ -18,6 +18,7 @@
     $(function(){
         setAnimationSlishow();
     });
+    
     function setAnimationSlishow() {
         var widthCont = $('.cont-slideshow').width();
         var heightCont = widthCont / 2.5;
