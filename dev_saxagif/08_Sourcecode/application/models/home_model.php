@@ -64,7 +64,8 @@ class Home_model extends MY_Model
                 AND nc.level = 2 
                 AND nc.language_type = ?
                 ORDER BY name
-                ) 
+                )
+                
                 ";
         
         $query = $this->db->query($sql, array($language, $language, $language));
@@ -275,19 +276,19 @@ class Home_model extends MY_Model
      * @return boolean
      */
     public function getPositionHome($language = LANG_VN , $position, $limit = '') {
-        $this->db->select('name , avatar , slug, title');
-        
-        $this->db->where('language_type', $language);
-        $this->db->where('del_flg', 0);
-        $this->db->where('level', 2);
-        $this->db->where('position', $position );
+        $this->db->select('c.name , c.avatar , c.slug, c.title , p.inspire');
+        $this->db->join('d_saxa_everyday as p','p.id = c.parent ');
+        $this->db->where('c.language_type', $language);
+        $this->db->where('c.del_flg', 0);
+        $this->db->where('c.level', 2);
+        $this->db->where('c.position', $position );
         
         if (!empty($limit)){
             $this->db->limit($limit);
         }
         
-        $this->db->order_by('update_date', 'DESC');
-        $query = $this->db->get('d_saxa_everyday');
+        $this->db->order_by('c.update_date', 'DESC');
+        $query = $this->db->get('d_saxa_everyday as c');
         
         if ($query->num_rows() > 0 &&  $limit == 1 ) {
             return $query->row_array();

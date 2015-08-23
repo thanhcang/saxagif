@@ -126,7 +126,7 @@ EOF;
             <div class="box_main">
                 <p class="height_45"><?php echo !empty($setting_footer['note_funny']) ?   $setting_footer['note_funny'] : ''; ?></p>
                 <p class="pic_news">
-                    <a class="js__p_start youtubeVideo">
+                    <a class="youtubeVideo">
                         <img src="<?php echo base_url('common/images/video.png'); ?>">
                     </a>
                 </p>
@@ -135,7 +135,7 @@ EOF;
                 <hr>
                 <div class="header"><?php echo $key['name']; ?></div>
                 <div class="news_r">
-                    <img src="<?php echo base_url('admin/common/multidata/cat_news'.'/'.$key['avatar']); ?>">
+                    <a href="<?php echo (!empty($key['inspire'])) ?  base_url('truyen-cam-hung/'.$key['slug']) :  base_url($key['slug']) ; ?>"><img src="<?php echo base_url('admin/common/multidata/cat_news'.'/'.$key['avatar']); ?>"></a>
                     <?php echo !empty($key['title']) ? _substr(htmlspecialchars_decode($key['title']), 200) .'...' : ''  ?>
                 </div>
                 <div class="clearfix"></div>
