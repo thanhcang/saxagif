@@ -10,7 +10,7 @@
                                         Donec ac diam nibh. Phasellus vitae efficitur ante, ac consequat elit. Donec vitae tortor dictum, lobortis sem sit amet, ultrices libero. Praesent placerat facilisis lacinia. Nulla fermentum finibus velit sed maximus. Sed nec tristique est. Donec fringilla nulla nec lectus luctus sagittis. Nunc at eros mi. Fusce sit amet orci vitae justo varius posuere vitae a sapien.
         <p class=color_green>Để trở thành Supplier của chúng tôi, hãy liên hệ</p>
         <p class="social">
-            <a href="#"><img src="<?php echo base_url('common/images/share_fb.png') ?>"/></a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=<?php $slug = end($this->uri->segment_array()); echo base_url($slug) ?>" target="_blank"><img src="<?php echo base_url('common/images/share_fb.png') ?>"/></a>
             <a href="#"><img src="<?php echo base_url('common/images/like_fb.png') ?>"/></a>
         </p>
     </div>
@@ -20,7 +20,7 @@
         Lorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elit
         <p class=color_green>Để trở thành Supplier của chúng tôi, hãy liên hệ</p>
         <p class="social">
-            <a href="#"><img src="<?php echo base_url('common/images/share_fb.png') ?>"/></a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=<?php $slug = end($this->uri->segment_array()); echo base_url($slug) ?>" target="_blank"><img src="<?php echo base_url('common/images/share_fb.png') ?>"/></a>
             <a href="#"><img src="<?php echo base_url('common/images/like_fb.png') ?>"/></a>
         </p>
     </div>

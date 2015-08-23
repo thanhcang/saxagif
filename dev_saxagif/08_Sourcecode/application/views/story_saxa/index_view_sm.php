@@ -10,7 +10,7 @@
     </p>
     <p><img src="<?php echo base_url('common/images/hot_line.png') ?>"/></p>
     <p class="social">
-        <a href="javascript:;"><img src="<?php echo base_url('common/images/share_fb.png') ?>"/></a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=<?php $slug = end($this->uri->segment_array()); echo base_url($slug) ?>" target="_blank"><img src="<?php echo base_url('common/images/share_fb.png') ?>"/></a>
         <a href="javascript:;"><img src="<?php echo base_url('common/images/like_fb.png') ?>"/></a>
     </p>
     <?php endif ?>
