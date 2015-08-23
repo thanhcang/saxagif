@@ -19,6 +19,7 @@ $aricle = $this->uri->segment(3);
                         <li <?php echo (!empty($slug) && ($c_key['slug'] == $slug) ) ? 'class="ui-tabs-active"' : ''; ?>><a href="<?php echo base_url('truyen-cam-hung'.'/'.$c_key['slug']); ?>"><?php echo $c_key['name'] ?></a></li>
                     <?php endforeach; ?>
                 </ul>
+                <br />
                 <div class="tab-content">
                     <div id="tabs-1" class="tab">
                         <!--<div class="sort_view">
