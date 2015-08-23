@@ -26,7 +26,8 @@ class Msaxa_everyday extends MY_Model {
                         cn.des_seo,
                         cn.parent,
                         cn.level,
-                        cn.is_home
+                        cn.is_home,
+                        cn.inspire
                 FROM " . $this->_tbl_saxa_everyday . "
                 AS cn WHERE 
                         cn.del_flg = 0";
@@ -120,6 +121,10 @@ class Msaxa_everyday extends MY_Model {
         
         if (!empty($params['level'])) {
             $data['level'] = $params['level'];
+        }
+        
+        if (!empty($params['inspire'])) {
+            $data['inspire'] = $params['inspire'];
         }
 
         $this->db->trans_off();

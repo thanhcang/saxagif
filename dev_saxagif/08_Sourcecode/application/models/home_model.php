@@ -47,7 +47,9 @@ class Home_model extends MY_Model
                         c.del_flg = 0
                 AND c.is_home = 1
                 AND c.type = 2 AND c.language_type = ?)
+                
                 UNION
+                
                 (SELECT
                         nc.id,
                         nc.`name`,
@@ -60,10 +62,12 @@ class Home_model extends MY_Model
                         nc.del_flg = 0
                 AND nc.position = 1 
                 AND nc.level = 2 
-                AND nc.language_type = ?) 
-                ORDER BY name";
+                AND nc.language_type = ?
+                ORDER BY name
+                ) 
+                ";
         
-        $query = $this->db->query($sql, array($language, $language));
+        $query = $this->db->query($sql, array($language, $language, $language));
         if ($query->num_rows() == 0) {
             return FALSE;
         }
