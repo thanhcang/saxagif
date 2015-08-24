@@ -51,7 +51,7 @@ class Home extends MY_Controller
         $this->data['menu_left_1'] = $this->home_model->getPositionHome($this->langs,2,1);
         // menu left 2
         $this->data['menu_left_2'] = $this->home_model->getPositionHome($this->langs, 4 , 3);
-        
+       
         // menu right
         
         //

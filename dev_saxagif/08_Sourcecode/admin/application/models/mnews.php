@@ -71,6 +71,7 @@ class Mnews extends MY_Model
             'language_type' => (!empty($params['language_type'])) ? $params['language_type'] : '',
             'keyword_seo' => (!empty($params['txtKeySeo'])) ? $params['txtKeySeo'] : '',
             'des_seo' => (!empty($params['txtDesSeo'])) ? $params['txtDesSeo'] : '',
+            'page_title' => (!empty($params['page_title'])) ? $params['page_title'] : $params['txtTitle']
         );
         
         if(!empty($params['slug'])) {

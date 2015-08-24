@@ -9,24 +9,28 @@ $(document).ready(function () {
         });
     }
 
-    $('.box_main_QA').slimScroll({
-        color: '#7eb235',
-        size: '10px',
-        height: '643px',
-        alwaysVisible: true
-    });
+    if ($('.post_saxa_everyday').height() > 560) {
+        $('.post_saxa_everyday').slimScroll({
+            color: '#7eb235',
+            size: '10px',
+            height: '560px',
+            alwaysVisible: true
+        });
+    }
     
-    $('.bullet_partner_l').css('margin-top', (Math.ceil($('.partner').height() / 2) + 7)+'px');
-    $('.bullet_partner_r').css('margin-top', (Math.ceil($('.partner').height() / 2) + 7)+'px');
+    
 });
 
+$('html,body').animate({
+    scrollTop: $(".topic").offset().top},
+'slow');
 // show detail listen saxa
 $(document).on('click', '.detailWeAreDo', function () {
     var id = $(this).attr('attr-id');
 
     $.ajax({
         dataType: 'json',
-        url: URL_DETAIL_WE_ARE_DONE,
+        url: URL_DETAIL_SAXA_EVERYDAY,
         type: 'POST',
         data: {
             'id': id,

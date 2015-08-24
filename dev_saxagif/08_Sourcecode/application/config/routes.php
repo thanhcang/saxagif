@@ -45,6 +45,7 @@ $route['hop-tac/detail'] = 'co_operate/detail';
 $route['thac-mac-va-huong-dan/sendQuestion'] = 'question_answer/sendQuestion';
 $route['thac-mac-va-huong-dan'] = 'question_answer';
 $route['chung-toi-mong-doi-gi-o-ban'] = 'about/we_expect_from_you';
+$route['truyen-cam-hung/(:any)'] = 'inspirational';
 
 $route['((?!home|ajax|contants|search)(:any))'] = 'common';
 $route['((?!home|ajax|contants|search)(:any))/(:any)'] = 'common';
@@ -61,6 +62,8 @@ $route['chung-toi-lam-duoc-gi-cho-ban/detail'] = 'wearedo/detail';
 $route['chung-toi-mong-doi-gi-o-ban'] = 'weexpectfromyou';
 $route['chung-toi-da-lam-duoc-gi'] = 'wearedone';
 $route['chung-toi-da-lam-duoc-gi/detailEvent'] = 'wearedone/detailEvent';
+$route['truyen-cam-hung'] = 'inspirational';
+$route['ly-do-saxa-co-mat'] = 'story_saxa/reason';
 
 $route['404_override'] = '';
 

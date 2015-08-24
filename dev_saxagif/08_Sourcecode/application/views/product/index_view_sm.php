@@ -35,13 +35,13 @@
                 <label><?php echo $this->lang->line('pro_price') ?>:</label> <?php if(!empty($detailProduct['price'])) echo number_format($detailProduct['price']) ?> VND
             </p>
             <p>
-                <label><?php echo $this->lang->line('material') ?>:</label>
+                <label><?php echo $this->lang->line('material') ?>:<?php if(!empty($detailProduct['material'])) echo htmlspecialchars($detailProduct['material']) ?></label>
             </p>
             <p>
-                <label><?php echo $this->lang->line('pro_designs') ?>:</label> 
+                <label><?php echo $this->lang->line('pro_designs') ?>:<?php if(!empty($detailProduct['design'])) echo htmlspecialchars($detailProduct['design']) ?></label> 
             </p>
             <p>
-                <label><?php echo $this->lang->line('pro_made') ?>:</label> 
+                <label><?php echo $this->lang->line('pro_made') ?>:<?php if(!empty($detailProduct['made_in'])) echo htmlspecialchars($detailProduct['made_in']) ?></label> 
             </p>
             <p>
                 <label><?php echo $this->lang->line('pro_description') ?>:</label><?php if(!empty($detailProduct['description'])) echo _substr($detailProduct['description'], 200) ?>

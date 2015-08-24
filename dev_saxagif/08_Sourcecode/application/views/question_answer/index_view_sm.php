@@ -1,3 +1,6 @@
+<style>
+    .content_boder #accordion { font-size: 2em; }
+</style>
 <div class="banner_t"><a href="<?php echo base_url() ?>"><img src="<?php echo base_url('common/images/logo_p.png') ?>"/></a></div>
 <div class="content_boder">
     <div class="label"><?php echo $this->lang->line('question') ?></div>

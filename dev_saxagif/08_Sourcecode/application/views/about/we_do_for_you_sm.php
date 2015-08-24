@@ -8,7 +8,7 @@
         <label><a href="">Tiêu đề 1</a></label><br/>
         Lorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elit
         <p class="social">
-            <a href="#"><img src="<?php echo base_url('common/images/share_fb.png') ?>"/></a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=<?php $slug = end($this->uri->segment_array()); echo base_url($slug) ?>" target="_blank"><img src="<?php echo base_url('common/images/share_fb.png') ?>"/></a>
             <a href="#"><img src="<?php echo base_url('common/images/like_fb.png') ?>"/></a>
         </p>
     </div>

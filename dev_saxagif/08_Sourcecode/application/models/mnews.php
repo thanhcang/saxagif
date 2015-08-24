@@ -113,7 +113,8 @@ class Mnews extends MY_Model {
     public function listWeareDo($language = LANG_VN) {
         $sql = "SELECT
                     n.id,
-                    n.title , 
+                    n.title ,
+                    n.slug,
                     n.avatar, 
                     n.description
                 FROM
@@ -166,14 +167,16 @@ class Mnews extends MY_Model {
      */
     public function detailWearedo($id) {
         $sql = "SELECT
+                        n.id,
+                        n.slug,
                         n.title,
                         n.content
                 FROM
                         d_news AS n
-                WHERE   n.id = ?
+                WHERE   (n.id = ? OR n.slug = ?)
                 ";
 
-        $query = $this->db->query($sql, array($id));
+        $query = $this->db->query($sql, array($id, $id));
 
         if ($query->num_rows() > 0) {
             return $query->row_array();

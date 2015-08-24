@@ -14,7 +14,7 @@ $lang['giftfromsaxa'] = 'Quà tặng từ SAXA';
 $lang['view_more'] = 'Xem thêm';
 $lang['customer_name'] = 'Tên khách hàng';
 $lang['customers_saxa'] = 'Khách hàng của SAXA';
-$lang['saxa_program'] = 'Chuong trình của SAXA';
+$lang['saxa_program'] = 'Chương trình của SAXA';
 $lang['mess_thank_customer'] = 'Cảm ơn bạn đã chia sẻ với SAXA<br/>
                         những chia sẻ của bạn rất có giá trị với chúng tôi';
 $lang['products_saxa'] = 'Sản phẩm của saxa';
@@ -90,3 +90,7 @@ $lang['select_category_search'] = 'Chọn danh mục tìm kiếm';
 $lang['search_article'] = 'Tìm kiếm theo bài viết';
 $lang['search_product'] = 'Tìm kiếm theo sản phẩm';
 $lang['search_result'] = 'Kết quả tìm kiếm';
+$lang['reason_saxa'] = 'Lý do saxa có mặt';
+$lang['subscribe_to_story'] = 'Theo dõi tiếp câu chuyện';
+$lang['customer_comment'] = 'Cảm nhận của khách hàng';
+$lang['comment'] = 'Bình luận';

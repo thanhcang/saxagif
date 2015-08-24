@@ -156,6 +156,35 @@ class Category_model extends MY_Model {
                         ORDER BY c.id ASC";
                 $query = $this->db->query($sql, array($type, $slug, $language));
             }
+            // cangtv add code 20150822
+            // process event 
+            // @type = 2
+            // @parent = 0
+            // @level = 1
+            else if ($type == 2) {
+                $rank = 4;
+                $sql = "SELECT
+                                c.id AS cat_id,
+                                c.name AS cat_name,
+                                c.note,
+                                c.slug AS slug_cat,
+                                p.id AS pro_id,
+                                p.name AS pro_name,
+                                p.slug AS slug_pro,
+                                pi.name AS pro_img
+                        FROM
+                                d_category AS c
+                        INNER JOIN d_product AS p ON c.id = p.cat_id
+                        INNER JOIN d_product_image AS pi ON p.id = pi.product_id
+                        WHERE
+                                c.id = ? AND c.language_type = ?
+                        GROUP BY
+                                p.id
+                        ORDER BY
+                                p.update_date,
+                                pi.create_date";
+                $query = $this->db->query($sql, array($cat_id, $language));
+            }
         }
         if ($query->num_rows() == 0) {
             return FALSE;

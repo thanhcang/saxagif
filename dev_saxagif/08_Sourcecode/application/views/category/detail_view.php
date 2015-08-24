@@ -23,21 +23,6 @@
                     </ul>
                 </div>
             </div>
-            <div class="external-scroll_x">
-                <div class="scroll-element_outer">
-                    <div class="scroll-element_size"></div>
-                    <div class="scroll-element_track"></div>
-                    <div class="scroll-bar"></div>
-                </div>
-            </div>
-
-            <div class="external-scroll_y">
-                <div class="scroll-element_outer">
-                    <div class="scroll-element_size"></div>
-                    <div class="scroll-element_track"></div>
-                    <div class="scroll-bar" style="height:100px;"></div>
-                </div>
-            </div>
         </div>
     </div>
     <div class="clearfix"></div>

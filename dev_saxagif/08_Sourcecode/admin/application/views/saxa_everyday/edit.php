@@ -41,11 +41,18 @@
                     <input  type="file" name="avatar"  class="" accept="image/*"/>
                 </div>
 
+                <?php if (empty($parent)): ?>
+                <div class="form-group">
+                    <label>Truyền cảm hứng</label>
+                    <input style="margin-left: 20px" type="checkbox" name="inspire" value="1" <?php echo  !empty($params['inspire']) ? 'checked' : '' ?> />
+                </div>
+                <?php endif; ?>
+                
                 <div class="form-group">
                     <label>Hiển thị trang chủ</label>
                     <input style="margin-left: 20px" type="checkbox" name="is_home" value="1" <?php echo !empty($params['is_home']) ? 'checked="checked"' : '' ?> />
                 </div>
-
+                
                 <div class="form-group position">
                     <label><?php echo $this->lang->line('CAT_NEWS_POSITION') ?></label>
                     <select name="position" class="form-control">

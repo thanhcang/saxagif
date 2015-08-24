@@ -18,7 +18,11 @@
                         <?php foreach ($cat_child as $key=>$pro): ?>
                         <li>
                             <a href="<?php echo base_url($pro['cat_slug'] .'/' . $pro['product_slug']) ?>">
-                                <img src="<?php echo base_url('admin/common/multidata/product_img/thumb/' . $pro['product_img']) ?>"/>
+                                <?php if(!empty($pro['product_img']) && file_exists('admin/common/multidata/product_img/thumb/' . $pro['product_img'])): ?>
+                                    <img src="<?php echo base_url('admin/common/multidata/product_img/thumb/' . $pro['product_img']) ?>"/>
+                                <?php else: ?>
+                                    <img src="<?php echo base_url('common/images/no-img.png') ?>" />
+                                <?php endif; ?>
                             </a>
                         </li>
                         <?php endforeach; ?>

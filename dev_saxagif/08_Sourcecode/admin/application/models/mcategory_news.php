@@ -71,6 +71,7 @@ class Mcategory_news extends MY_Model
         $data = array(
             'name'          => $params['name'],
             'language_type' => (int)$params['language_type'],
+            'page_title' => (!empty($params['page_title'])) ? $params['page_title'] : $params['name']
         );
         
         if(!empty($params['slug'])) {

@@ -28,6 +28,8 @@ class Search extends MY_Controller
         if($result) {
             $this->data['search_result'] = $result;
         }
+        $this->data['keyword'] = $keyword;
+        $this->data['type'] = $typeResult;
         $this->data['type_search'] = $typeResult;
         $this->render('search/index_view'.$this->subfix_layout);
     }

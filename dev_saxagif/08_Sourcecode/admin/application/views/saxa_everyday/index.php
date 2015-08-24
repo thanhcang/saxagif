@@ -59,6 +59,9 @@
                             </td>
                             <td><?php if(!empty($row['position']) && !empty($position[$row['position']]) && $row['level'] > 1) echo $position[$row['position']] ?></td>
                             <td>
+                                <?php if ( !empty($row['inspire']) ) : ?>
+                                <a href="javascript:;" title="truyền cảm hứng" class="btn btn-success btnShowDetail"><i class="glyphicon glyphicon-camera icon-white"></i></a>
+                                <?php endif ?>
                                 <?php if ($row['level'] == 1) : ?>
                                 <a href="<?php echo base_url('saxa_everyday/add'.'/'.$row['id']) ?>" title="Thêm danh mục con" class="btn btn-success" attrCatNews="<?php echo $row['id'] ?>"><i class="glyphicon glyphicon-plus-sign icon-white"></i>Thêm</a>
                                 <?php endif ?>

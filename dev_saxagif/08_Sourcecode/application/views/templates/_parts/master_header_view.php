@@ -17,54 +17,17 @@
         <script src="<?php echo base_url('contants') ?>"></script>
         <script type="text/javascript" src="<?php echo base_url('common/js/jssor.js') ?>"></script>
         <script type="text/javascript" src="<?php echo base_url('common/js/jssor.slider.js') ?>"></script>
-        <script>
-            jssor_slider1_starter = function(containerId) {
-                var options = {
-                    $DragOrientation: 3, //[Optional] Orientation to drag slide, 0 no drag, 1 horizental, 2 vertical, 3 either, default value is 1 (Note that the $DragOrientation should be the same as $PlayOrientation when $DisplayPieces is greater than 1, or parking position is not 0)
-                    $ArrowNavigatorOptions: {//[Optional] Options to specify and enable arrow navigator or not
-                        $Class: $JssorArrowNavigator$, //[Requried] Class to create arrow navigator instance
-                        $ChanceToShow: 2, //[Required] 0 Never, 1 Mouse Over, 2 Always
-                        $AutoCenter: 0, //[Optional] Auto center arrows in parent container, 0 No, 1 Horizontal, 2 Vertical, 3 Both, default value is 0
-                        $Steps: 1                                       //[Optional] Steps to go for each navigation request, default value is 1
-                    }
-                };
-
-                var jssor_slider1 = new $JssorSlider$(containerId, options);
-            };
-        </script>
-        <script>
-            jssor_slider2_starter = function(containerId) {
-                var options = {
-                    $DragOrientation: 3, //[Optional] Orientation to drag slide, 0 no drag, 1 horizental, 2 vertical, 3 either, default value is 1 (Note that the $DragOrientation should be the same as $PlayOrientation when $DisplayPieces is greater than 1, or parking position is not 0)
-                    $ArrowNavigatorOptions: {//[Optional] Options to specify and enable arrow navigator or not
-                        $Class: $JssorArrowNavigator$, //[Requried] Class to create arrow navigator instance
-                        $ChanceToShow: 2, //[Required] 0 Never, 1 Mouse Over, 2 Always
-                        $AutoCenter: 0, //[Optional] Auto center arrows in parent container, 0 No, 1 Horizontal, 2 Vertical, 3 Both, default value is 0
-                        $Steps: 1                                     //[Optional] Steps to go for each navigation request, default value is 1
-                    }
-                };
-
-                var jssor_slider1 = new $JssorSlider$(containerId, options);
-            };
-        </script>
-        <script>
-            jssor_slider3_starter = function(containerId) {
-                var options = {
-                    $DragOrientation: 2, //[Optional] Orientation to drag slide, 0 no drag, 1 horizental, 2 vertical, 3 either, default value is 1 (Note that the $DragOrientation should be the same as $PlayOrientation when $DisplayPieces is greater than 1, or parking position is not 0)
-                    $ArrowNavigatorOptions: {//[Optional] Options to specify and enable arrow navigator or not
-                        $Class: $JssorArrowNavigator$, //[Requried] Class to create arrow navigator instance
-                        $ChanceToShow: 2, //[Required] 0 Never, 1 Mouse Over, 2 Always
-                        $AutoCenter: 0, //[Optional] Auto center arrows in parent container, 0 No, 1 Horizontal, 2 Vertical, 3 Both, default value is 0
-                        $Steps: 1,                                   //[Optional] Steps to go for each navigation request, default value is 1
-                        $AutoPlay:true,
-                    }
-                };
-
-                var jssor_slider1 = new $JssorSlider$(containerId, options);
-            };
-        </script>
     </head>
     <body>
+       <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+        </script>
         <div class="w_container">
             <div class="w_main_foot">
                 <?php if(isset($class) && $class == 'home'): ?>

@@ -17,9 +17,10 @@ class News extends MY_Controller
        
         $data = array();
         // Set page parent or child:
-        $rank = 0;
+        //$rank = 0;
         $slug = end($this->uri->segment_array());
-        $this->data['parent_category'] = $this->uri->segment(1);
+        $this->data['detailWearedo'] = $this->mnews->detailWearedo($slug);
+        /*$this->data['parent_category'] = $this->uri->segment(1);
         
         $listCategory = $this->category_model->getProductByCategory($slug, $rank);
         $positionCategory = $this->category_model->getPositionCategory($this->uri->segment(1));
@@ -47,7 +48,8 @@ class News extends MY_Controller
             $this->render('category/gift_view'.$this->subfix_layout);
         }else {
             redirect();
-        }
+        }*/
+        $this->render('news/index_view'.$this->subfix_layout);
     }
     
     /**

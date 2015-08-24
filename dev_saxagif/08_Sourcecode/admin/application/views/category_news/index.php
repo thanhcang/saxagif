@@ -53,12 +53,16 @@
                         <textarea name="title" class="form-control noEnter" placeholder="Nhập nội dung mô tả ngắn"><?php echo !empty($params['title']) ? $params['title'] : '' ?></textarea>
                     </div>
                     <div class="form-group">
+                        <label>Tiêu đề page</label>
+                        <input type="text" name="page_title" class="form-control"  value="<?php if(!empty($params['page_title'])) echo html_escape($params['page_title']) ?>"/>
+                    </div>
+                    <div class="form-group">
                         <label><?php echo $this->lang->line('KEYWORD_SEO') ?></label>
-                        <input type="text" name="keyword_seo" class="form-control" id="keyword_seo" value="<?php if(!empty($params['keyword_seo'])) echo html_escape($params['keyword_seo']) ?>" maxlength="255" />
+                        <textarea id="keyword_seo" name="keyword_seo"><?php if(!empty($params['keyword_seo'])) echo html_escape($params['keyword_seo']) ?></textarea> 
                     </div>
                     <div class="form-group">
                         <label><?php echo $this->lang->line('DESCRIPTION_SEO') ?></label>
-                        <input type="text" name="des_seo" class="form-control" id="des_seo" value="<?php if(!empty($params['des_seo'])) echo html_escape($params['des_seo']) ?>" maxlength="255" />
+                        <textarea id="des_seo" name="des_seo"><?php if(!empty($params['des_seo'])) echo html_escape($params['des_seo']) ?></textarea> 
                     </div>
                     <div class="form-group">
                         <button type="submit" class="button button-blue"><?php echo $this->lang->line('CREATE') ?></button>
@@ -144,4 +148,9 @@
 <?php require_once(VIEW_PATH.'templates/popup/_confirmDelete.php') ;?>
 <?php require_once(VIEW_PATH.'templates/popup/_messageDialog.php') ;?>
 <script type="text/javascript" src="<?php echo base_url('common/js/category_news.js') ?>"></script>
+<script type="text/javascript" src="<?php echo base_url('common/js/ckeditor/ckeditor.js') ?>"></script>
+<script type="text/javascript">
+    CKEDITOR.replace('keyword_seo', {customConfig: '../ckeditor/config_short_seo.js'});
+    CKEDITOR.replace('des_seo', {customConfig: '../ckeditor/config_short_seo.js'});
+</script>
 
