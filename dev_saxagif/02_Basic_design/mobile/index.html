@@ -7,27 +7,12 @@
 
         <link rel="stylesheet" href="css/menu.css">
         <link type="text/css" rel="stylesheet" href="css/layout.css"/>
+        <link type="text/css" rel="stylesheet" href="css/slide.css"/>
 
         <!--[if lt IE 9]>
             <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
         <![endif]-->
-        <script type="text/javascript" src="js/jssor.js"></script>
-        <script type="text/javascript" src="js/jssor.slider.js"></script>
-        <script>
-            jssor_slider1_starter = function(containerId) {
-                var options = {
-                    $DragOrientation: 3, //[Optional] Orientation to drag slide, 0 no drag, 1 horizental, 2 vertical, 3 either, default value is 1 (Note that the $DragOrientation should be the same as $PlayOrientation when $DisplayPieces is greater than 1, or parking position is not 0)
-                    $ArrowNavigatorOptions: {//[Optional] Options to specify and enable arrow navigator or not
-                        $Class: $JssorArrowNavigator$, //[Requried] Class to create arrow navigator instance
-                        $ChanceToShow: 2, //[Required] 0 Never, 1 Mouse Over, 2 Always
-                        $AutoCenter: 0, //[Optional] Auto center arrows in parent container, 0 No, 1 Horizontal, 2 Vertical, 3 Both, default value is 0
-                        $Steps: 1                                       //[Optional] Steps to go for each navigation request, default value is 1
-                    }
-                };
-
-                var jssor_slider1 = new $JssorSlider$(containerId, options);
-            };
-        </script>
+        <script src="js/modernizr.js"></script> <!-- Modernizr -->
     </head>
     <body>
         <div class="container">
@@ -90,19 +75,50 @@
             </div>
             <div class="w_main">
                 <div class="w_content">
-                    <div class="banner_t"><img src="images/banner.png"/></div>
-                    <div class="content_main">
-                        <div class="menu_hot">
+                    <section class="cd-hero">
+                        <ul class="cd-hero-slider autoplay">
+                            <li class="selected">
+                                <img src="assets/banner.png" alt="tech 1">
+                            </li>
+
+                            <li>
+                                <img src="assets/tech-2.jpg" alt="tech 1">
+                            </li>
+
+                            <li>
+                                <img src="assets/tech-1.jpg" alt="tech 1">
+                            </li>
+
+                            <li>
+                                <img src="assets/tech-2-mobile.jpg"/>
+                            </li>
+
+                            <li>
+                               <img src="assets/banner.png" alt="tech 1">
+                            </li>
+                            <li>
+                                <img src="assets/img.jpg" alt="tech 1">
+                            </li>
+                        </ul> <!-- .cd-hero-slider -->
+
+                        <div class="cd-slider-nav">
                             <label class="title">Thông tin hot</label>
-                            <ul>
-                                <li><a href="12-saxaeveryday.html">Saxa everyday</a></li>
-                                <li><a href="15-san-pham.html">Sản phẩm hot</a></li>
-                                <li><a href="10-11-13.html">Đơn hàng mới</a></li>
-                                <li><a href="#">Báo chí</a></li>
-                                <li><a href="10-11-13.html">Thông điệp</a></li>
-                                <li><a href="#">Hình ảnh</a></li>
-                            </ul>
-                        </div>
+                            <nav>
+                                <span class="cd-marker item-1"></span>
+
+                                <ul>
+                                    <li class="selected"><a href="#0">Saxa everyday</a></li>
+                                    <li><a href="#0">Sản phẩm hot</a></li>
+                                    <li><a href="#0">Đơn hàng mới</a></li>
+                                    <li><a href="#0">Báo chí</a></li>
+                                    <li><a href="#0">Thông điệp</a></li>
+                                    <li><a href="#0">Hình ảnh</a></li>
+                                </ul>
+                            </nav> 
+                        </div> <!-- .cd-slider-nav -->
+                    </section> <!-- .cd-hero -->
+
+                    <div class="content_main">
                         <div class="choose_gift">
                             <label class="title">Chọn quà giúp bạn</label>
                             <p>
@@ -286,5 +302,6 @@
         <!--<script src="js/jquery-1.8.1.min.js"></script>
 <script src="js/vertical.news.slider.js"></script>-->
         <script src="js/menu.min.js"></script>
+        <script src="js/main.js"></script> <!-- Resource jQuery -->
     </body>
 </html>
