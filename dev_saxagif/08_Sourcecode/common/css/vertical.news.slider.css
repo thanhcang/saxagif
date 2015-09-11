@@ -1,4 +1,4 @@
-.news-holder p {
+.news-headlines.news-holder p {
     margin-bottom: 12px;
 }
 
@@ -26,7 +26,7 @@ a {
     list-style: none;
     position: relative;
     float: left;
-    width: 287px;
+    width: 297px;
     background: #8cb652;
     height:377px;
     font-family: 'UTM Neo Sans Intel';

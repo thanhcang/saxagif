@@ -156,7 +156,8 @@ a{
     position: relative;
 }
 .w_main_foot{
-    background:url(../images/bg_footer.png) no-repeat center bottom #fefeec;
+    /*background:url(../images/bg_footer.png) no-repeat center bottom #fefeec;*/
+    background:url(../images/bg_footer.png) no-repeat center bottom;
     /*height: 1558px;*/
     position: relative;
 }
@@ -690,7 +691,7 @@ a{
     font-family: 'UTM Neo Sans Intel';
     font-size: 20px;
     color: #fff;
-    line-height: 25px;
+    line-height: 35px;
     border-left: 1px solid #fff;
     padding-left: 10px;
 }
@@ -736,17 +737,22 @@ a{
 }
 .menu_top{
     border-top: 9px solid #e4701e;
-    width:100%;
+    width: 1220px;
     height:70px;
     border-radius: 0 0 5px 5px;
     background: #fefeec;
-    position: relative;
+    /*position: relative;*/
+    position: fixed;
+    z-index: 1000;
 }
 .menu_top .logo_t{
     position: absolute;
     width:212px;
     height:131px;
     bottom: -64px;
+}
+.cont_top{
+    margin-top:80px;
 }
 .menu_t{
     float: right;
@@ -768,6 +774,7 @@ a{
     font-size: 35px;
     font-family: 'UTM BEBAS';
     color: #fff;
+    width:780px;
 }
 .cont_top .note_slogan_top p{
     margin: 15px 0;
@@ -777,7 +784,7 @@ a{
     margin-right: 75px;
 }
 .cont_top .mn_r_top .list_slg_top li{
-    width: 232px;
+    width: 238px;
     height:109px;
     margin-bottom: 30px;
     border: 1px solid #fff;
@@ -1418,7 +1425,7 @@ a{
 }
 .frm_cont .control_group textarea.textarea_contact,
 .frm_cont_QA .control_group textarea.textarea_contact{ 
-    width:100%;
+    width:98%;
     height:50px;
 }
 .red{
@@ -1474,6 +1481,7 @@ a{
     border-bottom: 1px solid #313131;
     padding-bottom: 25px;
     margin-bottom: 25px;
+    margin-right: 15px;
 }
 .img_customer{
     float:left;
@@ -1767,8 +1775,8 @@ a{
     background: #7eb235;
     /*background: url('../images/arrow_mn_product.png') no-repeat center right #7eb235;*/
     /*background-position: 77px 8px;*/
-    padding: 0px 5px 5px 5px;
-    /*padding: 0px 20px 5px 5px;*/
+    /*padding: 0px 5px 5px 5px;*/
+    padding: 0px 20px 5px;
     border-radius: 5px;
     cursor:pointer;
 }
@@ -2276,11 +2284,11 @@ a{
 .link_posts li{
     margin: 10px 0;
     /* Thiết lập icon bullet_green.png làm ảnh nền cho li*/
-   background-image: url('../images/bullet_green.png');
-   background-repeat: no-repeat;
-   /* Xác định vị trí của ảnh nền */
-   background-position: 0 5px;
-   padding-left: 15px;
+    background-image: url('../images/bullet_green.png');
+    background-repeat: no-repeat;
+    /* Xác định vị trí của ảnh nền */
+    background-position: 0 5px;
+    padding-left: 15px;
 }
 .link_posts li a{
     color: #000;
@@ -2298,6 +2306,7 @@ a{
     height: 50px;
     display: inline-block;
     /*border-radius: 3px;*/
+    margin-right:10px;
 }
 .icon_share .share_google {
     background-image: url('../images/icon_g+.png');
@@ -2322,8 +2331,9 @@ a{
 }
 .product_detail .detail_l > img { width:260px; height:195px; }
 .img_detail ul li img  { width:104px; height:69px; }
-
-
+.programe_saxa_cont h3{margin-top:0;}
+.partner_list{margin-top:20px;}
+.content_product .slimScrollDiv {width: 823px !important;}
 /*div::-webkit-scrollbar {
 width: 12px;
 }*/

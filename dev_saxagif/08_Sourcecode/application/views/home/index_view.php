@@ -123,7 +123,7 @@ EOF;
     <div class="content_right">
         <div class="box_l">
             <div class="box_head"><?php echo $this->lang->line('SHARE_FUNNY') ?></div>
-            <div class="box_main">
+            <div class="box_main" style="height:640px;">
                 <p class="height_45"><?php echo !empty($setting_footer['note_funny']) ?   $setting_footer['note_funny'] : ''; ?></p>
                 <p class="pic_news">
                     <a class="youtubeVideo">
