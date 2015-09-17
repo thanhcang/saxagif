@@ -2,18 +2,18 @@
 <div class="img_contact"><img src="<?php echo url_img('common/images/', 'pic_contact.png') ?>"/></div>
 <div class="frm_contact">
     <label><?php echo $this->lang->line('ct_receive_gifts') ?></label>
-    <p>
+    <p class="text_frm">
         <?php echo !empty($setting_footer['note_contact']) ? $setting_footer['note_contact'] : ''  ?>
     </p>
     <form name="frmContact" id="frmContact" method="POST" action="<?php echo base_url('contact/addCustomer'); ?>">
         <div class="frm_cont">
             <div class="control_group">
                 <input type="text" name="cus_name" class="inbox_contact" value="<?php if(!empty($params['cus_name'])) echo htmlspecialchars($params['cus_name']) ?>" placeholder="<?php echo $this->lang->line('ct_name') ?>"/>
-                <span class="red">*</span>
+                <div class="red pull-right">*</div>
             </div>
             <div class="control_group">
                 <input type="text" name="cus_email" class="inbox_contact" value="<?php if(!empty($params['cus_email'])) echo htmlspecialchars($params['cus_email']) ?>" placeholder="<?php echo $this->lang->line('ct_email') ?>"/>
-                <span class="red">*</span>
+                <div class="red pull-right">*</div>
             </div>
             <div class="control_group">
                 <input type="text" name="cus_phone" class="inbox_contact" value="<?php if(!empty($params['cus_phone'])) echo htmlspecialchars($params['cus_phone']) ?>" placeholder="<?php echo $this->lang->line('ct_phone') ?>"/>
@@ -21,7 +21,7 @@
             <div class="control_group">
                 <input type="text" name="cus_company" class="inbox_contact" value="<?php if(!empty($params['cus_company'])) echo htmlspecialchars($params['cus_company']) ?>" placeholder="<?php echo $this->lang->line('ct_company') ?>"/>
             </div>
-            <div class="control_group">
+            <div class="control_group" style="margin-top:12px">
                 <textarea name="cus_feeback" class="textarea_contact" placeholder="<?php echo $this->lang->line('phanhoi') ?>"><?php if(!empty($params['cus_feeback'])) echo htmlspecialchars($params['cus_feeback']) ?></textarea>
             </div>
             <button type="button" class="send_frm" style="cursor: pointer"><?php echo $this->lang->line('send') ?></button>

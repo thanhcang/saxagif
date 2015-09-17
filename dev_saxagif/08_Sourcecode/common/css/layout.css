@@ -656,7 +656,7 @@ a{
     margin-bottom: 7px;
 }
 .list_category li .sub_category li{
-    font-size: 17px;
+    font-size: 16px;
     color: #595958;
     margin: 5px 0;
     vertical-align: top;
@@ -689,9 +689,9 @@ a{
 .footer .address_foot{
     float: left;
     font-family: 'UTM Neo Sans Intel';
-    font-size: 20px;
+    font-size: 16px;
     color: #fff;
-    line-height: 35px;
+    line-height: 26px;
     border-left: 1px solid #fff;
     padding-left: 10px;
 }
@@ -701,7 +701,7 @@ a{
 }
 .footer .address_foot .copyright{
     font-family: 'MyriadPro';
-    font-size: 20.56px;
+    font-size: 16px;
     color: #fff;
 }
 .jssora11l, .jssora11r {
@@ -720,6 +720,9 @@ a{
 .jssora11r { background-position: -183px -33px; }
 .jssora11l.jssora11ldn { background-position: -243px -33px; }
 .jssora11r.jssora11rdn { background-position: -303px -33px; }
+.frm_contact ,text_frm{
+    line-height:20px;
+}
 /*=====================================================================*/
 .w_header_sub{
     height: 633px;
@@ -850,10 +853,10 @@ a{
     padding-top: 10px;
 }
 .search_p .mn_right .search input{
-    width: 256px;
+    width: 226px;
     border: 1px solid #ccc;
     text-align: left;
-    padding: 5px;
+    padding: 5px 5px 5px 30px;
     box-shadow: 0 1px 10px #ccc;
     border-radius: 10px;
     height: 24px;
@@ -866,7 +869,7 @@ a{
     top:0;
 }
 .topic{
-    margin: 60px 0 0;
+    margin: 30px 0 0;
     font-size: 50px;
     font-family: 'UTM Bebas';
     color: #7eb235;
@@ -1277,11 +1280,12 @@ a{
 .join_us .cont_join .join{
     color: #2a2a2a;
     text-align: justify;
+    line-height: 20px;
 }
 .control_group{
     border-bottom: 1px solid #8d8f8b;
     padding-bottom: 5px;
-    margin-top: 12px;
+    /*margin-top: 12px;*/
     line-height: 20px;
 }
 .control_group label{
@@ -1309,7 +1313,7 @@ a{
     height: 163px;
     margin-right: 30px;
     border-radius: 10px;
-    box-shadow: 0 5px 5px #ccc;
+    box-shadow: 3px 0px 10px #ccc;
 
 }
 .gift_saxa ul li:last-child{
@@ -1408,7 +1412,7 @@ a{
 .frm_cont .control_group, .frm_cont_QA .control_group{ 
     border-bottom: 1px solid #333;
     padding-bottom:8px;
-    margin-bottom: 20px;
+    /*margin-bottom: 20px;*/
 }
 .frm_cont .control_group input.inbox_contact, 
 .frm_cont .control_group textarea.textarea_contact,
@@ -1417,7 +1421,7 @@ a{
     width:94%;
     background:transparent;
     border:none;
-    height:25px;
+    height:30px;
     padding: 0 10px;
     color: #0c0c0c;
     font-family: 'UTM Neo Sans Intel';
@@ -1430,13 +1434,14 @@ a{
 }
 .red{
     color: #f20224;
-    font-size:32px;
+    font-size:20px;
     font-weight:normal;
     line-height:0;
+    margin-top: 10px;
 }
 .send_frm, .send_frm_QA{
     color: #fff;
-    font-size:18px;
+    font-size:16px;
     font-weight:normal;
     background:#e4701f;
     width:90px;
@@ -1446,6 +1451,7 @@ a{
     float:right;
     font-family: 'UTM Neo Sans Intel';
     border:none;
+    margin-top:12px
 }
 .send_frm_QA{
     background:#7eb235;
@@ -1456,21 +1462,21 @@ a{
 }
 .info_contact label{
     color: #7eb235;
-    font-size:36px;
+    font-size:16px;
     font-weight:normal;
     font-family: 'UTM Bebas';
 }
 .info_contact p{
     color: #303030;
-    font-size:20px;
+    font-size:16px;
     font-weight:normal;
     font-family: 'UTM Neo Sans Intel';
     line-height: 30px;
 }
 .info_contact p .tell_contact{
     color: #e4701f;
-    font-size:22px;
-    font-weight:normal;
+    font-size:16px;
+    font-weight:700;
 }
 .content_QA,.content_product{
     float: left;
@@ -1722,7 +1728,7 @@ a{
     margin:0;
     padding: 15px 0;
     color: #7eb235;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: normal;
     cursor: pointer;
     border-bottom: 1px solid #ccc !important;
@@ -1733,7 +1739,7 @@ a{
     padding:0 30px;   
 }
 .menu_product ul li{
-    font-size: 20px;
+    font-size: 16px;
     font-weight: normal;
     border-bottom: 1px solid #ccc;
     list-style: none;
