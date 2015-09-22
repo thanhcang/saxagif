@@ -298,7 +298,7 @@ a{
 }
 .menu li{
     display: inline-block;
-    font-size: 18px;
+    font-size: 16px;
     color: #7eb235;
     padding: 0 13px;
     border-right: 1px solid #7eb235;
@@ -761,14 +761,15 @@ a{
     float: right;
     margin-right: 15px;
 }
+.menu_t li.active a{color: #f5821f;border-right: 1px solid #7eb235; padding-right: 15px;}
 .menu_t li.active{
     color: #f5821f;
     background: url(../images/arrow_mn_active_d.png) no-repeat center top;
-    border-right: 0;
     height: 37px;
     margin-top: -21px;
     padding: 30px 13px 0;
     top: 0;
+    margin-right: -15px;
 }
 .cont_top .note_slogan_top{
     float: left;
@@ -1535,24 +1536,24 @@ a{
 }
 .answer{
     border-bottom:1px solid #ccc;
-    padding-bottom: 30px;
-    margin-bottom: 30px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
     line-height: 25px;
     padding-left:50px;
     color: #7eb235;
-    font-size:18px;
-    line-height: 20px;
+    font-size:16px;
     text-align: justify;
 }
 .ui-accordion-header{
     border-bottom:1px solid #ccc;
-    padding-bottom: 20px;
-    margin-bottom: 20px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
 }
 #accordion .ui-state-active{
     border-bottom:0;
-    padding-bottom: 20px;
+    padding-bottom: 0;
 }
+.send_QA p{line-height: 20px;}
 .send_QA{
     margin-top:45px;
 }

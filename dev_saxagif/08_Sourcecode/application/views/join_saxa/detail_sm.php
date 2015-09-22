@@ -1,4 +1,4 @@
-<style> .label { font-size: 6em; } .control_group{ font-size: 3em; }</style>
+<style> .label { font-size: 4em; } .control_group{ font-size: 2.4em; }</style>
 <div class="content_boder">
     <div class="label">gia nhập cùng saxa - marketing</div>
     <div class="people_join">

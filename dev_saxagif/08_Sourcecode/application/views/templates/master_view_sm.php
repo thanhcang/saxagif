@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <meta name="description" content="<?php echo $description_title ?>" />
         <meta name="keywords" content="<?php echo $keywords_title ?>" />
+        <link rel="stylesheet" href="<?php echo base_url('common/css/slide.css') ?>">
         <link rel="stylesheet" href="<?php echo base_url('common/css/vertical.news.slider.css?v=1.0') ?>">
         <link rel="stylesheet" href="<?php echo base_url('common/css/menu_sm.css') ?>" />
         <link type="text/css" rel="stylesheet" href="<?php echo base_url('common/css/layout_sm.css') ?>"/>

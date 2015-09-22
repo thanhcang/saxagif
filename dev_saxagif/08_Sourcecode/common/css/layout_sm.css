@@ -73,9 +73,10 @@
         border-bottom: 1px solid #000;
     }
     .choose_gift p{
-        font-size: 3em;
+        font-size: 2.6em;
         color: #1c1c1c;
         text-align: justify;
+        line-height: 2em;
     }
     .category_product{
         background:rgba(30,30,30,.47);
@@ -420,7 +421,8 @@
         border-bottom: 1px dashed #333;
         margin-bottom: 2%;
         padding-bottom: 2%;
-        font-size: 3em;
+        font-size: 2.4em;
+        text-align: justify;
     }
     .posts_new img.img_post{
         width:100%;
@@ -468,8 +470,8 @@
     }
     .frm_cont .control_group, .frm_cont_QA .control_group{ 
         border-bottom: 1px solid #333;
-        padding-bottom:8px;
-        margin-bottom: 20px;
+        /*        padding-bottom:8px;
+                margin-bottom: 20px;*/
     }
     .frm_cont .control_group input.inbox_contact, 
     .frm_cont .control_group textarea.textarea_contact,
@@ -491,22 +493,23 @@
     }
     .red{
         color: #f20224;
-        font-size:2.5em;
+        font-size:2em;
         font-weight:normal;
         line-height:0;
     }
     .send_frm, .send_frm_QA{
         color: #fff;
-        font-size:18px;
+        font-size:16px;
         font-weight:normal;
         background:#e4701f;
-        width:90px;
+        width:65px;
         text-align:center;
         text-transform: uppercase;
         border-radius:5px;
         float:right;
         font-family: 'UTM Neo Sans Intel';
         border:none;
+        margin-top:10px;
     }
     .send_frm_QA{
         background:#7eb235;
@@ -564,7 +567,7 @@
     }
     .people_join p{
         color:#0c0c0c;
-        font-size: 3em;
+        font-size: 2.4em;
         text-align: justify;
     }	
     .cont_join{
@@ -596,13 +599,13 @@
     .cont_join .join{
         color: #2a2a2a;
         text-align: justify;
-        font-size: 3em;
+        font-size: 2.4em;
         margin-top: .5em
     }
     .control_group{
         border-bottom: 1px solid #8d8f8b;
         padding-bottom: 5px;
-        margin-top: 12px;
+        /*margin-top: 12px;*/
         line-height: 20px;
         font-size: 2em;
         text-align: justify;
@@ -638,16 +641,16 @@
         padding-left:40px;
         /*line-height: 20px;*/
         text-align: justify;
-        font-size:2em;
+        font-size:1.3em;
     }
     .answer{
         border-bottom:1px solid #ccc;
-        padding-bottom: 1em;
+        /*padding-bottom: 1em;*/
         margin-bottom: 1em;
         /*line-height: 25px;*/
         padding-left:50px;
         color: #7eb235;
-        font-size:2em;
+        font-size:1.3em;
         /*line-height: 20px;*/
         text-align: justify;
     }
@@ -661,13 +664,13 @@
         padding-bottom: 20px;
     }
     .send_QA p{
-        font-size:3em;
+        font-size:2.2em;
         text-align: justify;
     }
     .send_QA label{
         color: #7eb235;
         font-family: 'UTM Bebas';
-        font-size:6em;
+        font-size:4em;
         text-transform: uppercase;
     }
     .frm_cont_QA{
@@ -761,7 +764,7 @@
         text-align: justify;
         color:#1c1c1c;
         margin-top:5px;
-        font-size:3em;
+        font-size:2em;
         text-align: justify;
         height:70px;
         overflow:hidden;
@@ -1080,9 +1083,9 @@
         margin: 5px 0;
     }
     .share_product{
-/*        position: absolute;
-        bottom: 0;
-        left: 0;*/
+        /*        position: absolute;
+                bottom: 0;
+                left: 0;*/
     }
     .giftset{
         margin: 15px 0 0;
